@@ -145,13 +145,7 @@ export default function Page() {
           </Container>
         </Section>
 
-        <FinalCTA
-          eyebrow="Imate vprašanje?"
-          title="Pogovorimo se o posluževanju vaših CNC strojev."
-          desc="Smo izdelovalec standardnih celic in celic po naročilu za različne industrije."
-          primaryLabel="Kontakt"
-          primaryHref="/kontakt"
-        />
+       <FinalCTA />
       </main>
 
       <Footer />
