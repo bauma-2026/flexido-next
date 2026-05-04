@@ -1,26 +1,71 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+html,
+body {
+  height: 100%;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  text-rendering: geometricPrecision;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+:root {
+  --container: 1120px;
+
+  
+}
+:root {
+  --primary: #0082ca;
+  --primary-hover: hover:brightness-95
+}
+:root {
+  --surface: #f6f9fc;
+  --surface-soft: #eef3f8;
+  --text-main: #0a2540;
+  --text-muted: #425466;
+  --line-soft: rgba(10, 37, 64, 0.10);
+}
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+@layer components {
+  .section {
+    @apply py-14 sm:py-16 lg:py-20;
+  }
+
+  .section-tight {
+    @apply py-10 sm:py-12 lg:py-14;
+  }
+
+  .eyebrow {
+    @apply text-[11px] uppercase tracking-[0.16em] text-neutral-500;
+  }
+
+  .text-body {
+    @apply text-[15px] leading-7 text-neutral-600 sm:text-base;
+  }
+
+  .image-block {
+    @apply overflow-hidden rounded-[16px] border border-neutral-200 bg-neutral-100;
+  }
+}
+
