@@ -1,13 +1,13 @@
 "use client";
-import { useEffect, useState } from "react";
+
+import Image from "next/image";
+
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
 import ProcessBand from "@/components/blocks/home/ProcessBand";
-import FinalCTA from "@/components/blocks/home/FinalCTA";
 import WikiNav from "@/components/wiki/WikiNav";
-
 
 const pageNavItems = [
   { href: "#kaj-pomeni", label: "Kaj pomeni" },
@@ -18,52 +18,26 @@ const pageNavItems = [
 ];
 
 export default function Page() {
-  const [active, setActive] = useState<string | null>(null);
-  useEffect(() => {
-  const sections = pageNavItems.map((item) =>
-    document.querySelector(item.href)
-  );
-
-  const handleScroll = () => {
-    let current = null;
-
-    sections.forEach((section, index) => {
-      if (!section) return;
-
-      const rect = section.getBoundingClientRect();
-
-      if (rect.top <= 120) {
-        current = pageNavItems[index].href;
-      }
-    });
-
-    setActive(current);
-  };
-
-  handleScroll();
-  window.addEventListener("scroll", handleScroll);
-
-  return () => window.removeEventListener("scroll", handleScroll);
-}, []);
   return (
     <>
-    
-   <Header sticky={false} />
+      <Header sticky={false} />
 
       <main className="bg-white text-neutral-950">
         {/* HERO */}
         <section className="relative overflow-hidden bg-neutral-950 text-white">
           <video
-            src="/video/hero-process.mp4"
             autoPlay
             muted
             loop
             playsInline
-            className="absolute inset-0 h-full w-full object-cover opacity-50"
-          />
+            preload="metadata"
+            className="absolute inset-0 h-full w-full object-cover opacity-45"
+          >
+            <source src="/video/flexido/hero-home.mp4" type="video/mp4" />
+          </video>
 
-          <div className="absolute inset-0 bg-gradient-to-r from-black/72 via-black/42 to-black/15" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/78 via-black/50 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20" />
 
           <Container className="relative z-10 py-20 sm:py-24 lg:py-28">
             <div className="max-w-[720px]">
@@ -90,7 +64,7 @@ export default function Page() {
 
               <div className="mt-8 flex flex-wrap gap-3">
                 <a
-                  href="#proces"
+                  href="#pristop"
                   className="inline-flex items-center rounded-full bg-white px-6 py-3 text-[14px] font-medium text-neutral-950 transition hover:bg-white/90"
                 >
                   Poglej pristop →
@@ -107,30 +81,34 @@ export default function Page() {
           </Container>
         </section>
 
- <WikiNav items={pageNavItems} />
-{/* DEFINITION */}
-<Section id="kaj-pomeni" className="scroll-mt-24 bg-white">
-  <Container>
-    <div className="max-w-[720px]">
-      <p className="eyebrow">Kaj pomeni</p>
+        <WikiNav items={pageNavItems} />
 
-      <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-        Avtomatizacija proizvodnje ni robot. Je urejen proces.
-      </h2>
+        {/* DEFINITION */}
+        <Section id="kaj-pomeni" className="scroll-mt-24 bg-white">
+          <Container>
+            <div className="max-w-[720px]">
+              <p className="eyebrow">Kaj pomeni</p>
 
-      <p className="mt-5 text-[16px] leading-7 text-neutral-600">
-        Avtomatizacija pomeni, da delo v proizvodnji poteka brez nepotrebnih
-        prekinitev, čakanja ali ročnih vmesnih korakov. Stroji, ljudje in
-        material so povezani v logičen tok, kjer vsak korak sledi naslednjemu.
-      </p>
+              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
+                Avtomatizacija proizvodnje ni robot. Je urejen proces.
+              </h2>
 
-      <p className="mt-4 text-[16px] leading-7 text-neutral-600">
-        Robot ali celica sta samo del rešitve. Ključ je v tem, kako je proces
-        zasnovan — in ali omogoča stabilno, ponovljivo in predvidljivo delo.
-      </p>
-    </div>
-  </Container>
-</Section>
+              <p className="mt-5 text-[16px] leading-7 text-neutral-600">
+                Avtomatizacija pomeni, da delo v proizvodnji poteka brez
+                nepotrebnih prekinitev, čakanja ali ročnih vmesnih korakov.
+                Stroji, ljudje in material so povezani v logičen tok, kjer vsak
+                korak sledi naslednjemu.
+              </p>
+
+              <p className="mt-4 text-[16px] leading-7 text-neutral-600">
+                Robot ali celica sta samo del rešitve. Ključ je v tem, kako je
+                proces zasnovan — in ali omogoča stabilno, ponovljivo in
+                predvidljivo delo.
+              </p>
+            </div>
+          </Container>
+        </Section>
+
         {/* PROBLEM */}
         <Section id="proces" className="scroll-mt-24 bg-white">
           <Container>
@@ -143,9 +121,9 @@ export default function Page() {
                 </h2>
 
                 <p className="mt-5 text-[16px] leading-7 text-neutral-600">
-                  Zastoji pogosto nastajajo med fazami — pri nalaganju, odvzemu,
-                  transportu, čakanju, ročnih korakih ali nepovezanem toku
-                  materiala.
+                  Zastoji pogosto nastajajo med fazami — pri nalaganju,
+                  odvzemu, transportu, čakanju, ročnih korakih ali nepovezanem
+                  toku materiala.
                 </p>
               </div>
 
@@ -229,45 +207,48 @@ export default function Page() {
             </div>
           </Container>
         </Section>
-{/* WHEN IT MAKES SENSE */}
-<Section id="smisel" className="scroll-mt-24 bg-white border-t border-neutral-200">
-  <Container>
-    <div className="grid gap-10 lg:grid-cols-2">
-      {/* LEFT */}
-      <div>
-        <p className="eyebrow">Kdaj ima smisel</p>
 
-        <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-          Avtomatizacija ima največji učinek, ko proces že obstaja.
-        </h2>
+        {/* WHEN IT MAKES SENSE */}
+        <Section
+          id="smisel"
+          className="scroll-mt-24 border-t border-neutral-200 bg-white"
+        >
+          <Container>
+            <div className="grid gap-10 lg:grid-cols-2">
+              <div>
+                <p className="eyebrow">Kdaj ima smisel</p>
 
-        <p className="mt-5 text-[16px] leading-7 text-neutral-600">
-          Če proces deluje, ampak ima izgube — takrat avtomatizacija prinese
-          največ. Ne rešuje pa slabega sistema brez strukture.
-        </p>
-      </div>
+                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
+                  Avtomatizacija ima največji učinek, ko proces že obstaja.
+                </h2>
 
-      {/* RIGHT */}
-      <div className="grid gap-4">
-        {[
-          "Ponavljajoči se ročni koraki",
-          "Čakanje med fazami",
-          "Neizkoriščeni stroji",
-          "Težave s stabilnostjo procesa",
-        ].map((item) => (
-          <div
-            key={item}
-            className="rounded-[20px] border border-neutral-200 p-5"
-          >
-            <p className="text-[15px] font-medium text-neutral-950">
-              {item}
-            </p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </Container>
-</Section>
+                <p className="mt-5 text-[16px] leading-7 text-neutral-600">
+                  Če proces deluje, ampak ima izgube — takrat avtomatizacija
+                  prinese največ. Ne rešuje pa slabega sistema brez strukture.
+                </p>
+              </div>
+
+              <div className="grid gap-4">
+                {[
+                  "Ponavljajoči se ročni koraki",
+                  "Čakanje med fazami",
+                  "Neizkoriščeni stroji",
+                  "Težave s stabilnostjo procesa",
+                ].map((item) => (
+                  <div
+                    key={item}
+                    className="rounded-[20px] border border-neutral-200 p-5"
+                  >
+                    <p className="text-[15px] font-medium text-neutral-950">
+                      {item}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Container>
+        </Section>
+
         {/* USE CASES */}
         <Section id="primeri" className="scroll-mt-24 bg-white">
           <Container>
@@ -291,7 +272,7 @@ export default function Page() {
                 "Manipulacija materiala",
                 "Interna logistika",
                 "Kolaborativni roboti",
-                "Servis in podpora",
+                "Namenski sistemi",
               ].map((item) => (
                 <div
                   key={item}
@@ -315,8 +296,66 @@ export default function Page() {
           </Container>
         </Section>
 
+        {/* PROCESS / POSITIONING */}
         <ProcessBand />
-        <FinalCTA />
+
+        {/* LIGHT FINAL CTA */}
+        <section
+          id="kontakt"
+          className="border-t border-neutral-200/60 bg-white py-20 sm:py-24 lg:py-28"
+        >
+          <Container>
+            <div className="grid gap-10 lg:grid-cols-[1fr_420px] lg:items-center">
+              <div className="max-w-[680px]">
+                <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-500">
+                  Kontakt
+                </p>
+
+                <h2 className="mt-3 max-w-[15ch] text-3xl font-semibold leading-[0.98] tracking-[-0.04em] text-neutral-950 sm:text-4xl lg:text-5xl">
+                  Poglejmo, kje ima avtomatizacija največji učinek.
+                </h2>
+
+                <p className="mt-5 max-w-[58ch] text-[15px] leading-7 text-neutral-600 sm:text-[16px]">
+                  Skupaj pregledamo vaš proces, poiščemo zastoje in ocenimo,
+                  kateri koraki so najbolj smiselni za avtomatizacijo.
+                </p>
+
+                <div className="mt-8">
+                  <a
+                    href="mailto:info@flexido.eu"
+                    className="inline-flex items-center rounded-full bg-neutral-950 px-6 py-3 text-[14px] font-medium text-white transition hover:bg-neutral-800"
+                  >
+                    Pošljite povpraševanje →
+                  </a>
+                </div>
+              </div>
+
+              <div className="overflow-hidden rounded-3xl border border-neutral-200 bg-neutral-100 shadow-[0_18px_60px_rgba(0,0,0,0.08)]">
+                <div className="relative aspect-[4/3]">
+                  <Image
+                    src="/images/flexido/legacy/s-3.jpg.jpeg"
+                    alt="Avtomatiziran proizvodni proces"
+                    fill
+                    sizes="(min-width: 1024px) 420px, 100vw"
+                    className="object-cover"
+                  />
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
+
+                  <div className="absolute bottom-0 left-0 right-0 p-5">
+                    <p className="text-[11px] uppercase tracking-[0.16em] text-white/55">
+                      Prvi korak
+                    </p>
+
+                    <p className="mt-2 max-w-[34ch] text-[15px] font-medium leading-6 text-white">
+                      Kje proces izgublja čas, material ali stabilen ritem?
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Container>
+        </section>
       </main>
 
       <Footer />

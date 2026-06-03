@@ -1,22 +1,21 @@
+import Image from "next/image";
+
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
 import ProcessBand from "@/components/blocks/home/ProcessBand";
-import FinalCTA from "@/components/blocks/home/FinalCTA";
 import WikiNav from "@/components/wiki/WikiNav";
 import SystemBlock from "@/components/solutions/SystemBlock";
 import UseCasesBlock from "@/components/solutions/UseCasesBlock";
-import ForWhoBlock from "@/components/solutions/ForWhoBlock";
 
 const pageNavItems = [
   { href: "#proces", label: "Problem" },
   { href: "#pristop", label: "Rešitev" },
-  { href: "#primer", label: "Primer iz prakse" },
+  { href: "#primer", label: "Primer" },
   { href: "#rezultat", label: "Rezultat" },
   { href: "#sistem", label: "Sistem" },
-  { href: "#uporaba", label: "Primeri uporabe" },
-  { href: "#za-koga", label: "Za koga" },
+  { href: "#uporaba", label: "Uporaba" },
 ];
 
 export default function Page() {
@@ -28,16 +27,18 @@ export default function Page() {
         {/* HERO */}
         <section className="relative overflow-hidden bg-neutral-950 text-white">
           <video
-            src="/video/hero-logistika.mp4"
             autoPlay
             muted
             loop
             playsInline
-            className="absolute inset-0 h-full w-full object-cover opacity-50"
-          />
+            preload="metadata"
+            className="absolute inset-0 h-full w-full object-cover opacity-45"
+          >
+            <source src="/video/flexido/hero-logistika.mp4" type="video/mp4" />
+          </video>
 
-          <div className="absolute inset-0 bg-gradient-to-r from-black/76 via-black/46 to-black/15" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/52 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/72 via-transparent to-black/20" />
 
           <Container className="relative z-10 py-20 sm:py-24 lg:py-28">
             <div className="max-w-[760px]">
@@ -49,18 +50,18 @@ export default function Page() {
               </a>
 
               <p className="mt-6 text-[11px] uppercase tracking-[0.16em] text-white/50">
-                Industrijska logistika
+                Manipulacija materiala
               </p>
 
               <h1 className="mt-4 text-4xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-5xl lg:text-6xl">
-                <span className="block max-w-[13ch]">Material ne pride</span>
-                <span className="block max-w-[13ch]">pravočasno.</span>
+                <span className="block max-w-[13ch]">Kosi se premikajo</span>
+                <span className="block max-w-[13ch]">brez ročnega dela.</span>
               </h1>
 
               <p className="mt-5 max-w-[56ch] text-[16px] leading-7 text-white/75">
-                Uredimo tok materiala med stroji, postajami in operacijami —
-                da proizvodnja ne čaka na ročni transport, improvizacijo ali
-                nejasne vmesne korake.
+                Avtomatiziramo prijemanje, prestavljanje, obračanje in odlaganje
+                kosov — da proces med operacijami teče bolj stabilno in z manj
+                ročnih prekinitev.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
@@ -92,18 +93,18 @@ export default function Page() {
                 <p className="eyebrow">Problem</p>
 
                 <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                  Proces ne stoji na enem mestu. Stoje povsod.
+                  Proces se pogosto ustavi tam, kjer je treba kos premakniti.
                 </h2>
 
                 <p className="mt-5 text-[16px] leading-7 text-neutral-600">
-                  Material čaka pred strojem, med operacijami ali pred
-                  pakiranjem. Stroji so pripravljeni, ljudje delajo, vendar tok
-                  materiala ni dovolj jasno definiran.
+                  Kosi so obdelani, vendar jih je treba pobrati, obrniti,
+                  prestaviti, poravnati ali odložiti na pravo mesto. Če to
+                  ostane ročno, proces hitro postane odvisen od operaterja.
                 </p>
 
                 <p className="mt-5 text-[15px] leading-7 text-neutral-500">
-                  Ni problem enega stroja. Problem je, da material nima
-                  stabilne poti skozi proizvodnjo.
+                  Ni problem samo v stroju. Problem nastane med koraki, kjer kos
+                  nima stabilne in ponovljive poti.
                 </p>
               </div>
 
@@ -114,10 +115,10 @@ export default function Page() {
 
                 <div className="grid gap-4 sm:grid-cols-2">
                   {[
-                    "Material ne pride pravočasno",
-                    "Ročni transport z vozički ali paletami",
-                    "Vmesni bufferji niso definirani",
-                    "Nepovezan tok med postajami",
+                    "Ročno prestavljanje kosov",
+                    "Obračanje ali pozicioniranje kosov",
+                    "Odlaganje na vmesna mesta",
+                    "Nestabilen tok med operacijami",
                   ].map((item) => (
                     <div
                       key={item}
@@ -131,8 +132,8 @@ export default function Page() {
                 </div>
 
                 <p className="mt-5 text-[14px] leading-6 text-neutral-500">
-                  Rezultat: stroji čakajo na material, material čaka na ljudi,
-                  proizvodnja pa izgublja ritem.
+                  Rezultat: proces čaka na ročni premik, čeprav bi lahko tekel
+                  bolj enakomerno.
                 </p>
               </div>
             </div>
@@ -146,34 +147,34 @@ export default function Page() {
               <p className="eyebrow">Rešitev</p>
 
               <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                Vzpostavimo stabilen tok materiala.
+                Uredimo stabilno manipulacijo kosov med koraki.
               </h2>
 
               <p className="mt-5 text-[16px] leading-7 text-neutral-600">
-                Povežemo stroje, postaje in operacije v sistem, kjer material
-                potuje po jasni poti, z bolj predvidljivim ritmom in manj
-                ročnega improviziranja.
+                Določimo, kako naj se kos prime, premakne, obrne, poravna ali
+                odloži, da se naslednja operacija začne brez čakanja in
+                improvizacije.
               </p>
 
               <p className="mt-5 text-[15px] leading-7 text-neutral-500">
-                Ne rešujemo samo transporta. Uredimo tok, ki omogoča bolj
-                stabilno proizvodnjo.
+                Ne rešujemo samo premika. Uredimo del procesa, kjer kos preide
+                iz ene faze v drugo.
               </p>
             </div>
 
             <div className="mt-10 grid gap-5 lg:grid-cols-3">
               {[
                 {
-                  title: "1. Analiza toka materiala",
-                  desc: "Pogledamo, od kod material prihaja, kje čaka in kateri premiki povzročajo največ prekinitev.",
+                  title: "1. Pregled rokovanja s kosi",
+                  desc: "Pogledamo, kje se kosi pobirajo, obračajo, prestavljajo ali odlagajo.",
                 },
                 {
-                  title: "2. Definicija poti in bufferjev",
-                  desc: "Določimo, kam material potuje, kje se začasno odlaga in kako se uravnava ritem med operacijami.",
+                  title: "2. Definicija prijema in poti",
+                  desc: "Določimo način prijema, orientacijo kosa in pot do naslednje operacije.",
                 },
                 {
-                  title: "3. Integracija transporta",
-                  desc: "Rešitev povežemo s stroji, postajami, operaterji in obstoječim tokom proizvodnje.",
+                  title: "3. Integracija v proces",
+                  desc: "Manipulacijo povežemo s strojem, operaterjem in realnim tokom proizvodnje.",
                 },
               ].map((item) => (
                 <div
@@ -204,12 +205,13 @@ export default function Page() {
                 <p className="eyebrow text-neutral-500">Primer iz prakse</p>
 
                 <h2 className="mt-4 max-w-[15ch] text-4xl font-semibold leading-[0.95] tracking-[-0.03em] text-neutral-950 sm:text-5xl">
-                  Material čaka med stroji
+                  Kos čaka na naslednji premik
                 </h2>
 
                 <p className="mt-5 max-w-[48ch] text-neutral-600">
-                  Tipičen primer proizvodnje, kjer posamezne operacije delujejo,
-                  vendar material med njimi potuje ročno in nepredvidljivo.
+                  Tipičen primer procesa, kjer stroj opravi svoje delo, vendar
+                  kos po obdelavi čaka na ročni odvzem, obračanje ali
+                  prestavitev v naslednjo fazo.
                 </p>
               </div>
 
@@ -220,10 +222,10 @@ export default function Page() {
                   </h3>
 
                   <ul className="mt-4 space-y-2 text-sm leading-relaxed text-neutral-700">
-                    <li>Več strojev ali zaporednih postaj</li>
-                    <li>Material se prenaša ročno</li>
-                    <li>Operaterji skrbijo za premike med koraki</li>
-                    <li>Vmesni bufferji niso jasno definirani</li>
+                    <li>Stroj ali postaja zaključi operacijo</li>
+                    <li>Kos je treba odstraniti ali prestaviti</li>
+                    <li>Operater skrbi za prijem, obračanje ali odlaganje</li>
+                    <li>Naslednja faza čaka na pravilen položaj kosa</li>
                   </ul>
                 </div>
 
@@ -233,10 +235,10 @@ export default function Page() {
                   </h3>
 
                   <ul className="mt-4 space-y-2 text-sm leading-relaxed text-neutral-700">
-                    <li>Material ne pride pravočasno do stroja</li>
-                    <li>Stroji čakajo na vhodni material</li>
-                    <li>Vmesno stanje ni pregledno</li>
-                    <li>Ritem proizvodnje ni stabilen</li>
+                    <li>Kos ni pravočasno pripravljen za naslednji korak</li>
+                    <li>Proces je odvisen od ročnega premika</li>
+                    <li>Položaj kosa ni vedno ponovljiv</li>
+                    <li>Ritem med operacijami ni stabilen</li>
                   </ul>
                 </div>
               </div>
@@ -245,14 +247,14 @@ export default function Page() {
                 <div className="rounded-2xl border border-neutral-200 bg-white p-6">
                   <p className="eyebrow text-neutral-400">Prej</p>
                   <p className="mt-3 text-lg font-medium leading-snug text-neutral-950">
-                    Material je potoval glede na razpoložljivost operaterja.
+                    Kos se je premikal glede na razpoložljivost operaterja.
                   </p>
                 </div>
 
                 <div className="rounded-2xl border border-neutral-200 bg-white p-6">
                   <p className="eyebrow text-neutral-400">Potem</p>
                   <p className="mt-3 text-lg font-medium leading-snug text-neutral-950">
-                    Material ima definirano pot, buffer in naslednji korak.
+                    Premik kosa postane ponovljiv del procesa.
                   </p>
                 </div>
               </div>
@@ -311,11 +313,11 @@ export default function Page() {
                   <p className="eyebrow text-white/45">Rezultat</p>
 
                   <h3 className="mt-4 max-w-[15ch] text-3xl font-semibold leading-[1] tracking-[-0.03em] sm:text-4xl">
-                    Material pride takrat, ko ga proces potrebuje.
+                    Kos je pripravljen takrat, ko ga naslednji korak potrebuje.
                   </h3>
 
                   <ul className="mt-6 space-y-3 text-sm leading-relaxed text-white/75">
-                    <li>Stroji manj čakajo na vhodni material</li>
+                    <li>Naslednja operacija manj čaka na premik kosa</li>
                     <li>Manj ročnega transporta med postajami</li>
                     <li>Bolje definiran tok med operacijami</li>
                     <li>Proizvodnja deluje z bolj stabilnim ritmom</li>
@@ -344,21 +346,21 @@ export default function Page() {
               <p className="eyebrow">Rezultat</p>
 
               <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                Kaj se spremeni, ko uredimo logistiko
+                Kaj se spremeni, ko uredimo manipulacijo
               </h2>
 
               <p className="mt-5 text-[16px] leading-7 text-neutral-600">
-                Ko je tok materiala definiran, proizvodnja postane bolj
-                pregledna, stabilna in manj odvisna od ročnega usklajevanja.
+                Ko je premik kosa med fazami definiran, proces postane bolj
+                stabilen, ponovljiv in manj odvisen od ročnega dela.
               </p>
             </div>
 
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {[
-                "Stabilen tok materiala",
+                "Manj ročnega prestavljanja",
+                "Bolj ponovljiv položaj kosov",
                 "Manj čakanja med operacijami",
-                "Boljša izkoriščenost strojev",
-                "Bolj predvidljiv ritem proizvodnje",
+                "Stabilnejši tok procesa",
               ].map((item) => (
                 <div
                   key={item}
@@ -372,115 +374,119 @@ export default function Page() {
             </div>
 
             <p className="mt-6 max-w-[600px] text-[14px] leading-6 text-neutral-500">
-              Proces ne temelji več na tem, da nekdo pravočasno premakne
-              material. Tok postane del sistema.
+              Proces ne temelji več na tem, da nekdo pravočasno prestavi kos.
+              Premik postane del sistema.
             </p>
           </Container>
         </Section>
 
-        <div id="sistem" className="scroll-mt-24">
+        {/* SYSTEM */}
+        <section id="sistem" className="scroll-mt-24">
           <SystemBlock
-            title="Logistika kot sistemski tok materiala"
-            desc="Rešitev poveže stroje, postaje, vmesne bufferje in transportne elemente v bolj predvidljiv tok materiala skozi proizvodnjo."
-            note="Sistem se prilagodi prostoru, ritmu proizvodnje in razdaljam med operacijami."
+            title="Manipulacija kot stabilen prehod med operacijami"
+            desc="Rešitev poveže prijem, premik, obračanje, pozicioniranje in odlaganje kosov v bolj predvidljiv tok med fazami procesa."
+            note="Sistem se prilagodi obliki kosa, načinu prijema, prostoru in ritmu proizvodnje."
             mainImage={{
               src: "/images/cnc/system/flex-7-cnc.webp",
-              alt: "Sistemski tok materiala v proizvodnji",
+              alt: "Sistem za manipulacijo kosov v proizvodnji",
             }}
-            itemsLabel="Možni elementi sistema"
-            itemsAspect="square"
-            items={[
-              {
-                title: "Transportni tok",
-                desc: "Premik materiala med stroji in postajami.",
-                image: "/images/cnc/system/stacker-flex-7-cnc.webp",
-              },
-              {
-                title: "Buffer postaje",
-                desc: "Vmesno odlaganje za bolj stabilen ritem.",
-                image: "/images/cnc/system/cleaning-station-flex-7-cnc.webp",
-              },
-              {
-                title: "Razporejanje",
-                desc: "Usmerjanje materiala glede na naslednji korak.",
-                image:
-                  "/images/cnc/system/infeed-vibro-sorting-station-flex-7-cnc.webp",
-              },
-              {
-                title: "Integracija",
-                desc: "Povezava s postajami, kontrolo ali označevanjem.",
-                image: "/images/cnc/system/engraving-flex-7-cnc.webp",
-              },
-            ]}
           />
-        </div>
+        </section>
 
+        {/* USE CASES */}
         <UseCasesBlock
           id="uporaba"
-          title="Kje ima industrijska logistika največ smisla"
-          desc="Ko ročni transport ali nejasen tok materiala ustvarja čakanje med stroji, postajami ali operacijami."
+          title="Kje ima manipulacija materiala največ smisla"
+          desc="Ko ročno prestavljanje, obračanje ali odlaganje kosov ustvarja čakanje med operacijami."
           cases={[
             {
-              title: "Več CNC strojev",
-              desc: "Ko material potuje med več stroji in postajami.",
+              title: "Odvzem iz stroja",
+              desc: "Ko je treba kos po obdelavi odstraniti in pripraviti za naslednji korak.",
             },
             {
-              title: "Proizvodne linije",
-              desc: "Ko mora material stabilno prehajati med zaporednimi koraki.",
+              title: "Obračanje kosov",
+              desc: "Ko mora kos spremeniti orientacijo pred nadaljnjo obdelavo.",
             },
             {
-              title: "Skladišče → proizvodnja",
-              desc: "Ko priprava materiala vpliva na ritem proizvodnje.",
+              title: "Prestavljanje med fazami",
+              desc: "Ko kos potuje med dvema operacijama in proces čaka na ročni premik.",
             },
             {
-              title: "Proizvodnja → pakiranje",
-              desc: "Ko končni kosi čakajo na prenos v pakiranje.",
+              title: "Pozicioniranje",
+              desc: "Ko mora biti kos vedno v enakem položaju za naslednjo postajo.",
             },
             {
-              title: "Vmesni bufferji",
-              desc: "Ko je treba uravnavati različen tempo med operacijami.",
+              title: "Odlaganje kosov",
+              desc: "Ko je treba kose nadzorovano odložiti na trak, voziček ali vmesno mesto.",
             },
             {
-              title: "Kontrola in sortiranje",
-              desc: "Ko mora material skozi kontrolo pred naslednjim korakom.",
+              title: "Povezava več postaj",
+              desc: "Ko manipulacija poveže stroj, kontrolo, označevanje ali pakiranje.",
             },
           ]}
         />
 
-        <ForWhoBlock
-          id="za-koga"
-          title="Kdaj ima avtomatizacija logistike največ smisla"
-          desc="Največji učinek dosežemo tam, kjer tok materiala ni dovolj jasno povezan s stroji in postajami."
-          items={[
-            {
-              title: "Več strojev",
-              desc: "Ko material potuje med več delovnimi mesti.",
-            },
-            {
-              title: "Veliko ročnega transporta",
-              desc: "Ko operaterji pogosto premikajo material z vozički ali paletami.",
-            },
-            {
-              title: "Neenakomeren tok",
-              desc: "Ko material prihaja v valovih in povzroča čakanje.",
-            },
-            {
-              title: "Pomanjkanje prostora",
-              desc: "Ko je treba bolje organizirati vmesno odlaganje.",
-            },
-            {
-              title: "Različen tempo operacij",
-              desc: "Ko ena postaja dela hitreje kot druga in nastajajo zastoji.",
-            },
-            {
-              title: "Želja po večji preglednosti",
-              desc: "Ko želite jasneje vedeti, kje je material v procesu.",
-            },
-          ]}
-        />
-
+        {/* PROCESS / POSITIONING */}
         <ProcessBand />
-        <FinalCTA />
+
+        {/* LIGHT FINAL CTA */}
+        <section
+          id="kontakt"
+          className="border-t border-neutral-200/60 bg-white py-20 sm:py-24 lg:py-28"
+        >
+          <Container>
+            <div className="grid gap-10 lg:grid-cols-[1fr_420px] lg:items-center">
+              <div className="max-w-[680px]">
+                <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-500">
+                  Kontakt
+                </p>
+
+                <h2 className="mt-3 max-w-[15ch] text-3xl font-semibold leading-[0.98] tracking-[-0.04em] text-neutral-950 sm:text-4xl lg:text-5xl">
+                  Poglejmo, kje se kosi ustavljajo.
+                </h2>
+
+                <p className="mt-5 max-w-[58ch] text-[15px] leading-7 text-neutral-600 sm:text-[16px]">
+                  Skupaj pregledamo prijemanje, prestavljanje, obračanje,
+                  pozicioniranje in odlaganje kosov — potem ocenimo, kje ima
+                  avtomatizirana manipulacija največji učinek.
+                </p>
+
+                <div className="mt-8">
+                  <a
+                    href="mailto:info@flexido.eu"
+                    className="inline-flex items-center rounded-full bg-neutral-950 px-6 py-3 text-[14px] font-medium text-white transition hover:bg-neutral-800"
+                  >
+                    Pošljite povpraševanje →
+                  </a>
+                </div>
+              </div>
+
+              <div className="overflow-hidden rounded-3xl border border-neutral-200 bg-neutral-100 shadow-[0_18px_60px_rgba(0,0,0,0.08)]">
+                <div className="relative aspect-[4/3]">
+                  <Image
+                    src="/images/flexido/legacy/s-3.jpg.jpeg"
+                    alt="Manipulacija materiala v proizvodnem procesu"
+                    fill
+                    sizes="(min-width: 1024px) 420px, 100vw"
+                    className="object-cover"
+                  />
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
+
+                  <div className="absolute bottom-0 left-0 right-0 p-5">
+                    <p className="text-[11px] uppercase tracking-[0.16em] text-white/55">
+                      Prvi korak
+                    </p>
+
+                    <p className="mt-2 max-w-[34ch] text-[15px] font-medium leading-6 text-white">
+                      Kje kos čaka na premik, orientacijo ali naslednjo fazo?
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Container>
+        </section>
       </main>
 
       <Footer />

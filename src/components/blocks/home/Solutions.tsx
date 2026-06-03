@@ -3,7 +3,30 @@ import Link from "next/link";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
 import SectionHeader from "@/components/ui/SectionHeader";
-import Card from "@/components/ui/Card";
+
+import {
+  CncMachineIcon,
+  InjectionMoldingIcon,
+  CobotIcon,
+  ManipulationIcon,
+  MaterialFlowIcon,
+  CustomSystemIcon,
+  ServiceSupportIcon,
+  StandardCellIcon,
+} from "@/components/icons/FlexidoProcessIcons";
+
+const icons = {
+  cnc: CncMachineIcon,
+  imm: InjectionMoldingIcon,
+  cobot: CobotIcon,
+  manipulation: ManipulationIcon,
+  materialFlow: MaterialFlowIcon,
+  customSystem: CustomSystemIcon,
+  service: ServiceSupportIcon,
+  standardCell: StandardCellIcon,
+} as const;
+
+type IconName = keyof typeof icons;
 
 type Solution = {
   href: string;
@@ -12,8 +35,11 @@ type Solution = {
   meta?: string;
   label?: string;
   signal?: string;
-  kind: "featured" | "text" | "image";
+  kind: "featured" | "text" | "image" | "video";
   image?: string;
+  video?: string;
+  icon?: IconName;
+  iconClassName?: string;
 };
 
 type Props = {
@@ -25,77 +51,85 @@ const solutions: Solution[] = [
   {
     href: "/resitve/avtomatizacija-proizvodnje",
     title: "Avtomatizacija proizvodnje",
-    desc: "Ne začnemo z robotom. Najprej razumemo proces — nato določimo, kaj ima smisel avtomatizirati.",
+    desc: "Ko želite urediti več kot en sam korak in povezati proces v stabilen tok.",
     meta: "Sistemski pristop",
-    signal: "Za podjetja, ki želijo urediti več kot en sam korak.",
+    signal: "Najprej proces. Potem rešitev.",
     kind: "featured",
   },
   {
-    href: "/resitve/avtomatizacija-cnc-strojev",
+    href: "/resitve/cnc-stroji",
     title: "CNC stroji",
-    desc: "Težave pri nalaganju, odvzemu ali izkoristku stroja.",
+    desc: "Nalaganje, odvzem in boljši izkoristek stroja.",
     label: "Proces stroja",
-    signal: "Najpogosteje: zastoji med operacijami",
+    signal: "Ko stroj čaka na naslednji kos.",
     kind: "text",
+    icon: "cnc",
   },
   {
     href: "/resitve/brizganje-plastike",
     title: "Brizganje plastike",
-    desc: "Nestabilen cikel, odvzem ali priprava kosov.",
+    desc: "Stabilen cikel, odvzem kosov in manj ročnega dela.",
     label: "Cikel proizvodnje",
-    signal: "Najpogosteje: ročni odvzem kosov",
+    signal: "Ko odvzem in priprava upočasnita cikel.",
     kind: "text",
+    icon: "imm",
   },
   {
-    href: "/resitve/kolaborativni-roboti",
-    title: "Kolaborativni roboti",
-    desc: "Fleksibilna avtomatizacija za procese, ki se spreminjajo.",
-    label: "Tehnologija",
-    signal: "Najpogosteje: pomoč operaterju",
-    kind: "text",
-  },
+  href: "/resitve/kolaborativni-roboti",
+  title: "Kolaborativni roboti",
+  desc: "Pomoč pri ponavljajočih se nalogah in delu z operaterjem.",
+  label: "Fleksibilna pomoč",
+  signal: "Ko naloga ni za polno robotsko celico.",
+  kind: "text",
+  icon: "cobot",
+  iconClassName: "h-11 w-11",
+},
+ {
+  href: "/resitve/manipulacija",
+  title: "Manipulacija materiala",
+  desc: "Premikanje, obračanje in prenos kosov med fazami.",
+  label: "Prenos materiala",
+  signal: "Ko material izgublja čas med operacijami.",
+  kind: "text",
+  icon: "manipulation",
+ iconClassName: "h-12 w-12",
+},
   {
     href: "/resitve/logistika",
     title: "Paletizacija in interna logistika",
-    desc: "Material se ustavlja med fazami proizvodnje.",
+    desc: "Ko material ne teče gladko skozi proizvodnjo.",
     label: "Tok materiala",
-    signal: "Najpogosteje: nepovezan proces",
-    kind: "image",
-    image: "/images/robot.jpg",
+    signal: "Ko faze niso povezane v enoten tok.",
+    kind: "video",
+    video: "/video/flexido/hero-logistika.mp4",
   },
   {
-    href: "/resitve/manipulacija",
-    title: "Manipulacija materiala",
-    desc: "Ročno prelaganje in nestabilen potek dela.",
-    label: "Prenos materiala",
-    signal: "Najpogosteje: čakanje med fazami",
-    kind: "text",
-  },
-  {
-    href: "/resitve/servis",
-    title: "Servis in podpora",
-    desc: "Podpora za stabilno delovanje sistema tudi po zagonu.",
-    label: "Podpora",
-    signal: "Najpogosteje: stabilnost po zagonu",
+    href: "/resitve/namenski-sistemi",
+    title: "Namenski sistemi",
+    desc: "Rešitve, prilagojene prostoru, strojem in poteku dela.",
+    label: "Po meri procesa",
+    signal: "Ko standardna rešitev ni dovolj.",
     kind: "image",
-    image: "/images/flexido-process.jpg",
+    image: "/images/flexido/legacy/s-3.jpg.jpeg",
   },
 ];
 
 export default function Solutions({
-  title = "Kje uporabljamo avtomatizacijo",
-  desc = "Razvijamo in integriramo rešitve za različne tipe proizvodnje in procesov.",
+  title = "Kje lahko avtomatizacija pomaga",
+  desc = "Od posameznega stroja do povezave več faz — rešitev izberemo glede na to, kje proces izgublja čas, stabilnost ali predvidljivost.",
 }: Props) {
   const featured = solutions.find((item) => item.kind === "featured");
 
   const gridItems = [
-    solutions.find((item) => item.title === "CNC stroji"),
-    solutions.find((item) => item.title === "Brizganje plastike"),
-    solutions.find((item) => item.title === "Kolaborativni roboti"),
-    solutions.find((item) => item.title === "Manipulacija materiala"),
-    solutions.find((item) => item.title === "Paletizacija in interna logistika"),
-    solutions.find((item) => item.title === "Servis in podpora"),
-  ].filter(Boolean) as Solution[];
+    "CNC stroji",
+    "Brizganje plastike",
+    "Kolaborativni roboti",
+    "Manipulacija materiala",
+    "Paletizacija in interna logistika",
+    "Namenski sistemi",
+  ]
+    .map((title) => solutions.find((item) => item.title === title))
+    .filter(Boolean) as Solution[];
 
   return (
     <Section
@@ -115,9 +149,10 @@ export default function Solutions({
                 muted
                 loop
                 playsInline
+                preload="metadata"
                 className="absolute inset-0 h-full w-full object-cover opacity-30 transition duration-700 group-hover:scale-[1.04] group-hover:opacity-45"
               >
-                <source src="/video/hero-cnc.mp4" type="video/mp4" />
+                <source src="/video/hero-2-1.mp4" type="video/mp4" />
               </video>
 
               <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/45 to-black/20" />
@@ -132,12 +167,12 @@ export default function Solutions({
                   {featured.title}
                 </h3>
 
-                <p className="mt-5 max-w-[48ch] text-[15px] leading-7 text-white/75">
+                <p className="mt-5 max-w-[44ch] text-[15px] leading-7 text-white/75">
                   {featured.desc}
                 </p>
 
                 {featured.signal && (
-                  <p className="mt-5 max-w-[42ch] text-[13px] leading-6 text-white/52">
+                  <p className="mt-5 max-w-[40ch] text-[13px] leading-6 text-white/52">
                     {featured.signal}
                   </p>
                 )}
@@ -156,24 +191,37 @@ export default function Solutions({
         {/* GRID */}
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {gridItems.map((item) => {
-            if (item.kind === "image") {
+            if (item.kind === "image" || item.kind === "video") {
               return (
                 <Link
                   href={item.href}
                   key={item.title}
-                  className="group relative block min-h-[240px] overflow-hidden rounded-[24px] bg-neutral-950 shadow-[0_18px_50px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-[1px] hover:shadow-[0_24px_70px_rgba(15,23,42,0.12)]"
+                  className="group relative block min-h-[260px] overflow-hidden rounded-[24px] bg-neutral-950 shadow-[0_18px_50px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-[1px] hover:shadow-[0_24px_70px_rgba(15,23,42,0.12)] sm:min-h-[240px] lg:min-h-[240px]"
                 >
-                  <img
-                    src={item.image}
-                    alt=""
-                    className="absolute inset-0 h-full w-full object-cover opacity-65 transition duration-700 group-hover:scale-[1.05] group-hover:opacity-80"
-                  />
+                  {item.kind === "video" ? (
+                    <video
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                      className="absolute inset-0 h-full w-full object-cover opacity-65 transition duration-700 group-hover:scale-[1.05] group-hover:opacity-80"
+                    >
+                      <source src={item.video} type="video/mp4" />
+                    </video>
+                  ) : (
+                    <img
+                      src={item.image}
+                      alt=""
+                      className="absolute inset-0 h-full w-full object-cover opacity-65 transition duration-700 group-hover:scale-[1.05] group-hover:opacity-80"
+                    />
+                  )}
 
                   <div className="absolute inset-0 bg-black/45 transition duration-300 group-hover:bg-black/35" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/55 to-transparent" />
                   <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/15 to-transparent" />
 
-                  <div className="absolute inset-x-0 bottom-0 p-7 text-white">
+                  <div className="absolute inset-x-0 bottom-0 p-8 text-white sm:p-7 lg:p-7">
                     <p className="text-[11px] uppercase tracking-[0.14em] text-white/55">
                       {item.label}
                     </p>
@@ -203,37 +251,47 @@ export default function Solutions({
               );
             }
 
+            const Icon = item.icon ? icons[item.icon] : null;
+
             return (
-              <Link href={item.href} key={item.title} className="group block">
-                <Card className="relative flex min-h-[240px] cursor-pointer flex-col justify-between overflow-hidden rounded-[24px] border border-transparent bg-white px-7 py-7 shadow-[0_18px_50px_rgba(15,23,42,0.045)] transition-all duration-300 hover:-translate-y-[1px] hover:border-[#dbe6f1] hover:shadow-[0_24px_70px_rgba(15,23,42,0.09)] sm:px-8 sm:py-8">
-<div className="absolute inset-x-0 top-0 h-[3px] bg-[#0a2540]/20 opacity-0 transition duration-300 group-hover:opacity-100" />                  <div>
-                    <p className="text-[11px] uppercase tracking-[0.14em] text-[#6b7a90]">
-                      {item.label}
-                    </p>
+            <Link
+  href={item.href}
+  key={item.title}
+  className="group flex min-h-[260px] flex-col rounded-[24px] border border-neutral-200 bg-white px-8 py-8 shadow-[0_18px_50px_rgba(15,23,42,0.045)] transition-all duration-300 hover:-translate-y-[1px] hover:border-[#c9e5f8] hover:shadow-[0_24px_70px_rgba(15,23,42,0.08)]"
+>
+ {Icon && (
+  <div className="mb-5 flex h-12 w-12 items-center justify-center text-[#1693e6]">
+    <Icon className={item.iconClassName ?? "h-10 w-10"} />
+  </div>
+)}
 
-                    <h3 className="mt-3 text-[18px] font-semibold leading-tight text-[#0a2540]">
-                      {item.title}
-                    </h3>
+  {item.label && (
+    <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-[#7890a8]">
+      {item.label}
+    </p>
+  )}
 
-                    <p className="mt-4 max-w-[31ch] text-[15px] leading-6 text-[#425466]">
-                      {item.desc}
-                    </p>
+  <h3 className="mt-2 text-[20px] font-semibold leading-[1.08] tracking-[-0.03em] text-[#0a2540]">
+    {item.title}
+  </h3>
 
-                    {item.signal && (
-                      <p className="mt-5 text-[12px] leading-5 text-[#6b7a90]">
-                        {item.signal}
-                      </p>
-                    )}
-                  </div>
+  <p className="mt-4 max-w-[30ch] text-[15px] leading-[1.6] text-[#425466]">
+    {item.desc}
+  </p>
 
-                  <div className="mt-6 inline-flex items-center text-[14px] font-medium text-[#0a2540]/70 transition group-hover:text-[#0a2540]">
-                    <span>Preberi več</span>
-                    <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">
-                      →
-                    </span>
-                  </div>
-                </Card>
-              </Link>
+  {item.signal && (
+    <p className="mt-4 max-w-[32ch] text-[13px] leading-[1.55] text-[#7890a8]">
+      {item.signal}
+    </p>
+  )}
+
+  <div className="mt-auto pt-7 inline-flex items-center text-[14px] font-medium text-[#24415f] transition group-hover:text-[#0b8fdc]">
+    <span>Preberi več</span>
+    <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">
+      →
+    </span>
+  </div>
+</Link>
             );
           })}
         </div>

@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Container from "@/components/layout/Container";
+import { useEffect, useRef, useState } from "react";
 
 type WikiNavItem = {
   href: string;
@@ -13,62 +12,87 @@ type WikiNavProps = {
 };
 
 export default function WikiNav({ items }: WikiNavProps) {
-  const [active, setActive] = useState<string | null>(null);
+  const [activeHref, setActiveHref] = useState(items[0]?.href ?? "");
+
+  const itemRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
 
   useEffect(() => {
-    const sections = items.map((item) => document.querySelector(item.href));
+    const sectionIds = items
+      .map((item) => item.href.replace("#", ""))
+      .filter(Boolean);
 
-    const handleScroll = () => {
-      let current: string | null = null;
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => Boolean(section));
 
-      sections.forEach((section, index) => {
-        if (!section) return;
+    if (!sections.length) return;
 
-        const rect = section.getBoundingClientRect();
+    const getActiveSection = () => {
+      const offset = 140;
 
-        if (rect.top <= 120) {
-          current = items[index].href;
+      let current = sections[0];
+
+      for (const section of sections) {
+        const sectionTop = section.getBoundingClientRect().top;
+
+        if (sectionTop <= offset) {
+          current = section;
         }
-      });
+      }
 
-      setActive(current);
+      if (current?.id) {
+        setActiveHref(`#${current.id}`);
+      }
     };
 
-    handleScroll();
-    window.addEventListener("scroll", handleScroll);
+    getActiveSection();
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", getActiveSection, { passive: true });
+    window.addEventListener("resize", getActiveSection);
+
+    return () => {
+      window.removeEventListener("scroll", getActiveSection);
+      window.removeEventListener("resize", getActiveSection);
+    };
   }, [items]);
 
-  return (
-    <div className="sticky top-0 z-40 border-y border-neutral-200 bg-white">
-      <Container>
-        <div className="py-2.5 sm:flex sm:items-center sm:justify-between sm:gap-4 sm:py-3">
-          <p className="hidden shrink-0 text-[11px] uppercase tracking-[0.16em] text-neutral-500 sm:block">
-            Na tej strani
-          </p>
+  useEffect(() => {
+    const activeItem = itemRefs.current[activeHref];
 
-       <nav
-  aria-label="Kazalo strani"
-  className="-mx-5 flex gap-2 overflow-x-auto px-5 text-[12px] font-medium [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:px-0 sm:text-[13px]"
->
-            {items.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className={[
-                  "shrink-0 rounded-full border px-3.5 py-1.5 transition sm:px-4 sm:py-2",
-                  active === item.href
-                    ? "border-neutral-950 bg-neutral-950 text-white"
-                    : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-950 hover:text-neutral-950",
-                ].join(" ")}
-              >
-                {item.label}
-              </a>
-            ))}
-          </nav>
-        </div>
-      </Container>
+    if (!activeItem) return;
+
+    activeItem.scrollIntoView({
+      behavior: "smooth",
+      inline: "center",
+      block: "nearest",
+    });
+  }, [activeHref]);
+
+  return (
+    <div className="sticky top-0 z-30 border-b border-neutral-200/70 bg-white/85 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-[1180px] gap-2 overflow-x-auto px-6 py-3 lg:px-8 [&::-webkit-scrollbar]:hidden">
+        {items.map((item) => {
+          const isActive = activeHref === item.href;
+
+          return (
+            <a
+              key={item.href}
+              ref={(node) => {
+                itemRefs.current[item.href] = node;
+              }}
+              href={item.href}
+              className={[
+                "shrink-0 rounded-full border px-4 py-2 text-[13px] font-medium transition",
+                isActive
+                  ? "border-neutral-950 bg-neutral-950 text-white"
+                  : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300 hover:text-neutral-950",
+              ].join(" ")}
+            >
+              {item.label}
+            </a>
+          );
+        })}
+      </div>
     </div>
   );
 }

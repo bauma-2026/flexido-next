@@ -8,101 +8,136 @@ export default function HowToChoose() {
   const items = [
     {
       title: "Nalaganje in razlaganje kosov",
-      desc: "Ročno nalaganje ustavlja cikel stroja in zmanjšuje izkoristek.",
+      desc: "Ko ročno delo ustavlja cikel stroja in zmanjšuje izkoristek.",
     },
     {
       title: "Prenos materiala med fazami",
-      desc: "Material čaka med operacijami in ustvarja zastoje.",
+      desc: "Ko material čaka med operacijami in ustvarja zastoje.",
     },
     {
       title: "Odvzem izdelkov iz strojev",
-      desc: "Cikel je preveč odvisen od odziva operaterja.",
-    },
-    {
-      title: "Paletizacija in pakiranje",
-      desc: "Zaključek procesa je počasen ali neenakomeren.",
+      desc: "Ko je cikel preveč odvisen od odziva operaterja.",
     },
     {
       title: "Povezava obstoječih strojev",
-      desc: "Stroji delujejo ločeno, proces pa ni dovolj povezan.",
-    },
-    {
-      title: "Delovna mesta z veliko ročnega dela",
-      desc: "Ponovljive naloge povečujejo možnost napak.",
+      desc: "Ko stroji delujejo ločeno, proces pa ni dovolj povezan.",
     },
   ];
 
   return (
-    <Section className="bg-white py-16 sm:py-20 lg:py-24">
-      <Container>
-        <SectionHeader
-          eyebrow="Izbira rešitve"
-          title="Kje lahko avtomatiziramo vaš proces"
-          desc="Od nalaganja materiala do končne obdelave — avtomatizacija se lahko vključi v različne faze proizvodnje."
-        />
+   <Section className="border-b border-neutral-200 bg-white py-16 sm:py-20 lg:py-24">
+  <Container>
+    <div className="max-w-[980px]">
+      <p className="eyebrow">Izbira rešitve</p>
 
-        {/* MOBILE SUMMARY */}
-        <div className="mt-7 sm:hidden">
-          <p className="text-[15px] leading-7 text-[#425466]">
-            Največji učinek dosežemo tam, kjer se ponavlja ročno delo, material
-            čaka med fazami ali je proces preveč odvisen od operaterja.
-          </p>
-        </div>
+      <h2 className="mt-3 max-w-[16ch] text-4xl font-semibold leading-[0.96] tracking-[-0.045em] text-neutral-950 sm:text-5xl lg:text-[60px]">
+        Kje avtomatizacija najprej prinese učinek
+      </h2>
 
-        {/* CARDS */}
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((item, i) => (
-            <Card
-              key={item.title}
-              className={`
-                group
-                flex
-                min-h-[210px]
-                flex-col
-                justify-between
-                rounded-[24px]
-                border border-transparent
-                bg-white
-                px-8
-                py-8
-                shadow-[0_14px_40px_rgba(15,23,42,0.04)]
-                transition-all
-                duration-300
-                hover:-translate-y-[2px]
-                hover:border-[#dbe6f1]
-                hover:bg-[#f9fbfd]
-                hover:shadow-[0_22px_60px_rgba(15,23,42,0.075)]
-              ${i === 0 ? "sm:col-span-2 sm:px-10 sm:py-10" : ""}
-              `}
-            >
-              <div>
-                {i === 0 && (
-                  <p className="mb-3 text-[11px] uppercase tracking-[0.14em] text-[#6b7a90]">
-                    Najpogostejši primer
-                  </p>
-                )}
+      <p className="mt-6 max-w-[64ch] text-[18px] leading-8 text-neutral-600">
+        Največji učinek nastane tam, kjer se ponavlja ročno delo, material čaka
+        med fazami ali je proces preveč odvisen od operaterja.
+      </p>
+    </div>
 
-                <h3 className="text-[18px] font-semibold leading-tight text-[#0a2540]">
-                  {item.title}
-                </h3>
+    <div className="mt-12 grid gap-5 lg:grid-cols-12">
+      {/* FEATURED */}
+      <div className="lg:col-span-6">
+        <Card className="flex h-full flex-col justify-between rounded-[28px] border border-[#d7e3f0] bg-[#f4f8fc] p-7 shadow-[0_18px_50px_rgba(15,23,42,0.05)] sm:p-8">
+          <div>
+            <p className="text-[11px] uppercase tracking-[0.16em] text-[#5b6b82]">
+              Najpogostejši primer
+            </p>
 
-                <div className="mt-5 h-px w-8 bg-[#e9eff5] transition-all duration-300 group-hover:w-12" />
+            <h3 className="mt-4 max-w-[16ch] text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-[#0a2540] sm:text-[34px]">
+              Nalaganje in razlaganje kosov
+            </h3>
 
-                <p className="mt-5 text-[15px] leading-6 text-[#425466]">
-                  {item.desc}
-                </p>
-              </div>
-            </Card>
-          ))}
-        </div>
+            <p className="mt-5 max-w-[34ch] text-[17px] leading-7 text-[#425466]">
+              Ko ročno delo ustavlja cikel stroja, zmanjšuje izkoristek in
+              ustvarja odvisnost od operaterja.
+            </p>
+          </div>
 
-        {/* CTA */}
-        <div className="mt-8 flex sm:mt-10">
-          <Button href="#kontakt">
-            Ne najdete svojega primera? Poglejmo vaš proces →
-          </Button>
-        </div>
-      </Container>
-    </Section>
+         <ul className="mt-8 space-y-3 border-t border-[#dbe6f1] pt-6">
+  {[
+    "Ročno nalaganje in odlaganje kosov.",
+    "Operater določa tempo cikla.",
+    "Najhitrejši prvi korak do bolj stabilnega toka.",
+  ].map((item) => (
+    <li
+      key={item}
+      className="flex items-start gap-3 text-[14px] leading-6 text-[#425466]"
+    >
+      <span
+        aria-hidden="true"
+        className="mt-[7px] h-2 w-2 shrink-0 rounded-full bg-[#1b8fe4]"
+      />
+      <span>{item}</span>
+    </li>
+  ))}
+</ul>
+        </Card>
+      </div>
+
+      {/* RIGHT COLUMN */}
+      <div className="grid gap-5 sm:grid-cols-2 lg:col-span-6">
+        {[
+          {
+            eyebrow: "Prenos med fazami",
+            title: "Material čaka med operacijami",
+            desc: "Ko material ne pride pravočasno do naslednje faze in nastajajo zastoji.",
+          },
+          {
+            eyebrow: "Odvzem izdelkov",
+            title: "Odvzem izdelkov iz strojev",
+            desc: "Ko je cikel preveč odvisen od odziva operaterja.",
+          },
+          {
+            eyebrow: "Povezava opreme",
+            title: "Povezava obstoječih strojev",
+            desc: "Ko stroji delujejo ločeno, proces pa ni dovolj povezan.",
+          },
+          {
+            eyebrow: "Ponavljajoče delo",
+            title: "Ročni premiki med postajami",
+            desc: "Ko prestavljanje kosov jemlje čas in ustvarja nepotrebne prekinitve.",
+          },
+        ].map((item) => (
+          <Card
+            key={item.title}
+            className="group rounded-[24px] border border-neutral-200 bg-white p-6 transition-all duration-300 hover:-translate-y-[2px] hover:border-[#dbe6f1] hover:shadow-[0_18px_40px_rgba(15,23,42,0.06)]"
+          >
+            <p className="text-[11px] uppercase tracking-[0.14em] text-[#6b7a90]">
+              {item.eyebrow}
+            </p>
+
+            <h3 className="mt-4 text-[22px] font-semibold leading-[1.12] tracking-[-0.03em] text-[#0a2540]">
+              {item.title}
+            </h3>
+
+            <div className="mt-4 h-px w-10 bg-[#e7eef5] transition-all duration-300 group-hover:w-14" />
+
+            <p className="mt-4 text-[15px] leading-6 text-[#425466]">
+              {item.desc}
+            </p>
+          </Card>
+        ))}
+      </div>
+    </div>
+
+    {/* CTA BAR */}
+    <div className="mt-8 rounded-[24px] border border-neutral-200 bg-neutral-50 px-6 py-5 sm:px-7">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-[15px] leading-6 text-neutral-600">
+          Ne najdete svojega primera? Pogledamo lahko vaš konkreten proces in
+          predlagamo najbolj smiseln prvi korak avtomatizacije.
+        </p>
+
+        <Button href="#kontakt">Poglejmo vaš proces →</Button>
+      </div>
+    </div>
+  </Container>
+</Section>
   );
 }

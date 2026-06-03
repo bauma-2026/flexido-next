@@ -1,43 +1,46 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
+
+type ButtonVariant = "primary" | "secondary" | "dark" | "light";
 
 type ButtonProps = {
-  children: React.ReactNode;
-  href?: string;
-  variant?: "primary" | "secondary" | "ghost";
+  href: string;
+  children: ReactNode;
+  variant?: ButtonVariant;
   className?: string;
 };
 
-function cn(...classes: Array<string | undefined | false>) {
-  return classes.filter(Boolean).join(" ");
-}
+const variants: Record<ButtonVariant, string> = {
+  primary:
+    "bg-[#0B8FD3] text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.18)] hover:bg-[#087FBD] hover:text-white",
+
+  secondary:
+    "border border-neutral-200 bg-white text-neutral-800 hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-950",
+
+  dark:
+    "bg-neutral-950 text-white hover:bg-neutral-800 hover:text-white",
+
+  light:
+    "bg-white text-neutral-950 hover:bg-white/90 hover:text-neutral-950",
+};
 
 export default function Button({
-  children,
   href,
+  children,
   variant = "primary",
-  className,
+  className = "",
 }: ButtonProps) {
-  const base =
-    "inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-[14px] font-medium transition focus:outline-none";
-
-  const variants = {
-    primary:
-      "bg-[var(--primary)] text-white hover:bg-[var(--primary-hover)] focus:ring-2 focus:ring-[var(--primary)]/40",
-    secondary:
-      "bg-neutral-100 text-neutral-900 hover:bg-neutral-200",
-    ghost:
-      "text-neutral-600 hover:text-neutral-950",
-  };
-
-  const classes = cn(base, variants[variant], className);
-
-  if (href) {
-    return (
-      <Link href={href} className={classes}>
-        {children}
-      </Link>
-    );
-  }
-
-  return <button type="button" className={classes}>{children}</button>;
+  return (
+    <Link
+      href={href}
+     className={[
+  "inline-flex items-center justify-center rounded-full px-6 py-3 text-[14px] font-medium transition",
+  "focus:outline-none focus:ring-2 focus:ring-[#0B8FD3]/30 focus:ring-offset-2",
+  variants[variant],
+  className,
+].join(" ")}
+    >
+      {children}
+    </Link>
+  );
 }

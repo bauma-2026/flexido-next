@@ -1,46 +1,63 @@
-"use client";
-
-type Logo = {
-  src: string;
+type FundingLogo = {
+  src?: string;
   alt: string;
   href?: string;
+  label?: string;
+  tone?: "official" | "partner";
 };
 
-type Props = {
-  logos: Logo[];
+type FundingLogosProps = {
+  logos: FundingLogo[];
   className?: string;
 };
-export default function FundingLogos({ logos, className = "" }: Props) {
+
+export default function FundingLogos({
+  logos,
+  className = "",
+}: FundingLogosProps) {
   return (
     <div
-      className={`not-prose mt-16 border-t border-neutral-200 pt-10 ${className}`}
+      className={[
+        "not-prose mt-12 border-t border-neutral-200 pt-10",
+        className,
+      ].join(" ")}
     >
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {logos.map((logo, i) => {
-          const Wrapper = logo.href ? "a" : "div";
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {logos.map((logo) => {
+          const content = (
+            <div className="flex h-[112px] items-center justify-center rounded-[22px] border border-neutral-200 bg-white px-8 py-6 transition group-hover:border-neutral-300 group-hover:shadow-[0_18px_50px_rgba(15,23,42,0.06)]">
+              {logo.src ? (
+                <img
+                  src={logo.src}
+                  alt={logo.alt}
+                  className="max-h-[54px] max-w-[190px] object-contain"
+                />
+              ) : (
+                <span className="text-center text-[18px] font-medium tracking-[-0.03em] text-neutral-800">
+                  {logo.label ?? logo.alt}
+                </span>
+              )}
+            </div>
+          );
+
+          if (logo.href) {
+            return (
+              <a
+                key={logo.alt}
+                href={logo.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block"
+              >
+                {content}
+              </a>
+            );
+          }
 
           return (
-            <Wrapper
-              key={i}
-              href={logo.href}
-              target={logo.href ? "_blank" : undefined}
-              rel={logo.href ? "noopener noreferrer" : undefined}
-              className="flex min-h-[110px] items-center justify-center rounded-2xl border border-neutral-200 bg-white px-8 py-6 transition hover:border-neutral-300 hover:shadow-sm"
-            >
-              <img
-                src={logo.src}
-                alt={logo.alt}
-                className="max-h-14 w-auto max-w-[160px] object-contain"
-                onError={(e) => {
-                  const target = e.currentTarget as HTMLImageElement;
-
-                  // prepreči infinite loop
-                  if (!target.src.includes("placeholder")) {
-                    target.src = "/images/funding/placeholder.webp";
-                  }
-                }}
-              />
-            </Wrapper>
+            <div key={logo.alt} className="group">
+              {content}
+            </div>
           );
         })}
       </div>

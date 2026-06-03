@@ -1,0 +1,26 @@
+{
+  "name": "Flexido",
+  "short_name": "Flexido",
+  "description": "Avtomatizacija proizvodnih procesov",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/maskable-icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "theme_color": "#0082CA",
+  "background_color": "#0082CA",
+  "display": "standalone"
+}

@@ -4,17 +4,17 @@ import Container from "@/components/layout/Container";
 
 export default function DecisionBlock() {
   return (
-    <section className="bg-white pb-20 pt-0 sm:pb-24 lg:pb-28">
+    <section className="border-b border-neutral-200 bg-white py-16 sm:py-20 lg:py-24">
       <Container>
-        <div className="rounded-[2rem] border border-neutral-200 bg-white p-7 shadow-sm sm:p-9 lg:p-12">
+        <div className="rounded-[2rem] border border-neutral-200 bg-neutral-50/60 p-6 shadow-sm sm:p-8 lg:p-10">
           {/* HEADER */}
-          <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+          <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
             <div>
               <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-500">
                 Je to za vas
               </p>
 
-              <h3 className="mt-4 max-w-[14ch] text-3xl font-semibold leading-[1.02] tracking-[-0.04em] text-neutral-950 sm:text-4xl">
+              <h3 className="mt-3 max-w-[14ch] text-3xl font-semibold leading-[1.02] tracking-[-0.04em] text-neutral-950 sm:text-4xl">
                 Prepoznate ta scenarij?
               </h3>
             </div>
@@ -26,9 +26,9 @@ export default function DecisionBlock() {
           </div>
 
           {/* BINARY GRID */}
-          <div className="mt-10 grid gap-4 lg:grid-cols-2">
+          <div className="mt-8 grid gap-4 lg:grid-cols-2">
             {/* YES */}
-            <div className="group rounded-[1.75rem] border border-neutral-200 bg-neutral-50 p-6 transition duration-300 hover:-translate-y-0.5 hover:border-neutral-300 hover:bg-white hover:shadow-sm sm:p-7">
+            <div className="group rounded-[1.5rem] border border-neutral-200 bg-white p-6 transition duration-300 hover:-translate-y-0.5 hover:border-neutral-300 hover:shadow-sm sm:p-7">
               <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-500 transition group-hover:text-neutral-950">
                 ✔ To je za vas
               </p>
@@ -52,7 +52,7 @@ export default function DecisionBlock() {
             </div>
 
             {/* NO */}
-            <div className="group rounded-[1.75rem] border border-neutral-200 bg-white p-6 transition duration-300 hover:-translate-y-0.5 hover:bg-neutral-50 sm:p-7">
+            <div className="group rounded-[1.5rem] border border-neutral-200 bg-white p-6 transition duration-300 hover:-translate-y-0.5 hover:border-neutral-300 hover:shadow-sm sm:p-7">
               <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-500">
                 ✖ Verjetno še ne
               </p>
@@ -77,7 +77,7 @@ export default function DecisionBlock() {
           </div>
 
           {/* CTA */}
-          <div className="mt-10 flex flex-wrap items-center justify-between gap-6 border-t border-neutral-200 pt-8">
+          <div className="mt-8 flex flex-wrap items-center justify-between gap-6 border-t border-neutral-200 pt-7">
             <p className="max-w-[52ch] text-sm leading-6 text-neutral-600">
               Če ste bližje levi strani, je smiselno pogledati proces kot celoto
               in preveriti, kje avtomatizacija dejansko prinese največ učinka.

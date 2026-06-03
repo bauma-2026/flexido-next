@@ -1,55 +1,46 @@
-"use client";
-
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
-const items = [
+const projects = [
   {
-    href: "/razvojni-projekti",
+    href: "/razvojni-projekti/sofinanciranje-stroskov-digitalizacije-prodajnih-poti",
     label: "Digitalizacija prodajnih poti",
   },
   {
-    href: "/digitalna-preobrazba-kljucnih-funkcij-podjetja-polycom",
-    label: "Poly Digit",
+  href: "/razvojni-projekti/digitalna-preobrazba-kljucnih-funkcij-podjetja-polycom",
+    label: "Digitalna preobrazba ključnih funkcij",
   },
   {
-    href: "/digitalna-transformacija-podjetja-flexido-d-o-o",
-    label: "Digitalna transformacija",
+    href: "/razvojni-projekti/digitalna-transformacija-podjetja-flexido-d-o-o",
+    label: "Digitalna transformacija podjetja",
   },
   {
-    href: "/naziv-projekta-smartim-pametna-tovarna-iskra-mehanizmi",
-    label: "SmartIM",
+    href: "/razvojni-projekti/naziv-projekta-smartim-pametna-tovarna-iskra-mehanizmi",
+    label: "SMARTIM — pametna tovarna",
   },
   {
-    href: "/spodbude-za-raziskovalno-razvojni-projekt",
-    label: "SAFEGUARD",
+    href: "/razvojni-projekti/spodbude-za-raziskovalno-razvojni-projekt",
+    label: "Raziskovalno-razvojni projekt",
   },
 ];
 
 export default function DevelopmentProjectNav() {
-  const pathname = usePathname();
-
   return (
-    <div className="not-prose mt-8 border-y border-neutral-200">
-      <div className="flex gap-4 overflow-x-auto py-4">
-        {items.map((item) => {
-          const isActive = pathname === item.href;
+    <nav className="not-prose mb-10 rounded-[24px] border border-neutral-200 bg-neutral-50 p-5">
+      <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-500">
+        Razvojni projekti
+      </p>
 
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`whitespace-nowrap text-sm transition ${
-                isActive
-                  ? "text-neutral-950 font-medium"
-                  : "text-neutral-500 hover:text-neutral-900"
-              }`}
-            >
-              {item.label}
-            </Link>
-          );
-        })}
+      <div className="mt-4 flex flex-wrap gap-2">
+        {projects.map((project) => (
+          <Link
+            key={project.href}
+            href={project.href}
+            className="inline-flex rounded-full border border-neutral-200 bg-white px-4 py-2 text-[13px] font-medium text-neutral-600 transition hover:border-neutral-300 hover:text-neutral-950"
+          >
+            {project.label}
+          </Link>
+        ))}
       </div>
-    </div>
+    </nav>
   );
 }

@@ -9,7 +9,7 @@ const mapItems = [
     label: "Stroj / cikel",
     title: "CNC proces ne teče",
     desc: "Stroj čaka med cikli, operater ročno nalaga kose ali proces ni stabilen.",
-    href: "/resitve/cnc-avtomatizacija",
+    href: "/resitve/avtomatizacija-cnc-strojev",
     cta: "Poglej CNC rešitev",
   },
   {
@@ -30,7 +30,7 @@ const mapItems = [
     label: "Ročno delo",
     title: "Operater je ozko grlo",
     desc: "Ponavljajoče naloge, ročno pobiranje, odlaganje ali delo ob stroju omejujejo ritem.",
-    href: "/resitve/coboti",
+    href: "/resitve/kolaborativni-roboti",
     cta: "Poglej cobote",
   },
 ];
@@ -38,19 +38,19 @@ const mapItems = [
 const guideItems = [
   {
     question: "Stroj čaka med cikli?",
-    answer: "Začni pri CNC avtomatizaciji.",
+    answer: "Začnite pri CNC avtomatizaciji.",
   },
   {
     question: "Kos čaka med dvema operacijama?",
-    answer: "Poglej manipulacijo kosov.",
+    answer: "Poglejte manipulacijo kosov.",
   },
   {
     question: "Material ne pride pravočasno?",
-    answer: "Poglej industrijsko logistiko.",
+    answer: "Poglejte interno logistiko.",
   },
   {
     question: "Operater dela ponavljajoče naloge?",
-    answer: "Poglej cobote.",
+    answer: "Poglejte kolaborativne robote.",
   },
 ];
 
@@ -78,14 +78,16 @@ export default function Page() {
                 System map
               </p>
 
-              <h1 className="mt-4 max-w-[13ch] text-4xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-5xl lg:text-6xl">
-                Kje nastajajo zastoji v proizvodnji
-              </h1>
+             <h1 className="mt-4 max-w-[13ch] text-4xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-5xl lg:text-6xl">
+  Kje se ustavlja vaš proces?
+</h1>
+
 <p className="mt-5 max-w-[58ch] text-[16px] leading-7 text-white/75">
-  Če proces ne teče, problem običajno ni samo en. Razbijemo ga na
-  ključne dele — stroj, manipulacijo, tok materiala in ročno delo.
+  Če proizvodnja ne teče stabilno, problem običajno ni samo en.
+  Najprej ga razdelimo na ključne dele — stroj, manipulacijo,
+  tok materiala in ročno delo.
   <span className="mt-3 block font-medium text-white">
-    Najprej razumi problem. Šele potem rešitev.
+    Najprej problem. Šele potem rešitev.
   </span>
 </p>
 

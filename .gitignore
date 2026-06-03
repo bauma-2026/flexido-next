@@ -6,3 +6,4 @@ out
 .env.production
 .vercel
 .DS_Store
+.env*

@@ -1,9 +1,34 @@
+import Image from "next/image";
 import Link from "next/link";
+
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
-import FinalCTA from "@/components/blocks/home/FinalCTA";
+
+import { flexidoSystems } from "@/data/flexido-systems";
+
+const cncSystem = flexidoSystems.find((system) => system.slug === "flex-7-cnc");
+const immSystem = flexidoSystems.find((system) => system.slug === "flex-7-imm");
+
+const cellTypes = [
+  {
+    title: "CNC stroji",
+    eyebrow: "FLEX 7 CNC Slim",
+    desc: "Kompaktna robotska celica za strego CNC strojev, nalaganje, odvzem in stabilnejši tok kosov.",
+    href: "/standardne-celice/cnc",
+    image: cncSystem?.image ?? "/images/standardne-celice/cnc.webp",
+    alt: "FLEX 7 CNC Slim robotska celica",
+  },
+  {
+    title: "IMM stroji",
+    eyebrow: "FLEX 7 IMM Slim",
+    desc: "Robotska celica za strego strojev za brizganje plastike, odvzem kosov, insert moulding in kontrolo.",
+    href: "/standardne-celice/imm",
+    image: immSystem?.image ?? "/images/standardne-celice/imm.webp",
+    alt: "FLEX 7 IMM Slim robotska celica",
+  },
+];
 
 export default function Page() {
   return (
@@ -13,8 +38,19 @@ export default function Page() {
       <main className="bg-white text-neutral-950">
         {/* HERO */}
         <section className="relative overflow-hidden bg-neutral-950 text-white">
-          <div className="absolute inset-0 bg-[url('/images/standardne-celice/hero.webp')] bg-cover bg-center opacity-45" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/45 to-black/10" />
+          <div className="absolute inset-0">
+            <Image
+              src="/images/flexido/legacy/s-1.jpg.jpeg"
+              alt="Standardne robotske celice Flexido"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-center opacity-55"
+            />
+          </div>
+
+          <div className="absolute inset-0 bg-gradient-to-r from-black/82 via-black/55 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/72 via-transparent to-black/15" />
 
           <Container className="relative z-10 flex min-h-[520px] items-end pb-16 pt-32 sm:min-h-[620px] lg:pb-20">
             <div className="max-w-[720px]">
@@ -23,13 +59,13 @@ export default function Page() {
               </p>
 
               <h1 className="mt-5 max-w-[680px] text-[44px] font-semibold leading-[0.95] tracking-[-0.055em] sm:text-[64px] lg:text-[76px]">
-                V Flexidu delamo avtomatizacijo enostavno.
+                Standardne celice za stabilno strego strojev.
               </h1>
 
               <p className="mt-6 max-w-[560px] text-[17px] leading-8 text-white/70">
-                Standardne robotske celice za avtomatizacijo različnih
-                proizvodnih procesov — z glavnima prednostma fleksibilnosti in
-                enostavne uporabe.
+                Robotske celice za avtomatizacijo ponovljivih proizvodnih
+                procesov — predvsem pri stregi CNC strojev in strojev za
+                brizganje plastike.
               </p>
             </div>
           </Container>
@@ -43,28 +79,30 @@ export default function Page() {
                 <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-400">
                   Program
                 </p>
+
                 <h2 className="mt-4 max-w-[480px] text-[34px] font-semibold leading-tight tracking-[-0.04em] text-neutral-950 sm:text-[44px]">
-                  Standardne celice za CNC stroje in stroje za brizganje plastike.
+                  Za procese, kjer se isti koraki ponavljajo vsak dan.
                 </h2>
               </div>
 
               <div className="space-y-6 text-[16px] leading-8 text-neutral-700">
                 <p>
-                  Velik delež proizvodnje podjetja Flexido predstavljajo
-                  standardne robotske celice, katerih glavni prednosti sta
-                  fleksibilnost in enostavnost uporabe.
+                  Standardne robotske celice so smiselne tam, kjer se nalaganje,
+                  odvzem, manipulacija ali kontrola kosov ponavljajo dovolj
+                  pogosto, da ročno delo začne omejevati stabilnost procesa.
                 </p>
 
                 <p>
-                  Namenjene so uporabi za avtomatizacijo različnih proizvodnih
-                  procesov. Največji potencial predstavljajo robotske celice za
-                  strego CNC strojev in robotske celice za strego strojev za
-                  brizganje plastike.
+                  Najpogostejši uporabi sta strega CNC strojev in strega strojev
+                  za brizganje plastike. Celica prevzame ponovljive korake,
+                  operater pa se lahko osredotoči na nadzor, pripravo in
+                  kakovost.
                 </p>
 
                 <p>
-                  Robotske celice Flexido so na voljo v različnih velikostih,
-                  na vseh pa je mogoč širok izbor modulov in opreme.
+                  Robotske celice Flexido so na voljo v različnih velikostih, z
+                  možnostjo izbire modulov, prijemal, zalogovnikov in dodatne
+                  opreme glede na proces.
                 </p>
               </div>
             </div>
@@ -80,18 +118,20 @@ export default function Page() {
               </p>
 
               <h2 className="mt-4 text-[32px] font-semibold leading-tight tracking-[-0.04em] text-neutral-950 sm:text-[44px]">
-                Izmenljiv sistem za hitro prilagoditev različnim strojem in kosom.
+                Izmenljiv sistem za hitro prilagoditev različnim strojem in
+                kosom.
               </h2>
 
               <p className="mt-6 text-[16px] leading-8 text-neutral-700">
-                Glavna prednost celic FLEXIDO je izmenljiv Station System, ki
-                omogoča avtomatizacijo na različnih strojih, za različne kose in
+                Glavna prednost celic Flexido je izmenljiv Station System, ki
+                omogoča uporabo celice na različnih strojih, za različne kose in
                 z zelo kratkim časom menjave.
               </p>
 
               <p className="mt-5 text-[16px] leading-8 text-neutral-700">
-                V produktih uporabljamo komponente priznanih dobaviteljev in
-                napredna interaktivna orodja za storitve.
+                Celica ostane standardizirana, prilagoditev pa se zgodi skozi
+                module, prijemala, postaje in nastavitve glede na konkreten
+                proizvodni proces.
               </p>
             </div>
           </Container>
@@ -104,61 +144,48 @@ export default function Page() {
               <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-400">
                 Tipi celic
               </p>
+
               <h2 className="mt-4 text-[34px] font-semibold tracking-[-0.04em] text-neutral-950 sm:text-[44px]">
-                Dve glavni uporabi.
+                Izberite celico glede na vaš stroj.
               </h2>
             </div>
 
             <div className="grid gap-5 md:grid-cols-2">
-              <Link
-                href="/standardne-celice/cnc-stroji"
-                className="group overflow-hidden rounded-[28px] border border-neutral-200 bg-white transition hover:border-neutral-300 hover:shadow-sm"
-              >
-                <div className="aspect-[4/3] bg-neutral-100">
-                  <img
-                    src="/images/standardne-celice/cnc.webp"
-                    alt="CNC stroji"
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                  />
-                </div>
+              {cellTypes.map((item) => (
+                <Link
+                  key={item.title}
+                  href={item.href}
+                  className="group overflow-hidden rounded-[28px] border border-neutral-200 bg-white transition hover:border-neutral-300 hover:shadow-[0_20px_60px_rgba(15,23,42,0.08)]"
+                >
+                  <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100">
+                    <Image
+                      src={item.image}
+                      alt={item.alt}
+                      fill
+                      sizes="(min-width: 768px) 50vw, 100vw"
+                      className="object-cover transition duration-500 group-hover:scale-[1.03]"
+                    />
+                  </div>
 
-                <div className="p-6">
-                  <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
-                    Standardne robotske celice
-                  </p>
-                  <h3 className="mt-3 text-[24px] font-semibold tracking-[-0.03em] text-neutral-950">
-                    CNC stroji
-                  </h3>
-                  <p className="mt-3 text-[14px] leading-6 text-neutral-600">
-                    Robotske celice za strego CNC strojev.
-                  </p>
-                </div>
-              </Link>
+                  <div className="p-6">
+                    <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
+                      {item.eyebrow}
+                    </p>
 
-              <Link
-                href="/standardne-celice/imm-stroji"
-                className="group overflow-hidden rounded-[28px] border border-neutral-200 bg-white transition hover:border-neutral-300 hover:shadow-sm"
-              >
-                <div className="aspect-[4/3] bg-neutral-100">
-                  <img
-                    src="/images/standardne-celice/imm.webp"
-                    alt="IMM stroji"
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                  />
-                </div>
+                    <h3 className="mt-3 text-[24px] font-semibold tracking-[-0.03em] text-neutral-950">
+                      {item.title}
+                    </h3>
 
-                <div className="p-6">
-                  <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
-                    Standardne robotske celice
-                  </p>
-                  <h3 className="mt-3 text-[24px] font-semibold tracking-[-0.03em] text-neutral-950">
-                    IMM stroji
-                  </h3>
-                  <p className="mt-3 text-[14px] leading-6 text-neutral-600">
-                    Robotske celice za strego strojev za brizganje plastike.
-                  </p>
-                </div>
-              </Link>
+                    <p className="mt-3 text-[14px] leading-6 text-neutral-600">
+                      {item.desc}
+                    </p>
+
+                    <p className="mt-6 text-[14px] font-medium text-neutral-500 transition group-hover:text-neutral-950">
+                      Poglej celico →
+                    </p>
+                  </div>
+                </Link>
+              ))}
             </div>
           </Container>
         </Section>
@@ -170,6 +197,7 @@ export default function Page() {
               <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-400">
                 Video
               </p>
+
               <h2 className="mt-4 text-[34px] font-semibold tracking-[-0.04em] text-neutral-950 sm:text-[44px]">
                 Standardne celice v praksi.
               </h2>
@@ -189,7 +217,64 @@ export default function Page() {
           </Container>
         </Section>
 
-       <FinalCTA />
+        {/* LIGHT FINAL CTA */}
+        <section
+          id="kontakt"
+          className="border-t border-neutral-200/60 bg-white py-20 sm:py-24 lg:py-28"
+        >
+          <Container>
+            <div className="grid gap-10 lg:grid-cols-[1fr_420px] lg:items-center">
+              <div className="max-w-[680px]">
+                <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-500">
+                  Kontakt
+                </p>
+
+                <h2 className="mt-3 max-w-[15ch] text-3xl font-semibold leading-[0.98] tracking-[-0.04em] text-neutral-950 sm:text-4xl lg:text-5xl">
+                  Niste prepričani, katera celica je prava?
+                </h2>
+
+                <p className="mt-5 max-w-[58ch] text-[15px] leading-7 text-neutral-600 sm:text-[16px]">
+                  Skupaj pogledamo vaš stroj, kos, način nalaganja in prostor
+                  ob stroju — potem lažje določimo, ali je bolj smiselna CNC,
+                  IMM ali druga rešitev.
+                </p>
+
+                <div className="mt-8">
+                  <a
+                    href="mailto:info@flexido.eu"
+                    className="inline-flex items-center rounded-full bg-neutral-950 px-6 py-3 text-[14px] font-medium text-white transition hover:bg-neutral-800"
+                  >
+                    Pošljite povpraševanje →
+                  </a>
+                </div>
+              </div>
+
+              <div className="overflow-hidden rounded-3xl border border-neutral-200 bg-neutral-100 shadow-[0_18px_60px_rgba(0,0,0,0.08)]">
+                <div className="relative aspect-[4/3]">
+                  <Image
+                    src="/images/flexido/legacy/s-3.jpg.jpeg"
+                    alt="Standardna robotska celica v proizvodnji"
+                    fill
+                    sizes="(min-width: 1024px) 420px, 100vw"
+                    className="object-cover"
+                  />
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
+
+                  <div className="absolute bottom-0 left-0 right-0 p-5">
+                    <p className="text-[11px] uppercase tracking-[0.16em] text-white/55">
+                      Prvi korak
+                    </p>
+
+                    <p className="mt-2 max-w-[34ch] text-[15px] font-medium leading-6 text-white">
+                      Katera celica najbolje ustreza vašemu stroju in procesu?
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Container>
+        </section>
       </main>
 
       <Footer />

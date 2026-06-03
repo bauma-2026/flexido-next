@@ -11,9 +11,11 @@ export default function Page() {
   return (
     <EditorialPage
       eyebrow="Servis"
-      title="Cenik servisnih storitev za Slovenijo"
+      title="Cenik servisnih storitev"
       date="2026"
       details={details}
+      backHref="/servis"
+      backLabel="Nazaj na servis"
     >
       <div className="space-y-10">
         <section className="space-y-5">
@@ -23,7 +25,7 @@ export default function Page() {
 
           <p>
             Cena za uro popravila v času rednega delovnega časa, tj. od
-            ponedeljka do petka, razen praznikov, v času med 7.00 in 16.00 uro:
+            ponedeljka do petka, razen praznikov, v času med 7.00 in 16.00:
           </p>
 
           <div className="not-prose overflow-hidden rounded-2xl border border-neutral-200">
@@ -31,31 +33,34 @@ export default function Page() {
               <tbody className="divide-y divide-neutral-200">
                 <tr>
                   <td className="px-5 py-4 text-neutral-700">
-                    Serviser tehnik II (enostavna mehanika)
+                    Serviser tehnik II — enostavna mehanika
                   </td>
                   <td className="px-5 py-4 font-medium text-neutral-950">
                     51,20 EUR
                   </td>
                 </tr>
+
                 <tr>
                   <td className="px-5 py-4 text-neutral-700">
-                    Serviser tehnik I (zahtevna mehanika, pnevmatika, elektro)
+                    Serviser tehnik I — zahtevna mehanika, pnevmatika, elektro
                   </td>
                   <td className="px-5 py-4 font-medium text-neutral-950">
                     58,60 EUR
                   </td>
                 </tr>
+
                 <tr>
                   <td className="px-5 py-4 text-neutral-700">
-                    Serviser elektronike II (roboti, preprosto krmiljenje)
+                    Serviser elektronike II — roboti, preprosto krmiljenje
                   </td>
                   <td className="px-5 py-4 font-medium text-neutral-950">
                     63,80 EUR
                   </td>
                 </tr>
+
                 <tr>
                   <td className="px-5 py-4 text-neutral-700">
-                    Serviser elektronike I (kamere, zahtevno krmiljenje)
+                    Serviser elektronike I — kamere, zahtevno krmiljenje
                   </td>
                   <td className="px-5 py-4 font-medium text-neutral-950">
                     72,60 EUR
@@ -67,7 +72,7 @@ export default function Page() {
 
           <p className="text-[14px] italic text-neutral-600">
             V čas za obračun se šteje tudi čas na poti, priprava na popravilo in
-            eventualni čakalni čas.
+            morebitni čakalni čas.
           </p>
         </section>
 
@@ -81,15 +86,16 @@ export default function Page() {
               <tbody className="divide-y divide-neutral-200">
                 <tr>
                   <td className="px-5 py-4 text-neutral-700">
-                    Nadurno delo, delo ob sobotah
+                    Nadurno delo in delo ob sobotah
                   </td>
                   <td className="px-5 py-4 font-medium text-neutral-950">
                     dodatno 50 %
                   </td>
                 </tr>
+
                 <tr>
                   <td className="px-5 py-4 text-neutral-700">
-                    Nočno delo po 20.00 uri in delo ob nedeljah in praznikih
+                    Nočno delo po 20.00 uri ter delo ob nedeljah in praznikih
                   </td>
                   <td className="px-5 py-4 font-medium text-neutral-950">
                     dodatno 100 %
@@ -105,22 +111,26 @@ export default function Page() {
             3. Stroški prevoza
           </h2>
 
-          <p className="text-[18px] font-medium text-neutral-900">
-            0,58 EUR / km
-          </p>
+          <div className="not-prose rounded-2xl border border-neutral-200 bg-neutral-50 p-5">
+            <p className="text-[28px] font-semibold tracking-[-0.03em] text-neutral-950">
+              0,58 EUR / km
+            </p>
+          </div>
 
           <p>
             Morebitni dodatni stroški, kot so stroški nočitev, cestnin, drugi
-            prevozni stroški in podobni direktni stroški, se obračunajo posebej
-            po dejanskih stroških.
+            prevozni stroški in podobni neposredni stroški, se obračunajo
+            posebej po dejanskih stroških.
           </p>
 
           <ul className="list-disc space-y-2 pl-5 text-neutral-700">
             <li>Na zgoraj navedene cene se obračuna DDV.</li>
+
             <li>
               Plačilni rok za servisne storitve in rezervne dele je 30 dni po
               opravljeni storitvi oziroma po dobavi.
             </li>
+
             <li>
               Cenik velja za nedoločen čas in se lahko spremeni v primeru, da
               nastopijo razlogi za spremembo.
