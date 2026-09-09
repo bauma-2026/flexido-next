@@ -20,17 +20,22 @@ export const injectionMoldingContent: SolutionPageContent = {
   ],
   sections: [
     {
-      type: "numberedSteps",
+      type: "problemSplit",
       id: "brizganje",
       eyebrow: "Der Spritzgießprozess",
       heading: "Automatisierung kann Teil des gesamten Zyklus sein.",
-      body: "Bei anspruchsvolleren Umsetzungen geht es nicht nur um die Entnahme des Spritzgussteils. Der Prozess kann die Vorbereitung von Einlegeteilen, Arbeiten am Werkzeug, Prüfung sowie Arbeitsschritte vor oder nach dem Spritzgießen umfassen.",
-      steps: [
-        { label: "Vorbereitung und Zufuhr von Einlegeteilen", anchor: "#moznosti" },
-        { label: "Einlegen ins Werkzeug und Umspritzen", anchor: "#moznosti" },
-        { label: "Entnahme, Prüfung und zusätzliche Arbeitsschritte", anchor: "#moznosti" },
-        { label: "Anbindung von Maschine, Robotern, Stationen und Prozess", anchor: "#moznosti" },
+      body: [
+        "Bei anspruchsvolleren Umsetzungen geht es nicht nur um die Entnahme des Spritzgussteils.",
+        "Der Prozess kann die Vorbereitung von Einlegeteilen, Arbeiten am Werkzeug, Prüfung sowie Arbeitsschritte vor oder nach dem Spritzgießen umfassen.",
       ],
+      itemsEyebrow: "Was der Prozess umfassen kann",
+      items: [
+        "Vorbereitung und Zufuhr von Einlegeteilen",
+        "Einlegen ins Werkzeug und Umspritzen",
+        "Entnahme, Prüfung und zusätzliche Arbeitsschritte",
+        "Anbindung von Maschine, Robotern, Stationen und Prozess",
+      ],
+      result: "Ergebnis: die Automatisierung muss den gesamten Zyklus abdecken, nicht nur die Teileentnahme.",
     },
     {
       type: "capabilityGroups",

@@ -25,17 +25,22 @@ export const customSystemsContent: SolutionPageContent = {
   ],
   sections: [
     {
-      type: "numberedSteps",
+      type: "problemSplit",
       id: "sistem",
       eyebrow: "Namenski sistem",
       heading: "Rešitev presega eno celico ali eno področje.",
-      body: "Namenski sistem redko določi en sam gradnik. Sestavljajo ga povezane operacije, namenske postaje in orodja, omejitve izvedbe ter usklajena sestava celote.",
-      steps: [
-        { label: "Povezane operacije", anchor: "#sestava" },
-        { label: "Namenske postaje in orodja", anchor: "#sestava" },
-        { label: "Omejitve izvedbe", anchor: "#sestava" },
-        { label: "Usklajena sestava", anchor: "#sestava" },
+      body: [
+        "Namenski sistem redko določi en sam gradnik.",
+        "Sestavljajo ga povezane operacije, namenske postaje in orodja, omejitve izvedbe ter usklajena sestava celote.",
       ],
+      itemsEyebrow: "Kaj ga določa",
+      items: [
+        "Povezane operacije",
+        "Namenske postaje in orodja",
+        "Omejitve izvedbe",
+        "Usklajena sestava",
+      ],
+      result: "Rezultat: sistem določa sestava operacij, postaj in omejitev, ne en sam gradnik.",
     },
     {
       type: "capabilityGroups",

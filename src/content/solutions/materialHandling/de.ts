@@ -21,19 +21,22 @@ export const materialHandlingContent: SolutionPageContent = {
   ],
   sections: [
     {
-      type: "numberedSteps",
+      type: "problemSplit",
       id: "manipulacija",
       eyebrow: "Materialhandhabung im Prozess",
       heading: "Das Bewegen des Werkstücks ist Teil der Operation selbst.",
-      body: "Manchmal erledigt eine Maschine oder Station ihren Teil der Arbeit, das Werkstück muss danach jedoch korrekt übernommen, ausgerichtet und für den nächsten Schritt vorbereitet werden. Die Materialhandhabung legt fest, wie diese Übergabe erfolgt.",
-      steps: [
-        { label: "Wo das Werkstück übernommen wird", anchor: "#naloge" },
-        { label: "Wie es gegriffen wird", anchor: "#zasnova" },
-        { label: "Wie es ausgerichtet sein muss", anchor: "#naloge" },
-        { label: "Welchen Weg es zurücklegt", anchor: "#zasnova" },
-        { label: "Wo es positioniert wird", anchor: "#naloge" },
-        { label: "Wie es weitergegeben wird", anchor: "#naloge" },
+      body: [
+        "Manchmal erledigt eine Maschine oder Station ihren Teil der Arbeit, das Werkstück muss danach jedoch korrekt übernommen, ausgerichtet und für den nächsten Schritt vorbereitet werden.",
+        "Die Materialhandhabung legt fest, wie diese Übergabe erfolgt.",
       ],
+      itemsEyebrow: "Wie die Übergabe erfolgt",
+      items: [
+        "Wo das Werkstück übernommen wird",
+        "Wie es gegriffen wird",
+        "Wie es ausgerichtet sein muss",
+        "Wie es weitergegeben wird",
+      ],
+      result: "Ergebnis: die Übergabe des Werkstücks muss Teil der Operation selbst sein, nicht ein Zusatz dazu.",
     },
     {
       type: "capabilityGroups",

@@ -23,17 +23,19 @@ export const cncContent: SolutionPageContent = {
   ],
   sections: [
     {
-      type: "numberedSteps",
+      type: "problemSplit",
       id: "cnc-proces",
       eyebrow: "CNC proizvodni proces",
       heading: "Avtomatizacija se začne okoli obdelave.",
       body: "CNC stroj je le en del procesa. Zahteve se razširijo, ko je treba uskladiti delo s kosi, dodatne operacije in opremo okoli obdelave.",
-      steps: [
-        { label: "Nalaganje in odvzem kosov", anchor: "#moznosti" },
-        { label: "Različni obdelovanci in prijemi", anchor: "#moznosti" },
-        { label: "Več CNC strojev ali dodatne operacije", anchor: "#moznosti" },
-        { label: "Tok materiala, kontrola in usklajevanje opreme", anchor: "#moznosti" },
+      itemsEyebrow: "Kje nastajajo zahteve",
+      items: [
+        "Nalaganje in odvzem kosov",
+        "Različni obdelovanci in prijemi",
+        "Več CNC strojev ali dodatne operacije",
+        "Tok materiala, kontrola in usklajevanje opreme",
       ],
+      result: "Rezultat: rešitev mora biti zasnovana okoli dejanskega procesa, ne le okoli CNC stroja.",
     },
     {
       type: "capabilityGroups",

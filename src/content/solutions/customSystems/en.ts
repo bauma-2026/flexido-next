@@ -25,17 +25,22 @@ export const customSystemsContent: SolutionPageContent = {
   ],
   sections: [
     {
-      type: "numberedSteps",
+      type: "problemSplit",
       id: "sistem",
       eyebrow: "Custom-built system",
       heading: "The solution goes beyond one cell or one area.",
-      body: "A custom-built system is rarely defined by a single building block. It's shaped by connected operations, custom-built stations and tooling, implementation constraints, and a coordinated overall assembly.",
-      steps: [
-        { label: "Connected operations", anchor: "#sestava" },
-        { label: "Custom-built stations and tooling", anchor: "#sestava" },
-        { label: "Implementation constraints", anchor: "#sestava" },
-        { label: "Coordinated assembly", anchor: "#sestava" },
+      body: [
+        "A custom-built system is rarely defined by a single building block.",
+        "It's shaped by connected operations, custom-built stations and tooling, implementation constraints, and a coordinated overall assembly.",
       ],
+      itemsEyebrow: "What defines it",
+      items: [
+        "Connected operations",
+        "Custom-built stations and tooling",
+        "Implementation constraints",
+        "Coordinated assembly",
+      ],
+      result: "Result: the system is defined by the combination of operations, stations, and constraints — not by a single building block.",
     },
     {
       type: "capabilityGroups",

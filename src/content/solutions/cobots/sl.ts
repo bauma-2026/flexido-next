@@ -21,17 +21,22 @@ export const cobotsContent: SolutionPageContent = {
   ],
   sections: [
     {
-      type: "capabilityGroups",
+      type: "problemSplit",
       id: "primernost",
       eyebrow: "Kolaborativna avtomatizacija",
       heading: "Kdaj je cobot primeren del procesa.",
-      body: "Ne začnemo pri robotu, ampak pri operaciji. Preverimo, ali je naloga ponovljiva, kako se navezuje na obstoječe delovno mesto in katere omejitve postavljajo kos, prostor ter oprema.",
-      groups: [
-        { title: "Ponovljiva operacija", body: "Prijemanje, vstavljanje, odlaganje ali drug korak z jasnim zaporedjem." },
-        { title: "Obstoječe delovno mesto", body: "Robot se vključuje v postajo, stroj ali proces, ki je že del proizvodnje." },
-        { title: "Spreminjajoče se zahteve", body: "Naloga, kos ali prostor zahtevajo prilagodljivo zasnovo robotske postaje." },
-        { title: "Oprema okoli operacije", body: "Rešitev lahko vključuje prijemalo, vision ali povezavo z okoliško opremo." },
+      body: [
+        "Ne začnemo pri robotu, ampak pri operaciji.",
+        "Preverimo, ali je naloga ponovljiva, kako se navezuje na obstoječe delovno mesto in katere omejitve postavljajo kos, prostor ter oprema.",
       ],
+      itemsEyebrow: "Kdaj je primeren",
+      items: [
+        "Ponovljiva operacija",
+        "Obstoječe delovno mesto",
+        "Spreminjajoče se zahteve",
+        "Oprema okoli operacije",
+      ],
+      result: "Rezultat: cobot je smiseln, ko se ujema z operacijo, delovnim mestom in omejitvami procesa.",
     },
     {
       type: "capabilityGroups",

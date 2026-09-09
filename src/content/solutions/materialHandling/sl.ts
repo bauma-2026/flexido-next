@@ -21,19 +21,22 @@ export const materialHandlingContent: SolutionPageContent = {
   ],
   sections: [
     {
-      type: "numberedSteps",
+      type: "problemSplit",
       id: "manipulacija",
       eyebrow: "Manipulacija v procesu",
       heading: "Premik kosa je del same operacije.",
-      body: "Včasih stroj ali postaja opravi svoj del, kos pa mora biti nato pravilno prevzet, usmerjen in pripravljen za naslednji korak. Manipulacija določi, kako se ta predaja izvede.",
-      steps: [
-        { label: "Kje se kos prevzame", anchor: "#naloge" },
-        { label: "Kako se ga prime", anchor: "#zasnova" },
-        { label: "Kako mora biti usmerjen", anchor: "#naloge" },
-        { label: "Po kateri poti se premakne", anchor: "#zasnova" },
-        { label: "Kje se ga pozicionira", anchor: "#naloge" },
-        { label: "Kako se ga preda naprej", anchor: "#naloge" },
+      body: [
+        "Včasih stroj ali postaja opravi svoj del, kos pa mora biti nato pravilno prevzet, usmerjen in pripravljen za naslednji korak.",
+        "Manipulacija določi, kako se ta predaja izvede.",
       ],
+      itemsEyebrow: "Kako poteka predaja",
+      items: [
+        "Kje se kos prevzame",
+        "Kako se ga prime",
+        "Kako mora biti usmerjen",
+        "Kako se ga preda naprej",
+      ],
+      result: "Rezultat: predaja kosa mora biti del same operacije, ne dodatek k njej.",
     },
     {
       type: "capabilityGroups",

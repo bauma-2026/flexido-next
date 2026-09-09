@@ -20,17 +20,22 @@ export const cobotsContent: SolutionPageContent = {
   ],
   sections: [
     {
-      type: "capabilityGroups",
+      type: "problemSplit",
       id: "primernost",
       eyebrow: "Collaborative automation",
       heading: "When a cobot is the right part of the process.",
-      body: "We don't start with the robot, we start with the operation. We check whether the task is repeatable, how it connects to the existing workstation, and what constraints the part, space, and equipment impose.",
-      groups: [
-        { title: "Repeatable operation", body: "Picking, insertion, placement, or another step with a clear sequence." },
-        { title: "Existing workstation", body: "The robot is integrated into a station, machine, or process that is already part of production." },
-        { title: "Changing requirements", body: "The task, part, or space calls for a flexible robot-station design." },
-        { title: "Equipment around the operation", body: "The solution may include a gripper, vision, or a connection to the surrounding equipment." },
+      body: [
+        "We don't start with the robot, we start with the operation.",
+        "We check whether the task is repeatable, how it connects to the existing workstation, and what constraints the part, space, and equipment impose.",
       ],
+      itemsEyebrow: "When it is suitable",
+      items: [
+        "Repeatable operation",
+        "Existing workstation",
+        "Changing requirements",
+        "Equipment around the operation",
+      ],
+      result: "Result: a cobot makes sense when it fits the operation, the workstation, and the constraints of the process.",
     },
     {
       type: "capabilityGroups",

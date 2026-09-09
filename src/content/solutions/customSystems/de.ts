@@ -25,17 +25,22 @@ export const customSystemsContent: SolutionPageContent = {
   ],
   sections: [
     {
-      type: "numberedSteps",
+      type: "problemSplit",
       id: "sistem",
       eyebrow: "Kundenspezifisches System",
       heading: "Die Lösung geht über eine Zelle oder ein Fachgebiet hinaus.",
-      body: "Ein kundenspezifisches System wird selten von einem einzelnen Baustein bestimmt. Es ergibt sich aus verbundenen Abläufen, kundenspezifischen Stationen und Werkzeugen, Umsetzungsbedingungen und einem abgestimmten Gesamtaufbau.",
-      steps: [
-        { label: "Verbundene Abläufe", anchor: "#sestava" },
-        { label: "Kundenspezifische Stationen und Werkzeuge", anchor: "#sestava" },
-        { label: "Umsetzungsbedingungen", anchor: "#sestava" },
-        { label: "Abgestimmter Aufbau", anchor: "#sestava" },
+      body: [
+        "Ein kundenspezifisches System wird selten von einem einzelnen Baustein bestimmt.",
+        "Es ergibt sich aus verbundenen Abläufen, kundenspezifischen Stationen und Werkzeugen, Umsetzungsbedingungen und einem abgestimmten Gesamtaufbau.",
       ],
+      itemsEyebrow: "Was ihn bestimmt",
+      items: [
+        "Verbundene Abläufe",
+        "Kundenspezifische Stationen und Werkzeuge",
+        "Umsetzungsbedingungen",
+        "Abgestimmter Aufbau",
+      ],
+      result: "Ergebnis: das System bestimmt die Kombination aus Abläufen, Stationen und Bedingungen — nicht ein einzelner Baustein.",
     },
     {
       type: "capabilityGroups",

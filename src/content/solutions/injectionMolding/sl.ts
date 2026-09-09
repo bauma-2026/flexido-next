@@ -20,17 +20,22 @@ export const injectionMoldingContent: SolutionPageContent = {
   ],
   sections: [
     {
-      type: "numberedSteps",
+      type: "problemSplit",
       id: "brizganje",
       eyebrow: "Proces brizganja",
       heading: "Avtomatizacija je lahko del celotnega cikla.",
-      body: "Pri zahtevnejših izvedbah ne gre le za odvzem brizganega kosa. Proces lahko vključuje pripravo insertov, delo ob orodju, kontrolo in operacije pred ali po brizganju.",
-      steps: [
-        { label: "Priprava in dovod insertov", anchor: "#moznosti" },
-        { label: "Vstavljanje v orodje in nabrizgavanje", anchor: "#moznosti" },
-        { label: "Odvzem, kontrola in dodatne operacije", anchor: "#moznosti" },
-        { label: "Povezava stroja, robotov, postaj in procesa", anchor: "#moznosti" },
+      body: [
+        "Pri zahtevnejših izvedbah ne gre le za odvzem brizganega kosa.",
+        "Proces lahko vključuje pripravo insertov, delo ob orodju, kontrolo in operacije pred ali po brizganju.",
       ],
+      itemsEyebrow: "Kaj lahko vključuje proces",
+      items: [
+        "Priprava in dovod insertov",
+        "Vstavljanje v orodje in nabrizgavanje",
+        "Odvzem, kontrola in dodatne operacije",
+        "Povezava stroja, robotov, postaj in procesa",
+      ],
+      result: "Rezultat: avtomatizacija mora pokriti celoten cikel, ne le odvzem kosa.",
     },
     {
       type: "capabilityGroups",

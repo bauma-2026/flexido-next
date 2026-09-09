@@ -51,6 +51,22 @@ export type IntroBlock = {
 };
 
 /**
+ * Canonical first “Problem” section used across solution detail pages:
+ * left narrative + right 2×2 quiet bordered items + result line.
+ */
+export type ProblemSplitBlock = {
+  type: "problemSplit";
+  id: string;
+  eyebrow: string;
+  heading: string;
+  /** One or two supporting paragraphs. */
+  body: string | string[];
+  itemsEyebrow: string;
+  items: [string, string, string, string];
+  result: string;
+};
+
+/**
  * A grid of short fact/problem statements — either plain one-line items, or
  * small titled cards (title + one-sentence body), depending on the page.
  */
@@ -250,6 +266,7 @@ export type TextOnlyBlock = {
 
 export type SolutionSectionBlock =
   | IntroBlock
+  | ProblemSplitBlock
   | FactGridBlock
   | ComparisonSplitBlock
   | CapabilityGroupsBlock

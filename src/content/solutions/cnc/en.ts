@@ -23,17 +23,19 @@ export const cncContent: SolutionPageContent = {
   ],
   sections: [
     {
-      type: "numberedSteps",
+      type: "problemSplit",
       id: "cnc-proces",
       eyebrow: "CNC production process",
       heading: "Automation starts around the machining itself.",
       body: "The CNC machine is only one part of the process. Requirements grow once you need to coordinate part handling, additional operations, and equipment around the machining.",
-      steps: [
-        { label: "Loading and unloading parts", anchor: "#moznosti" },
-        { label: "Different workpieces and grips", anchor: "#moznosti" },
-        { label: "Multiple CNC machines or additional operations", anchor: "#moznosti" },
-        { label: "Material flow, inspection, and equipment coordination", anchor: "#moznosti" },
+      itemsEyebrow: "Where requirements arise",
+      items: [
+        "Loading and unloading parts",
+        "Different workpieces and grips",
+        "Multiple CNC machines or additional operations",
+        "Material flow, inspection, and equipment coordination",
       ],
+      result: "Result: the solution must be shaped around the real process, not only the CNC machine.",
     },
     {
       type: "capabilityGroups",

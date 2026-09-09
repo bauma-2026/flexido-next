@@ -20,17 +20,22 @@ export const injectionMoldingContent: SolutionPageContent = {
   ],
   sections: [
     {
-      type: "numberedSteps",
+      type: "problemSplit",
       id: "brizganje",
       eyebrow: "The molding process",
       heading: "Automation can be part of the entire cycle.",
-      body: "In more demanding implementations, it isn't just about removing the molded part. The process can include insert preparation, work at the mold, inspection, and operations before or after molding.",
-      steps: [
-        { label: "Insert preparation and feeding", anchor: "#moznosti" },
-        { label: "Insertion into the mold and overmolding", anchor: "#moznosti" },
-        { label: "Removal, inspection, and additional operations", anchor: "#moznosti" },
-        { label: "Integration of the machine, robots, stations, and process", anchor: "#moznosti" },
+      body: [
+        "In more demanding implementations, it isn't just about removing the molded part.",
+        "The process can include insert preparation, work at the mold, inspection, and operations before or after molding.",
       ],
+      itemsEyebrow: "What the process can include",
+      items: [
+        "Insert preparation and feeding",
+        "Insertion into the mold and overmolding",
+        "Removal, inspection, and additional operations",
+        "Integration of the machine, robots, stations, and process",
+      ],
+      result: "Result: automation has to cover the whole cycle, not just part removal.",
     },
     {
       type: "capabilityGroups",

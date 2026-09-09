@@ -21,17 +21,19 @@ export const automationContent: SolutionPageContent = {
   ],
   sections: [
     {
-      type: "numberedSteps",
+      type: "problemSplit",
       id: "proces",
       eyebrow: "Umfassendere Automatisierung",
       heading: "Der Prozess verbindet mehr als eine Zelle.",
       body: "Ein Produktionsprozess läuft selten auf einer einzigen Maschine. Umfassendere Automatisierung verbindet Maschinen, Roboter, zusätzliche Arbeitsschritte und den Materialfluss zu einem abgestimmten Prozess.",
-      steps: [
-        { label: "Mehrere Maschinen und Roboter in einem Prozess", anchor: "#gradniki" },
-        { label: "Greifer, Werkzeuge und Wechsel zwischen Teilen", anchor: "#gradniki" },
-        { label: "Zusätzliche Arbeitsschritte, Prüfung und Sicherheit", anchor: "#gradniki" },
-        { label: "Materialfluss und Anbindung der Ausrüstung", anchor: "#gradniki" },
+      itemsEyebrow: "Was verbunden werden muss",
+      items: [
+        "Mehrere Maschinen und Roboter in einem Prozess",
+        "Greifer, Werkzeuge und Wechsel zwischen Teilen",
+        "Zusätzliche Arbeitsschritte, Prüfung und Sicherheit",
+        "Materialfluss und Anbindung der Ausrüstung",
       ],
+      result: "Ergebnis: umfassendere Automatisierung muss Maschinen, Roboter, zusätzliche Arbeitsschritte und den Materialfluss zu einem abgestimmten Prozess verbinden.",
     },
     {
       type: "capabilityGroups",

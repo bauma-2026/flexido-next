@@ -22,17 +22,22 @@ export const logisticsContent: SolutionPageContent = {
   ],
   sections: [
     {
-      type: "numberedSteps",
+      type: "problemSplit",
       id: "tok-materiala",
       eyebrow: "Logistika proizvodnje",
       heading: "Material mora priti do naslednje faze.",
-      body: "Ko stroji in postaje delujejo ločeno, material čaka med operacijami, se kopiči na vmesnih mestih ali se premika brez jasnega načina predaje. Interna logistika določi, kako se tok poveže med posameznimi fazami.",
-      steps: [
-        { label: "Material čaka med operacijami", anchor: "#sistemi" },
-        { label: "Postaje niso povezane v en tok", anchor: "#sistemi" },
-        { label: "Zaboji ali palete čakajo na naslednjo fazo", anchor: "#sistemi" },
-        { label: "Transport in proizvodnja nista usklajena", anchor: "#povezovanje" },
+      body: [
+        "Ko stroji in postaje delujejo ločeno, material čaka med operacijami, se kopiči na vmesnih mestih ali se premika brez jasnega načina predaje.",
+        "Interna logistika določi, kako se tok poveže med posameznimi fazami.",
       ],
+      itemsEyebrow: "Kje nastajajo zastoji",
+      items: [
+        "Material čaka med operacijami",
+        "Postaje niso povezane v en tok",
+        "Zaboji ali palete čakajo na naslednjo fazo",
+        "Transport in proizvodnja nista usklajena",
+      ],
+      result: "Rezultat: dokler faze niso povezane, material čaka med operacijami.",
     },
     {
       type: "capabilityGroups",

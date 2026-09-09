@@ -21,17 +21,19 @@ export const automationContent: SolutionPageContent = {
   ],
   sections: [
     {
-      type: "numberedSteps",
+      type: "problemSplit",
       id: "proces",
       eyebrow: "Broader automation",
       heading: "The process connects more than one cell.",
       body: "A production process rarely runs on a single machine. Broader automation connects machines, robots, additional operations, and material flow into one coordinated process.",
-      steps: [
-        { label: "Multiple machines and robots in one process", anchor: "#gradniki" },
-        { label: "Grippers, tools, and changeover between parts", anchor: "#gradniki" },
-        { label: "Additional operations, inspection, and safety", anchor: "#gradniki" },
-        { label: "Material flow and equipment integration", anchor: "#gradniki" },
+      itemsEyebrow: "What needs to be connected",
+      items: [
+        "Multiple machines and robots in one process",
+        "Grippers, tools, and changeover between parts",
+        "Additional operations, inspection, and safety",
+        "Material flow and equipment integration",
       ],
+      result: "Result: broader automation has to connect machines, robots, additional operations, and material flow into one coordinated process.",
     },
     {
       type: "capabilityGroups",

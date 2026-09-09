@@ -21,17 +21,19 @@ export const automationContent: SolutionPageContent = {
   ],
   sections: [
     {
-      type: "numberedSteps",
+      type: "problemSplit",
       id: "proces",
       eyebrow: "Širša avtomatizacija",
       heading: "Proces poveže več kot eno celico.",
       body: "Proizvodni proces redko poteka na enem stroju. Širša avtomatizacija poveže stroje, robote, dodatne operacije in tok materiala v en usklajen proces.",
-      steps: [
-        { label: "Več strojev in robotov v enem procesu", anchor: "#gradniki" },
-        { label: "Prijemala, orodja in menjava med kosi", anchor: "#gradniki" },
-        { label: "Dodatne operacije, kontrola in varnost", anchor: "#gradniki" },
-        { label: "Tok materiala in povezava opreme", anchor: "#gradniki" },
+      itemsEyebrow: "Kaj mora biti povezano",
+      items: [
+        "Več strojev in robotov v enem procesu",
+        "Prijemala, orodja in menjava med kosi",
+        "Dodatne operacije, kontrola in varnost",
+        "Tok materiala in povezava opreme",
       ],
+      result: "Rezultat: širša avtomatizacija mora povezati stroje, robote, dodatne operacije in tok materiala v en usklajen proces.",
     },
     {
       type: "capabilityGroups",

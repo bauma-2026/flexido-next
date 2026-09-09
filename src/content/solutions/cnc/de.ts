@@ -23,17 +23,19 @@ export const cncContent: SolutionPageContent = {
   ],
   sections: [
     {
-      type: "numberedSteps",
+      type: "problemSplit",
       id: "cnc-proces",
       eyebrow: "CNC-Fertigungsprozess",
       heading: "Die Automatisierung beginnt rund um die Bearbeitung.",
       body: "Die CNC-Maschine ist nur ein Teil des Prozesses. Die Anforderungen wachsen, sobald Teilehandling, zusätzliche Arbeitsschritte und Ausrüstung rund um die Bearbeitung aufeinander abgestimmt werden müssen.",
-      steps: [
-        { label: "Be- und Entladen von Teilen", anchor: "#moznosti" },
-        { label: "Unterschiedliche Werkstücke und Greifarten", anchor: "#moznosti" },
-        { label: "Mehrere CNC-Maschinen oder zusätzliche Arbeitsschritte", anchor: "#moznosti" },
-        { label: "Materialfluss, Prüfung und Abstimmung der Ausrüstung", anchor: "#moznosti" },
+      itemsEyebrow: "Wo Anforderungen entstehen",
+      items: [
+        "Be- und Entladen von Teilen",
+        "Unterschiedliche Werkstücke und Greifarten",
+        "Mehrere CNC-Maschinen oder zusätzliche Arbeitsschritte",
+        "Materialfluss, Prüfung und Abstimmung der Ausrüstung",
       ],
+      result: "Ergebnis: die Lösung muss um den tatsächlichen Prozess herum gestaltet werden, nicht nur um die CNC-Maschine.",
     },
     {
       type: "capabilityGroups",

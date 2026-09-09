@@ -22,17 +22,22 @@ export const logisticsContent: SolutionPageContent = {
   ],
   sections: [
     {
-      type: "numberedSteps",
+      type: "problemSplit",
       id: "tok-materiala",
       eyebrow: "Produktionslogistik",
       heading: "Material muss die nächste Phase erreichen.",
-      body: "Wenn Maschinen und Stationen getrennt voneinander arbeiten, wartet Material zwischen den Operationen, staut sich an Zwischenpunkten oder bewegt sich ohne eine klare Art der Übergabe. Die interne Logistik legt fest, wie der Fluss zwischen den einzelnen Phasen verbunden wird.",
-      steps: [
-        { label: "Material wartet zwischen den Operationen", anchor: "#sistemi" },
-        { label: "Stationen sind nicht zu einem einzigen Fluss verbunden", anchor: "#sistemi" },
-        { label: "Behälter oder Paletten warten auf die nächste Phase", anchor: "#sistemi" },
-        { label: "Transport und Produktion sind nicht aufeinander abgestimmt", anchor: "#povezovanje" },
+      body: [
+        "Wenn Maschinen und Stationen getrennt voneinander arbeiten, wartet Material zwischen den Operationen, staut sich an Zwischenpunkten oder bewegt sich ohne eine klare Art der Übergabe.",
+        "Die interne Logistik legt fest, wie der Fluss zwischen den einzelnen Phasen verbunden wird.",
       ],
+      itemsEyebrow: "Wo Verzögerungen entstehen",
+      items: [
+        "Material wartet zwischen den Operationen",
+        "Stationen sind nicht zu einem einzigen Fluss verbunden",
+        "Behälter oder Paletten warten auf die nächste Phase",
+        "Transport und Produktion sind nicht aufeinander abgestimmt",
+      ],
+      result: "Ergebnis: solange die Phasen nicht verbunden sind, wartet Material zwischen den Operationen.",
     },
     {
       type: "capabilityGroups",

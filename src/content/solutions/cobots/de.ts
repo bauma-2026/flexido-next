@@ -20,17 +20,22 @@ export const cobotsContent: SolutionPageContent = {
   ],
   sections: [
     {
-      type: "capabilityGroups",
+      type: "problemSplit",
       id: "primernost",
       eyebrow: "Kollaborative Automatisierung",
       heading: "Wann ein Cobot der richtige Teil des Prozesses ist.",
-      body: "Wir beginnen nicht beim Roboter, sondern beim Arbeitsschritt. Wir prüfen, ob die Aufgabe wiederholbar ist, wie sie sich in den bestehenden Arbeitsplatz einfügt und welche Einschränkungen Werkstück, Platz und Ausrüstung vorgeben.",
-      groups: [
-        { title: "Wiederholbarer Arbeitsschritt", body: "Greifen, Einlegen, Ablegen oder ein anderer Schritt mit klarer Abfolge." },
-        { title: "Bestehender Arbeitsplatz", body: "Der Roboter wird in eine Station, Maschine oder einen Prozess eingebunden, der bereits Teil der Produktion ist." },
-        { title: "Sich ändernde Anforderungen", body: "Aufgabe, Werkstück oder Platz erfordern eine anpassungsfähige Gestaltung des Roboterarbeitsplatzes." },
-        { title: "Ausrüstung rund um den Arbeitsschritt", body: "Die Lösung kann einen Greifer, Vision oder eine Anbindung an die umliegende Ausrüstung umfassen." },
+      body: [
+        "Wir beginnen nicht beim Roboter, sondern beim Arbeitsschritt.",
+        "Wir prüfen, ob die Aufgabe wiederholbar ist, wie sie sich in den bestehenden Arbeitsplatz einfügt und welche Einschränkungen Werkstück, Platz und Ausrüstung vorgeben.",
       ],
+      itemsEyebrow: "Wann er geeignet ist",
+      items: [
+        "Wiederholbarer Arbeitsschritt",
+        "Bestehender Arbeitsplatz",
+        "Sich ändernde Anforderungen",
+        "Ausrüstung rund um den Arbeitsschritt",
+      ],
+      result: "Ergebnis: ein Cobot ist sinnvoll, wenn er zu Arbeitsschritt, Arbeitsplatz und Prozessbedingungen passt.",
     },
     {
       type: "capabilityGroups",

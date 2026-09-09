@@ -11,6 +11,7 @@ import type { Locale } from "@/i18n/config";
 import { getPath } from "@/i18n/routes";
 import type { SolutionPageContent, SolutionSectionBlock } from "@/content/solutions/types";
 import { ResolvedFamilyLink, renderTemplate } from "./links";
+import ProblemSplitBlock from "./ProblemSplitBlock";
 
 /**
  * Section background, chosen by what the block *is* — not by its position
@@ -32,6 +33,7 @@ function backgroundForBlock(type: SolutionSectionBlock["type"]): string {
     case "proofGrid":
       return "surface-soft";
     case "intro":
+    case "problemSplit":
     case "factGrid":
     case "comparisonSplit":
     case "capabilityGroups":
@@ -171,6 +173,9 @@ export default function SolutionPageTemplate({
 
 function SectionBlock({ section, locale }: { section: SolutionSectionBlock; locale: Locale }) {
   switch (section.type) {
+    case "problemSplit":
+      return <ProblemSplitBlock section={section} />;
+
     case "intro":
       return (
         <Section id={section.id} className={`scroll-mt-24 ${backgroundForBlock(section.type)}`}>

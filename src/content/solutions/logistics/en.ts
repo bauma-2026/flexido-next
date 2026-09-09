@@ -22,17 +22,22 @@ export const logisticsContent: SolutionPageContent = {
   ],
   sections: [
     {
-      type: "numberedSteps",
+      type: "problemSplit",
       id: "tok-materiala",
       eyebrow: "Production logistics",
       heading: "Material has to reach the next stage.",
-      body: "When machines and stations operate in isolation, material waits between operations, builds up at intermediate points, or moves without a clear way of being handed off. Internal logistics defines how the flow is connected between individual stages.",
-      steps: [
-        { label: "Material waits between operations", anchor: "#sistemi" },
-        { label: "Stations aren't connected into a single flow", anchor: "#sistemi" },
-        { label: "Containers or pallets wait for the next stage", anchor: "#sistemi" },
-        { label: "Transport and production aren't in sync", anchor: "#povezovanje" },
+      body: [
+        "When machines and stations operate in isolation, material waits between operations, builds up at intermediate points, or moves without a clear way of being handed off.",
+        "Internal logistics defines how the flow is connected between individual stages.",
       ],
+      itemsEyebrow: "Where delays appear",
+      items: [
+        "Material waits between operations",
+        "Stations aren't connected into a single flow",
+        "Containers or pallets wait for the next stage",
+        "Transport and production aren't in sync",
+      ],
+      result: "Result: until the stages are connected, material waits between operations.",
     },
     {
       type: "capabilityGroups",

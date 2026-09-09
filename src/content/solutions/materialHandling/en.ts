@@ -21,19 +21,22 @@ export const materialHandlingContent: SolutionPageContent = {
   ],
   sections: [
     {
-      type: "numberedSteps",
+      type: "problemSplit",
       id: "manipulacija",
       eyebrow: "Material handling in the process",
       heading: "Moving the part is part of the operation itself.",
-      body: "Sometimes a machine or station completes its part of the job, but the part still needs to be correctly picked up, oriented, and prepared for the next step. Material handling determines how that handoff happens.",
-      steps: [
-        { label: "Where the part is picked up", anchor: "#naloge" },
-        { label: "How it is gripped", anchor: "#zasnova" },
-        { label: "How it needs to be oriented", anchor: "#naloge" },
-        { label: "What path it travels", anchor: "#zasnova" },
-        { label: "Where it is positioned", anchor: "#naloge" },
-        { label: "How it is handed off further", anchor: "#naloge" },
+      body: [
+        "Sometimes a machine or station completes its part of the job, but the part still needs to be correctly picked up, oriented, and prepared for the next step.",
+        "Material handling determines how that handoff happens.",
       ],
+      itemsEyebrow: "How the handoff happens",
+      items: [
+        "Where the part is picked up",
+        "How it is gripped",
+        "How it needs to be oriented",
+        "How it is handed off further",
+      ],
+      result: "Result: moving the part has to be part of the operation itself, not an afterthought.",
     },
     {
       type: "capabilityGroups",
