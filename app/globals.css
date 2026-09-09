@@ -16,21 +16,32 @@ body {
 }
 
 :root {
-  --container: 1120px;
+  /* Layout */
+  --layout-max-width: 1280px;
+  --prose-max-width: 65ch;
 
-  
-}
-:root {
-  --primary: #0082ca;
-  --primary-hover: hover:brightness-95
-}
-:root {
-  --surface: #f6f9fc;
-  --surface-soft: #eef3f8;
+  /* Surfaces & text */
+  --surface: #eef2f7;
+  --surface-soft: #e2e8f0;
   --text-main: #0a2540;
   --text-muted: #425466;
-  --line-soft: rgba(10, 37, 64, 0.10);
+  --line-soft: rgba(10, 37, 64, 0.1);
+
+  /* Color roles */
+  --color-brand: #0082ca;
+  --color-interactive: #0b8fd3;
+  --color-interactive-hover: #087fbd;
+  --color-accent-line: #0089d6;
+  --color-dark-band: #082f5f;
+
+  /* Structure */
+  --radius-structural: 12px;
+  --radius-panel: 16px;
+
+  /* Legacy alias — matches interactive primary */
+  --primary: var(--color-brand);
 }
+
 @layer base {
   * {
     box-sizing: border-box;
@@ -48,24 +59,95 @@ body {
 }
 
 @layer components {
-  .section {
-    @apply py-14 sm:py-16 lg:py-20;
-  }
-
-  .section-tight {
-    @apply py-10 sm:py-12 lg:py-14;
-  }
-
+  /* Eyebrow — canonical label above section headings */
   .eyebrow {
     @apply text-[11px] uppercase tracking-[0.16em] text-neutral-500;
+  }
+
+  .eyebrow-on-dark {
+    @apply text-[11px] uppercase tracking-[0.16em] text-white/50;
+  }
+
+  /* Typography roles */
+  .text-section-title {
+    @apply text-3xl font-semibold leading-[1] tracking-[-0.04em] text-neutral-950 sm:text-4xl;
+  }
+
+  .text-subsection-title {
+    @apply text-2xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-3xl;
   }
 
   .text-body {
     @apply text-[15px] leading-7 text-neutral-600 sm:text-base;
   }
 
+  .text-body-compact {
+    @apply text-[14px] leading-6 text-neutral-600;
+  }
+
+  .text-display {
+    @apply text-4xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-5xl lg:text-6xl;
+  }
+
+  /* Technical spec / data */
+  .spec-label {
+    @apply text-[11px] font-medium uppercase tracking-[0.14em] text-neutral-600;
+  }
+
+  .spec-value {
+    @apply text-[15px] font-semibold leading-snug tracking-[-0.02em] text-neutral-950;
+  }
+
+  .spec-unit {
+    @apply text-[13px] font-normal text-neutral-500;
+  }
+
+  /* Shared surfaces */
+  .surface-muted {
+    background-color: var(--surface);
+  }
+
+  /* Reserved for "evidence interrupt" sections (documented proof/results) —
+     distinct from .surface-muted so proof never reads as just the next
+     alternating stripe. */
+  .surface-soft {
+    background-color: var(--surface-soft);
+  }
+
+  .content-panel {
+    @apply rounded-[var(--radius-structural)] border border-neutral-200 bg-white;
+  }
+
+  .content-panel-muted {
+    @apply rounded-[var(--radius-structural)] border border-neutral-200 bg-neutral-50;
+  }
+
   .image-block {
-    @apply overflow-hidden rounded-[16px] border border-neutral-200 bg-neutral-100;
+    @apply overflow-hidden rounded-[var(--radius-panel)] border border-neutral-200 bg-neutral-100;
+  }
+
+  .proof-callout {
+    @apply border-l-2 border-[var(--color-accent-line)] pl-4 text-[15px] font-medium leading-7 text-neutral-800;
+  }
+
+  /* Homepage grammar — shared index, icon tile, link arrow and focus ring.
+     See "Flexido UI Grammar" audit: one rendering per device, reused
+     across Solutions / Systems / Process instead of each section
+     inventing its own scale. */
+  .index-label {
+    @apply text-[12px] font-semibold tabular-nums tracking-[0.14em] text-[var(--color-brand)];
+  }
+
+  .icon-tile {
+    @apply flex h-11 w-11 shrink-0 items-center justify-center border border-neutral-200 text-[#1693e6] transition-colors duration-300;
+  }
+
+  .link-arrow {
+    @apply ml-2 inline-block transition-transform duration-300 group-hover:translate-x-0.5;
+  }
+
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-interactive)]/30 focus-visible:ring-offset-2;
   }
 }
 
@@ -126,6 +208,7 @@ body {
 .legal-content li::marker {
   color: rgb(82 82 82);
 }
+
 .legal-content a {
   text-decoration: underline;
   text-underline-offset: 3px;

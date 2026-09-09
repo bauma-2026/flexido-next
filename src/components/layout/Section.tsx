@@ -1,7 +1,6 @@
-import { cn } from "@/lib/cn";
-
 type SectionVariant = "default" | "tight" | "large";
 
+/** Canonical section spacing — prefer these over globals.css or ad hoc py-* */
 const variants: Record<SectionVariant, string> = {
   default: "py-16 sm:py-20 lg:py-24",
   tight: "py-12 sm:py-14 lg:py-16",

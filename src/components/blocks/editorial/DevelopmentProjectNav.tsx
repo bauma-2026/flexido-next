@@ -1,29 +1,32 @@
 import Link from "next/link";
 
-const projects = [
-  {
-    href: "/razvojni-projekti/sofinanciranje-stroskov-digitalizacije-prodajnih-poti",
-    label: "Digitalizacija prodajnih poti",
-  },
-  {
-  href: "/razvojni-projekti/digitalna-preobrazba-kljucnih-funkcij-podjetja-polycom",
-    label: "Digitalna preobrazba ključnih funkcij",
-  },
-  {
-    href: "/razvojni-projekti/digitalna-transformacija-podjetja-flexido-d-o-o",
-    label: "Digitalna transformacija podjetja",
-  },
-  {
-    href: "/razvojni-projekti/naziv-projekta-smartim-pametna-tovarna-iskra-mehanizmi",
-    label: "SMARTIM — pametna tovarna",
-  },
-  {
-    href: "/razvojni-projekti/spodbude-za-raziskovalno-razvojni-projekt",
-    label: "Raziskovalno-razvojni projekt",
-  },
-];
+import { getPath } from "@/i18n/routes";
+
+const projectRouteKeys = [
+  "fundingProjectSalesDigitalization",
+  "fundingProjectPolyDigit",
+  "fundingProjectFlexidoDigital",
+  "fundingProjectSmartim",
+  "fundingProjectSafeguard",
+] as const;
+
+const projectLabels: Record<typeof projectRouteKeys[number], string> = {
+  fundingProjectSalesDigitalization: "Digitalizacija prodajnih poti",
+  fundingProjectPolyDigit: "Digitalna preobrazba ključnih funkcij",
+  fundingProjectFlexidoDigital: "Digitalna transformacija podjetja",
+  fundingProjectSmartim: "SMARTIM — pametna tovarna",
+  fundingProjectSafeguard: "Raziskovalno-razvojni projekt",
+};
 
 export default function DevelopmentProjectNav() {
+  const projects = projectRouteKeys
+    .map((key) => {
+      const href = getPath(key, "sl");
+      if (!href) return null;
+      return { href, label: projectLabels[key] };
+    })
+    .filter((project): project is { href: string; label: string } => project !== null);
+
   return (
     <nav className="not-prose mb-10 rounded-[24px] border border-neutral-200 bg-neutral-50 p-5">
       <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-500">

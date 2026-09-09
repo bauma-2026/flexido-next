@@ -16,6 +16,7 @@ type SystemBlockProps = {
     src: string;
     alt: string;
   };
+  mainImageFit?: "cover" | "contain";
   items?: SystemItem[];
   itemsLabel?: string;
   itemsAspect?: "square" | "wide";
@@ -27,6 +28,7 @@ export default function SystemBlock({
   desc,
   note,
   mainImage,
+  mainImageFit = "cover",
   items = [],
   itemsLabel = "Možne izvedbe sistema",
   itemsAspect = "square",
@@ -58,11 +60,13 @@ export default function SystemBlock({
           </div>
 
           {/* RIGHT */}
-          <div className="overflow-hidden rounded-[28px] border border-neutral-200 bg-neutral-100 shadow-[0_25px_80px_rgba(15,23,42,0.08)]">
+          <div className="overflow-hidden rounded-[28px] border border-neutral-200 bg-neutral-100">
             <img
               src={mainImage.src}
               alt={mainImage.alt}
-              className="h-full w-full object-cover"
+              className={`h-full w-full ${
+                mainImageFit === "contain" ? "object-contain" : "object-cover"
+              }`}
             />
           </div>
         </div>

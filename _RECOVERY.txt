@@ -1,0 +1,4 @@
+Exact Vercel source for dpl_CUUXzP23vdrwyxZ8wHs5dpvFLgs3
+Skipped prefixes: ('.asset-work/', '.ui-qa/', '.ui-polish-screenshots/', '.claude/', 'public/screen/')
+Files planned: 704
+DONE ok=704 fail=0 elapsed=383.0s dest=/Users/bauma/Applications/projects/flexido-next-prod-dpl_CUUXzP23vdrwyxZ8wHs5dpvFLgs3

@@ -1,64 +1,64 @@
+import Image from "next/image";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
 import Button from "@/components/ui/Button";
+import type { HomeFinalCtaContent } from "@/content/home/types";
 
-export default function FinalCTA() {
+const defaultContent: HomeFinalCtaContent = {
+  eyebrow: "Kontakt",
+  heading: "Poglejmo vaš proces",
+  body:
+    "Pošljite kratek opis procesa, stroja in kosa. Ocenimo izgube časa in stabilnosti, obseg ročnega dela ter ali je avtomatizacija smiselna.",
+  ctaLabel: "Pošljite opis procesa",
+  imageCaptionEyebrow: "Prvi pregled",
+  imageCaption: "Kje proces izgublja čas, material ali stabilen ritem?",
+};
+
+type Props = {
+  content?: HomeFinalCtaContent;
+};
+
+export default function FinalCTA({ content = defaultContent }: Props) {
   return (
-  <Section
-  id="kontakt"
-  variant="large"
-  className="border-t border-white/10 bg-neutral-950 text-white"
->
-  <Container>
-   <div className="grid gap-8 lg:grid-cols-[0.95fr_0.8fr] lg:items-center">
-      {/* LEFT */}
-      <div className="max-w-[720px]">
-        <p className="text-[11px] uppercase tracking-[0.16em] text-white/50">
-          Kontakt
-        </p>
+    <Section
+      id="kontakt"
+      variant="large"
+      className="relative overflow-hidden border-t border-white/10 bg-neutral-950 text-white"
+    >
+      <Image
+        src="/images/flexido-process.jpg"
+        alt=""
+        fill
+        sizes="100vw"
+        className="object-cover"
+      />
+      <div className="absolute inset-0 bg-neutral-950/80" />
 
-       <h2 className="mt-4 max-w-[15ch] text-4xl font-semibold leading-[0.95] tracking-[-0.04em] text-white sm:text-5xl lg:text-6xl">
-  Poglejmo vaš proces
-</h2>
-
-        <p className="mt-6 max-w-[52ch] text-[16px] leading-7 text-white/72 sm:text-[17px]">
-          Skupaj pregledamo potek dela, poiščemo zastoje in ocenimo, kateri
-          koraki imajo največ smisla za avtomatizacijo.
-        </p>
-
-        <div className="mt-9">
-          <Button
-            href="mailto:info@flexido.eu"
-            variant="secondary"
-            className="h-12 bg-white px-6 text-[15px] text-neutral-950 hover:bg-neutral-200"
-          >
-            Pošljite povpraševanje →
-          </Button>
-        </div>
-      </div>
-
-      {/* RIGHT VISUAL */}
-      <div className="relative overflow-hidden rounded-[30px] border border-white/10 bg-white/[0.04] shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
-        <img
-          src="/images/flexido/legacy/s-3.jpg.jpeg"
-          alt=""
-          className="h-full min-h-[320px] w-full object-cover"
-        />
-<div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
-
-        <div className="absolute bottom-0 left-0 right-0 p-6">
+      <Container className="relative z-10">
+        <div className="max-w-[560px]">
           <p className="text-[11px] uppercase tracking-[0.16em] text-white/50">
-            Prvi pregled
+            {content.eyebrow}
           </p>
 
-          <p className="mt-2 max-w-[34ch] text-[20px] font-semibold leading-[1.15] tracking-[-0.03em] text-white">
-            Kje proces izgublja čas, material ali stabilen ritem?
+          <h2 className="mt-4 max-w-[15ch] text-4xl font-semibold leading-[0.95] tracking-[-0.04em] text-white sm:text-5xl lg:text-6xl">
+            {content.heading}
+          </h2>
+
+          <p className="mt-6 max-w-[52ch] text-[16px] leading-7 text-white/72 sm:text-[17px]">
+            {content.body}
           </p>
+
+          <div className="mt-7">
+            <Button
+              href="mailto:info@flexido.eu"
+              variant="secondary"
+              className="h-12 bg-white px-6 text-[15px] text-neutral-950 hover:bg-neutral-200"
+            >
+              {content.ctaLabel} →
+            </Button>
+          </div>
         </div>
-      </div>
-    </div>
-  </Container>
-</Section>
+      </Container>
+    </Section>
   );
 }

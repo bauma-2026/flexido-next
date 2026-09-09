@@ -42,9 +42,28 @@ type Solution = {
   iconClassName?: string;
 };
 
+type CompactOverrideItem = {
+  href: string;
+  title: string;
+  desc: string;
+  label?: string;
+  icon?: IconName;
+};
+
 type Props = {
   title?: string;
   desc?: string;
+  compact?: boolean;
+  /**
+   * Locale-aware override for the compact grid's 4 cards (CNC / IMM /
+   * material handling / logistics). Omit to keep the existing hardcoded SL
+   * cards untouched — used by the SL homepage and the SL solutions hub.
+   * The migrated EN/DE hub passes this explicitly; see
+   * `src/components/solutions/SolutionsHubTemplate.tsx`.
+   */
+  compactItems?: CompactOverrideItem[];
+  /** Overrides the "Rešitve" eyebrow above the compact grid. */
+  eyebrow?: string;
 };
 
 const solutions: Solution[] = [
@@ -57,7 +76,7 @@ const solutions: Solution[] = [
     kind: "featured",
   },
   {
-    href: "/resitve/cnc-stroji",
+    href: "/resitve/avtomatizacija-cnc-strojev",
     title: "CNC stroji",
     desc: "Nalaganje, odvzem in boljši izkoristek stroja.",
     label: "Proces stroja",
@@ -102,6 +121,7 @@ const solutions: Solution[] = [
     signal: "Ko faze niso povezane v enoten tok.",
     kind: "video",
     video: "/video/flexido/hero-logistika.mp4",
+    icon: "materialFlow",
   },
   {
     href: "/resitve/namenski-sistemi",
@@ -117,6 +137,9 @@ const solutions: Solution[] = [
 export default function Solutions({
   title = "Kje lahko avtomatizacija pomaga",
   desc = "Od posameznega stroja do povezave več faz — rešitev izberemo glede na to, kje proces izgublja čas, stabilnost ali predvidljivost.",
+  compact = false,
+  compactItems: compactItemsOverride,
+  eyebrow = "Rešitve",
 }: Props) {
   const featured = solutions.find((item) => item.kind === "featured");
 
@@ -131,11 +154,69 @@ export default function Solutions({
     .map((title) => solutions.find((item) => item.title === title))
     .filter(Boolean) as Solution[];
 
+  const compactItems: CompactOverrideItem[] =
+    compactItemsOverride ??
+    ([
+      "CNC stroji",
+      "Brizganje plastike",
+      "Manipulacija materiala",
+      "Paletizacija in interna logistika",
+    ]
+      .map((title) => solutions.find((item) => item.title === title))
+      .filter(Boolean) as Solution[]);
+
+  if (compact) {
+    return (
+      <Section
+        id="use-cases"
+        variant="tight"
+        className="surface-muted text-[#0a2540]"
+      >
+        <Container>
+          <SectionHeader eyebrow={eyebrow} title={title} desc={desc} />
+
+          <div className="mt-8 border-b border-neutral-200 lg:mt-10">
+            {compactItems.map((item, index) => (
+              <Link
+                href={item.href}
+                key={item.title}
+                className="focus-ring group flex items-start justify-between gap-6 border-t border-neutral-200 py-6 transition-colors duration-300 hover:border-neutral-300"
+              >
+                <div className="flex items-baseline gap-4">
+                  <span className="index-label shrink-0">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+
+                  <div>
+                    <h3 className="text-[19px] font-semibold tracking-[-0.02em] text-[#0a2540] sm:text-[20px]">
+                      {item.title}
+                    </h3>
+
+                    <p className="mt-1.5 max-w-[52ch] text-[13.5px] leading-5 text-neutral-500 sm:max-w-[40ch] lg:max-w-[48ch]">
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
+
+                <span
+                  aria-hidden="true"
+                  className="mt-1 shrink-0 text-[15px] text-neutral-300 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-[#0b8fdc]"
+                >
+                  →
+                </span>
+              </Link>
+            ))}
+          </div>
+        </Container>
+      </Section>
+    );
+  }
+
   return (
     <Section
       id="use-cases"
       variant="default"
-      className="bg-neutral-50 text-[#0a2540]"
+      className="surface-muted text-[#0a2540]"
     >
       <Container>
         <SectionHeader eyebrow="Rešitve" title={title} desc={desc} />
@@ -143,7 +224,7 @@ export default function Solutions({
         {/* FEATURED */}
         {featured && (
           <Link href={featured.href} className="group mt-12 block">
-            <div className="relative flex min-h-[280px] flex-col justify-between overflow-hidden rounded-[28px] bg-neutral-950 px-7 py-7 text-white shadow-[0_20px_70px_rgba(15,23,42,0.14)] transition-all duration-300 hover:-translate-y-[1px] hover:shadow-[0_28px_90px_rgba(15,23,42,0.20)] sm:px-9 sm:py-9 lg:min-h-[340px]">
+            <div className="relative flex min-h-[280px] flex-col justify-between overflow-hidden border border-neutral-800 bg-neutral-950 px-7 py-7 text-white shadow-[0_20px_70px_rgba(15,23,42,0.12)] transition-all duration-300 hover:-translate-y-[1px] hover:shadow-[0_28px_90px_rgba(15,23,42,0.18)] sm:px-9 sm:py-9 lg:min-h-[340px]">
               <video
                 autoPlay
                 muted
@@ -196,7 +277,7 @@ export default function Solutions({
                 <Link
                   href={item.href}
                   key={item.title}
-                  className="group relative block min-h-[260px] overflow-hidden rounded-[24px] bg-neutral-950 shadow-[0_18px_50px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-[1px] hover:shadow-[0_24px_70px_rgba(15,23,42,0.12)] sm:min-h-[240px] lg:min-h-[240px]"
+                  className="group relative block min-h-[260px] overflow-hidden border border-neutral-800 bg-neutral-950 shadow-[0_18px_50px_rgba(15,23,42,0.05)] transition-all duration-300 hover:-translate-y-[1px] hover:shadow-[0_24px_70px_rgba(15,23,42,0.1)] sm:min-h-[240px] lg:min-h-[240px]"
                 >
                   {item.kind === "video" ? (
                     <video
@@ -257,11 +338,11 @@ export default function Solutions({
             <Link
   href={item.href}
   key={item.title}
-  className="group flex min-h-[260px] flex-col rounded-[24px] border border-neutral-200 bg-white px-8 py-8 shadow-[0_18px_50px_rgba(15,23,42,0.045)] transition-all duration-300 hover:-translate-y-[1px] hover:border-[#c9e5f8] hover:shadow-[0_24px_70px_rgba(15,23,42,0.08)]"
+  className="group flex min-h-[260px] flex-col border border-neutral-200 bg-white px-8 py-8 transition-all duration-300 hover:-translate-y-[1px] hover:border-[#8fc9ed] hover:shadow-[0_18px_45px_rgba(15,23,42,0.06)]"
 >
- {Icon && (
-  <div className="mb-5 flex h-12 w-12 items-center justify-center text-[#1693e6]">
-    <Icon className={item.iconClassName ?? "h-10 w-10"} />
+{Icon && (
+  <div className="mb-5 text-[#1693e6]">
+    <Icon className={item.iconClassName ?? "h-10 w-10 -ml-1"} />
   </div>
 )}
 

@@ -1,0 +1,155 @@
+import type { SolutionPageContent } from "../types";
+
+/** Faithful structural port of `app/(default)/resitve/avtomatizacija-proizvodnje/page.tsx`. */
+export const automationContent: SolutionPageContent = {
+  routeKey: "solutionProductionAutomation",
+  hero: {
+    backLabel: "← Vse rešitve",
+    eyebrow: "Širša avtomatizacija proizvodnje",
+    titleLines: ["Avtomatizacija", "proizvodnje"],
+    subhead:
+      "Ko posamezna celica ni dovolj, avtomatizacijo zasnujemo okoli strojev, kosov, toka materiala in potrebnih operacij v procesu.",
+    ctas: [{ label: "Poglej možnosti", anchor: "#resitev" }],
+    videoSrc: "/video/flexido/hero-home.mp4",
+  },
+  wikiNav: [
+    { id: "proces", label: "Širša avtomatizacija" },
+    { id: "gradniki", label: "Gradniki sistema" },
+    { id: "resitev", label: "Standardno ali namensko" },
+    { id: "izvedbe", label: "Primeri izvedb" },
+    { id: "dokaz", label: "Projekti" },
+  ],
+  sections: [
+    {
+      type: "numberedSteps",
+      id: "proces",
+      eyebrow: "Širša avtomatizacija",
+      heading: "Proces poveže več kot eno celico.",
+      body: "Proizvodni proces redko poteka na enem stroju. Širša avtomatizacija poveže stroje, robote, dodatne operacije in tok materiala v en usklajen proces.",
+      steps: [
+        { label: "Več strojev in robotov v enem procesu", anchor: "#gradniki" },
+        { label: "Prijemala, orodja in menjava med kosi", anchor: "#gradniki" },
+        { label: "Dodatne operacije, kontrola in varnost", anchor: "#gradniki" },
+        { label: "Tok materiala in povezava opreme", anchor: "#gradniki" },
+      ],
+    },
+    {
+      type: "capabilityGroups",
+      id: "gradniki",
+      eyebrow: "Tehnični gradniki",
+      heading: "Kaj lahko povežemo v eno rešitev.",
+      body: "Avtomatizacija lahko združi opremo in operacije, ki morajo v realni proizvodnji delovati kot usklajen sistem.",
+      layout: "openColumns",
+      groups: [
+        {
+          number: "01",
+          title: "Stroji in roboti",
+          items: [
+            "CNC in IMM stroji",
+            "Industrijski in kolaborativni roboti",
+            "Prijemala in specialna orodja",
+            "Samodejna menjava prijemal ali orodij",
+          ],
+        },
+        {
+          number: "02",
+          title: "Operacije v procesu",
+          items: [
+            "Dodatne procesne postaje",
+            "Vision, kontrola in meritve",
+            "Priprava in manipulacija kosov",
+            "Varnostni sistemi",
+          ],
+        },
+        {
+          number: "03",
+          title: "Tok in povezava",
+          items: [
+            "Trakovi, transport in paletizacija",
+            "AMR oziroma SDV transportne enote",
+            "PLC, krmiljenje in komunikacijski vmesniki",
+            "Povezava obstoječe opreme in podatkov",
+          ],
+        },
+      ],
+    },
+    {
+      type: "comparisonSplit",
+      id: "resitev",
+      eyebrow: "Izbira rešitve",
+      heading: "Kadar standardna celica ni dovolj.",
+      body: "Proces določa, ali je pravo izhodišče standardna robotska celica ali namenska avtomatizacija, zasnovana okoli konkretne izvedbe.",
+      left: {
+        tag: "Standardna robotska celica",
+        title: "Za ponovljive strojne procese.",
+        body: "Konfigurabilna rešitev za CNC ali IMM strego, kadar se proces ujema z obstoječo družino celic in njenih modulov.",
+        link: { label: "Poglej standardne celice", routeKey: "standardCells" },
+      },
+      right: {
+        tag: "Namenska avtomatizacija",
+        title: "Za proces, ki zahteva svojo sestavo.",
+        body: "Rešitev določijo stroj, kos, prostor, tok materiala, prijem, dodatne operacije, kontrola in obstoječa oprema.",
+        link: { label: "Poglej namenske sisteme", routeKey: "solutionCustomSystems" },
+      },
+    },
+    {
+      type: "relatedSolutions",
+      id: "izvedbe",
+      eyebrow: "Primeri izvedb",
+      heading: "Tehnologijo vključimo tam, kjer jo proces potrebuje.",
+      linkLabel: "Poglej področje",
+      items: [
+        { title: "CNC avtomatizacija", body: "Namenske celice za več strojev, različne tipe kosov, dodatne osi, samodejno menjavo prijemal in postaje ob obdelavi.", routeKey: "solutionCnc" },
+        { title: "Brizganje plastike", body: "Od standardnega odvzema do insert moulding rešitev s specialnimi prijemali, pripravo insertov, kontrolo in povezavo s strojem.", routeKey: "solutionInjectionMolding" },
+        { title: "Kolaborativna avtomatizacija", body: "Cobot je lahko del strego stroja, Pick & Place, testiranja, pakiranja, montaže ali paletizacije.", routeKey: "solutionCobots" },
+        { title: "Tok materiala in logistika", body: "Transportne enote, paletizacija, AMR oziroma SDV ter povezava med stroji, postajami in podatki.", routeKey: "solutionLogistics" },
+      ],
+    },
+    {
+      type: "proofGrid",
+      id: "dokaz",
+      eyebrow: "Realizirani projekti",
+      heading: "Avtomatizacija v praksi.",
+      readMoreLabel: "Preberi projekt",
+      resultLabel: "Rezultat",
+      items: [
+        {
+          area: "Namenska avtomatizacija brizganja",
+          title: "Robotska celica za nabrizgavanje",
+          body: "Avtomatizacija nabrizgavanja kosov z optimizacijo zahtevane količine v proizvodnem procesu.",
+          result: "Skoraj tretjina več kosov od prvotno predvidene količine.",
+          routeKey: "referenceOvermolding",
+          image: { src: "/images/systems/raw/robotska-celica-za-nabrizgavanje.png", width: 757, height: 1024, objectPosition: "object-[50%_50%]" },
+        },
+        {
+          area: "CNC, cobot in tok materiala",
+          title: "Vhodno-izhodna tračna proga",
+          body: "Tračna proga za KLT zaboje ob različnih CNC strojih, pripravljena za večjo avtonomijo kolaborativne celice.",
+          result: "Samostojno neprekinjeno obratovanje z različnimi obdelovanci v kombinaciji z integrirano kamero.",
+          routeKey: "referenceConveyor",
+          image: { src: "/images/systems/raw/vhodno-izhodna-tracna-proga.png", width: 757, height: 1024, objectPosition: "object-[50%_38%]" },
+        },
+      ],
+    },
+    {
+      type: "ctaBanner",
+      id: "naslednji-korak",
+      eyebrow: "Naslednji korak",
+      heading: "Začnemo pri dejanski izvedbi.",
+      body: "Za širšo avtomatizacijo najprej uskladimo stroj, kos, tok materiala, prostor in potrebne operacije.",
+      cta: { label: "Kako poteka projekt", routeKey: "process" },
+    },
+  ],
+  kontakt: {
+    eyebrow: "Kontakt",
+    heading: "Poglejmo vaš proizvodni proces.",
+    body: "Pošljite nam osnovne informacije o stroju, kosih in poteku dela. Skupaj ocenimo, katera avtomatizacija ima smisel.",
+    ctaLabel: "Pošljite povpraševanje",
+    mailto: "info@flexido.eu",
+    imageSrc: "/images/flexido/legacy/s-3.jpg.jpeg",
+    imageAlt: "Avtomatiziran proizvodni proces",
+    captionEyebrow: "Prvi korak",
+    captionText: "Kje se morajo stroj, tok materiala in operacije povezati v en proces?",
+    variant: "photo",
+  },
+};

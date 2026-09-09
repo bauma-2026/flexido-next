@@ -16,12 +16,26 @@ import { SpecGrid, SpecItem } from "@/components/ui/SpecGrid";
 /** Broader category pages — not Middleware (`standardCellsMiddleware`). */
 const CATEGORY_PRODUCT_REVEAL_ROUTE_KEYS = new Set<RouteKey>(["standardCellsCnc", "standardCellsImm"]);
 
+/** Pages whose "Applications" itemGrids entry lists peer application areas,
+ * not sequential steps — the shared 01/02/03 index label reads as a
+ * process/sequence connector there, so it's suppressed for this page only.
+ * CNC/IMM keep the index label on their own itemGrids untouched. */
+const PEER_ITEM_GRID_ROUTE_KEYS = new Set<RouteKey>(["standardCellsFlex2550"]);
+
 /**
  * Product Media Frame source overrides, keyed by system slug — template-local,
  * does not touch `flexidoSystems.image` (shared with the homepage card and the
  * e-katalog hub, both out of scope for this pass).
+ *
+ * FLEX 25/50's `flexidoSystems.image` is a portrait studio shot (1122×1402),
+ * cropped hard by this frame's landscape 3:2 `object-cover` box. The `-wide`
+ * studio shot is the same machine, same asset family, already framed at
+ * exactly 3:2 (1536×1024) with the full cell and clear margin on every edge
+ * — so swapping to it here removes the crop with zero new asset work.
  */
-const PRODUCT_STAGE_IMAGE_OVERRIDES: Partial<Record<string, string>> = {};
+const PRODUCT_STAGE_IMAGE_OVERRIDES: Partial<Record<string, string>> = {
+  "flex-25-50": "/images/systems/raw/flex-25-50-studio-wide.webp",
+};
 
 /** Middleware's "product" is a system diagram, not a studio render — it needs
  * to stay fully visible (contain) on a dark stage instead of being cropped
@@ -69,13 +83,36 @@ function pickOptionGridColumns(count: number): 3 | 4 {
 }
 /** Divide-x only ever applies to a genuine single row — see the itemGrids
  * note above on why it breaks across wrapped rows. */
-const OPTION_GRID_SINGLE_ROW_COLS: Record<3 | 4, string> = {
+const OPTION_GRID_SINGLE_ROW_COLS: Record<2 | 3 | 4, string> = {
+  2: "lg:grid-cols-2 lg:gap-x-0 lg:divide-x lg:divide-neutral-200",
   3: "lg:grid-cols-3 lg:gap-x-0 lg:divide-x lg:divide-neutral-200",
   4: "lg:grid-cols-4 lg:gap-x-0 lg:divide-x lg:divide-neutral-200",
 };
-const OPTION_GRID_MULTI_ROW_COLS: Record<3 | 4, string> = {
+const OPTION_GRID_MULTI_ROW_COLS: Record<2 | 3 | 4, string> = {
+  2: "lg:grid-cols-2",
   3: "lg:grid-cols-3",
   4: "lg:grid-cols-4",
+};
+
+/**
+ * Density-based group width — a 2-column group of larger tiles reads best
+ * constrained; a 4-column group needs the full content measure to avoid
+ * looking starved next to the section heading. `undefined` (dense) drops
+ * the max-w cap entirely, so the group fills Container's own width instead
+ * of a second, narrower ceiling. CNC's single group always resolves to
+ * "default" and keeps its original, unrelated width untouched.
+ */
+const OPTION_GROUP_WIDTH: Record<"default" | "featured" | "primary" | "dense", string | undefined> = {
+  default: "max-w-[920px]",
+  /**
+   * 608px = 2 × 292px tile + 24px (gap-x-6) gutter — the same ~292px tile
+   * width the previous 640px/56px-gutter combination produced, just with the
+   * gutter tightened so the two columns sit closer together instead of the
+   * tiles themselves shrinking.
+   */
+  featured: "max-w-[608px]",
+  primary: "max-w-[900px]",
+  dense: undefined,
 };
 
 export default function SystemPageTemplate({ locale, content }: { locale: Locale; content: SystemPageContent }) {
@@ -187,22 +224,45 @@ export default function SystemPageTemplate({ locale, content }: { locale: Locale
             </>
           );
 
+          /** FLEX 25/50 keeps only one formal structured-data block below the
+           * image+identity row: the technical spec table. The four capability
+           * items are secondary product signals, not hard data — they read as
+           * a quiet meta layer directly under the description instead of a
+           * second ruled block competing with the specs. CNC/IMM keep the
+           * single image+text-column layout unchanged. */
+          const isRuledSpecTable = PEER_ITEM_GRID_ROUTE_KEYS.has(content.routeKey);
+
           const highlightsBlock = content.product.highlights?.length ? (
-            <ul
-              className={cn(
-                "text-[13px] font-medium leading-5 text-neutral-600",
-                content.layoutRefresh
-                  ? "grid grid-cols-2 gap-x-6 gap-y-3 lg:grid-cols-4"
-                  : "mt-5 flex max-w-[58ch] flex-wrap gap-x-4 gap-y-1.5"
-              )}
-            >
-              {content.product.highlights.map((item) => (
-                <li key={item} className="flex items-center gap-1.5">
-                  <span aria-hidden className="h-1 w-1 shrink-0 rounded-full bg-neutral-300" />
-                  {item}
-                </li>
-              ))}
-            </ul>
+            isRuledSpecTable ? (
+              /* Quiet 2×2 micro-list, no rule/border/bullet — reads as a
+               * supporting meta layer under the description, not a second
+               * data structure standing beside the spec table. `mt-5` is
+               * `lg:`-only: at mobile this block is its own reordered grid
+               * row (see the product-block composition above), and the
+               * grid's own `gap-10` already supplies that spacing — adding
+               * `mt-5` there too would double it up. */
+              <ul className="lg:mt-5 grid max-w-[58ch] grid-cols-2 gap-x-6 gap-y-2 text-[13px] leading-5 text-neutral-500">
+                {content.product.highlights.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            ) : (
+              <ul
+                className={cn(
+                  "text-[13px] font-medium leading-5 text-neutral-600",
+                  content.layoutRefresh
+                    ? "grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-3"
+                    : "mt-5 flex max-w-[58ch] flex-wrap gap-x-4 gap-y-1.5"
+                )}
+              >
+                {content.product.highlights.map((item) => (
+                  <li key={item} className="flex items-center gap-1.5">
+                    <span aria-hidden className="h-1 w-1 shrink-0 rounded-full bg-neutral-300" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            )
           ) : null;
 
           const technicalFieldCount = system.technical
@@ -210,19 +270,43 @@ export default function SystemPageTemplate({ locale, content }: { locale: Locale
             : 0;
           const specColumns = Math.min(Math.max(technicalFieldCount, 2), 5) as 2 | 3 | 4 | 5;
 
+          /** FLEX 25/50's spec block is a genuine label | value table — four
+           * horizontal rows, hairline between each, quiet uppercase label on
+           * the left and the strong-weight value on the right — instead of a
+           * multi-column ruled row. Lets the longest value (Dimenzije) sit on
+           * one line instead of splitting across a narrow column. CNC/IMM's
+           * SpecGrid tile layout is untouched. */
           const specGridBlock = content.product.showTechnical && system.technical ? (
-            <SpecGrid
-              columns={content.layoutRefresh ? specColumns : 3}
-              className={cn(
-                content.layoutRefresh ? "border-t border-neutral-300 mt-6 pt-6" : "border-t border-neutral-200 mt-8 pt-6"
-              )}
-            >
-              {(Object.keys(system.technical) as (keyof typeof system.technical)[]).map((key) => {
-                const value = system.technical?.[key];
-                if (!value) return null;
-                return <SpecItem key={key} label={labels[key]} value={value} />;
-              })}
-            </SpecGrid>
+            isRuledSpecTable ? (
+              <dl className="border-t border-neutral-200">
+                {(Object.keys(system.technical) as (keyof typeof system.technical)[]).map((key) => {
+                  const value = system.technical?.[key];
+                  if (!value) return null;
+                  return (
+                    <div
+                      key={key}
+                      className="flex flex-col gap-1 border-b border-neutral-200 py-4 last:border-b-0 sm:flex-row sm:items-baseline sm:gap-8 sm:py-5"
+                    >
+                      <dt className="shrink-0 text-[11px] font-medium uppercase tracking-[0.14em] text-neutral-400 sm:w-[128px]">
+                        {labels[key]}
+                      </dt>
+                      <dd className="text-[18px] font-medium leading-6 text-neutral-900">{value}</dd>
+                    </div>
+                  );
+                })}
+              </dl>
+            ) : (
+              <SpecGrid
+                columns={content.layoutRefresh ? specColumns : 3}
+                className={content.layoutRefresh ? "border-t border-neutral-300 mt-6 pt-6" : "border-t border-neutral-200 mt-8 pt-6"}
+              >
+                {(Object.keys(system.technical) as (keyof typeof system.technical)[]).map((key) => {
+                  const value = system.technical?.[key];
+                  if (!value) return null;
+                  return <SpecItem key={key} label={labels[key]} value={value} />;
+                })}
+              </SpecGrid>
+            )
           ) : null;
 
           const productImage = (
@@ -252,17 +336,47 @@ export default function SystemPageTemplate({ locale, content }: { locale: Locale
               <Container>
                 {content.layoutRefresh ? (
                   <>
-                    <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
-                      {productImage}
-                      <div>{productHeaderText}</div>
-                    </div>
-
-                    {highlightsBlock || specGridBlock ? (
-                      <div className="mt-10 lg:mt-14">
-                        {highlightsBlock}
-                        {specGridBlock}
+                    {isRuledSpecTable ? (
+                      /* FLEX 25/50 mobile-only story order: title/description
+                         before the product image, so it isn't preceded
+                         directly by the intro image (two large images back
+                         to back with no product context between them). The
+                         text wrapper goes `contents` at mobile so its two
+                         children (header text, capability summary) join the
+                         grid as independent items that can each carry their
+                         own `order` alongside the image; at `lg` the wrapper
+                         is a normal block again and every `order` resets to
+                         `none`, reproducing the exact approved desktop
+                         composition (image column | text column) untouched. */
+                      <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+                        <div className="order-2 lg:order-none">{productImage}</div>
+                        <div className="contents lg:block">
+                          <div className="order-1 lg:order-none">{productHeaderText}</div>
+                          {highlightsBlock ? <div className="order-3 lg:order-none">{highlightsBlock}</div> : null}
+                        </div>
                       </div>
-                    ) : null}
+                    ) : (
+                      <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+                        {productImage}
+                        <div>{productHeaderText}</div>
+                      </div>
+                    )}
+
+                    {isRuledSpecTable
+                      ? specGridBlock ? (
+                          /* Constrained to the row's own technical measure —
+                             128px label + gap + the longest value ("2500 ×
+                             2360 mm + varnostna ograja", ~300px at this type
+                             scale) — so the hairlines terminate near the data
+                             instead of running the full product-content width. */
+                          <div className="mt-9 max-w-[520px] sm:mt-11">{specGridBlock}</div>
+                        ) : null
+                      : highlightsBlock || specGridBlock ? (
+                          <div className="mt-10 lg:mt-14">
+                            {highlightsBlock}
+                            {specGridBlock}
+                          </div>
+                        ) : null}
                   </>
                 ) : (
                   <div
@@ -290,6 +404,83 @@ export default function SystemPageTemplate({ locale, content }: { locale: Locale
         {content.itemGrids?.map((grid) => {
           const cols = pickItemGridColumns(grid.items.length);
           const singleRow = grid.items.length === cols;
+          /** FLEX 25/50's "Applications" entry lists four peer domains, not
+           * sequential steps or mini-sections — beyond dropping the 01/02/03
+           * index label, its titles also drop to a lighter weight/size and a
+           * tighter row so the strip reads as one quiet horizontal plane
+           * instead of four bold h2-adjacent headings. CNC/IMM's itemGrids
+           * keep their original title treatment untouched. */
+          const isPeerStrip = PEER_ITEM_GRID_ROUTE_KEYS.has(content.routeKey);
+          const showIndexLabel = !isPeerStrip;
+          const itemTitleClass = isPeerStrip
+            ? "text-[16px] font-normal leading-6 text-neutral-700"
+            : "text-xl font-semibold tracking-[-0.02em] text-neutral-950";
+
+          /** FLEX 25/50's "Applications" row is a closed 2×2 ruled matrix —
+           * an outer hairline border plus the internal vertical/horizontal
+           * dividers — so the four peer items read as one complete system
+           * instead of an open-edged fragment of a larger grid. No card
+           * fill/radius/shadow. CNC/IMM's single/multi-row itemGrids are
+           * untouched. */
+          const itemRow = isPeerStrip
+            ? (() => {
+                const pairs: string[][] = [];
+                for (let i = 0; i < grid.items.length; i += 2) pairs.push(grid.items.slice(i, i + 2));
+                return (
+                  <div className="mt-8 border border-neutral-200">
+                    {pairs.map((pair, rowIndex) => (
+                      <div
+                        key={rowIndex}
+                        className={cn(
+                          "grid items-start sm:grid-cols-2",
+                          rowIndex > 0 ? "border-t border-neutral-200" : undefined
+                        )}
+                      >
+                        {pair.map((item) => (
+                          <div
+                            key={item}
+                            className="border-b border-neutral-200 px-6 py-6 last:border-b-0 sm:border-b-0 sm:border-l sm:border-neutral-200 sm:px-8 sm:py-7 sm:first:border-l-0"
+                          >
+                            <h3 className={itemTitleClass}>{item}</h3>
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                );
+              })()
+            : content.layoutRefresh ? (
+              singleRow ? (
+                <div className={cn("mt-8 grid border-t border-neutral-200", ITEM_GRID_SINGLE_ROW_COLS[cols])}>
+                  {grid.items.map((item, index) => (
+                    <div
+                      key={item}
+                      className="border-b border-neutral-200 py-8 last:border-b-0 sm:border-b-0 sm:px-8 sm:py-10 sm:first:pl-0 sm:last:pr-0"
+                    >
+                      {showIndexLabel ? <p className="index-label">{String(index + 1).padStart(2, "0")}</p> : null}
+                      <h3 className={cn(itemTitleClass, showIndexLabel ? "mt-3" : undefined)}>{item}</h3>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className={cn("mt-8 grid gap-x-8 gap-y-8 border-t border-neutral-200 pt-8", ITEM_GRID_MULTI_ROW_COLS[cols])}>
+                  {grid.items.map((item, index) => (
+                    <div key={item}>
+                      {showIndexLabel ? <p className="index-label">{String(index + 1).padStart(2, "0")}</p> : null}
+                      <h3 className={cn(itemTitleClass, showIndexLabel ? "mt-3" : undefined)}>{item}</h3>
+                    </div>
+                  ))}
+                </div>
+              )
+            ) : (
+              <ul className="mt-8 grid gap-px overflow-hidden border border-neutral-200 bg-neutral-200 sm:grid-cols-2">
+                {grid.items.map((item) => (
+                  <li key={item} className="bg-white p-5 sm:p-6 text-[15px] leading-6 text-neutral-700">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            );
 
           return (
             <Section key={grid.heading} className="surface-muted">
@@ -297,40 +488,9 @@ export default function SystemPageTemplate({ locale, content }: { locale: Locale
                 <div className="max-w-[760px]">
                   <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-400">{grid.eyebrow}</p>
                   <h2 className="mt-4 text-[32px] font-semibold leading-tight tracking-[-0.04em] text-neutral-950 sm:text-[44px]">{grid.heading}</h2>
-
-                  {content.layoutRefresh ? (
-                    singleRow ? (
-                      <div className={cn("mt-8 grid border-t border-neutral-200", ITEM_GRID_SINGLE_ROW_COLS[cols])}>
-                        {grid.items.map((item, index) => (
-                          <div
-                            key={item}
-                            className="border-b border-neutral-200 py-8 last:border-b-0 sm:border-b-0 sm:px-8 sm:py-10 sm:first:pl-0 sm:last:pr-0"
-                          >
-                            <p className="index-label">{String(index + 1).padStart(2, "0")}</p>
-                            <h3 className="mt-3 text-xl font-semibold tracking-[-0.02em] text-neutral-950">{item}</h3>
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <div className={cn("mt-8 grid gap-x-8 gap-y-8 border-t border-neutral-200 pt-8", ITEM_GRID_MULTI_ROW_COLS[cols])}>
-                        {grid.items.map((item, index) => (
-                          <div key={item}>
-                            <p className="index-label">{String(index + 1).padStart(2, "0")}</p>
-                            <h3 className="mt-3 text-xl font-semibold tracking-[-0.02em] text-neutral-950">{item}</h3>
-                          </div>
-                        ))}
-                      </div>
-                    )
-                  ) : (
-                    <ul className="mt-8 grid gap-px overflow-hidden border border-neutral-200 bg-neutral-200 sm:grid-cols-2">
-                      {grid.items.map((item) => (
-                        <li key={item} className="bg-white p-5 sm:p-6 text-[15px] leading-6 text-neutral-700">
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
+                  {isPeerStrip ? null : itemRow}
                 </div>
+                {isPeerStrip ? itemRow : null}
               </Container>
             </Section>
           );
@@ -344,21 +504,26 @@ export default function SystemPageTemplate({ locale, content }: { locale: Locale
                 <h2 className="mt-4 text-[28px] font-semibold leading-tight tracking-[-0.04em] text-neutral-950 sm:text-[36px]">
                   {content.applicationSignals.heading}
                 </h2>
-                <ul className="mt-6 grid grid-cols-2 gap-x-3 gap-y-5 sm:grid-cols-3 lg:grid-cols-6">
+                <ul className="mt-6 grid grid-cols-3 gap-x-6 gap-y-8 border-t border-neutral-200 pt-8 sm:grid-cols-4 lg:grid-cols-6">
                   {content.applicationSignals.items.map((item) => (
+                    /* `mx-auto` previously centered each fixed 96/112px icon
+                       inside its wider, evenly-divided grid column, so the
+                       first icon's visible pixels sat ~11px right of the
+                       heading's left edge above. Left-aligning icon + label
+                       keeps the row's starting column flush with the H2/
+                       eyebrow axis without touching column count, gap, or
+                       icon size. */
                     <li key={item.label}>
-                      <div className="overflow-hidden rounded-lg border border-neutral-200 bg-neutral-50">
-                        <div className="relative h-[88px] sm:h-[96px]">
-                          <Image
-                            src={item.image.src}
-                            alt={item.image.alt}
-                            fill
-                            sizes="(min-width: 1024px) 14vw, (min-width: 640px) 28vw, 44vw"
-                            className="object-contain p-1.5"
-                          />
-                        </div>
+                      <div className="relative h-24 w-24 sm:h-28 sm:w-28">
+                        <Image
+                          src={item.image.src}
+                          alt={item.image.alt}
+                          fill
+                          sizes="112px"
+                          className="object-contain"
+                        />
                       </div>
-                      <p className="mt-2 text-center text-[13px] leading-snug text-neutral-700">{item.label}</p>
+                      <p className="mt-3 text-[12px] leading-snug text-neutral-500">{item.label}</p>
                     </li>
                   ))}
                 </ul>
@@ -384,38 +549,80 @@ export default function SystemPageTemplate({ locale, content }: { locale: Locale
                instead of identical treatment for every group. A single-group
                page (CNC/IMM) always resolves to "default" and renders
                exactly as before. */
-            <Section className="bg-white">
+            <Section className={content.benefits ? "bg-white" : "surface-muted"}>
               <Container>
+                {content.optionGroupsHeading && content.optionGrids.length > 1 ? (
+                  <h2 className="max-w-[760px] text-[32px] font-semibold leading-tight tracking-[-0.04em] text-neutral-950 sm:text-[44px]">
+                    {content.optionGroupsHeading.heading}
+                  </h2>
+                ) : null}
                 {content.optionGrids.map((grid, groupIndex) => {
-                  const cols = pickOptionGridColumns(grid.items.length);
+                  const isMultiGroup = content.optionGrids!.length > 1;
+                  const variant: "default" | "featured" | "primary" | "dense" =
+                    isMultiGroup ? (["featured", "primary", "dense"] as const)[groupIndex] ?? "default" : "default";
+                  /* "Prijemala"/Grippers is a short, equal-weight set of four
+                     documented configurations — a dedicated 2x2 "featured"
+                     composition gives each one materially more room than the
+                     dense 4-across strip the other groups use, while keeping
+                     all four directly comparable. Every other group keeps its
+                     original column math untouched. */
+                  const cols = variant === "featured" ? 2 : pickOptionGridColumns(grid.items.length);
                   const singleRow = grid.items.length === cols;
                   const colsClass = singleRow ? OPTION_GRID_SINGLE_ROW_COLS[cols] : OPTION_GRID_MULTI_ROW_COLS[cols];
-                  const variant: "default" | "compact" | "primary" | "dense" =
-                    content.optionGrids!.length > 1 ? (["compact", "primary", "dense"] as const)[groupIndex] ?? "default" : "default";
-                  const isSecondaryWeight = variant === "compact" || variant === "dense";
+                  const isSecondaryWeight = variant === "dense";
                   const tileVw = Math.round(88 / cols);
+                  /** Subordinate to the "Dokumentirane konfiguracije" umbrella
+                   * H2 above — an h3 at a visibly smaller scale than CNC/IMM's
+                   * own (unchanged) single-group h2, so the three groups read
+                   * as subgroups of one topic rather than sibling sections. */
+                  const GroupHeading = isMultiGroup ? "h3" : "h2";
 
                   return (
                     <div
                       key={grid.heading}
                       className={cn(
-                        variant === "compact" ? "max-w-[680px]" : variant === "primary" ? "max-w-none" : "max-w-[920px]",
-                        groupIndex === 0 ? undefined : variant === "dense" ? "mt-10 lg:mt-12" : "mt-14 lg:mt-16"
+                        OPTION_GROUP_WIDTH[variant],
+                        groupIndex === 0
+                          ? isMultiGroup
+                            ? "mt-8 lg:mt-10"
+                            : undefined
+                          /* One uniform, tightened rhythm between all three
+                             subgroups (was a variant-keyed mt-14/16 or
+                             mt-10/12) — reads as one section with three
+                             parts instead of three stacked mini-sections. */
+                          : "mt-8 lg:mt-10"
                       )}
                     >
-                      <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-400">{grid.eyebrow}</p>
-                      <h2
+                      {/* The per-group eyebrow duplicated the now-shortened
+                          category heading below it (e.g. "Prijemala" /
+                          "Prijemala") — dropped for the multi-group case only;
+                          CNC/IMM's single-group eyebrow is untouched. */}
+                      {isMultiGroup ? null : (
+                        <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-400">{grid.eyebrow}</p>
+                      )}
+                      <GroupHeading
                         className={cn(
-                          "mt-4 font-semibold leading-tight tracking-[-0.04em] text-neutral-950",
-                          isSecondaryWeight ? "text-[26px] sm:text-[32px]" : "text-[32px] sm:text-[40px]"
+                          "font-semibold leading-tight tracking-[-0.04em] text-neutral-950",
+                          isMultiGroup ? undefined : "mt-4",
+                          isMultiGroup
+                            ? isSecondaryWeight
+                              ? "text-[19px] sm:text-[24px]"
+                              : "text-[22px] sm:text-[28px]"
+                            : isSecondaryWeight
+                              ? "text-[26px] sm:text-[32px]"
+                              : "text-[32px] sm:text-[40px]"
                         )}
                       >
                         {grid.heading}
-                      </h2>
+                      </GroupHeading>
                       <ul
                         className={cn(
                           "grid grid-cols-2 gap-x-4 border-t border-neutral-200",
-                          variant === "dense" ? "mt-6 gap-y-5 pt-6" : "mt-8 gap-y-6 pt-8",
+                          variant === "dense"
+                            ? "mt-6 gap-y-5 pt-6"
+                            : variant === "featured"
+                              ? "mt-8 gap-y-8 pt-8 sm:mt-10 sm:gap-x-6 sm:gap-y-14 sm:pt-10 lg:gap-y-16 lg:pt-12"
+                              : "mt-8 gap-y-6 pt-8",
                           colsClass
                         )}
                       >
@@ -426,8 +633,8 @@ export default function SystemPageTemplate({ locale, content }: { locale: Locale
                           >
                             <div
                               className={cn(
-                                "relative border border-neutral-100 bg-neutral-50",
-                                variant === "dense" ? "aspect-[4/3]" : "aspect-square"
+                                "relative aspect-[4/3] overflow-hidden rounded-lg",
+                                isMultiGroup ? undefined : "border border-neutral-200 bg-neutral-50"
                               )}
                             >
                               <Image
@@ -435,7 +642,19 @@ export default function SystemPageTemplate({ locale, content }: { locale: Locale
                                 alt={item.image.alt}
                                 fill
                                 sizes={`(min-width: 1024px) ${tileVw}vw, (min-width: 640px) 45vw, 46vw`}
-                                className="object-contain p-2"
+                                /* FLEX 25/50 only: these renders are exactly
+                                   4:3, matching the aspect-[4/3] frame, so
+                                   `object-contain` alone already fills it
+                                   edge to edge with zero letterboxing. The
+                                   `p-2` padding shrank the content box
+                                   symmetrically, insetting the visible photo
+                                   ~8px+ from the frame's true left edge — the
+                                   same edge the title/body align to below —
+                                   which read as the image sitting right of
+                                   the text axis. CNC/IMM's tiles (whose
+                                   source images aren't all exact 4:3) keep
+                                   the padding unchanged. */
+                                className={isMultiGroup ? "object-contain" : "object-contain p-2"}
                               />
                             </div>
                             <h3 className="mt-2.5 text-[15px] font-semibold leading-snug tracking-[-0.02em] text-neutral-950">
@@ -496,7 +715,7 @@ export default function SystemPageTemplate({ locale, content }: { locale: Locale
                     <p key={i}>{p}</p>
                   ))}
                 </div>
-                <div className="rounded-[28px] border border-neutral-200 bg-neutral-50 p-7">
+                <div className="surface-muted rounded-[28px] border border-neutral-200 p-7">
                   <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">{content.detailPanel.panelEyebrow}</p>
                   <ul className="mt-5 space-y-3 text-[15px] leading-6 text-neutral-700">
                     {content.detailPanel.panelItems.map((item) => (
@@ -512,11 +731,11 @@ export default function SystemPageTemplate({ locale, content }: { locale: Locale
         {content.benefits ? (
           <Section className="surface-muted">
             <Container>
-              <div className="grid gap-5 md:grid-cols-2">
+              <div className="grid gap-8 md:grid-cols-2 md:gap-x-12">
                 {content.benefits.items.map((item) => (
-                  <div key={item.title} className="rounded-[28px] border border-neutral-200 bg-white p-7">
-                    <h3 className="text-[22px] font-semibold tracking-[-0.03em] text-neutral-950">{item.title}</h3>
-                    <p className="mt-4 text-[15px] leading-7 text-neutral-600">{item.body}</p>
+                  <div key={item.title}>
+                    <h3 className="text-xl font-semibold tracking-[-0.02em] text-neutral-950">{item.title}</h3>
+                    <p className="mt-3 text-[15px] leading-7 text-neutral-600">{item.body}</p>
                   </div>
                 ))}
               </div>
@@ -553,34 +772,75 @@ export default function SystemPageTemplate({ locale, content }: { locale: Locale
           </Section>
         ) : null}
 
-        {content.relatedSolutions ? (
-          <Section>
-            <Container>
-              <div className="max-w-[720px]">
-                <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-400">{content.relatedSolutions.eyebrow}</p>
-                <h2 className="mt-4 text-[32px] font-semibold leading-tight tracking-[-0.04em] text-neutral-950 sm:text-[44px]">
-                  {content.relatedSolutions.heading}
-                </h2>
-              </div>
-              <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                {content.relatedSolutions.items.map((item) => (
-                  <Link
-                    key={item.routeKey}
-                    href={getPath(item.routeKey, locale) ?? "#"}
-                    className="group block rounded-[24px] border border-neutral-200 bg-white p-6 transition hover:border-neutral-300"
-                  >
-                    <h3 className="text-[20px] font-semibold tracking-[-0.03em] text-neutral-950">{item.title}</h3>
-                    <p className="mt-3 text-[15px] leading-7 text-neutral-600">{item.body}</p>
-                    <span className="mt-5 inline-flex items-center text-[14px] font-medium text-neutral-700 transition group-hover:text-neutral-950">
-                      {content.relatedSolutions!.linkLabel}
-                      <span className="ml-2 transition-transform group-hover:translate-x-1">→</span>
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            </Container>
-          </Section>
-        ) : null}
+        {content.relatedSolutions ? (() => {
+          const { eyebrow, heading, linkLabel, items } = content.relatedSolutions;
+          /* A tagged item (e.g. "Referenca") is supporting proof, not an
+             equal-weight related choice — it renders as a subordinate text
+             link below the capability card(s) instead of a second card in
+             the same grid. Pages with no tagged items (FLEX 25/50, TMX,
+             Middleware) fall straight through to the original markup. */
+          const hasProofItems = items.some((item) => item.tag);
+          const primaryItems = hasProofItems ? items.filter((item) => !item.tag) : items;
+          const proofItems = hasProofItems ? items.filter((item) => item.tag) : [];
+          const singleColumn = hasProofItems && primaryItems.length === 1;
+
+          return (
+            <Section>
+              <Container>
+                <div className="max-w-[720px]">
+                  <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-400">{eyebrow}</p>
+                  <h2 className="mt-4 text-[32px] font-semibold leading-tight tracking-[-0.04em] text-neutral-950 sm:text-[44px]">
+                    {heading}
+                  </h2>
+                </div>
+                <div className={cn("mt-8 grid gap-4", singleColumn ? undefined : "sm:grid-cols-2")}>
+                  {primaryItems.map((item) => (
+                    <Link
+                      key={item.routeKey}
+                      href={getPath(item.routeKey, locale) ?? "#"}
+                      className={cn(
+                        "group block rounded-[24px] border border-neutral-200 bg-white p-6 transition hover:border-neutral-300",
+                        singleColumn ? "sm:max-w-[420px]" : undefined
+                      )}
+                    >
+                      {item.tag ? (
+                        <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">{item.tag}</p>
+                      ) : null}
+                      <h3 className={cn("text-[20px] font-semibold tracking-[-0.03em] text-neutral-950", item.tag ? "mt-2" : undefined)}>
+                        {item.title}
+                      </h3>
+                      <p className="mt-3 text-[15px] leading-7 text-neutral-600">{item.body}</p>
+                      <span className="mt-5 inline-flex items-center text-[14px] font-medium text-neutral-700 transition group-hover:text-neutral-950">
+                        {item.linkLabel ?? linkLabel}
+                        <span className="ml-2 transition-transform group-hover:translate-x-1">→</span>
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+
+                {proofItems.length ? (
+                  <div className="mt-6 flex flex-col gap-3">
+                    {proofItems.map((item) => (
+                      <Link
+                        key={item.routeKey}
+                        href={getPath(item.routeKey, locale) ?? "#"}
+                        className="group inline-flex items-center text-[14px] font-medium text-neutral-950"
+                      >
+                        {item.tag ? (
+                          <span className="mr-3 text-[11px] uppercase tracking-[0.16em] text-neutral-400">{item.tag}</span>
+                        ) : null}
+                        <span className="underline decoration-neutral-300 underline-offset-4 group-hover:decoration-neutral-950">
+                          {item.title} — {item.linkLabel ?? linkLabel}
+                        </span>
+                        <span className="ml-2 transition-transform group-hover:translate-x-1">→</span>
+                      </Link>
+                    ))}
+                  </div>
+                ) : null}
+              </Container>
+            </Section>
+          );
+        })() : null}
 
         {content.layoutRefresh ? (
           <Section id="kontakt" variant="large" className="relative overflow-hidden bg-[var(--color-dark-band)]">

@@ -1,0 +1,155 @@
+import type { SolutionPageContent } from "../types";
+
+/** English translation of `sl.ts`. Same structure, block-for-block. */
+export const automationContent: SolutionPageContent = {
+  routeKey: "solutionProductionAutomation",
+  hero: {
+    backLabel: "← All solutions",
+    eyebrow: "Broader production automation",
+    titleLines: ["Production", "automation"],
+    subhead:
+      "When a single cell isn't enough, we design automation around the machines, parts, material flow, and operations the process actually needs.",
+    ctas: [{ label: "See the options", anchor: "#resitev" }],
+    videoSrc: "/video/flexido/hero-home.mp4",
+  },
+  wikiNav: [
+    { id: "proces", label: "Broader automation" },
+    { id: "gradniki", label: "System building blocks" },
+    { id: "resitev", label: "Standard or custom" },
+    { id: "izvedbe", label: "Example implementations" },
+    { id: "dokaz", label: "Projects" },
+  ],
+  sections: [
+    {
+      type: "numberedSteps",
+      id: "proces",
+      eyebrow: "Broader automation",
+      heading: "The process connects more than one cell.",
+      body: "A production process rarely runs on a single machine. Broader automation connects machines, robots, additional operations, and material flow into one coordinated process.",
+      steps: [
+        { label: "Multiple machines and robots in one process", anchor: "#gradniki" },
+        { label: "Grippers, tools, and changeover between parts", anchor: "#gradniki" },
+        { label: "Additional operations, inspection, and safety", anchor: "#gradniki" },
+        { label: "Material flow and equipment integration", anchor: "#gradniki" },
+      ],
+    },
+    {
+      type: "capabilityGroups",
+      id: "gradniki",
+      eyebrow: "Technical building blocks",
+      heading: "What we can combine into a single solution.",
+      body: "Automation can bring together equipment and operations that need to work as one coordinated system in real production.",
+      layout: "openColumns",
+      groups: [
+        {
+          number: "01",
+          title: "Machines and robots",
+          items: [
+            "CNC and injection molding machines",
+            "Industrial and collaborative robots",
+            "Grippers and special tooling",
+            "Automatic gripper or tool changing",
+          ],
+        },
+        {
+          number: "02",
+          title: "Operations in the process",
+          items: [
+            "Additional process stations",
+            "Vision, inspection, and measurement",
+            "Part preparation and handling",
+            "Safety systems",
+          ],
+        },
+        {
+          number: "03",
+          title: "Flow and integration",
+          items: [
+            "Conveyors, transport, and palletizing",
+            "AMR or AGV transport units",
+            "PLC, control systems, and communication interfaces",
+            "Integration of existing equipment and data",
+          ],
+        },
+      ],
+    },
+    {
+      type: "comparisonSplit",
+      id: "resitev",
+      eyebrow: "Choosing a solution",
+      heading: "When a standard cell isn't enough.",
+      body: "The process determines whether the right starting point is a standard robot cell or custom automation designed around the specific implementation.",
+      left: {
+        tag: "Standard robot cell",
+        title: "For repeatable machine processes.",
+        body: "A configurable solution for CNC or injection molding machine tending, when the process matches the existing cell family and its modules.",
+        link: { label: "See standard cells", routeKey: "standardCells" },
+      },
+      right: {
+        tag: "Custom automation",
+        title: "For a process that needs its own configuration.",
+        body: "The solution is shaped by the machine, part, space, material flow, gripping, additional operations, inspection, and existing equipment.",
+        link: { label: "See custom-built robotic cells", routeKey: "solutionCustomSystems" },
+      },
+    },
+    {
+      type: "relatedSolutions",
+      id: "izvedbe",
+      eyebrow: "Example implementations",
+      heading: "We bring in technology wherever the process needs it.",
+      linkLabel: "See this area",
+      items: [
+        { title: "CNC machine automation", body: "Custom-built cells for multiple machines, different part types, additional axes, automatic gripper changing, and stations alongside machining.", routeKey: "solutionCnc" },
+        { title: "Injection molding", body: "From standard part removal to insert-molding solutions with special grippers, insert preparation, inspection, and machine integration.", routeKey: "solutionInjectionMolding" },
+        { title: "Collaborative automation", body: "A cobot can be part of machine tending, pick & place, testing, packaging, assembly, or palletizing.", routeKey: "solutionCobots" },
+        { title: "Material flow and logistics", body: "Transport units, palletizing, AMR or AGV, and integration between machines, stations, and data.", routeKey: "solutionLogistics" },
+      ],
+    },
+    {
+      type: "proofGrid",
+      id: "dokaz",
+      eyebrow: "Completed projects",
+      heading: "Automation in practice.",
+      readMoreLabel: "Read the project",
+      resultLabel: "Result",
+      items: [
+        {
+          area: "Custom overmolding automation",
+          title: "Robotic overmolding cell",
+          body: "Automation of the overmolding process, with optimization of the required output quantity in production.",
+          result: "Almost a third more parts than originally planned.",
+          routeKey: "referenceOvermolding",
+          image: { src: "/images/systems/raw/robotska-celica-za-nabrizgavanje.png", width: 757, height: 1024, objectPosition: "object-[50%_50%]" },
+        },
+        {
+          area: "CNC, cobot, and material flow",
+          title: "Inbound-outbound conveyor line",
+          body: "A conveyor line for KLT containers alongside different CNC machines, built for greater autonomy of the collaborative cell.",
+          result: "Independent, continuous operation across different workpieces, combined with an integrated camera.",
+          routeKey: "referenceConveyor",
+          image: { src: "/images/systems/raw/vhodno-izhodna-tracna-proga.png", width: 757, height: 1024, objectPosition: "object-[50%_38%]" },
+        },
+      ],
+    },
+    {
+      type: "ctaBanner",
+      id: "naslednji-korak",
+      eyebrow: "Next step",
+      heading: "We start with the actual implementation.",
+      body: "For broader automation, we first align the machine, part, material flow, space, and required operations.",
+      cta: { label: "How a project works", routeKey: "process" },
+    },
+  ],
+  kontakt: {
+    eyebrow: "Contact",
+    heading: "Let's look at your production process.",
+    body: "Send us the basic information about your machine, parts, and workflow. Together we'll assess which automation makes sense.",
+    ctaLabel: "Send an inquiry",
+    mailto: "info@flexido.eu",
+    imageSrc: "/images/flexido/legacy/s-3.jpg.jpeg",
+    imageAlt: "Automated production process",
+    captionEyebrow: "First step",
+    captionText: "Where do the machine, material flow, and operations need to come together into a single process?",
+    variant: "photo",
+  },
+};

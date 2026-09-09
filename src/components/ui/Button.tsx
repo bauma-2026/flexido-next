@@ -12,7 +12,7 @@ type ButtonProps = {
 
 const variants: Record<ButtonVariant, string> = {
   primary:
-    "bg-[#0B8FD3] text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.18)] hover:bg-[#087FBD] hover:text-white",
+    "bg-[var(--color-interactive)] text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.18)] hover:bg-[var(--color-interactive-hover)] hover:text-white",
 
   secondary:
     "border border-neutral-200 bg-white text-neutral-800 hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-950",
@@ -35,7 +35,7 @@ export default function Button({
       href={href}
      className={[
   "inline-flex items-center justify-center rounded-full px-6 py-3 text-[14px] font-medium transition",
-  "focus:outline-none focus:ring-2 focus:ring-[#0B8FD3]/30 focus:ring-offset-2",
+  "focus:outline-none focus:ring-2 focus:ring-[var(--color-interactive)]/30 focus:ring-offset-2",
   variants[variant],
   className,
 ].join(" ")}

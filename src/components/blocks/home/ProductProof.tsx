@@ -2,107 +2,131 @@ import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
+import Button from "@/components/ui/Button";
 import { flexidoSystems } from "@/data/flexido-systems";
+import type { Locale } from "@/i18n/config";
+import { getPath } from "@/i18n/routes";
+import type { HomeProductProofContent } from "@/content/home/types";
 
-const systemLinks: Record<string, string> = {
-  "flex-7-cnc": "/standardne-celice/cnc",
-  "flex-7-imm": "/standardne-celice/imm",
-  "flex-25-50": "/resitve/namenski-sistemi",
-  tmx: "/resitve/kolaborativni-roboti",
-  middleware: "/resitve/logistika",
+const defaultContent: HomeProductProofContent = {
+  eyebrow: "Sistemi",
+  heading: "Sistemi, ki jih prilagodimo procesu.",
+  body:
+    "Standardne robotske celice so osnova za rešitve, ki jih prilagodimo proizvodnji, kosom, prostoru in obstoječi opremi.",
+  viewAllLabel: "Poglej vse sisteme",
+  viewAllRouteKey: "standardCells",
+  viewSystemLabel: "Poglej sistem",
+  systems: [
+    {
+      slug: "flex-7-cnc",
+      category: "CNC avtomatizacija",
+      shortDescription:
+        "Kompaktna robotska celica za strego CNC strojev, nalaganje, odvzem in stabilen tok kosov.",
+      routeKey: "standardCellsCnc",
+    },
+    {
+      slug: "flex-7-imm",
+      category: "Avtomatizacija brizganja plastike",
+      shortDescription:
+        "Kompaktna robotska celica za strego strojev za brizganje plastike, odvzem kosov, insert moulding in kontrolo.",
+      routeKey: "standardCellsImm",
+    },
+  ],
 };
 
-const visibleSystems = flexidoSystems.filter((system) =>
-  ["flex-7-cnc", "flex-7-imm", "flex-25-50", "tmx", "middleware"].includes(
-    system.slug
-  )
-);
+type Props = {
+  content?: HomeProductProofContent;
+  locale?: Locale;
+};
 
-export default function ProductProof() {
+export default function ProductProof({
+  content = defaultContent,
+  locale = "sl",
+}: Props) {
+  const viewAllHref =
+    getPath(content.viewAllRouteKey, locale) ?? getPath("standardCells", locale) ?? "#";
+
+  const systems = content.systems
+    .map((entry) => {
+      const system = flexidoSystems.find((s) => s.slug === entry.slug);
+      if (!system) return null;
+      return {
+        system,
+        category: entry.category,
+        shortDescription: entry.shortDescription,
+        href: getPath(entry.routeKey, locale) ?? "#",
+      };
+    })
+    .filter(Boolean) as Array<{
+    system: (typeof flexidoSystems)[number];
+    category: string;
+    shortDescription: string;
+    href: string;
+  }>;
+
   return (
-    <Section className="border-y border-neutral-200 bg-[#f6f9fc]">
+    <Section className="bg-white">
       <Container>
-        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
-          <div>
-            <p className="eyebrow">Sistemi</p>
+        <div>
+          <p className="eyebrow">{content.eyebrow}</p>
 
-            <h2 className="mt-3 max-w-[13ch] text-3xl font-semibold leading-[1] tracking-[-0.04em] sm:text-4xl lg:text-5xl">
-              Sistemi, ki jih prilagodimo procesu.
-            </h2>
-          </div>
-
-          <div>
-            <p className="max-w-[64ch] text-[16px] leading-7 text-neutral-600">
-              Standardne robotske celice, mobilne platforme in povezovalni
-              sistemi so osnova za rešitve, ki jih prilagodimo proizvodnji,
-              kosom, prostoru in obstoječi opremi.
-            </p>
-
-            <div className="mt-7 flex flex-wrap gap-3">
-              <Link
-                href="/e-katalog"
-                className="inline-flex items-center rounded-full bg-neutral-950 px-6 py-3 text-[14px] font-medium text-white transition hover:bg-neutral-800"
-              >
-                Poglej e-katalog →
-              </Link>
-
-              <Link
-                href="/standardne-celice"
-                className="inline-flex items-center rounded-full border border-neutral-200 bg-white px-6 py-3 text-[14px] font-medium text-neutral-800 transition hover:border-neutral-300"
-              >
-                Standardne celice →
-              </Link>
-            </div>
-          </div>
+          <h2 className="mt-3 max-w-[16ch] text-3xl font-semibold leading-[1] tracking-[-0.04em] sm:text-4xl lg:text-5xl">
+            {content.heading}
+          </h2>
         </div>
 
-      <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-6">
-  {visibleSystems.map((system, index) => (
-    <Link
-      key={system.slug}
-      href={systemLinks[system.slug] ?? "/e-katalog"}
-      className={`group overflow-hidden rounded-[26px] border border-neutral-200 bg-white transition hover:-translate-y-0.5 hover:shadow-[0_24px_70px_rgba(15,23,42,0.08)] ${
-        index < 3 ? "lg:col-span-2" : "lg:col-span-3"
-      }`}
-    >
-   <div className="relative aspect-[16/11] overflow-hidden bg-neutral-100 sm:aspect-[4/3]">
-        <Image
-          src={system.image}
-          alt={system.name}
-          fill
-          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-          className="object-cover transition duration-500 group-hover:scale-[1.03]"
-        />
-      </div>
+        <div className="mt-10 grid gap-10 border-t border-neutral-200 pt-12 sm:grid-cols-2 lg:mt-12 lg:gap-14 lg:pt-14">
+          {systems.map(({ system, category, shortDescription, href }) => (
+            <Link
+              key={system.slug}
+              href={href}
+              className="focus-ring group flex h-full flex-col"
+            >
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius-panel)] border border-neutral-200 bg-neutral-100 transition-colors duration-300 group-hover:border-neutral-400">
+                <Image
+                  src={system.image}
+                  alt={system.name}
+                  fill
+                  sizes="(min-width: 640px) 50vw, 100vw"
+                  className={
+                    system.slug === "flex-7-cnc"
+                      ? "scale-[1.035] object-cover object-[51%_51%] transition duration-500 group-hover:scale-[1.065]"
+                      : "object-cover object-[50%_48%] transition duration-500 group-hover:scale-[1.03]"
+                  }
+                />
+              </div>
 
-    <div className="p-5 sm:p-6">
-  <p className="text-[10px] font-medium uppercase tracking-[0.16em] text-neutral-400 sm:text-[11px]">
-    {system.category}
-  </p>
+              <div className="flex flex-1 flex-col pt-5">
+                <h3 className="text-[20px] font-semibold tracking-[-0.03em] text-neutral-950 sm:text-[22px]">
+                  {category}
+                </h3>
 
-  <h3 className="mt-3 text-[20px] font-semibold tracking-[-0.04em] text-neutral-950 sm:text-[22px]">
-    {system.name}
-  </h3>
+                <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#1693e6]">
+                  {system.name}
+                </p>
 
-  <p className="mt-3 text-[14px] leading-6 text-neutral-600 sm:mt-4">
-    {system.shortDescription}
-  </p>
+                <p className="mt-3 max-w-[44ch] text-[13px] leading-5 text-neutral-500">
+                  {shortDescription}
+                </p>
 
-  <div className="mt-5 hidden space-y-2 sm:block">
-    {system.highlights.slice(0, 3).map((item) => (
-      <p key={item} className="text-[13px] leading-5 text-neutral-500">
-        — {item}
-      </p>
-    ))}
-  </div>
+                <p className="mt-4 inline-flex items-center text-[13px] font-medium text-neutral-400 transition group-hover:text-[#0b8fdc]">
+                  {content.viewSystemLabel}
+                  <span className="link-arrow">→</span>
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
 
-  <p className="mt-5 text-[14px] font-medium text-neutral-500 transition group-hover:text-neutral-950 sm:mt-7">
-    Poglej sistem →
-  </p>
-</div>
-    </Link>
-  ))}
-</div>
+        <div className="mt-10 flex flex-col gap-6 border-t border-neutral-200 pt-8 sm:flex-row sm:items-center sm:justify-between lg:mt-12 lg:pt-10">
+          <p className="max-w-[52ch] text-[15px] leading-7 text-neutral-500 sm:text-[16px]">
+            {content.body}
+          </p>
+
+          <Button href={viewAllHref} variant="secondary" className="shrink-0">
+            {content.viewAllLabel} →
+          </Button>
+        </div>
       </Container>
     </Section>
   );

@@ -1,0 +1,74 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "solutions": "Lösungen",
+    "standardCells": "Standardzellen",
+    "process": "Prozess",
+    "service": "Service",
+    "servicePricing": "Servicepreise",
+    "company": "Unternehmen",
+    "aboutUs": "Über uns",
+    "video": "Video",
+    "references": "Referenzen",
+    "news": "Aktuelle Nachrichten",
+    "contact": "Kontakt"
+  },
+  "languageSwitcher": {
+    "label": "Sprache",
+    "sl": "Slovenščina",
+    "en": "English",
+    "de": "Deutsch"
+  },
+  "footer": {
+    "tagline": "Automatisierung von Produktionsprozessen",
+    "legalNotice": "Impressum",
+    "salesTerms": "Allgemeine Verkaufsbedingungen",
+    "privacyPolicy": "Datenschutz",
+    "rights": "© {year} Flexido"
+  },
+  "proof": {
+    "badge": "i18n-Architekturnachweis",
+    "notice": "Diese Seite belegt die i18n-Architektur (next-intl + Routenregister) auf einer kleinen, kontrollierten Fläche. Die endgültige Übersetzung der Startseite folgt später."
+  },
+  "solutionsNav": {
+    "triggerLabel": "Lösungen",
+    "eyebrow": "Bereiche",
+    "supportEyebrow": "Service",
+    "featuredLabel": "Systeme",
+    "items": {
+      "solutionProductionAutomation": { "label": "Produktionsautomatisierung", "desc": "Systemischer Ansatz" },
+      "solutionCnc": { "label": "CNC-Maschinen", "desc": "Beladen, Entladen, Auslastung" },
+      "solutionInjectionMolding": { "label": "Spritzgießen", "desc": "Entnahme, Zyklus, Teilefluss" },
+      "solutionCobots": { "label": "Kollaborative Roboter", "desc": "Flexible Automatisierung" },
+      "solutionManipulation": { "label": "Materialhandhabung", "desc": "Greifen, Bewegen, Drehen, Ablegen" },
+      "solutionLogistics": { "label": "Interne Logistik", "desc": "Materialfluss zwischen den Phasen" },
+      "solutionCustomSystems": { "label": "Kundenspezifische Systeme", "desc": "Lösung für einen bestimmten Prozess" },
+      "service": { "label": "Service und Unterstützung", "desc": "Unterstützung nach der Inbetriebnahme" },
+      "servicePricing": { "label": "Servicepreise", "desc": "Preise und Bedingungen" }
+    }
+  },
+  "standardCellsNav": {
+    "triggerLabel": "E-Katalog",
+    "eyebrow": "Systeme",
+    "featuredLabel": "Familie",
+    "hubLabel": "Alle Standardzellen",
+    "hubDesc": "CNC, IMM, FLEX 25/50, TMX und Middleware",
+    "items": {
+      "standardCellsCnc": { "label": "FLEX 7 CNC", "desc": "Standardzelle für CNC-Maschinen" },
+      "standardCellsImm": { "label": "FLEX 7 IMM", "desc": "Standardzelle für Spritzguss" },
+      "standardCellsFlex2550": { "label": "FLEX 25 / 50", "desc": "Hochflexible Zelle" },
+      "standardCellsTmx": { "label": "TMX", "desc": "Kollaborative Plattform" },
+      "standardCellsMiddleware": { "label": "Middleware", "desc": "Verbindungsschicht" }
+    }
+  },
+  "companyNav": {
+    "triggerLabel": "Unternehmen",
+    "eyebrow": "Unternehmen",
+    "featuredLabel": "Unternehmen",
+    "items": {
+      "aboutUs": { "label": "Über uns", "desc": "Team, Ansatz und Arbeitsweise" },
+      "video": { "label": "Video", "desc": "Flexido in Bewegung" },
+      "news": { "label": "Aktuelle Nachrichten", "desc": "Meldungen und Projektgeschichten" }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "nav": {
+    "home": "Domov",
+    "solutions": "Rešitve",
+    "contact": "Kontakt"
+  },
+  "languageSwitcher": {
+    "label": "Jezik",
+    "sl": "Slovenščina",
+    "en": "English",
+    "de": "Deutsch"
+  },
+  "footer": {
+    "tagline": "Avtomatizacija proizvodnih procesov",
+    "legalNotice": "Pravno obvestilo",
+    "salesTerms": "Splošni prodajni pogoji",
+    "privacyPolicy": "Varstvo osebnih podatkov",
+    "rights": "© {year} Flexido"
+  },
+  "proof": {
+    "badge": "Arhitekturni preizkus i18n",
+    "notice": "Ta stran dokazuje i18n arhitekturo (next-intl + register poti) na majhnem obsegu. Ni še dokončan prevod domače strani."
+  }
+}

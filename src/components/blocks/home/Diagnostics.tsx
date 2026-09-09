@@ -63,29 +63,29 @@ export default function Diagnostics() {
               čakanju ali ročnem delu.
             </p>
 
-            <div className="mt-7 grid gap-3 sm:grid-cols-2">
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {items.map((item) => {
                 const Icon = item.Icon;
 
                 return (
                   <div
                     key={item.title}
-                    className="rounded-[20px] border border-neutral-200 bg-white px-5 py-4 shadow-[0_12px_34px_rgba(15,23,42,0.035)]"
+                    className="min-h-[148px] rounded-[20px] border border-neutral-200 bg-white px-5 py-5 shadow-[0_12px_34px_rgba(15,23,42,0.035)]"
                   >
                     <div className="flex items-start gap-4">
-                     <div className="flex h-12 w-12 shrink-0 items-center justify-center text-[#1693e6]">
- <Icon className={item.iconClassName ?? "h-8 w-8"} />
-</div>
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[14px] bg-[#edf7fd] text-[#1693e6]">
+                        <Icon className={item.iconClassName ?? "h-8 w-8"} />
+                      </div>
                       <div>
-                        <p className="text-[10px] font-medium uppercase tracking-[0.16em] text-[#0ea5e9]">
+                        <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-[#0ea5e9]">
                           {item.number}
                         </p>
 
-                        <h3 className="mt-1 text-[15px] font-semibold tracking-[-0.02em] text-[#0a2540]">
+                        <h3 className="mt-1.5 text-[16px] font-semibold tracking-[-0.02em] text-[#0a2540]">
                           {item.title}
                         </h3>
 
-                        <p className="mt-2 text-[13px] leading-6 text-[#425466]">
+                        <p className="mt-2.5 text-[13px] leading-6 text-[#425466]">
                           {item.desc}
                         </p>
                       </div>

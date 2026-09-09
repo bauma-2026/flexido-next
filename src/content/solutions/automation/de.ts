@@ -1,0 +1,155 @@
+import type { SolutionPageContent } from "../types";
+
+/** German translation of `sl.ts`. Same structure, block-for-block. */
+export const automationContent: SolutionPageContent = {
+  routeKey: "solutionProductionAutomation",
+  hero: {
+    backLabel: "← Alle Lösungen",
+    eyebrow: "Umfassendere Produktionsautomatisierung",
+    titleLines: ["Produktions-", "automatisierung"],
+    subhead:
+      "Wenn eine einzelne Zelle nicht ausreicht, gestalten wir die Automatisierung rund um die Maschinen, Teile, den Materialfluss und die erforderlichen Prozessschritte.",
+    ctas: [{ label: "Möglichkeiten ansehen", anchor: "#resitev" }],
+    videoSrc: "/video/flexido/hero-home.mp4",
+  },
+  wikiNav: [
+    { id: "proces", label: "Umfassendere Automatisierung" },
+    { id: "gradniki", label: "Systembausteine" },
+    { id: "resitev", label: "Standard oder kundenspezifisch" },
+    { id: "izvedbe", label: "Beispielumsetzungen" },
+    { id: "dokaz", label: "Projekte" },
+  ],
+  sections: [
+    {
+      type: "numberedSteps",
+      id: "proces",
+      eyebrow: "Umfassendere Automatisierung",
+      heading: "Der Prozess verbindet mehr als eine Zelle.",
+      body: "Ein Produktionsprozess läuft selten auf einer einzigen Maschine. Umfassendere Automatisierung verbindet Maschinen, Roboter, zusätzliche Arbeitsschritte und den Materialfluss zu einem abgestimmten Prozess.",
+      steps: [
+        { label: "Mehrere Maschinen und Roboter in einem Prozess", anchor: "#gradniki" },
+        { label: "Greifer, Werkzeuge und Wechsel zwischen Teilen", anchor: "#gradniki" },
+        { label: "Zusätzliche Arbeitsschritte, Prüfung und Sicherheit", anchor: "#gradniki" },
+        { label: "Materialfluss und Anbindung der Ausrüstung", anchor: "#gradniki" },
+      ],
+    },
+    {
+      type: "capabilityGroups",
+      id: "gradniki",
+      eyebrow: "Technische Bausteine",
+      heading: "Was wir zu einer Lösung verbinden können.",
+      body: "Automatisierung kann Ausrüstung und Arbeitsschritte zusammenführen, die in der realen Produktion als abgestimmtes System funktionieren müssen.",
+      layout: "openColumns",
+      groups: [
+        {
+          number: "01",
+          title: "Maschinen und Roboter",
+          items: [
+            "CNC- und Spritzgießmaschinen",
+            "Industrie- und kollaborative Roboter",
+            "Greifer und Sonderwerkzeuge",
+            "Automatischer Greifer- oder Werkzeugwechsel",
+          ],
+        },
+        {
+          number: "02",
+          title: "Arbeitsschritte im Prozess",
+          items: [
+            "Zusätzliche Prozessstationen",
+            "Bildverarbeitung, Prüfung und Messung",
+            "Teilevorbereitung und -handhabung",
+            "Sicherheitssysteme",
+          ],
+        },
+        {
+          number: "03",
+          title: "Fluss und Integration",
+          items: [
+            "Förderbänder, Transport und Palettierung",
+            "AMR- bzw. FTS-Transporteinheiten",
+            "SPS, Steuerung und Kommunikationsschnittstellen",
+            "Anbindung vorhandener Ausrüstung und Daten",
+          ],
+        },
+      ],
+    },
+    {
+      type: "comparisonSplit",
+      id: "resitev",
+      eyebrow: "Lösungswahl",
+      heading: "Wenn eine Standardzelle nicht ausreicht.",
+      body: "Der Prozess entscheidet, ob der richtige Ausgangspunkt eine Standardroboterzelle oder eine kundenspezifische Automatisierung ist, die um die konkrete Umsetzung herum konzipiert wird.",
+      left: {
+        tag: "Standardroboterzelle",
+        title: "Für wiederkehrende Maschinenprozesse.",
+        body: "Eine konfigurierbare Lösung für die Beschickung von CNC- oder Spritzgießmaschinen, wenn der Prozess zur bestehenden Zellenfamilie und ihren Modulen passt.",
+        link: { label: "Standardzellen ansehen", routeKey: "standardCells" },
+      },
+      right: {
+        tag: "Kundenspezifische Automatisierung",
+        title: "Für einen Prozess, der eine eigene Konfiguration erfordert.",
+        body: "Die Lösung wird durch Maschine, Teil, Raum, Materialfluss, Greifvorgang, zusätzliche Arbeitsschritte, Prüfung und vorhandene Ausrüstung bestimmt.",
+        link: { label: "Zellen in Auftragsfertigung ansehen", routeKey: "solutionCustomSystems" },
+      },
+    },
+    {
+      type: "relatedSolutions",
+      id: "izvedbe",
+      eyebrow: "Beispielumsetzungen",
+      heading: "Wir setzen Technologie dort ein, wo der Prozess sie braucht.",
+      linkLabel: "Bereich ansehen",
+      items: [
+        { title: "Automatisierung von CNC-Maschinen", body: "Kundenspezifische Zellen für mehrere Maschinen, unterschiedliche Teiletypen, zusätzliche Achsen, automatischen Greiferwechsel und Stationen entlang der Bearbeitung.", routeKey: "solutionCnc" },
+        { title: "Spritzgießen", body: "Von der Standard-Teileentnahme bis zu Insert-Molding-Lösungen mit Spezialgreifern, Einlegeteilvorbereitung, Prüfung und Maschinenanbindung.", routeKey: "solutionInjectionMolding" },
+        { title: "Kollaborative Automatisierung", body: "Ein Cobot kann Teil der Maschinenbeschickung, von Pick & Place, Prüfung, Verpackung, Montage oder Palettierung sein.", routeKey: "solutionCobots" },
+        { title: "Materialfluss und Logistik", body: "Transporteinheiten, Palettierung, AMR bzw. FTS sowie die Anbindung zwischen Maschinen, Stationen und Daten.", routeKey: "solutionLogistics" },
+      ],
+    },
+    {
+      type: "proofGrid",
+      id: "dokaz",
+      eyebrow: "Realisierte Projekte",
+      heading: "Automatisierung in der Praxis.",
+      readMoreLabel: "Projekt lesen",
+      resultLabel: "Ergebnis",
+      items: [
+        {
+          area: "Kundenspezifische Automatisierung des Umspritzens",
+          title: "Roboterzelle für das Umspritzen",
+          body: "Automatisierung des Umspritzens mit Optimierung der erforderlichen Stückzahl im Produktionsprozess.",
+          result: "Fast ein Drittel mehr Teile als ursprünglich vorgesehen.",
+          routeKey: "referenceOvermolding",
+          image: { src: "/images/systems/raw/robotska-celica-za-nabrizgavanje.png", width: 757, height: 1024, objectPosition: "object-[50%_50%]" },
+        },
+        {
+          area: "CNC, Cobot und Materialfluss",
+          title: "Ein- und Ausgangsförderband",
+          body: "Ein Förderband für KLT-Behälter an verschiedenen CNC-Maschinen, ausgelegt für mehr Autonomie der kollaborativen Zelle.",
+          result: "Eigenständiger, durchgehender Betrieb mit unterschiedlichen Werkstücken in Kombination mit einer integrierten Kamera.",
+          routeKey: "referenceConveyor",
+          image: { src: "/images/systems/raw/vhodno-izhodna-tracna-proga.png", width: 757, height: 1024, objectPosition: "object-[50%_38%]" },
+        },
+      ],
+    },
+    {
+      type: "ctaBanner",
+      id: "naslednji-korak",
+      eyebrow: "Nächster Schritt",
+      heading: "Wir beginnen bei der konkreten Umsetzung.",
+      body: "Für umfassendere Automatisierung stimmen wir zunächst Maschine, Teil, Materialfluss, Raum und erforderliche Arbeitsschritte aufeinander ab.",
+      cta: { label: "Wie ein Projekt abläuft", routeKey: "process" },
+    },
+  ],
+  kontakt: {
+    eyebrow: "Kontakt",
+    heading: "Werfen wir einen Blick auf Ihren Produktionsprozess.",
+    body: "Senden Sie uns grundlegende Informationen zu Maschine, Teilen und Arbeitsablauf. Gemeinsam prüfen wir, welche Automatisierung sinnvoll ist.",
+    ctaLabel: "Anfrage senden",
+    mailto: "info@flexido.eu",
+    imageSrc: "/images/flexido/legacy/s-3.jpg.jpeg",
+    imageAlt: "Automatisierter Produktionsprozess",
+    captionEyebrow: "Erster Schritt",
+    captionText: "Wo müssen Maschine, Materialfluss und Arbeitsschritte zu einem Prozess zusammenkommen?",
+    variant: "photo",
+  },
+};

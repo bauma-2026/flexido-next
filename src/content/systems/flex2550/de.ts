@@ -22,7 +22,6 @@ export const flex2550SystemContent: SystemPageContent = {
     eyebrow: "Hochflexible Zelle",
     heading: "Plattform für anspruchsvollere Anwendungen.",
     paragraphs: [
-      "FLEX 25 / 50 ist eine leistungsfähigere Automatisierungsplattform für Insert Placing, Insert Moulding, Qualitätskontrolle und Prozessanwendungen, bei denen größere Roboter, höhere Traglast oder ein breiteres Optionsspektrum erforderlich sind.",
       "Bei manchen Umsetzungen ist FLEX 25 / 50 ein konfigurierbarer Ausgangspunkt — vor allem dann, wenn die Standardzelle FLEX 7 die erforderliche Traglast, Reichweite oder das Optionsspektrum nicht abdeckt.",
     ],
     image: { src: "/raw/flex-25-50-isometric-robotic-manufacturing-cell.png", alt: "Gesamtes FLEX 25 / 50 Automatisierungssystem mit Sicherheitszaun" },
@@ -82,14 +81,15 @@ export const flex2550SystemContent: SystemPageContent = {
       },
     ],
   },
+  optionGroupsHeading: { heading: "Dokumentierte Konfigurationen" },
   optionGrids: [
     {
       eyebrow: "Greifer",
-      heading: "Dokumentierte Greiferkonfigurationen.",
+      heading: "Greifer",
       items: [
         {
           image: {
-            src: "/images/flexido/products/flex-25-50/flex-25-50-simple-gripper.jpg",
+            src: "/images/flexido/products/flex-25-50/flex-25-50-simple-gripper-v2.png",
             alt: "Einfacher Greifer an der FLEX 25 / 50",
           },
           title: "Einfacher Handhabungsgreifer",
@@ -97,7 +97,7 @@ export const flex2550SystemContent: SystemPageContent = {
         },
         {
           image: {
-            src: "/images/flexido/products/flex-25-50/flex-25-50-gripper-insert-placing.png",
+            src: "/images/flexido/products/flex-25-50/flex-25-50-gripper-insert-placing-v2.png",
             alt: "Greifer für Insert Placing",
           },
           title: "Greifer für Insert Placing",
@@ -105,7 +105,7 @@ export const flex2550SystemContent: SystemPageContent = {
         },
         {
           image: {
-            src: "/images/flexido/products/flex-25-50/flex-25-50-complex-insert-moulding-gripper.png",
+            src: "/images/flexido/products/flex-25-50/flex-25-50-complex-insert-moulding-gripper-v2.png",
             alt: "Komplexer Insert-Moulding-Greifer",
           },
           title: "Komplexer Insert-Moulding-Greifer",
@@ -113,7 +113,7 @@ export const flex2550SystemContent: SystemPageContent = {
         },
         {
           image: {
-            src: "/images/flexido/products/flex-25-50/flex-25-50-complex-gripper.jpg",
+            src: "/images/flexido/products/flex-25-50/flex-25-50-complex-gripper-v2.png",
             alt: "Komplexer Insert-Moulding-Greifer (dokumentierte Ausführung 2)",
           },
           title: "Komplexer Insert-Moulding-Greifer (dokumentierte Ausführung 2)",
@@ -123,7 +123,7 @@ export const flex2550SystemContent: SystemPageContent = {
     },
     {
       eyebrow: "Zuführung / Abführung",
-      heading: "Dokumentierte Infeed- und Outfeed-Konfigurationen.",
+      heading: "Infeed und Outfeed",
       items: [
         {
           image: {
@@ -177,11 +177,11 @@ export const flex2550SystemContent: SystemPageContent = {
     },
     {
       eyebrow: "Vorbereitung und Unterstützung",
-      heading: "Insert-Vorbereitung, Tray-Systeme und Prozesssicht.",
+      heading: "Vorbereitung und Unterstützung",
       items: [
         {
           image: {
-            src: "/images/flexido/products/flex-25-50/flex-25-50-tray-stacker.png",
+            src: "/images/flexido/products/flex-25-50/flex-25-50-tray-stacker-unit.jpg",
             alt: "Tray-Stacker-System",
           },
           title: "Tray-Stacker-Systeme",
@@ -221,7 +221,7 @@ export const flex2550SystemContent: SystemPageContent = {
         },
         {
           image: {
-            src: "/raw/flex-25-50-modular-conveyor.png",
+            src: "/images/flexido/products/flex-25-50/flex-25-50-vision-quality-control.png",
             alt: "Vision-System für Qualitätsprüfung",
           },
           title: "Vision-System für Qualitätsprüfung",
@@ -237,7 +237,7 @@ export const flex2550SystemContent: SystemPageContent = {
         },
         {
           image: {
-            src: "/images/flexido/products/flex-25-50/flex-25-50-visualisation-sensor-status.jpg",
+            src: "/images/flexido/products/flex-25-50/flex-25-50-visualisation-sensor-status-v2.png",
             alt: "Visualisierung des Sensorstatus",
           },
           title: "Visualisierung des Sensorstatus",

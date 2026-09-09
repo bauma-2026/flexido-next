@@ -18,22 +18,22 @@ export default function FundingLogos({
   return (
     <div
       className={[
-        "not-prose mt-12 border-t border-neutral-200 pt-10",
+        "not-prose mt-10 border-t border-neutral-200 pt-8",
         className,
       ].join(" ")}
     >
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="flex flex-wrap items-center gap-x-10 gap-y-6">
         {logos.map((logo) => {
           const content = (
-            <div className="flex h-[112px] items-center justify-center rounded-[22px] border border-neutral-200 bg-white px-8 py-6 transition group-hover:border-neutral-300 group-hover:shadow-[0_18px_50px_rgba(15,23,42,0.06)]">
+            <div className="flex h-[64px] items-center justify-center transition group-hover:opacity-80">
               {logo.src ? (
                 <img
                   src={logo.src}
                   alt={logo.alt}
-                  className="max-h-[54px] max-w-[190px] object-contain"
+                  className="max-h-[56px] max-w-[190px] object-contain"
                 />
               ) : (
-                <span className="text-center text-[18px] font-medium tracking-[-0.03em] text-neutral-800">
+                <span className="text-center text-[15px] font-medium tracking-[-0.02em] text-neutral-700">
                   {logo.label ?? logo.alt}
                 </span>
               )}

@@ -1,8 +1,12 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Container from "@/components/layout/Container";
+import type { Locale } from "@/i18n/config";
+import type { RouteKey } from "@/i18n/routes";
 
 type LegalPageProps = {
+  locale?: Locale;
+  routeKey?: RouteKey;
   eyebrow?: string;
   title: string;
   desc?: string;
@@ -10,6 +14,8 @@ type LegalPageProps = {
 };
 
 export default function LegalPage({
+  locale = "sl",
+  routeKey = "legalNotice",
   eyebrow = "Pravno",
   title,
   desc,
@@ -17,7 +23,7 @@ export default function LegalPage({
 }: LegalPageProps) {
   return (
     <>
-      <Header sticky={false} />
+      <Header sticky={false} locale={locale} routeKey={routeKey} />
 
       <main className="bg-white text-neutral-950">
         <section className="border-b border-neutral-200 bg-white">
@@ -49,7 +55,7 @@ export default function LegalPage({
         </section>
       </main>
 
-      <Footer />
+      <Footer locale={locale} />
     </>
   );
 }

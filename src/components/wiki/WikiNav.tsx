@@ -69,30 +69,30 @@ export default function WikiNav({ items }: WikiNavProps) {
   }, [activeHref]);
 
   return (
-    <div className="sticky top-0 z-30 border-b border-neutral-200/70 bg-white/85 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-[1180px] gap-2 overflow-x-auto px-6 py-3 lg:px-8 [&::-webkit-scrollbar]:hidden">
-        {items.map((item) => {
-          const isActive = activeHref === item.href;
+  <div className="sticky top-0 z-30 border-b border-neutral-200/70 bg-white/85 backdrop-blur-xl">
+    <div className="mx-auto flex w-full max-w-[1280px] gap-2 overflow-x-auto px-5 py-3 sm:px-6 lg:px-8 [&::-webkit-scrollbar]:hidden">
+      {items.map((item) => {
+        const isActive = activeHref === item.href;
 
-          return (
-            <a
-              key={item.href}
-              ref={(node) => {
-                itemRefs.current[item.href] = node;
-              }}
-              href={item.href}
-              className={[
-                "shrink-0 rounded-full border px-4 py-2 text-[13px] font-medium transition",
-                isActive
-                  ? "border-neutral-950 bg-neutral-950 text-white"
-                  : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300 hover:text-neutral-950",
-              ].join(" ")}
-            >
-              {item.label}
-            </a>
-          );
-        })}
-      </div>
+        return (
+          <a
+            key={item.href}
+            ref={(node) => {
+              itemRefs.current[item.href] = node;
+            }}
+            href={item.href}
+            className={[
+              "shrink-0 rounded-full border px-4 py-2 text-[13px] font-medium transition",
+              isActive
+                ? "border-neutral-950 bg-neutral-950 text-white"
+                : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300 hover:text-neutral-950",
+            ].join(" ")}
+          >
+            {item.label}
+          </a>
+        );
+      })}
     </div>
-  );
+  </div>
+);
 }

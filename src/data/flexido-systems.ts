@@ -29,11 +29,12 @@ export const flexidoSystems: FlexidoSystem[] = [
       "Kompaktna robotska celica za strego strojev za brizganje plastike, odvzem kosov, insert moulding in kontrolo.",
     description:
       "FLEX 7 IMM Slim je kompaktna avtomatizacijska celica za stroje za brizganje plastike. Namenjena je odvzemu kosov, insert moulding procesu, pripravi insertov in kontroli kakovosti v majhnem tlorisu.",
-    image: "/images/flexido/products/flex-7-imm/flex-7-imm-system.webp",
+    image: "/images/systems/raw/flex-7-imm-slim-studio.png",
     applications: [
-      "Odvzem kosov iz stroja za brizganje plastike",
+      "Odvzem in izrivanje kosov",
       "Kontrola kakovosti",
-      "Vstavljanje insertov in insert moulding",
+      "Enostavno vstavljanje insertov",
+      "Insert moulding",
     ],
     highlights: [
       "Majhen tloris",
@@ -76,7 +77,7 @@ export const flexidoSystems: FlexidoSystem[] = [
       "Kompaktna robotska celica za strego CNC strojev, nalaganje, odvzem in stabilen tok kosov.",
     description:
       "FLEX 7 CNC Slim je kompaktna avtomatizacijska celica za posluževanje CNC strojev, z možnostmi za zalogovnike, čiščenje, graviranje in vibro sortiranje.",
-    image: "/images/flexido/products/flex-7-cnc/flex-7-cnc-main.webp",
+    image: "/images/systems/raw/flex-7-cnc-slim-studio.png",
     applications: [
       "Strega CNC strojev",
       "Kontrola kakovosti",
@@ -126,7 +127,7 @@ export const flexidoSystems: FlexidoSystem[] = [
       "Fleksibilna robotska celica za srednje in zahtevnejše aplikacije z večjo nosilnostjo in možnostjo dodatnih modulov.",
     description:
       "FLEX 25 / 50 je zmogljivejša avtomatizacijska platforma za insert placing, insert moulding, kontrolo kakovosti in procesne aplikacije, kjer so potrebni večji roboti, večja nosilnost ali širši nabor opcij.",
-    image: "/images/flexido/products/flex-25-50/flex-25-50-main.webp",
+    image: "/images/systems/raw/flex-25-50-studio.webp",
     applications: [
       "Vstavljanje insertov in insert moulding",
       "Aplikacije pred IM procesom",
@@ -181,7 +182,7 @@ export const flexidoSystems: FlexidoSystem[] = [
       "Mobilna kolaborativna robotska platforma za pick and place, enostavno montažo, kontrolo kakovosti in pomoč operaterju.",
     description:
       "TMX je kolaborativni robot na mobilni platformi, namenjen enostavnim nalogam, kjer so pomembni fleksibilnost, hitra prestavitev in uporaba na različnih mestih v proizvodnji.",
-    image: "/images/flexido/products/tmx/tmx-main.webp",
+    image: "/images/systems/raw/tmx-studio.png",
     applications: [
       "Pick and place aplikacije",
       "Kontrola kakovosti",
@@ -201,15 +202,15 @@ export const flexidoSystems: FlexidoSystem[] = [
     },
     gallery: [
       {
-        src: "/images/flexido/products/tmx/tmx-packaging-box-holder.jpg",
+        src: "/raw/tmx-packaging-box-holder-1.png",
         alt: "Nosilec za embalažne zaboje",
       },
       {
-        src: "/images/flexido/products/tmx/tmx-electro-pneumatic-interface.jpg",
+        src: "/raw/tmx-electro-pneumatic-interface-1.png",
         alt: "Elektro in pnevmatski vmesniki",
       },
       {
-        src: "/images/flexido/products/tmx/tmx-safety-scanner.jpg",
+        src: "/raw/tmx-safety-scanner-1.png",
         alt: "3D safety scanner",
       },
     ],
@@ -223,7 +224,7 @@ export const flexidoSystems: FlexidoSystem[] = [
       "Povezovalni sloj med proizvodno opremo, transportnimi enotami, postajami in ERP oziroma proizvodnimi sistemi.",
     description:
       "Middleware povezuje avtomatizacijsko opremo, materialni tok, transportne enote in ERP sisteme v strukturiran komunikacijski sloj proizvodnje.",
-    image: "/images/flexido/products/middleware/middleware-main.webp",
+    image: "/images/systems/raw/middleware-main.webp",
     applications: [
       "Povezava strojev in postaj",
       "ERP integracija",
@@ -239,19 +240,19 @@ export const flexidoSystems: FlexidoSystem[] = [
     gallery: [
       {
         src: "/images/flexido/products/middleware/middleware-industrial-robot.png",
-        alt: "Industrijska robotska postaja",
+        alt: "Industrijska robotska postaja ABB IRB 6700",
       },
       {
         src: "/images/flexido/products/middleware/middleware-mechanical-buffer-chute.png",
-        alt: "Mehanski buffer chute",
+        alt: "Mechanical Buffer Chute",
       },
       {
         src: "/images/flexido/products/middleware/middleware-mechanical-drop-off-unit.png",
-        alt: "Mehanska drop-off enota",
+        alt: "Mechanical Drop-off unit",
       },
       {
         src: "/images/flexido/products/middleware/middleware-transport-unit-sdv.png",
-        alt: "Transportna enota SDV",
+        alt: "Mobilna transportna platforma SDV/AMR (OTTO)",
       },
     ],
   },

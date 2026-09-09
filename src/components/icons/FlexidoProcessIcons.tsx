@@ -10,6 +10,8 @@ function IconBase({
   return (
     <svg
       viewBox="0 0 32 32"
+      width="32"
+      height="32"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
@@ -19,7 +21,7 @@ function IconBase({
     >
       <g
         stroke="currentColor"
-        strokeWidth="1"
+        strokeWidth="1.25"
         strokeLinecap="round"
         strokeLinejoin="round"
       >
@@ -249,6 +251,8 @@ export function StandardCellIcon(props: IconProps) {
   return (
     <svg
       viewBox="0 0 47.6 47.6"
+      width="47.6"
+      height="47.6"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={props.className}

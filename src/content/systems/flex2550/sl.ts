@@ -22,7 +22,6 @@ export const flex2550SystemContent: SystemPageContent = {
     eyebrow: "Visoko fleksibilna celica",
     heading: "Platforma za zahtevnejše aplikacije.",
     paragraphs: [
-      "FLEX 25 / 50 je zmogljivejša avtomatizacijska platforma za insert placing, insert moulding, kontrolo kakovosti in procesne aplikacije, kjer so potrebni večji roboti, večja nosilnost ali širši nabor opcij.",
       "Pri nekaterih izvedbah je FLEX 25 / 50 konfigurabilno izhodišče — predvsem takrat, ko standardna celica FLEX 7 ne pokrije zahtevane nosilnosti, dosega ali nabora opcij.",
     ],
     image: { src: "/raw/flex-25-50-isometric-robotic-manufacturing-cell.png", alt: "Celoten avtomatizacijski sistem FLEX 25 / 50 z varnostno ograjo" },
@@ -82,14 +81,15 @@ export const flex2550SystemContent: SystemPageContent = {
       },
     ],
   },
+  optionGroupsHeading: { heading: "Dokumentirane konfiguracije" },
   optionGrids: [
     {
       eyebrow: "Prijemala",
-      heading: "Dokumentirane konfiguracije prijemal.",
+      heading: "Prijemala",
       items: [
         {
           image: {
-            src: "/images/flexido/products/flex-25-50/flex-25-50-simple-gripper.jpg",
+            src: "/images/flexido/products/flex-25-50/flex-25-50-simple-gripper-v2.png",
             alt: "Enostavno prijemalo na FLEX 25 / 50",
           },
           title: "Enostavno prijemalo",
@@ -97,7 +97,7 @@ export const flex2550SystemContent: SystemPageContent = {
         },
         {
           image: {
-            src: "/images/flexido/products/flex-25-50/flex-25-50-gripper-insert-placing.png",
+            src: "/images/flexido/products/flex-25-50/flex-25-50-gripper-insert-placing-v2.png",
             alt: "Prijemalo za vstavljanje insertov",
           },
           title: "Prijemalo za vstavljanje insertov",
@@ -105,7 +105,7 @@ export const flex2550SystemContent: SystemPageContent = {
         },
         {
           image: {
-            src: "/images/flexido/products/flex-25-50/flex-25-50-complex-insert-moulding-gripper.png",
+            src: "/images/flexido/products/flex-25-50/flex-25-50-complex-insert-moulding-gripper-v2.png",
             alt: "Kompleksno prijemalo za insert moulding",
           },
           title: "Kompleksno prijemalo za insert moulding",
@@ -113,7 +113,7 @@ export const flex2550SystemContent: SystemPageContent = {
         },
         {
           image: {
-            src: "/images/flexido/products/flex-25-50/flex-25-50-complex-gripper.jpg",
+            src: "/images/flexido/products/flex-25-50/flex-25-50-complex-gripper-v2.png",
             alt: "Kompleksno prijemalo za insert moulding (dokumentirana izvedba 2)",
           },
           title: "Kompleksno prijemalo za insert moulding (dokumentirana izvedba 2)",
@@ -123,7 +123,7 @@ export const flex2550SystemContent: SystemPageContent = {
     },
     {
       eyebrow: "Dovod / odvod",
-      heading: "Dokumentirane infeed in outfeed konfiguracije.",
+      heading: "Infeed in outfeed",
       items: [
         {
           image: {
@@ -177,11 +177,11 @@ export const flex2550SystemContent: SystemPageContent = {
     },
     {
       eyebrow: "Priprava in podpora",
-      heading: "Priprava insertov, pladnji in nadzor procesa.",
+      heading: "Priprava in podpora",
       items: [
         {
           image: {
-            src: "/images/flexido/products/flex-25-50/flex-25-50-tray-stacker.png",
+            src: "/images/flexido/products/flex-25-50/flex-25-50-tray-stacker-unit.jpg",
             alt: "Sistem za obročanje pladnjev",
           },
           title: "Sistemi za obročanje pladnjev",
@@ -221,7 +221,7 @@ export const flex2550SystemContent: SystemPageContent = {
         },
         {
           image: {
-            src: "/raw/flex-25-50-modular-conveyor.png",
+            src: "/images/flexido/products/flex-25-50/flex-25-50-vision-quality-control.png",
             alt: "Vision sistem za kontrolo kakovosti",
           },
           title: "Vision sistem za kontrolo kakovosti",
@@ -237,7 +237,7 @@ export const flex2550SystemContent: SystemPageContent = {
         },
         {
           image: {
-            src: "/images/flexido/products/flex-25-50/flex-25-50-visualisation-sensor-status.jpg",
+            src: "/images/flexido/products/flex-25-50/flex-25-50-visualisation-sensor-status-v2.png",
             alt: "Vizualizacija stanja senzorov",
           },
           title: "Vizualizacija stanja senzorov",

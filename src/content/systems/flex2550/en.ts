@@ -22,7 +22,6 @@ export const flex2550SystemContent: SystemPageContent = {
     eyebrow: "A highly flexible cell",
     heading: "A platform for more demanding applications.",
     paragraphs: [
-      "FLEX 25 / 50 is a more powerful automation platform for insert placing, insert molding, quality control, and process applications where larger robots, higher payload, or a wider range of options are needed.",
       "In some builds, FLEX 25 / 50 is a configurable starting point — particularly when the standard FLEX 7 cell doesn't cover the required payload, reach, or range of options.",
     ],
     image: { src: "/raw/flex-25-50-isometric-robotic-manufacturing-cell.png", alt: "Complete FLEX 25 / 50 automation system with safety fencing" },
@@ -82,14 +81,15 @@ export const flex2550SystemContent: SystemPageContent = {
       },
     ],
   },
+  optionGroupsHeading: { heading: "Documented configurations" },
   optionGrids: [
     {
       eyebrow: "Grippers",
-      heading: "Documented gripper configurations.",
+      heading: "Grippers",
       items: [
         {
           image: {
-            src: "/images/flexido/products/flex-25-50/flex-25-50-simple-gripper.jpg",
+            src: "/images/flexido/products/flex-25-50/flex-25-50-simple-gripper-v2.png",
             alt: "Simple gripper on the FLEX 25 / 50",
           },
           title: "Simple handling gripper",
@@ -97,7 +97,7 @@ export const flex2550SystemContent: SystemPageContent = {
         },
         {
           image: {
-            src: "/images/flexido/products/flex-25-50/flex-25-50-gripper-insert-placing.png",
+            src: "/images/flexido/products/flex-25-50/flex-25-50-gripper-insert-placing-v2.png",
             alt: "Insert-placement gripper",
           },
           title: "Insert-placement gripper",
@@ -105,7 +105,7 @@ export const flex2550SystemContent: SystemPageContent = {
         },
         {
           image: {
-            src: "/images/flexido/products/flex-25-50/flex-25-50-complex-insert-moulding-gripper.png",
+            src: "/images/flexido/products/flex-25-50/flex-25-50-complex-insert-moulding-gripper-v2.png",
             alt: "Complex insert-molding gripper",
           },
           title: "Complex insert-molding gripper",
@@ -113,7 +113,7 @@ export const flex2550SystemContent: SystemPageContent = {
         },
         {
           image: {
-            src: "/images/flexido/products/flex-25-50/flex-25-50-complex-gripper.jpg",
+            src: "/images/flexido/products/flex-25-50/flex-25-50-complex-gripper-v2.png",
             alt: "Complex insert-molding gripper (documented variant 2)",
           },
           title: "Complex insert-molding gripper (documented variant 2)",
@@ -123,7 +123,7 @@ export const flex2550SystemContent: SystemPageContent = {
     },
     {
       eyebrow: "Infeed / outfeed",
-      heading: "Documented infeed and outfeed configurations.",
+      heading: "Infeed and outfeed",
       items: [
         {
           image: {
@@ -177,11 +177,11 @@ export const flex2550SystemContent: SystemPageContent = {
     },
     {
       eyebrow: "Preparation and support",
-      heading: "Insert preparation, trays, and process visibility.",
+      heading: "Preparation and support",
       items: [
         {
           image: {
-            src: "/images/flexido/products/flex-25-50/flex-25-50-tray-stacker.png",
+            src: "/images/flexido/products/flex-25-50/flex-25-50-tray-stacker-unit.jpg",
             alt: "Tray stacker system",
           },
           title: "Tray stacker systems",
@@ -221,7 +221,7 @@ export const flex2550SystemContent: SystemPageContent = {
         },
         {
           image: {
-            src: "/raw/flex-25-50-modular-conveyor.png",
+            src: "/images/flexido/products/flex-25-50/flex-25-50-vision-quality-control.png",
             alt: "Vision system for quality check",
           },
           title: "Vision system for quality check",
@@ -237,7 +237,7 @@ export const flex2550SystemContent: SystemPageContent = {
         },
         {
           image: {
-            src: "/images/flexido/products/flex-25-50/flex-25-50-visualisation-sensor-status.jpg",
+            src: "/images/flexido/products/flex-25-50/flex-25-50-visualisation-sensor-status-v2.png",
             alt: "Remote sensor status visualization",
           },
           title: "Remote sensor-status visualization",

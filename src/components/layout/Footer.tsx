@@ -1,4 +1,12 @@
+import Link from "next/link";
+
 import Container from "./Container";
+import CookieSettingsTrigger from "@/components/consent/CookieSettingsTrigger";
+import type { Locale } from "@/i18n/config";
+import { getPath, isAvailable, type RouteKey } from "@/i18n/routes";
+import slMessages from "../../../messages/sl.json";
+import enMessages from "../../../messages/en.json";
+import deMessages from "../../../messages/de.json";
 
 const solutions = [
   {
@@ -33,7 +41,7 @@ const solutions = [
 
 const nav = [
   { label: "Proces", href: "/proces" },
-    { label: "E-katalog", href: "/e-katalog" },
+    { label: "E-katalog", href: "/standardne-celice" },
   { label: "O nas", href: "/o-nas" },
   { label: "Reference", href: "/reference" },
   { label: "Novice", href: "/novice" },
@@ -41,7 +49,7 @@ const nav = [
   { label: "Video", href: "/video" },
 ];
 
-const trustLogos = [
+const trustLogosSl = [
   {
     href: "/razvojni-projekti",
     src: "/logos/trust/eu-regional-development-fund.webp",
@@ -55,21 +63,162 @@ const trustLogos = [
     note: "ISO 9001 — Bureau Veritas Certification.",
   },
 ];
-const legalLinks = [
-  {
-    label: "Pravno obvestilo",
-    href: "/pravno-obvestilo",
+
+function getTrustLogos(locale: Locale) {
+  const euFundingHref =
+    getPath("fundingProjects", locale) ?? "https://www.eu-skladi.si/";
+
+  return [
+    {
+      href: euFundingHref,
+      src: "/logos/trust/eu-regional-development-fund.webp",
+      alt: "Evropska unija — Evropski sklad za regionalni razvoj",
+      note:
+        locale === "sl"
+          ? "Projekt sofinancirata Republika Slovenija in Evropska unija."
+          : locale === "en"
+            ? "Co-financed by the Republic of Slovenia and the European Union."
+            : "Kofinanziert von der Republik Slowenien und der Europäischen Union.",
+    },
+    trustLogosSl[1],
+  ];
+}
+const legalRouteKeys = ["legalNotice", "salesTerms", "privacyPolicy"] as const;
+
+function getFooterLegal(locale: Locale) {
+  const messages = { sl: slMessages, en: enMessages, de: deMessages }[locale];
+  return legalRouteKeys
+    .filter((key) => isAvailable(key, locale))
+    .map((key) => ({
+      label: messages.footer[key],
+      href: getPath(key, locale) ?? "#",
+    }));
+}
+const footerCopy = {
+  sl: {
+    taglineMain: "Urejamo in avtomatiziramo proizvodne procese — od posameznega stroja do povezanega toka materiala, ljudi in podatkov.",
+    taglineSub: "Od pregleda procesa do delujoče rešitve in podpore po zagonu.",
+    solutionsHeading: "Rešitve",
+    systemsHeading: "Standardne celice",
+    navHeading: "Navigacija",
+    contactHeading: "Kontakt",
+    emailLabel: "E-pošta",
+    phoneLabel: "Telefon",
+    contactCta: "Kontakt",
+    legalHeading: "Pravno",
+    bottomTagline: "Avtomatizacija proizvodnih procesov",
   },
-  {
-    label: "Splošni prodajni pogoji",
-    href: "/splosni-prodajni-pogoji",
+  en: {
+    taglineMain: "We design and automate production processes — from a single machine to a connected flow of material, people and data.",
+    taglineSub: enMessages.footer.tagline,
+    solutionsHeading: enMessages.nav.solutions,
+    systemsHeading: enMessages.nav.standardCells,
+    navHeading: "Navigation",
+    contactHeading: enMessages.nav.contact,
+    emailLabel: "Email",
+    phoneLabel: "Phone",
+    contactCta: enMessages.nav.contact,
+    legalHeading: "Legal",
+    bottomTagline: enMessages.footer.tagline,
   },
-  {
-    label: "Varstvo osebnih podatkov",
-    href: "/varstvo-osebnih-podatkov",
+  de: {
+    taglineMain: "Wir gestalten und automatisieren Produktionsprozesse — von einer einzelnen Maschine bis zum verbundenen Fluss von Material, Menschen und Daten.",
+    taglineSub: deMessages.footer.tagline,
+    solutionsHeading: deMessages.nav.solutions,
+    systemsHeading: deMessages.nav.standardCells,
+    navHeading: "Navigation",
+    contactHeading: deMessages.nav.contact,
+    emailLabel: "E-Mail",
+    phoneLabel: "Telefon",
+    contactCta: deMessages.nav.contact,
+    legalHeading: "Rechtliches",
+    bottomTagline: deMessages.footer.tagline,
   },
+} as const;
+
+const solutionsNavMessages = { en: enMessages.solutionsNav, de: deMessages.solutionsNav };
+
+const solutionRouteKeys: RouteKey[] = [
+  "solutionProductionAutomation",
+  "solutionCnc",
+  "solutionInjectionMolding",
+  "solutionCobots",
+  "solutionManipulation",
+  "solutionLogistics",
+  "solutionCustomSystems",
 ];
-export default function Footer() {
+
+const systemRouteKeys: RouteKey[] = [
+  "standardCells",
+  "standardCellsCnc",
+  "standardCellsImm",
+  "standardCellsFlex2550",
+  "standardCellsTmx",
+  "standardCellsMiddleware",
+];
+
+function getFooterSolutions(locale: Locale) {
+  if (locale === "sl") return solutions;
+
+  const messages = solutionsNavMessages[locale];
+  return solutionRouteKeys
+    .filter((key) => isAvailable(key, locale))
+    .map((key) => ({
+      label: messages.items[key as keyof typeof messages.items].label,
+      href: getPath(key, locale) ?? "#",
+    }));
+}
+
+function getFooterProcessService(locale: Locale) {
+  if (locale === "sl") return [];
+
+  const messages = locale === "en" ? enMessages : deMessages;
+  const keys: { key: RouteKey; label: string }[] = [
+    { key: "process", label: messages.nav.process },
+    { key: "service", label: messages.nav.service },
+    { key: "servicePricing", label: messages.nav.servicePricing },
+    { key: "aboutUs", label: messages.nav.aboutUs },
+    { key: "video", label: messages.nav.video },
+    { key: "references", label: messages.nav.references },
+    { key: "news", label: messages.nav.news },
+  ];
+
+  return keys
+    .filter((item) => isAvailable(item.key, locale))
+    .map((item) => ({
+      label: item.label,
+      href: getPath(item.key, locale) ?? "#",
+    }));
+}
+
+function getFooterSystems(locale: Locale) {
+  if (locale === "sl") return [];
+
+  const messages = { en: enMessages.standardCellsNav, de: deMessages.standardCellsNav }[locale];
+  const hubHref = getPath("standardCells", locale);
+  const items = [
+    hubHref ? { label: messages.hubLabel, href: hubHref } : null,
+    ...systemRouteKeys
+      .filter((key) => key !== "standardCells" && isAvailable(key, locale))
+      .map((key) => ({
+        label: messages.items[key as keyof typeof messages.items].label,
+        href: getPath(key, locale) ?? "#",
+      })),
+  ].filter((item): item is { label: string; href: string } => item !== null);
+
+  return items;
+}
+
+export default function Footer({ locale = "sl" }: { locale?: Locale }) {
+  const copy = footerCopy[locale];
+  const footerSolutions = getFooterSolutions(locale);
+  const footerSystems = getFooterSystems(locale);
+  const footerProcessService = getFooterProcessService(locale);
+  const visibleNav = locale === "sl" ? nav : [];
+  const kontaktHref = getPath("contact", locale);
+  const legalLinks = getFooterLegal(locale);
+  const trustLogos = getTrustLogos(locale);
+
   return (
     <footer className="border-t border-white/10 bg-neutral-950 text-white">
       <Container className="py-14 sm:py-16 lg:py-20">
@@ -79,16 +228,21 @@ export default function Footer() {
             <img
               src="/logo/flexido-footer.svg"
               alt="Flexido"
+              width={126}
+              height={36}
               className="h-9 w-auto"
             />
 
-            <p className="mt-6 max-w-[52ch] text-[15px] leading-7 text-white/65">
-              Urejamo in avtomatiziramo proizvodne procese — od posameznega
-              stroja do povezanega toka materiala, ljudi in podatkov.
+            <p className="mt-3 text-[13px] font-medium text-white/45">
+              We make automation easier.
+            </p>
+
+            <p className="mt-5 max-w-[52ch] text-[15px] leading-7 text-white/65">
+              {copy.taglineMain}
             </p>
 
             <p className="mt-5 text-[14px] leading-6 text-white/40">
-              Od pregleda procesa do delujoče rešitve in podpore po zagonu.
+              {copy.taglineSub}
             </p>
 
       {/* TRUST / OFFICIAL */}
@@ -100,7 +254,7 @@ export default function Footer() {
         href={logo.href}
         target={logo.href.startsWith("http") ? "_blank" : undefined}
         rel={logo.href.startsWith("http") ? "noopener noreferrer" : undefined}
-        className="group flex min-h-[92px] gap-4 border border-white/10 bg-white/[0.025] p-3.5 transition hover:border-white/20 hover:bg-white/[0.04]"
+        className="focus-ring group flex min-h-[92px] gap-4 border border-white/10 bg-white/[0.025] p-4 transition hover:border-white/20 hover:bg-white/[0.04]"
       >
         <div className="flex h-[50px] w-[116px] shrink-0 items-center justify-center bg-white px-3 py-2">
           <img
@@ -119,102 +273,140 @@ export default function Footer() {
 </div>
 </div>
          {/* RIGHT */}
-<div className="grid gap-8 sm:grid-cols-3 lg:justify-self-end lg:gap-14">
+<div className="grid gap-8 sm:grid-cols-3 lg:gap-10">
   {/* SOLUTIONS */}
   <div>
     <p className="text-[11px] uppercase tracking-[0.16em] text-white/40">
-      Rešitve
+      {copy.solutionsHeading}
     </p>
 
-    <nav className="mt-4 flex flex-col gap-3">
-      {solutions.map((item) => (
-        <a
+    <nav className="mt-5 flex flex-col gap-3">
+      {footerSolutions.map((item) => (
+        <Link
           key={item.href}
           href={item.href}
-          className="text-[15px] leading-[1.35] text-white/70 transition hover:text-white"
+          className="focus-ring text-[15px] leading-[1.35] text-white/70 transition hover:text-white"
         >
           {item.label}
-        </a>
+        </Link>
       ))}
     </nav>
   </div>
 
   {/* NAV */}
-  <div>
-    <p className="text-[11px] uppercase tracking-[0.16em] text-white/40">
-      Navigacija
-    </p>
+  {visibleNav.length > 0 ? (
+    <div>
+      <p className="text-[11px] uppercase tracking-[0.16em] text-white/40">
+        {copy.navHeading}
+      </p>
 
-    <nav className="mt-4 flex flex-col gap-3">
-      {nav.map((item) => (
-        <a
-          key={item.href}
-          href={item.href}
-          className="text-[15px] leading-[1.35] text-white/70 transition hover:text-white"
-        >
-          {item.label}
-        </a>
-      ))}
-    </nav>
-  </div>
+      <nav className="mt-5 flex flex-col gap-3">
+        {visibleNav.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className="focus-ring text-[15px] leading-[1.35] text-white/70 transition hover:text-white"
+          >
+            {item.label}
+          </Link>
+        ))}
+      </nav>
+    </div>
+  ) : footerSystems.length > 0 ? (
+    <div>
+      <p className="text-[11px] uppercase tracking-[0.16em] text-white/40">
+        {copy.systemsHeading}
+      </p>
+
+      <nav className="mt-5 flex flex-col gap-3">
+        {footerSystems.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className="focus-ring text-[15px] leading-[1.35] text-white/70 transition hover:text-white"
+          >
+            {item.label}
+          </Link>
+        ))}
+        {footerProcessService.length > 0 ? (
+          <div className="mt-3 flex flex-col gap-3 border-t border-white/10 pt-3">
+            {footerProcessService.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="focus-ring text-[15px] leading-[1.35] text-white/70 transition hover:text-white"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        ) : null}
+      </nav>
+    </div>
+  ) : null}
 
   {/* CONTACT */}
   <div>
     <p className="text-[11px] uppercase tracking-[0.16em] text-white/40">
-      Kontakt
+      {copy.contactHeading}
     </p>
 
-    <div className="mt-4 space-y-4 text-[15px] leading-6 text-white/70">
+    <div className="mt-5 space-y-4 text-[15px] leading-6">
       <div>
-        <p className="text-white/40">E-pošta</p>
+        <p className="text-white/40">{copy.emailLabel}</p>
         <a
           href="mailto:info@flexido.eu"
-          className="transition hover:text-white"
+          className="focus-ring font-medium text-white/85 transition hover:text-white"
         >
           info@flexido.eu
         </a>
       </div>
 
       <div>
-        <p className="text-white/40">Telefon</p>
+        <p className="text-white/40">{copy.phoneLabel}</p>
         <a
           href="tel:+38659351100"
-          className="transition hover:text-white"
+          className="focus-ring font-medium text-white/85 transition hover:text-white"
         >
           0593 51100
         </a>
       </div>
 
-      <a
-        href="/kontakt"
-        className="inline-flex rounded-full border border-white/15 px-4 py-2 text-[14px] font-medium text-white/70 transition hover:border-white/30 hover:text-white"
-      >
-        Kontakt →
-      </a>
+      {kontaktHref ? (
+        <Link
+          href={kontaktHref}
+          className="focus-ring inline-flex rounded-full border border-white/15 px-4 py-2 text-[14px] font-medium text-white/70 transition hover:border-white/30 hover:text-white"
+        >
+          {copy.contactCta} →
+        </Link>
+      ) : null}
     </div>
 
    <div className="mt-9">
   <p className="text-[11px] uppercase tracking-[0.18em] text-white/32">
-    Pravno
+    {copy.legalHeading}
   </p>
 
   <nav className="mt-5 flex flex-col gap-3">
     {legalLinks.map((item) => (
-      <a
+      <Link
         key={item.href}
         href={item.href}
-        className="max-w-[18ch] text-[13px] leading-[1.45] text-white/45 transition hover:text-white/75"
+        className="focus-ring max-w-[18ch] text-[13px] leading-[1.45] text-white/45 transition hover:text-white/75"
       >
         {item.label}
-      </a>
+      </Link>
     ))}
+    <CookieSettingsTrigger
+      className="focus-ring max-w-[18ch] text-left text-[13px] leading-[1.45] text-white/45 transition hover:text-white/75"
+    />
   </nav>
 </div>
   </div>
 </div>  </div>        {/* BOTTOM */}
         <div className="flex flex-col gap-3 pt-6 text-[13px] text-white/40 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} Flexido</p>
-          <p>Avtomatizacija proizvodnih procesov</p>
+          <p>{copy.bottomTagline}</p>
         </div>
       </Container>
     </footer>

@@ -1,0 +1,74 @@
+{
+  "nav": {
+    "home": "Home",
+    "solutions": "Solutions",
+    "standardCells": "Standard Systems",
+    "process": "Process",
+    "service": "Service",
+    "servicePricing": "Service pricing",
+    "company": "Company",
+    "aboutUs": "About us",
+    "video": "Video",
+    "references": "References",
+    "news": "News",
+    "contact": "Contact"
+  },
+  "languageSwitcher": {
+    "label": "Language",
+    "sl": "Slovenščina",
+    "en": "English",
+    "de": "Deutsch"
+  },
+  "footer": {
+    "tagline": "Production process automation",
+    "legalNotice": "Legal notice",
+    "salesTerms": "General terms of sale",
+    "privacyPolicy": "Privacy policy",
+    "rights": "© {year} Flexido"
+  },
+  "proof": {
+    "badge": "i18n architecture proof",
+    "notice": "This page proves the i18n architecture (next-intl + route registry) on a small, controlled surface. It is not yet the finished homepage translation."
+  },
+  "solutionsNav": {
+    "triggerLabel": "Solutions",
+    "eyebrow": "Areas",
+    "supportEyebrow": "Service",
+    "featuredLabel": "Systems",
+    "items": {
+      "solutionProductionAutomation": { "label": "Production automation", "desc": "A systems-level approach" },
+      "solutionCnc": { "label": "CNC machines", "desc": "Loading, unloading, uptime" },
+      "solutionInjectionMolding": { "label": "Injection molding", "desc": "Unloading, cycle, part flow" },
+      "solutionCobots": { "label": "Collaborative robots", "desc": "Flexible automation" },
+      "solutionManipulation": { "label": "Material handling", "desc": "Grip, move, turn, place" },
+      "solutionLogistics": { "label": "Internal logistics", "desc": "Material flow between stages" },
+      "solutionCustomSystems": { "label": "Custom-built systems", "desc": "Solutions for a specific process" },
+      "service": { "label": "Service and support", "desc": "Support after commissioning" },
+      "servicePricing": { "label": "Service pricing", "desc": "Rates and terms" }
+    }
+  },
+  "standardCellsNav": {
+    "triggerLabel": "E-catalog",
+    "eyebrow": "Systems",
+    "featuredLabel": "Family",
+    "hubLabel": "All standard cells",
+    "hubDesc": "CNC, IMM, FLEX 25/50, TMX and Middleware",
+    "items": {
+      "standardCellsCnc": { "label": "FLEX 7 CNC", "desc": "Standard cell for CNC machines" },
+      "standardCellsImm": { "label": "FLEX 7 IMM", "desc": "Standard cell for injection molding" },
+      "standardCellsFlex2550": { "label": "FLEX 25 / 50", "desc": "Highly flexible cell" },
+      "standardCellsTmx": { "label": "TMX", "desc": "Collaborative platform" },
+      "standardCellsMiddleware": { "label": "Middleware", "desc": "Connectivity layer" }
+    }
+  },
+  "companyNav": {
+    "triggerLabel": "Company",
+    "eyebrow": "Company",
+    "featuredLabel": "Company",
+    "items": {
+      "aboutUs": { "label": "About us", "desc": "Team, approach, and way of working" },
+      "video": { "label": "Video", "desc": "Flexido in motion" },
+      "news": { "label": "News", "desc": "Updates and project stories" }
+    }
+  }
+}

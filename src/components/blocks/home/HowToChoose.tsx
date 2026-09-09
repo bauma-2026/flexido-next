@@ -1,31 +1,11 @@
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
-import SectionHeader from "@/components/ui/SectionHeader";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 
 export default function HowToChoose() {
-  const items = [
-    {
-      title: "Nalaganje in razlaganje kosov",
-      desc: "Ko ročno delo ustavlja cikel stroja in zmanjšuje izkoristek.",
-    },
-    {
-      title: "Prenos materiala med fazami",
-      desc: "Ko material čaka med operacijami in ustvarja zastoje.",
-    },
-    {
-      title: "Odvzem izdelkov iz strojev",
-      desc: "Ko je cikel preveč odvisen od odziva operaterja.",
-    },
-    {
-      title: "Povezava obstoječih strojev",
-      desc: "Ko stroji delujejo ločeno, proces pa ni dovolj povezan.",
-    },
-  ];
-
   return (
-   <Section className="border-b border-neutral-200 bg-white py-16 sm:py-20 lg:py-24">
+   <Section variant="default" className="border-b border-neutral-200 bg-white">
   <Container>
     <div className="max-w-[980px]">
       <p className="eyebrow">Izbira rešitve</p>
@@ -43,7 +23,7 @@ export default function HowToChoose() {
     <div className="mt-12 grid gap-5 lg:grid-cols-12">
       {/* FEATURED */}
       <div className="lg:col-span-6">
-        <Card className="flex h-full flex-col justify-between rounded-[28px] border border-[#d7e3f0] bg-[#f4f8fc] p-7 shadow-[0_18px_50px_rgba(15,23,42,0.05)] sm:p-8">
+        <Card className="flex h-full flex-col justify-between rounded-[28px] border border-[#d7e3f0] bg-[#f4f8fc] p-7 sm:p-8">
           <div>
             <p className="text-[11px] uppercase tracking-[0.16em] text-[#5b6b82]">
               Najpogostejši primer

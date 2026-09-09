@@ -1,6 +1,9 @@
 import Container from "@/components/layout/Container";
+import type { HomeTrustItem } from "@/content/home/types";
 
-const trustItems = [
+const defaultLabel = "Certifikati in razvojni projekti";
+
+const defaultItems: HomeTrustItem[] = [
   {
     href: "/razvojni-projekti",
     src: "/logos/trust/eu-regional-development-fund.webp",
@@ -14,30 +17,38 @@ const trustItems = [
   },
 ];
 
-export default function TrustStrip() {
+type Props = {
+  label?: string;
+  items?: HomeTrustItem[];
+};
+
+export default function TrustStrip({
+  label = defaultLabel,
+  items = defaultItems,
+}: Props) {
   return (
     <section className="border-b border-neutral-200 bg-white">
       <Container>
-        <div className="flex flex-col gap-4 py-5 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
-            Certifikati in razvojni projekti
+        <div className="flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:py-[18px]">
+          <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-500">
+            {label}
           </p>
 
-          <div className="flex flex-wrap items-center gap-3">
-            {trustItems.map((item) => (
-          <a
-  key={item.src}
-  href={item.href}
-  target={item.external ? "_blank" : undefined}
-  rel={item.external ? "noopener noreferrer" : undefined}
-  className="flex h-11 items-center border border-neutral-200 bg-white px-4 transition hover:border-neutral-300"
->
-  <img
-    src={item.src}
-    alt={item.alt}
-    className="h-7 w-auto object-contain"
-  />
-</a>
+          <div className="flex flex-wrap items-center gap-7 sm:gap-10">
+            {items.map((item) => (
+              <a
+                key={item.src}
+                href={item.href}
+                target={item.external ? "_blank" : undefined}
+                rel={item.external ? "noopener noreferrer" : undefined}
+                className="opacity-90 transition hover:opacity-100"
+              >
+                <img
+                  src={item.src}
+                  alt={item.alt}
+                  className="h-9 w-auto object-contain sm:h-10"
+                />
+              </a>
             ))}
           </div>
         </div>

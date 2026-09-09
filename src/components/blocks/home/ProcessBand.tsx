@@ -17,27 +17,49 @@ export default function ProcessBand() {
 
       {/* CONTENT */}
       <Container className="relative z-10">
-        <div className="max-w-[560px] text-white">
-         <p className="text-[11px] uppercase tracking-[0.16em] text-white/60">
-  Način dela
-</p>
+        <div className="grid gap-10 lg:grid-cols-[1fr_0.72fr] lg:items-end">
+          <div className="max-w-[560px] text-white">
+            <p className="text-[11px] uppercase tracking-[0.16em] text-white/60">
+              Kako Flexido pomaga
+            </p>
 
-<h2 className="mt-3 text-4xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-5xl">
-  Ne dodamo samo robota.
-  <br />
-  Uredimo tok dela.
-</h2>
+            <h2 className="mt-3 text-4xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-5xl">
+              Ne dodamo samo robota.
+              <br />
+              Uredimo tok dela.
+            </h2>
 
-<p className="mt-5 max-w-[48ch] text-[16px] leading-7 text-white/75">
-  Pri avtomatizaciji upoštevamo stroj, prostor, operaterja, material in
-  obstoječo opremo — da rešitev ne deluje samo tehnično, ampak tudi v praksi.
-</p>
+            <p className="mt-5 max-w-[48ch] text-[16px] leading-7 text-white/75">
+              Pri avtomatizaciji upoštevamo stroj, prostor, operaterja, material in
+              obstoječo opremo — da rešitev ne deluje samo tehnično, ampak tudi v praksi.
+            </p>
 
-<div className="mt-8">
-  <Button href="/proces" variant="secondary">
-    Kako poteka projekt →
-  </Button>
-</div>
+            <div className="mt-8">
+              <Button href="/proces" variant="secondary">
+                Kako poteka projekt →
+              </Button>
+            </div>
+          </div>
+
+          <div className="grid overflow-hidden border border-white/15 bg-white/[0.07] sm:grid-cols-3 lg:grid-cols-1">
+            {[
+              "Stroj in oprema",
+              "Material in tok",
+              "Operater in prostor",
+            ].map((item) => (
+              <div
+                key={item}
+                className="border-b border-white/15 px-5 py-4 last:border-b-0 sm:border-b-0 sm:border-r sm:last:border-r-0 lg:border-b lg:border-r-0 lg:last:border-b-0"
+              >
+                <p className="text-[11px] uppercase tracking-[0.16em] text-white/45">
+                  Upoštevamo
+                </p>
+                <p className="mt-2 text-[16px] font-medium leading-5 text-white">
+                  {item}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </Container>
     </section>

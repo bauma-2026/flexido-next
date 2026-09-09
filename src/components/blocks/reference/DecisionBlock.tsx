@@ -6,7 +6,7 @@ export default function DecisionBlock() {
   return (
     <section className="border-b border-neutral-200 bg-white py-16 sm:py-20 lg:py-24">
       <Container>
-        <div className="rounded-[2rem] border border-neutral-200 bg-neutral-50/60 p-6 shadow-sm sm:p-8 lg:p-10">
+        <div className="rounded-[2rem] border border-neutral-200 bg-neutral-50/60 p-6 sm:p-8 lg:p-10">
           {/* HEADER */}
           <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
             <div>
