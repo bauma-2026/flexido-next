@@ -213,3 +213,67 @@ body {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+
+/* ---------------------------------------------------------------------------
+   WikiNav rail — shared in-page section index.
+
+   The rail is not user-pannable (see components/wiki/WikiNav.tsx): `overflow:
+   hidden` keeps it programmatically scrollable and focus-revealable while the
+   UA refuses every user scroll input. The fade is what tells a reader that a
+   clipped label is intentional rather than broken, so it is applied only on
+   the edges that actually have content beyond them — the component sets
+   `data-fade` from real overflow, and a rail that fits carries no fade at all.
+
+   `-webkit-mask-*` covers iOS below 15.4; there the fade simply degrades to a
+   hard edge, which costs nothing functional.
+--------------------------------------------------------------------------- */
+
+.wiki-nav-rail {
+  /* Positioning is always explicit in JS; never inherit smooth scrolling. */
+  scroll-behavior: auto;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+/*
+   The rail clips on both axes, so the site's standard `.focus-ring` — which
+   draws 2px OUTSIDE the box — would be shaved off any item sitting at a
+   padding edge, and shaved top and bottom on the index variant, whose items
+   are exactly the rail's height. A negative offset draws the same ring just
+   inside the item instead, where nothing can clip it, and leaves the index
+   underline welded to the rail's bottom hairline.
+*/
+.wiki-nav-rail a:focus-visible {
+  outline: 2px solid var(--color-interactive);
+  /* Negative, so the ring follows each item's own border-radius from inside. */
+  outline-offset: -2px;
+}
+
+.wiki-nav-rail[data-fade="end"] {
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent);
+}
+
+.wiki-nav-rail[data-fade="start"] {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 32px);
+  mask-image: linear-gradient(to right, transparent, #000 32px);
+}
+
+.wiki-nav-rail[data-fade="both"] {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 32px,
+    #000 calc(100% - 32px),
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 32px,
+    #000 calc(100% - 32px),
+    transparent
+  );
+}
