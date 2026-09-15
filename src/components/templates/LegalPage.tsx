@@ -23,7 +23,7 @@ export default function LegalPage({
 }: LegalPageProps) {
   return (
     <>
-      <Header sticky={false} locale={locale} routeKey={routeKey} />
+      <Header locale={locale} routeKey={routeKey} />
 
       <main className="bg-white text-neutral-950">
         <section className="border-b border-neutral-200 bg-white">

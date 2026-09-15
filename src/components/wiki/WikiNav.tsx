@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { cn } from "@/lib/cn";
+import { anchorLine, contentTopOf } from "@/lib/sectionAnchors";
 
 type WikiNavItem = {
   href: string;
@@ -43,14 +44,45 @@ type WikiNavProps = {
 const EDGE_SLACK = 1;
 
 /**
- * Breathing room between the pinned rail's bottom edge and the section that
- * lands under it. The single source of truth for anchor landing: the rail's
- * own measured height is added to it, so the two variants — which are not the
- * same height — land their sections identically, and a future height change
- * corrects itself with no page edits. The `scroll-mt-24` the section markup
- * already carries stays as the no-JS fallback.
+ * Subpixel forgiveness on the active-section read. Rail heights are
+ * fractional (47.5px on the index variant), so a section can land a fraction
+ * below a threshold it is meant to satisfy exactly.
  */
-const ANCHOR_CLEARANCE = 48;
+const ACTIVE_TOLERANCE = 2;
+
+/**
+ * The rail's base hairline, drawn as a non-layout `::after` rather than as a
+ * border on the nav.
+ *
+ * It cannot be `border-b`, for a reason that only shows up at the pixel level.
+ * The hairline has to sit *underneath* the index variant's 2px brand rule, so
+ * that rule reads as one welded segment of the baseline instead of a second
+ * line stacked above it. The item borrows that 1px with `-mb-px` — but the
+ * rail must clip (`overflow: hidden` is what makes it a scroll container the
+ * user cannot pan), and overflow clips at the padding box, which sits above
+ * the element's own border. The borrowed pixel was being shaved off by that
+ * clip, halving the visible rule to 1px and leaving the grey fully exposed
+ * beneath it.
+ *
+ * Taking the hairline off the box lets the rail claim that pixel as padding
+ * instead: the clip boundary moves down by exactly what the item needs, and
+ * the nav's height is unchanged because a pseudo-element costs no layout.
+ *
+ * `neutral-300`, deliberately: this is where the chrome ends and the page
+ * begins, and it is the firmest line in the stack. The header's own seam stays
+ * the quieter `neutral-200` — it only divides one part of the chrome from
+ * another, and on the many pages with no rail it is the sole boundary against
+ * whatever section happens to be scrolling past, so it cannot afford to soften.
+ */
+const RAIL_HAIRLINE =
+  "after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-neutral-300 after:content-['']";
+
+/**
+ * Paint-order counterpart to `RAIL_HAIRLINE`. An absolutely positioned
+ * pseudo-element outranks static in-flow content, so without lifting the rail
+ * the hairline would paint over the very rule it is meant to sit beneath.
+ */
+const RAIL_ABOVE_HAIRLINE = "relative z-10";
 
 type FadeState = "none" | "start" | "end" | "both";
 
@@ -59,7 +91,11 @@ export default function WikiNav({ items, variant = "pills", label }: WikiNavProp
   const [fade, setFade] = useState<FadeState>("none");
 
   const navRef = useRef<HTMLDivElement | null>(null);
-  /** The sticky wrapper — the box whose height anchors have to clear. */
+  /**
+   * The sticky wrapper. Its height feeds the shared anchor line via
+   * `stickyStackBottom()`, so it is observed for resize; the offsets
+   * themselves are written by `SectionAnchors`, not here.
+   */
   const wrapRef = useRef<HTMLElement | null>(null);
   const itemRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
   /** The first positioning pass after mount lands instantly — no load-time slide. */
@@ -98,14 +134,22 @@ export default function WikiNav({ items, variant = "pills", label }: WikiNavProp
     let frame = 0;
 
     const getActiveSection = () => {
-      const offset = 140;
+      /**
+       * The same line a click lands on, tested against the same edge a click
+       * lands — both read `anchorLine()` from `@/lib/sectionAnchors`, so
+       * "entered" means one thing here and in `SectionAnchors`.
+       *
+       * Testing `rect.top` instead marked a section current while its empty
+       * `padding-top` crossed the line, 112–128px of scrolling before any of
+       * its ink arrived, and by a different amount per variant. The reader saw
+       * the previous section's text under an item that had already moved on.
+       */
+      const offset = anchorLine() + ACTIVE_TOLERANCE;
 
       let current = sections[0];
 
       for (const section of sections) {
-        const sectionTop = section.getBoundingClientRect().top;
-
-        if (sectionTop <= offset) {
+        if (contentTopOf(section) <= offset) {
           current = section;
         }
       }
@@ -136,68 +180,6 @@ export default function WikiNav({ items, variant = "pills", label }: WikiNavProp
       window.removeEventListener("resize", onScroll);
     };
   }, [itemKey]);
-
-  /**
-   * Anchor landing. Written from the rail's measured height so a tapped item
-   * drops its section clear of the pinned rail by `ANCHOR_CLEARANCE`, the same
-   * gap on every variant and every viewport. Inline styles on the targets are
-   * what let one shared rule reach sections the component does not render.
-   */
-  const syncAnchorOffsets = useCallback(() => {
-    const wrap = wrapRef.current;
-    if (!wrap) return;
-
-    const offset = `${Math.round(wrap.getBoundingClientRect().height) + ANCHOR_CLEARANCE}px`;
-
-    for (const href of itemKey.split("|")) {
-      const section = document.getElementById(href.replace("#", ""));
-      if (section) section.style.scrollMarginTop = offset;
-    }
-  }, [itemKey]);
-
-  useEffect(() => {
-    syncAnchorOffsets();
-
-    /**
-     * A deep link lands before any of this runs, on the static `scroll-mt-24`
-     * the section markup carries. That fallback is only right for a rail as
-     * tall as the index variant; the taller pills rail eats into it and the
-     * heading arrives short of the intended gap. Correct it once, after the
-     * webfonts that would move it again have settled — and only if the reader
-     * has not scrolled in the meantime, whose position is theirs, not ours.
-     */
-    const hash = window.location.hash;
-    const isOwnAnchor = hash && itemKey.split("|").includes(hash);
-
-    let cancelled = false;
-    const landedAt = window.scrollY;
-
-    const correctLanding = () => {
-      const section = document.getElementById(hash.slice(1));
-      const wrap = wrapRef.current;
-
-      if (cancelled || !section || !wrap || window.scrollY !== landedAt) return;
-
-      const offset = Math.round(wrap.getBoundingClientRect().height) + ANCHOR_CLEARANCE;
-      const delta = section.getBoundingClientRect().top - offset;
-
-      if (Math.abs(delta) > EDGE_SLACK) window.scrollBy(0, delta);
-    };
-
-    if (isOwnAnchor) {
-      if (document.fonts?.ready) void document.fonts.ready.then(correctLanding);
-      else window.requestAnimationFrame(correctLanding);
-    }
-
-    return () => {
-      cancelled = true;
-      // Hand the sections back to their own `scroll-mt-24`.
-      for (const href of itemKey.split("|")) {
-        const section = document.getElementById(href.replace("#", ""));
-        if (section) section.style.removeProperty("scroll-margin-top");
-      }
-    };
-  }, [itemKey, syncAnchorOffsets]);
 
   /**
    * Edge fade state. Gated on real overflow so a rail that fits — every
@@ -243,7 +225,6 @@ export default function WikiNav({ items, variant = "pills", label }: WikiNavProp
     const onRailResize = () => {
       recomputeActiveRef.current();
       measureFade();
-      syncAnchorOffsets();
       revealRef.current(true);
     };
 
@@ -260,7 +241,6 @@ export default function WikiNav({ items, variant = "pills", label }: WikiNavProp
     // item, and ResizeObserver delivery is tied to the rendering lifecycle.
     const onViewportChange = () => {
       measureFade();
-      syncAnchorOffsets();
       revealRef.current(true);
     };
 
@@ -273,7 +253,7 @@ export default function WikiNav({ items, variant = "pills", label }: WikiNavProp
       window.removeEventListener("resize", onViewportChange);
       window.removeEventListener("orientationchange", onViewportChange);
     };
-  }, [itemKey, measureFade, syncAnchorOffsets]);
+  }, [itemKey, measureFade]);
 
   /**
    * Minimal-movement reveal of the active item. `instant` is used when the
@@ -353,12 +333,18 @@ export default function WikiNav({ items, variant = "pills", label }: WikiNavProp
       <nav
         ref={wrapRef}
         aria-label={label}
-        className="sticky top-0 z-30 border-b border-neutral-200 bg-white/90 backdrop-blur-xl"
+        className={cn("sticky top-[var(--header-h)] z-30 bg-neutral-50", RAIL_HAIRLINE)}
       >
+        {/* `pb-px` is the pixel the nav's border used to occupy: it moves the
+            clip boundary down so the active item's 2px rule survives whole.
+            Net height is identical — one pixel moved from border to padding. */}
         <div
           ref={navRef}
           data-fade={fade}
-          className="wiki-nav-rail mx-auto flex w-full max-w-[1280px] flex-nowrap gap-x-4 overflow-hidden px-5 sm:gap-6 sm:px-6 lg:px-8"
+          className={cn(
+            "wiki-nav-rail mx-auto flex w-full max-w-[1280px] flex-nowrap gap-x-4 overflow-hidden px-5 pb-px sm:gap-6 sm:px-6 lg:px-8",
+            RAIL_ABOVE_HAIRLINE,
+          )}
         >
           {items.map((item) => {
             const isActive = activeHref === item.href;
@@ -372,10 +358,14 @@ export default function WikiNav({ items, variant = "pills", label }: WikiNavProp
                 href={item.href}
                 aria-current={isActive ? "true" : undefined}
                 className={cn(
-                  "-mb-px shrink-0 border-b-2 pt-3.5 pb-3 text-[13px] font-medium tracking-[-0.01em] transition-colors",
+                  // `font-normal`, not `font-medium`: the rail used to be set a
+                  // weight heavier than the global nav above it, which ranked
+                  // the local index over its own parent. Size and padding are
+                  // untouched, so the row's height and hit areas are unchanged.
+                  "-mb-px shrink-0 border-b-2 pt-3.5 pb-3 text-[13px] font-normal tracking-[-0.01em] transition-colors",
                   isActive
-                    ? "border-[var(--color-brand)] text-neutral-950"
-                    : "border-transparent text-neutral-500 hover:text-neutral-950",
+                    ? "border-[var(--color-brand)] text-neutral-900"
+                    : "border-transparent text-neutral-500 hover:text-neutral-900",
                 )}
               >
                 {item.label}
@@ -391,12 +381,19 @@ export default function WikiNav({ items, variant = "pills", label }: WikiNavProp
     <nav
       ref={wrapRef}
       aria-label={label}
-      className="sticky top-0 z-30 border-b border-neutral-200/70 bg-white/85 backdrop-blur-xl"
+      /* `pb-px` sits on the nav here, not on the rail. Pills carry no bottom
+         border of their own, so nothing needs unclipping — the pixel is only
+         replacing the one the nav's border used to contribute, keeping this
+         variant's height identical too. */
+      className={cn("sticky top-[var(--header-h)] z-30 bg-neutral-50 pb-px", RAIL_HAIRLINE)}
     >
       <div
         ref={navRef}
         data-fade={fade}
-        className="wiki-nav-rail mx-auto flex w-full max-w-[1280px] flex-nowrap gap-2 overflow-hidden px-5 py-3 sm:px-6 lg:px-8"
+        className={cn(
+          "wiki-nav-rail mx-auto flex w-full max-w-[1280px] flex-nowrap gap-2 overflow-hidden px-5 py-3 sm:px-6 lg:px-8",
+          RAIL_ABOVE_HAIRLINE,
+        )}
       >
         {items.map((item) => {
           const isActive = activeHref === item.href;
@@ -412,10 +409,25 @@ export default function WikiNav({ items, variant = "pills", label }: WikiNavProp
               className={[
                 // `min-h` rather than padding: the pill clears the 44px touch
                 // minimum without the label drifting off its optical centre.
-                "inline-flex min-h-[44px] shrink-0 items-center rounded-full border px-4 text-[13px] font-medium transition",
+                // Same weight step as the index variant, same reason.
+                "inline-flex min-h-[44px] shrink-0 items-center rounded-full border px-4 text-[13px] font-normal transition",
+                /*
+                  Current is a white ground lifted off the `neutral-50` rail,
+                  edged in brand, with the label in ink. The old treatment was
+                  a solid brand fill with white text — the loudest element in
+                  the whole chrome, sitting underneath a global nav whose
+                  strongest gesture is a 2px line.
+
+                  Brand stays a border and never becomes the label: at 13px it
+                  measures 4.16:1 on white, which fails AA for text.
+
+                  Idle drops its white ground so it reads as part of the rail
+                  rather than a filter chip, and the geometry — 44px min-height,
+                  radius, padding — is untouched.
+                */
                 isActive
-                  ? "border-[var(--color-brand)] bg-[var(--color-brand)] text-white"
-                  : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300 hover:text-neutral-950",
+                  ? "border-[var(--color-brand)] bg-white text-neutral-900"
+                  : "border-neutral-200 bg-transparent text-neutral-500 hover:border-neutral-300 hover:text-neutral-900",
               ].join(" ")}
             >
               {item.label}

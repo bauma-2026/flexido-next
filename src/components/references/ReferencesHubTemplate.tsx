@@ -25,7 +25,7 @@ export default function ReferencesHubTemplate({
 
   return (
     <>
-      <Header sticky={false} locale={locale} routeKey={content.routeKey} />
+      <Header locale={locale} routeKey={content.routeKey} />
 
       <main className="bg-white text-neutral-950">
         <section className="relative overflow-hidden bg-neutral-950 text-white">

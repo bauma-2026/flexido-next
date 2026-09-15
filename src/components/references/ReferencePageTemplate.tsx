@@ -35,7 +35,6 @@ export default function ReferencePageTemplate({
   return (
     <>
       <Header
-        sticky={false}
         locale={locale}
         routeKey={content.routeKey}
         parentKey="references"

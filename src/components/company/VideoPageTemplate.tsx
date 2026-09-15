@@ -17,7 +17,7 @@ export default function VideoPageTemplate({
 }) {
   return (
     <>
-      <Header sticky={false} locale={locale} routeKey={content.routeKey} parentKey="aboutUs" />
+      <Header locale={locale} routeKey={content.routeKey} parentKey="aboutUs" />
 
       <main className="bg-white text-neutral-950">
         <section className="relative overflow-hidden text-white">

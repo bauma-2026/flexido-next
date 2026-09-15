@@ -57,7 +57,7 @@ const guideItems = [
 export default function Page() {
   return (
     <>
-      <Header sticky={false} />
+      <Header />
 
       <main className="bg-white text-neutral-950">
         {/* HERO */}

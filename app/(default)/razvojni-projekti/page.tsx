@@ -121,7 +121,7 @@ const practiceConnections: {
 export default function Page() {
   return (
     <>
-      <Header sticky={false} routeKey="fundingProjects" parentKey="aboutUs" />
+      <Header routeKey="fundingProjects" parentKey="aboutUs" />
 
       <main className="bg-white text-neutral-950">
         {/* HERO */}

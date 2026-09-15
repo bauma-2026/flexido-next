@@ -1,8 +1,16 @@
 @import "tailwindcss";
 
+/*
+   `min-height`, never `height`. A sticky element cannot escape its parent's
+   box, and the global header's parent is `body`: at `height: 100%` that box is
+   one viewport tall, so the header unstuck at ~835px and scrolled away for the
+   rest of every page. `min-height` keeps the "fill a short page" behaviour the
+   rule was written for while letting the box grow to the content, which is
+   what the sticky stack pins against.
+*/
 html,
 body {
-  height: 100%;
+  min-height: 100%;
 }
 
 html {
@@ -19,6 +27,16 @@ body {
   /* Layout */
   --layout-max-width: 1280px;
   --prose-max-width: 65ch;
+
+  /*
+     The global header's own height, and the single source of truth for the
+     sticky stack. The header is `h-16` plus its 1px bottom hairline. Three
+     things read it and must never disagree: the header's mobile drawer, which
+     hangs from the header's bottom edge; the WikiNav rail, which pins directly
+     below it; and the rail's anchor offsets, which are measured from where the
+     rail actually sits. Change it here and the stack follows.
+  */
+  --header-h: 65px;
 
   /* Surfaces & text */
   --surface: #eef2f7;
@@ -57,6 +75,21 @@ body {
     max-width: 100%;
   }
 }
+
+/*
+   No `.scroll-mt-24` override here any more.
+
+   It briefly carried `calc(var(--header-h) + 6rem)`, which was calibrated for
+   the tall header+rail stack and so overshot by 65px on every page where the
+   header is the only sticky layer — the largest landing error on the site.
+   CSS cannot read an element's own padding, so no static value can be the
+   precise source of truth; `SectionAnchors` owns that now.
+
+   Tailwind's plain 6rem is left to do the one job a fallback should: before
+   hydration, never put a heading behind the chrome. Worst case is the
+   tightest padding (48px) under the tallest stack (113px), which still lands
+   the ink 31px clear.
+*/
 
 @layer components {
   /* Eyebrow — canonical label above section headings */

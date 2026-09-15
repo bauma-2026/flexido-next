@@ -2,6 +2,7 @@ import "../globals.css";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ConsentRoot from "@/components/consent/ConsentRoot";
+import SectionAnchors from "@/components/layout/SectionAnchors";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
@@ -51,6 +52,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body className="bg-white text-neutral-950 antialiased">
+        <SectionAnchors />
         <NextIntlClientProvider locale={locale}>
           <ConsentRoot locale={locale as RoutedLocale}>
             {children}

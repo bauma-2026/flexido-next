@@ -14,7 +14,7 @@ import { ResolvedFamilyLink, isRouteLink, renderTemplate } from "./links";
 export default function SolutionsHubTemplate({ locale, content }: { locale: Locale; content: HubContent }) {
   return (
     <>
-      <Header sticky={false} locale={locale} routeKey="solutions" />
+      <Header locale={locale} routeKey="solutions" />
 
       <main className="overflow-x-hidden">
         <section className="relative overflow-hidden bg-[var(--color-dark-band)] pb-20 pt-32 text-white sm:pb-24 sm:pt-40">

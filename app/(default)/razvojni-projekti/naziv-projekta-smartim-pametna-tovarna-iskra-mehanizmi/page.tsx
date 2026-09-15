@@ -58,7 +58,6 @@ export default function Page() {
   return (
     <>
       <Header
-        sticky={false}
         routeKey="fundingProjectSmartim"
         parentKey="aboutUs"
       />

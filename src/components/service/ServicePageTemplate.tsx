@@ -20,7 +20,7 @@ export default function ServicePageTemplate({
 
   return (
     <>
-      <Header sticky={false} locale={locale} routeKey={content.routeKey} />
+      <Header locale={locale} routeKey={content.routeKey} />
 
       <main className="bg-white text-neutral-950">
         <section className="relative overflow-hidden bg-[var(--color-dark-band)] pb-20 pt-32 text-white sm:pb-24 sm:pt-40">

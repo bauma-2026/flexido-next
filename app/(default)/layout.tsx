@@ -1,6 +1,7 @@
 import "../globals.css";
 import type { Metadata } from "next";
 import ConsentRoot from "@/components/consent/ConsentRoot";
+import SectionAnchors from "@/components/layout/SectionAnchors";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://flexido-next.vercel.app"),
@@ -49,6 +50,7 @@ export default function RootLayout({
   return (
     <html lang="sl">
       <body className="bg-white text-neutral-950 antialiased">
+        <SectionAnchors />
         <ConsentRoot locale="sl">{children}</ConsentRoot>
       </body>
     </html>

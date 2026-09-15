@@ -60,7 +60,6 @@ export default function NewsArticleTemplate({
   return (
     <>
       <Header
-        sticky={false}
         locale={locale}
         routeKey={shared.routeKey}
         parentKey="news"

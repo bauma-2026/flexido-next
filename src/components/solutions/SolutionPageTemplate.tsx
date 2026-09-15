@@ -65,7 +65,7 @@ export default function SolutionPageTemplate({
 
   return (
     <>
-      <Header sticky={false} locale={locale} routeKey={content.routeKey} parentKey="solutions" />
+      <Header locale={locale} routeKey={content.routeKey} parentKey="solutions" />
 
       <main className="bg-white text-neutral-950">
         <section className="relative overflow-hidden bg-neutral-950 text-white">

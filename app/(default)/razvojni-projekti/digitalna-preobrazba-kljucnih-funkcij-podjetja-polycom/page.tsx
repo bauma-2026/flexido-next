@@ -59,7 +59,6 @@ export default function Page() {
   return (
     <>
       <Header
-        sticky={false}
         routeKey="fundingProjectPolyDigit"
         parentKey="aboutUs"
       />
