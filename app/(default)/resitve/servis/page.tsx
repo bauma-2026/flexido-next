@@ -5,6 +5,8 @@ import Section from "@/components/layout/Section";
 import ProcessBand from "@/components/blocks/home/ProcessBand";
 import FinalCTA from "@/components/blocks/home/FinalCTA";
 import WikiNav from "@/components/wiki/WikiNav";
+import Button from "@/components/ui/Button";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 const pageNavItems = [
   { href: "#proces", label: "Kje nastanejo problemi" },
@@ -80,19 +82,13 @@ export default function Page() {
         <Section id="proces" className="scroll-mt-24 bg-white">
           <Container>
             <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-              <div className="max-w-[560px]">
-                <p className="eyebrow">Kje nastanejo problemi</p>
-
-                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                  Sistem lahko deluje ob zagonu — in se ustavi čez dva tedna.
-                </h2>
-
-                <p className="mt-5 text-[16px] leading-7 text-neutral-600">
-                  Pravi izzivi se pokažejo šele v realni proizvodnji: spremembe
-                  v procesu, novi operaterji, drugačni kosi ali nepričakovane
-                  situacije.
-                </p>
-              </div>
+              <SectionHeader
+                className="max-w-[560px]"
+                eyebrow="Kje nastanejo problemi"
+                title="Sistem lahko deluje ob zagonu — in se ustavi čez dva tedna."
+                desc="Pravi izzivi se pokažejo šele v realni proizvodnji: spremembe v procesu, novi operaterji, drugačni kosi ali nepričakovane situacije."
+                descClassName="measure-prose"
+              />
 
               <div>
                 <p className="mb-4 eyebrow">
@@ -128,19 +124,13 @@ export default function Page() {
         {/* APPROACH */}
         <Section id="pristop" className="scroll-mt-24 surface-muted">
           <Container>
-            <div className="max-w-[720px]">
-              <p className="eyebrow">Naš pristop</p>
-
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                Podpora je del sistema, ne dodatna storitev.
-              </h2>
-
-              <p className="mt-5 text-[16px] leading-7 text-neutral-600">
-                Že pri načrtovanju razmišljamo, kako se bo sistem uporabljal,
-                prilagajal in vzdrževal. Cilj je, da ostane stabilen tudi, ko se
-                proizvodnja spremeni.
-              </p>
-            </div>
+            <SectionHeader
+              className="max-w-[720px]"
+              eyebrow="Naš pristop"
+              title="Podpora je del sistema, ne dodatna storitev."
+              desc="Že pri načrtovanju razmišljamo, kako se bo sistem uporabljal, prilagajal in vzdrževal. Cilj je, da ostane stabilen tudi, ko se proizvodnja spremeni."
+              descClassName="measure-prose"
+            />
 
             <div className="mt-10 grid gap-5 lg:grid-cols-3">
               {[
@@ -177,18 +167,13 @@ export default function Page() {
         {/* USE CASES */}
         <Section id="primeri" className="scroll-mt-24 bg-white">
           <Container>
-            <div className="max-w-[720px]">
-              <p className="eyebrow">Primeri podpore</p>
-
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                Kjer se pokaže realna vrednost podpore
-              </h2>
-
-              <p className="mt-5 text-[16px] leading-7 text-neutral-600">
-                Podpora ni samo za napake — ključna je pri spremembah, uvajanju in
-                stabilizaciji sistema v realni proizvodnji.
-              </p>
-            </div>
+            <SectionHeader
+              className="max-w-[720px]"
+              eyebrow="Primeri podpore"
+              title="Kjer se pokaže realna vrednost podpore"
+              desc="Podpora ni samo za napake — ključna je pri spremembah, uvajanju in stabilizaciji sistema v realni proizvodnji."
+              descClassName="measure-prose"
+            />
 
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {[

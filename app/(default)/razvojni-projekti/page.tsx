@@ -11,6 +11,7 @@ import { buildAlternates } from "@/i18n/metadata";
 import { getPath } from "@/i18n/routes";
 import type { RouteKey } from "@/i18n/routes";
 import DarkBand from "@/components/ui/DarkBand";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 export const metadata: Metadata = {
   title: fundingMetadata.fundingProjects.title,
@@ -179,16 +180,13 @@ export default function Page() {
         <Section className="border-b border-neutral-200 bg-white">
           <Container>
             <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start lg:gap-16">
-              <div>
-                <p className="eyebrow">V praksi</p>
-
-                <h2 className="mt-3 max-w-[16ch] text-3xl font-semibold leading-[1] tracking-[-0.04em] sm:text-4xl">
-                  Kaj razvojni projekti pomenijo za delo Flexida.
-                </h2>
-              </div>
+              <SectionHeader
+                eyebrow="V praksi"
+                title="Kaj razvojni projekti pomenijo za delo Flexida."
+              />
 
               <div className="max-w-[760px]">
-                <p className="text-[16px] leading-7 text-neutral-600">
+                <p className="text-body measure-prose">
                   Vsak projekt sodi v eno od treh vlog: razvija novo tehnologijo,
                   digitalizira poslovni proces, ali prenaša razvito rešitev v
                   realno uporabo na trgu.
@@ -218,15 +216,12 @@ export default function Page() {
         <Section id="projekti" className="scroll-mt-24 surface-muted">
           <Container>
             <div className="mb-10 grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
-              <div>
-                <p className="eyebrow">Projekti</p>
+              <SectionHeader
+                eyebrow="Projekti"
+                title="Pregled razvojnih projektov"
+              />
 
-                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                  Pregled razvojnih projektov
-                </h2>
-              </div>
-
-              <p className="max-w-[620px] text-[15px] leading-7 text-neutral-600">
+              <p className="text-body measure-prose">
                 Posamezen projekt ima svojo stran z opisom aktivnosti,
                 področjem, programom in pripadajočimi informacijami o
                 sofinanciranju.
@@ -254,7 +249,7 @@ export default function Page() {
                     {project.title}
                   </h3>
 
-                  <p className="mt-4 max-w-[62ch] text-[15px] leading-7 text-neutral-600">
+                  <p className="text-body mt-4 measure-prose">
                     {project.desc}
                   </p>
 
@@ -271,18 +266,12 @@ export default function Page() {
         <Section className="border-b border-neutral-200 bg-white">
           <Container>
             <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start lg:gap-16">
-              <div>
-                <p className="eyebrow">Povezave</p>
-
-                <h2 className="mt-3 max-w-[16ch] text-3xl font-semibold leading-[1] tracking-[-0.04em] sm:text-4xl">
-                  Kje se razvojni projekti povezujejo s prakso.
-                </h2>
-
-                <p className="mt-5 max-w-[42ch] text-[15px] leading-7 text-neutral-600">
-                  Vsaka povezava vodi na rešitev, stran ali novico, ki je
-                  neposreden rezultat enega od projektov.
-                </p>
-              </div>
+              <SectionHeader
+                eyebrow="Povezave"
+                title="Kje se razvojni projekti povezujejo s prakso."
+                desc="Vsaka povezava vodi na rešitev, stran ali novico, ki je neposreden rezultat enega od projektov."
+                descClassName="max-w-[42ch]"
+              />
 
               <div className="grid gap-3 sm:grid-cols-2">
                 {practiceConnections.map((item) => {

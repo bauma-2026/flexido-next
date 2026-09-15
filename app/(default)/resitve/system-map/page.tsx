@@ -3,6 +3,7 @@ import Footer from "@/components/layout/Footer";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
 import FinalCTA from "@/components/blocks/home/FinalCTA";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 const mapItems = [
   {
@@ -114,16 +115,14 @@ export default function Page() {
         <Section className="border-b border-neutral-200/60 bg-white">
           <Container>
             <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-              <div className="max-w-[560px]">
-                <p className="eyebrow">Model</p>
-
-                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                  Najprej poiščemo, kje proces izgublja ritem.
-                </h2>
-              </div>
+              <SectionHeader
+                className="max-w-[560px]"
+                eyebrow="Model"
+                title="Najprej poiščemo, kje proces izgublja ritem."
+              />
 
               <div className="max-w-[680px]">
-                <p className="text-[16px] leading-7 text-neutral-600">
+                <p className="text-body measure-prose">
                   Avtomatizacija ni vedno vprašanje enega robota. Včasih stroj
                   čaka na operaterja. Včasih kos stoji med operacijami. Včasih
                   material ne pride pravočasno. Zato problem najprej razbijemo
@@ -142,18 +141,13 @@ export default function Page() {
         {/* SYSTEM MAP */}
         <Section id="mapa" className="scroll-mt-24 surface-muted">
           <Container>
-            <div className="max-w-[720px]">
-              <p className="eyebrow">Mapa problemov</p>
-
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                Kje se proces ustavi?
-              </h2>
-
-              <p className="mt-5 text-[16px] leading-7 text-neutral-600">
-                Vsak zastoj ima drugačen vzrok. Zato ima tudi rešitev drugačno
-                logiko.
-              </p>
-            </div>
+            <SectionHeader
+              className="max-w-[720px]"
+              eyebrow="Mapa problemov"
+              title="Kje se proces ustavi?"
+              desc="Vsak zastoj ima drugačen vzrok. Zato ima tudi rešitev drugačno logiko."
+              descClassName="measure-prose"
+            />
 
             <div className="mt-10 grid gap-5 md:grid-cols-2">
               {mapItems.map((item) => (
@@ -187,18 +181,13 @@ export default function Page() {
         <Section className="bg-white">
           <Container>
             <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-              <div className="max-w-[520px]">
-                <p className="eyebrow">Kako to brati</p>
-
-                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                  Začni tam, kjer proces čaka.
-                </h2>
-
-                <p className="mt-5 text-[16px] leading-7 text-neutral-600">
-                  Ni treba najprej vedeti, katero tehnologijo potrebujete.
-                  Dovolj je vedeti, kje nastaja zastoj.
-                </p>
-              </div>
+              <SectionHeader
+                className="max-w-[520px]"
+                eyebrow="Kako to brati"
+                title="Začni tam, kjer proces čaka."
+                desc="Ni treba najprej vedeti, katero tehnologijo potrebujete. Dovolj je vedeti, kje nastaja zastoj."
+                descClassName="measure-prose"
+              />
 
               <div className="grid gap-4">
                 {guideItems.map((item) => (
@@ -227,7 +216,7 @@ export default function Page() {
               <div className="max-w-[680px]">
                 <p className="eyebrow text-white/45">Diagnostika procesa</p>
 
-                <h2 className="mt-4 max-w-[14ch] text-4xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-5xl">
+                <h2 className="text-section-title mt-3 measure-heading text-white">
                   Ne začnemo pri robotu. Začnemo pri toku.
                 </h2>
 

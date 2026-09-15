@@ -47,6 +47,7 @@ export default function Process({ content = defaultContent, processHref = "/proc
           eyebrow={content.eyebrow}
           title={content.title}
           desc={content.desc}
+          descClassName="measure-prose"
         />
 
         <ol className="mt-10 divide-y divide-neutral-200 lg:mt-14 lg:grid lg:grid-cols-4 lg:gap-x-8 lg:divide-y-0 lg:divide-x">

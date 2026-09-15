@@ -35,7 +35,7 @@ export default function KonstrukterPage() {
 
               <p className="mt-3 text-[14px] text-neutral-500">{job.date}</p>
 
-              <p className="mt-4 max-w-[62ch] text-[16px] leading-7 text-neutral-600">
+              <p className="text-body mt-4 measure-prose">
                 {job.summary}
               </p>
             </div>

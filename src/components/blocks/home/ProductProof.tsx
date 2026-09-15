@@ -6,6 +6,7 @@ import { flexidoSystems } from "@/data/flexido-systems";
 import type { Locale } from "@/i18n/config";
 import { getPath } from "@/i18n/routes";
 import type { HomeProductProofContent } from "@/content/home/types";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 const defaultContent: HomeProductProofContent = {
   eyebrow: "Sistemi",
@@ -66,8 +67,11 @@ export default function ProductProof({
   return (
     <Section className="surface-soft">
       <Container>
-        <div>
-          <p className="eyebrow">{content.eyebrow}</p>
+        <SectionHeader
+          eyebrow={content.eyebrow}
+          title={content.heading}
+          headingClassName="measure-heading lg:text-[38px]"
+        />
 
         <div className="mt-10 grid gap-10 border-t border-neutral-300 pt-12 sm:grid-cols-2 lg:mt-12 lg:gap-14 lg:pt-14">
           {systems.map(({ system, category, shortDescription, href }) => (
@@ -97,11 +101,11 @@ export default function ProductProof({
 
                 <h3 className="text-card-title mt-2">
                   {system.name}
-                </p>
+                </h3>
 
                 <p className="mt-3 max-w-[44ch] text-[14px] leading-[22px] text-neutral-600">
                   {shortDescription}
-                </h3>
+                </p>
 
                 <p className="mt-4 inline-flex items-center text-[14px] font-medium text-neutral-600 transition group-hover:text-[#0b8fdc]">
                   {content.viewSystemLabel}

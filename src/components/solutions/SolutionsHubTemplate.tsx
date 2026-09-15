@@ -6,6 +6,8 @@ import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import Section from "@/components/layout/Section";
 import Button from "@/components/ui/Button";
+import RuledRowList from "@/components/ui/RuledRowList";
+import SectionHeader from "@/components/ui/SectionHeader";
 import type { Locale } from "@/i18n/config";
 import { getPath } from "@/i18n/routes";
 import type { HubContent } from "@/content/solutions/types";
@@ -39,28 +41,33 @@ export default function SolutionsHubTemplate({ locale, content }: { locale: Loca
           </Container>
         </section>
 
-        <div id="resitve-grid">
-          <Solutions
-            compact
-            title={content.gridHeading}
-            desc={content.gridBody}
-            eyebrow={content.hero.eyebrow}
-            compactItems={content.gridItems.map((item) => ({
-              href: getPath(item.routeKey, locale) ?? "#",
-              title: item.title,
-              desc: item.desc,
-              label: item.label,
-              icon: item.icon,
-            }))}
-          />
-        </div>
+        <Section id="resitve-grid" className="surface-muted scroll-mt-24">
+          <Container>
+            <SectionHeader
+              className="max-w-[760px]"
+              eyebrow={content.hero.eyebrow}
+              title={content.gridHeading}
+              desc={content.gridBody}
+              descClassName="measure-prose"
+            />
+            <RuledRowList
+              className="mt-8 lg:mt-10"
+              items={content.gridItems.map((item) => ({
+                href: getPath(item.routeKey, locale) ?? "#",
+                title: item.title,
+                desc: item.desc,
+              }))}
+            />
+          </Container>
+        </Section>
 
         <Section className="border-y border-neutral-200 bg-white">
           <Container>
-            <div className="max-w-2xl">
-              <p className="eyebrow">{content.widerApproach.eyebrow}</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-4xl">{content.widerApproach.heading}</h2>
-            </div>
+            <SectionHeader
+              className="max-w-2xl"
+              eyebrow={content.widerApproach.eyebrow}
+              title={content.widerApproach.heading}
+            />
 
             <div className="mt-10 grid border-l border-t border-neutral-200 sm:grid-cols-2">
               {content.widerApproach.paths.map((path) => (
@@ -93,8 +100,10 @@ export default function SolutionsHubTemplate({ locale, content }: { locale: Loca
         <Section className="surface-soft">
           <Container>
             <div className="max-w-2xl">
-              <p className="eyebrow">{content.proof.eyebrow}</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-4xl">{content.proof.heading}</h2>
+              <SectionHeader
+                eyebrow={content.proof.eyebrow}
+                title={content.proof.heading}
+              />
               <p className="mt-4 text-lg leading-8 text-neutral-600">{content.proof.body}</p>
             </div>
 

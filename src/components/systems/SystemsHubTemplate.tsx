@@ -10,6 +10,7 @@ import type { Locale } from "@/i18n/config";
 import { getPath, type RouteKey } from "@/i18n/routes";
 import { cn } from "@/lib/cn";
 import type { SystemsHubCard, SystemsHubContent } from "@/content/systems/types";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 /**
  * Hub-card-only image overrides, keyed by route — used where `system.image`
@@ -94,15 +95,13 @@ export default function SystemsHubTemplate({ locale, content }: { locale: Locale
         <Section>
           <Container>
             <div className="grid gap-8 lg:grid-cols-[0.7fr_1fr] lg:gap-12">
-              <div>
-                <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-400">{content.intro.eyebrow}</p>
-                <h2 className="mt-3 text-[30px] font-semibold leading-[1.1] tracking-[-0.04em] text-neutral-950 sm:text-[36px]">
-                  {content.intro.heading}
-                </h2>
-              </div>
+              <SectionHeader
+                eyebrow={content.intro.eyebrow}
+                title={content.intro.heading}
+              />
               <div className="max-w-[560px] lg:border-l lg:border-neutral-200 lg:pl-10">
                 {content.intro.paragraphs.map((p, i) => (
-                  <p key={i} className={i === 0 ? "text-[16px] leading-8 text-neutral-800" : "mt-4 text-[15px] leading-7 text-neutral-600"}>
+                  <p key={i} className={i === 0 ? "text-[16px] leading-8 text-neutral-800" : "text-body mt-4"}>
                     {p}
                   </p>
                 ))}
@@ -114,10 +113,11 @@ export default function SystemsHubTemplate({ locale, content }: { locale: Locale
         {/* Vrste sistemov — heading and grid now share one tighter measure (mb-6/7 instead of mb-10) so the cards read as the heading's direct continuation, not a separately floating gallery. */}
         <Section className="surface-muted">
           <Container>
-            <div className="mb-6 max-w-[620px] lg:mb-7">
-              <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-400">{content.cardsHeading.eyebrow}</p>
-              <h2 className="mt-4 text-[34px] font-semibold tracking-[-0.04em] text-neutral-950 sm:text-[44px]">{content.cardsHeading.heading}</h2>
-            </div>
+            <SectionHeader
+              className="mb-6 max-w-[620px] lg:mb-7"
+              eyebrow={content.cardsHeading.eyebrow}
+              title={content.cardsHeading.heading}
+            />
 
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {content.cards.map((card) => (
@@ -130,21 +130,25 @@ export default function SystemsHubTemplate({ locale, content }: { locale: Locale
         {content.modules ? (
           <Section className="border-t border-neutral-200 bg-white">
             <Container>
-              <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-start lg:gap-16">
-                <div>
-                  <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-400">{content.modules.eyebrow}</p>
-                  <h2 className="mt-4 max-w-[15ch] text-[34px] font-semibold leading-tight tracking-[-0.04em] text-neutral-950 sm:text-[44px]">
-                    {content.modules.heading}
-                  </h2>
-                  {content.modules.paragraphs?.map((p, i) => (
-                    <p key={i} className="mt-5 max-w-[50ch] text-[16px] leading-7 text-neutral-600">
-                      {p}
-                    </p>
-                  ))}
-                </div>
+              <div className="max-w-[720px]">
+                <SectionHeader
+                  eyebrow={content.modules.eyebrow}
+                  title={content.modules.heading}
+                  headingClassName="measure-heading"
+                />
+                {content.modules.paragraphs?.map((p, i) => (
+                  <p key={i} className="text-body mt-5 max-w-[50ch]">
+                    {p}
+                  </p>
+                ))}
+              </div>
 
-                <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                  {content.modules.groups.map((group) => (
+              <div className="mt-8 space-y-8 lg:mt-10">
+                {content.modules.groups.map((group) => {
+                  const columns = group.items.length === 1 ? 1 : 2;
+                  const totalRows = Math.ceil(group.items.length / columns);
+
+                  return (
                     <div key={group.title}>
                       <h3 className="text-[13px] font-semibold tracking-[-0.01em] text-neutral-950">{group.title}</h3>
                       <div
@@ -192,7 +196,7 @@ export default function SystemsHubTemplate({ locale, content }: { locale: Locale
           <Container className="relative">
             <div className="max-w-[720px]">
               <p className="eyebrow-on-dark">{content.kontakt.eyebrow}</p>
-              <h2 className="mt-4 max-w-[20ch] text-3xl font-semibold leading-[0.98] tracking-[-0.04em] text-white sm:text-4xl lg:text-5xl">
+              <h2 className="text-section-title mt-3 measure-heading text-white">
                 {content.kontakt.heading}
               </h2>
               <p className="mt-5 max-w-[58ch] text-[15px] leading-7 text-white/72 sm:text-[16px]">{content.kontakt.body}</p>

@@ -46,7 +46,7 @@ export default function ProjectPracticeLink({
         {heading}
       </h2>
 
-      <p className="max-w-[62ch] text-[15px] leading-7 text-neutral-600">
+      <p className="text-body measure-prose">
         {body}
       </p>
 

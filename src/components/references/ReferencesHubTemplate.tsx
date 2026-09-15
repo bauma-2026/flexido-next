@@ -10,6 +10,7 @@ import type { Locale } from "@/i18n/config";
 import { getPath } from "@/i18n/routes";
 import type { ReferencesHubContent } from "@/content/references/types";
 import { getReferenceSummaries } from "@/content/references";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function ReferencesHubTemplate({
   locale,
@@ -81,27 +82,23 @@ export default function ReferencesHubTemplate({
             structural pause (Pass 3). */}
         <Section id="projekti" className="surface-soft">
           <Container>
-            <div className="max-w-[720px]">
-              <p className="eyebrow">{content.projects.eyebrow}</p>
-
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                {content.projects.heading}
-              </h2>
-
-              <p className="mt-5 text-[16px] leading-7 text-neutral-600">
-                {content.projects.body}
-              </p>
-            </div>
+            <SectionHeader
+              className="max-w-[720px]"
+              eyebrow={content.projects.eyebrow}
+              title={content.projects.heading}
+              desc={content.projects.body}
+              descClassName="measure-prose"
+            />
 
             <div className="mt-10 grid gap-5 lg:grid-cols-3">
               {projects.map(({ shared, content: project }) => {
                 const href = getPath(shared.routeKey, locale);
                 if (!href) return null;
 
-                    variant="grid"
                 return (
                   <ProofCard
                     key={shared.id}
+                    variant="grid"
                     href={href}
                     eyebrow={project.summary.area}
                     title={project.summary.title}
@@ -117,16 +114,12 @@ export default function ReferencesHubTemplate({
 
         <Section className="bg-white">
           <Container>
-            <div className="max-w-[720px]">
-              <p className="eyebrow">{content.areas.eyebrow}</p>
-
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                {content.areas.heading}
-              </h2>
-
-              <p className="mt-5 text-[16px] leading-7 text-neutral-600">
-                {content.areas.body}
-              </p>
+            <SectionHeader
+              className="max-w-[720px]"
+              eyebrow={content.areas.eyebrow}
+              title={content.areas.heading}
+              desc={content.areas.body}
+              descClassName="measure-prose"
             />
 
             <RuledRowList
@@ -136,20 +129,17 @@ export default function ReferencesHubTemplate({
                 if (!href) return [];
                 return [{ href, title: item.title, desc: item.body }];
               })}
-            </div>
+            />
           </Container>
         </Section>
 
         <Section className="border-t border-neutral-200 bg-white">
           <Container>
-            <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start lg:gap-16">
-              <div>
-                <p className="eyebrow">{content.principles.eyebrow}</p>
-
-                <h2 className="mt-3 max-w-[15ch] text-3xl font-semibold leading-[1] tracking-[-0.04em] sm:text-4xl">
-                  {content.principles.heading}
-                </h2>
-              </div>
+            <div className="grid gap-8 lg:grid-cols-[0.7fr_1fr] lg:gap-12">
+              <SectionHeader
+                eyebrow={content.principles.eyebrow}
+                title={content.principles.heading}
+              />
 
               <div className="lg:border-l lg:border-neutral-200 lg:pl-10">
                 {content.principles.items.map((item) => (
@@ -190,7 +180,7 @@ export default function ReferencesHubTemplate({
             <div className="max-w-[720px]">
               <p className="eyebrow-on-dark">{content.cta.eyebrow}</p>
 
-              <h2 className="mt-4 max-w-[20ch] text-4xl font-semibold leading-[0.95] tracking-[-0.04em] text-white sm:text-5xl">
+              <h2 className="text-section-title mt-3 measure-heading text-white">
                 {content.cta.heading}
               </h2>
 

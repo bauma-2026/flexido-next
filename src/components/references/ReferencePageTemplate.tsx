@@ -118,7 +118,7 @@ export default function ReferencePageTemplate({
                     </p>
 
                     {content.result.body ? (
-                      <p className="mt-4 max-w-[58ch] text-[15px] leading-7 text-neutral-600">
+                      <p className="text-body mt-4 measure-prose">
                         {content.result.body}
                       </p>
                     ) : null}

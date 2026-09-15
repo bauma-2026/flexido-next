@@ -174,40 +174,27 @@ export default function Solutions({
     return (
       <Section id="use-cases" className="surface-muted text-[#0a2540]">
         <Container>
-          <SectionHeader eyebrow={eyebrow} title={title} desc={desc} />
+          <SectionHeader className="max-w-[760px]" eyebrow={eyebrow} title={title} desc={desc} descClassName="measure-prose" />
 
-          <div className="mt-8 border-b border-neutral-200 lg:mt-10">
-            {compactItems.map((item, index) => (
-              <Link
-                href={item.href}
-                key={item.title}
-                className="focus-ring group flex items-start justify-between gap-6 border-t border-neutral-200 py-6 transition-colors duration-300 hover:border-neutral-300"
-              >
-                <div className="flex items-baseline gap-4">
-                  <span className="index-label shrink-0">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
+          <RuledRowList
+            className="mt-8 lg:mt-10"
+            variant="solutions"
+            items={compactItems.map((item) => ({
+              href: item.href,
+              title: item.title,
+              desc: item.desc,
+            }))}
+          />
 
-                  <div>
-                    <h3 className="text-[19px] font-semibold tracking-[-0.02em] text-[#0a2540] sm:text-[20px]">
-                      {item.title}
-                    </h3>
-
-                    <p className="mt-1.5 max-w-[52ch] text-[13.5px] leading-5 text-neutral-500 sm:max-w-[40ch] lg:max-w-[48ch]">
-                      {item.desc}
-                    </p>
-                  </div>
-                </div>
-
-                <span
-                  aria-hidden="true"
-                  className="mt-1 shrink-0 text-[15px] text-neutral-300 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-[#0b8fdc]"
-                >
-                  →
-                </span>
-              </Link>
-            ))}
-          </div>
+          {bridge ? (
+            <p className="mt-6 max-w-[42rem] border-t border-neutral-200 pt-6 text-[13px] leading-6 text-neutral-500 lg:mt-8">
+              {bridge}
+              {"  "}
+              <span aria-hidden="true" className="text-neutral-300">
+                →
+              </span>
+            </p>
+          ) : null}
         </Container>
       </Section>
     );
@@ -220,7 +207,7 @@ export default function Solutions({
       className="surface-muted text-[#0a2540]"
     >
       <Container>
-        <SectionHeader eyebrow="Rešitve" title={title} desc={desc} />
+        <SectionHeader className="max-w-[760px]" eyebrow="Rešitve" title={title} desc={desc} descClassName="measure-prose" />
 
         {/* FEATURED */}
         {featured && (

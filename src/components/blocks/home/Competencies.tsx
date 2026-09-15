@@ -5,12 +5,13 @@ import { competencyIcons } from "@/components/icons/CompetencyIcons";
 import type { HomeCompetenciesContent } from "@/content/home/types";
 import type { Locale } from "@/i18n/config";
 import { getPath } from "@/i18n/routes";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 const defaultContent: HomeCompetenciesContent = {
   eyebrow: "Kompetence",
   heading: "Kaj obvladamo znotraj projekta",
-  items: [
   intro: "Konstrukcijo, programiranje, integracijo in zagon izvaja ista ekipa.",
+  items: [
     "Izvedba študije izvedljivosti",
     "Konstruiranje",
     "Elektro projektiranje",
@@ -35,12 +36,12 @@ export default function Competencies({ content = defaultContent, locale = "sl" }
     <Section className="border-b border-neutral-200 bg-white text-[#0a2540]">
       <Container>
         <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-          <div>
-            <p className="eyebrow">{content.eyebrow}</p>
-            <h2 className="mt-3 max-w-[14ch] text-3xl font-semibold leading-[1] tracking-[-0.04em] sm:text-4xl lg:text-5xl">
-              {content.heading}
-            </h2>
-          </div>
+          <SectionHeader
+            eyebrow={content.eyebrow}
+            title={content.heading}
+            desc={content.intro}
+            descClassName="max-w-[28ch]"
+          />
 
           <div>
             {content.items.map((competency, index) => {

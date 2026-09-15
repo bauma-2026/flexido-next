@@ -114,14 +114,7 @@ export default function DarkBand({
           <div className={hasSideImage ? "max-w-[720px]" : "max-w-[680px]"}>
             {eyebrow ? <p className="eyebrow-on-dark">{eyebrow}</p> : null}
 
-            <h2
-              className={cn(
-                "mt-4 font-semibold leading-[0.95] tracking-[-0.04em] text-white",
-                variant === "compact"
-                  ? "max-w-[14ch] text-4xl sm:text-5xl"
-                  : "max-w-[15ch] text-display"
-              )}
-            >
+            <h2 className="text-section-title measure-heading mt-4 text-white">
               {title}
             </h2>
 

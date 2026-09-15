@@ -6,6 +6,7 @@ import Image from "next/image";
 import DarkBand from "@/components/ui/DarkBand";
 import Section from "@/components/layout/Section";
 import { konstrukterJob } from "@/content/careers/konstrukter";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 /** Live SL listing (flexido.eu/zaposlitev) currently shows exactly one active opening, 1/1. */
 const jobs = [konstrukterJob];
@@ -71,17 +72,14 @@ export default function ZaposlitevPage() {
           <Container>
             <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
               <div>
-                <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-500">
-                  Odprta mesta
-                </p>
-
-                <h2 className="mt-3 max-w-[15ch] text-3xl font-semibold leading-[1] tracking-[-0.04em] sm:text-4xl">
-                  Pridružite se ekipi, ki dela na proizvodnih sistemih.
-                </h2>
+                <SectionHeader
+                  eyebrow="Odprta mesta"
+                  title="Pridružite se ekipi, ki dela na proizvodnih sistemih."
+                />
               </div>
 
               <div className="max-w-[680px]">
-                <p className="text-[16px] leading-7 text-neutral-600">
+                <p className="text-body measure-prose">
                   Flexido razvija in integrira robotske celice, proizvodne
                   sisteme in rešitve za avtomatizacijo. Delo je praktično,
                   tehnično in povezano z realnimi izzivi proizvodnje.
@@ -108,9 +106,33 @@ export default function ZaposlitevPage() {
                       <p className="text-[13px] text-neutral-500">{job.date}</p>
                     </div>
 
-                      <a
-                        href="mailto:info@flexido.eu"
-                        className="inline-flex shrink-0 items-center rounded-full bg-neutral-950 px-5 py-3 text-[14px] font-medium text-white transition hover:bg-neutral-800"
+                    <h2 className="text-section-title mt-4">
+                      <Link href={job.href} className="transition hover:text-neutral-700">
+                        {job.title}
+                      </Link>
+                    </h2>
+
+                    <p className="text-body mt-5 measure-prose">
+                      {job.summary}
+                    </p>
+
+                    <p className="mt-5 text-[11px] uppercase tracking-[0.16em] text-neutral-400">
+                      {job.meta.join(" / ")}
+                    </p>
+
+                    <a
+                      href="mailto:info@flexido.eu"
+                      className="focus-ring mt-6 inline-flex items-center text-[15px] font-semibold text-[#0078bd] transition hover:text-[#0089d6]"
+                    >
+                      Prijava →
+                    </a>
+                  </div>
+
+                  <div className="mt-12 grid gap-8 lg:mt-14 lg:grid-cols-[1.05fr_1.05fr_0.9fr] lg:items-start lg:gap-12">
+                    {job.sections.map((section, i) => (
+                      <section
+                        key={section.title}
+                        className={i > 0 ? "lg:border-l lg:border-neutral-200 lg:pl-10" : undefined}
                       >
                         <h3 className="text-[15px] font-semibold text-[#0078bd]">
                           {section.title}
@@ -136,11 +158,12 @@ export default function ZaposlitevPage() {
                       </p>
                     </div>
 
-                    <div className="mt-10 grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-                      <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
-                        <h3 className="text-[15px] font-semibold text-neutral-950">
-                          Opis delovnega okolja
-                        </h3>
+                    <div className="lg:border-l lg:border-neutral-200 lg:pl-10">
+                      <p className="eyebrow">Prijava</p>
+
+                      <p className="text-body mt-3 max-w-[52ch]">
+                        {job.applicationNote}
+                      </p>
 
                       <a
                         href="mailto:info@flexido.eu"

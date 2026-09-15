@@ -8,6 +8,8 @@ import Section from "@/components/layout/Section";
 import type { Locale } from "@/i18n/config";
 import { getPath } from "@/i18n/routes";
 import type { CompanyAboutContent } from "@/content/company/types";
+import Button from "@/components/ui/Button";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function CompanyPageTemplate({
   locale,
@@ -86,17 +88,14 @@ export default function CompanyPageTemplate({
           <Container>
             <div className="grid gap-6 lg:grid-cols-[0.82fr_1.18fr] lg:items-end lg:gap-8">
               <div>
-                <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-500">
-                  {content.whatWeDo.eyebrow}
-                </p>
-
-                <h2 className="mt-3 max-w-[15ch] text-3xl font-semibold leading-tight tracking-[-0.035em] sm:text-4xl">
-                  {content.whatWeDo.heading}
-                </h2>
+                <SectionHeader
+                  eyebrow={content.whatWeDo.eyebrow}
+                  title={content.whatWeDo.heading}
+                />
               </div>
 
               {content.whatWeDo.lead ? (
-                <p className="max-w-[52ch] text-[16px] leading-7 text-neutral-600">
+                <p className="text-body max-w-[52ch]">
                   {content.whatWeDo.lead}
                 </p>
               ) : null}
@@ -129,17 +128,12 @@ export default function CompanyPageTemplate({
           <Container>
             <div className="grid gap-10 lg:grid-cols-[0.9fr_1.6fr] lg:items-center lg:gap-12">
               <div>
-                <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-500">
-                  {content.team.eyebrow}
-                </p>
-
-                <h2 className="mt-3 max-w-[15ch] text-3xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-4xl lg:text-[42px]">
-                  {content.team.heading}
-                </h2>
-
-                <p className="mt-5 max-w-[42ch] text-[16px] leading-7 text-neutral-600">
-                  {content.team.body}
-                </p>
+                <SectionHeader
+                  eyebrow={content.team.eyebrow}
+                  title={content.team.heading}
+                  desc={content.team.body}
+                  descClassName="max-w-[42ch]"
+                />
               </div>
 
               <div className="overflow-hidden rounded-[var(--radius-panel)] border border-neutral-200 bg-white">
@@ -161,17 +155,14 @@ export default function CompanyPageTemplate({
           <Container>
             <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
               <div>
-                <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-500">
-                  {content.video.eyebrow}
-                </p>
-
-                <h2 className="mt-3 max-w-[14ch] text-3xl font-semibold leading-[1] tracking-[-0.04em] sm:text-4xl lg:text-5xl">
-                  {content.video.heading}
-                </h2>
+                <SectionHeader
+                  eyebrow={content.video.eyebrow}
+                  title={content.video.heading}
+                />
               </div>
 
               <div>
-                <p className="max-w-[64ch] text-[16px] leading-7 text-neutral-600">
+                <p className="text-body measure-prose">
                   {content.video.body}
                 </p>
 
@@ -206,13 +197,10 @@ export default function CompanyPageTemplate({
         <Section className="border-t border-neutral-200 bg-white">
           <Container>
             <div className="max-w-[620px]">
-              <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-500">
-                {content.approach.eyebrow}
-              </p>
-
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.035em] sm:text-4xl lg:text-5xl">
-                {content.approach.heading}
-              </h2>
+              <SectionHeader
+                eyebrow={content.approach.eyebrow}
+                title={content.approach.heading}
+              />
             </div>
 
             {/* Restrained horizontal process-axis pattern — same ruled
@@ -263,7 +251,7 @@ export default function CompanyPageTemplate({
                 <div className="max-w-[620px]">
                   <p className="eyebrow-on-dark">{content.cta.eyebrow}</p>
 
-                  <h2 className="mt-3 max-w-[13ch] text-3xl font-semibold leading-[0.98] tracking-[-0.04em] text-white sm:text-4xl lg:text-5xl">
+                  <h2 className="text-section-title mt-3 measure-heading text-white">
                     {content.cta.heading}
                   </h2>
                 </div>
@@ -294,17 +282,15 @@ export default function CompanyPageTemplate({
             <Container>
               <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
                 <div className="max-w-[620px]">
-                  <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-500">
-                    {content.cta.eyebrow}
-                  </p>
-
-                  <h2 className="mt-3 max-w-[13ch] text-3xl font-semibold leading-[0.98] tracking-[-0.04em] text-neutral-950 sm:text-4xl lg:text-5xl">
-                    {content.cta.heading}
-                  </h2>
+                  <SectionHeader
+                    eyebrow={content.cta.eyebrow}
+                    title={content.cta.heading}
+                    headingClassName="measure-heading"
+                  />
                 </div>
 
                 <div className="max-w-[680px]">
-                  <p className="text-[15px] leading-7 text-neutral-600 sm:text-[16px]">
+                  <p className="text-body measure-prose">
                     {content.cta.body}
                   </p>
 

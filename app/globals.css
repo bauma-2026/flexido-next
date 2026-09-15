@@ -26,7 +26,21 @@ body {
 :root {
   /* Layout */
   --layout-max-width: 1280px;
-  --prose-max-width: 65ch;
+  /*
+     The canonical measure for explanatory prose, consumed by `.measure-prose`.
+
+     58ch, not the 65ch this token was declared with and never used at. Measured
+     on live copy at 1440 with `.text-body` at 16px: the longest first lines run
+     84-93 characters at 65ch and 84-103 uncapped in the 720px section wrappers
+     that most prose now sits in - both well past the 45-75 band. 58ch lands
+     them at 75-82. Going narrower still (54ch -> 71-80) reads better in
+     isolation but would visibly re-wrap most existing paragraphs; 58ch is also
+     already the site's most-used measure, so adopting it moves the fewest.
+
+     `ch` scales with font-size, so this is inert below `sm` - at 390px the
+     viewport is the measure, which is correct.
+  */
+  --prose-max-width: 58ch;
 
   /*
      The global header's own height, and the single source of truth for the
@@ -56,6 +70,10 @@ body {
   --radius-structural: 12px;
   --radius-panel: 16px;
 
+  /* One floating-UI elevation. Invert Y for bottom-fixed chrome. */
+  --shadow-float: 0 12px 40px rgba(15, 23, 42, 0.12);
+  --shadow-float-up: 0 -12px 40px rgba(15, 23, 42, 0.12);
+
   /* Legacy alias — matches interactive primary */
   --primary: var(--color-brand);
 }
@@ -69,10 +87,6 @@ body {
     text-decoration: none;
     color: inherit;
   }
-
-  /* One floating-UI elevation. Invert Y for bottom-fixed chrome. */
-  --shadow-float: 0 12px 40px rgba(15, 23, 42, 0.12);
-  --shadow-float-up: 0 -12px 40px rgba(15, 23, 42, 0.12);
 
   img {
     display: block;
@@ -106,8 +120,43 @@ body {
   }
 
   /* Typography roles */
+  /* Canonical section H2 — one scale for every page family, including the
+     dark CTA close (add `text-white`). Mirrors HEADING.section in
+     src/components/systems/catalog/roles.ts.
+
+     `text-balance` is part of the role, not a per-heading decision. Without it
+     this scale wrapped greedily and orphaned its last line — measured at 0.21
+     of the longest line on the SL Home process heading ("…po zagonu"), 0.49 on
+     the DE contact close, 0.40 on the EN competencies heading. The display and
+     document H1 roles already balanced; only the H2 did not, which is why call
+     sites had grown thirteen different `max-w-[Nch]` caps and one
+     `locale === "en"` ternary to force the breaks by hand. Balance fixes the
+     ragged line without ever adding one. */
   .text-section-title {
-    @apply text-3xl font-semibold leading-[1] tracking-[-0.04em] text-neutral-950 sm:text-4xl;
+    @apply text-[30px] font-semibold leading-[1.06] tracking-[-0.04em] text-balance text-neutral-950 sm:text-[36px] lg:text-[44px];
+  }
+
+  /* The one opt-in heading measure.
+
+     A section heading normally takes its measure from the layout column it
+     sits in, and needs no width of its own. This exists for the other case:
+     a heading whose only parent is a body-width wrapper (620–720px), which is
+     a paragraph measure and far too wide for a 44px heading. ~20ch is the
+     measure the display H1 already uses (`sm:max-w-[20ch]`), so this adds no
+     new number to the system.
+
+     Do not introduce a second heading width. If a heading needs to be
+     narrower, narrow the column it lives in. */
+  .measure-heading {
+    @apply max-w-[20ch];
+  }
+
+  /* The one prose measure. Pairs with `.text-body`: the heading keeps the
+     column's full width, the prose below it steps in to a readable line.
+     Narrower widths stay local only where the grid column is deliberately the
+     measure (a 2-up split, a card); never restate this number. */
+  .measure-prose {
+    max-width: var(--prose-max-width);
   }
 
   /* Card / ruled-cell title — product cards, related cells, peer cells
@@ -122,20 +171,62 @@ body {
     @apply text-[16px] font-semibold leading-[1.375] tracking-[-0.02em] text-neutral-950;
   }
 
+  /* Feature title — 2-column / feature proof cards and the proofProject
+     evidence block. One step above the card title, below the 28 subsection. */
+  .text-feature-title {
+    @apply text-[24px] font-semibold leading-[1.25] tracking-[-0.03em] text-neutral-950;
+  }
+
   .text-subsection-title {
     @apply text-[24px] font-semibold leading-[1.15] tracking-[-0.035em] text-neutral-950 sm:text-[28px];
   }
 
+  /* Canonical body role.
+
+     Leading is set per breakpoint, not once. The old rule paired a single
+     `leading-7` with a font size that changes at `sm`, so the ratio drifted
+     with the viewport — 15/28 = 1.87 on mobile, 16/28 = 1.75 above it. 1.87 at
+     the ~40 characters a 350px column holds reads as separated strips rather
+     than a paragraph: the measure is short, so the lines need less air, not
+     more. Pinning both steps keeps the ratio in one editorial band —
+     15/24 = 1.60 mobile, 16/26 = 1.63 desktop — where the longest measured
+     line on the site (74 CPL, single line at 1440) still sits comfortably.
+
+     `text-balance` is here to pay for the 58ch measure. Capping prose at
+     `--prose-max-width` pushed two one-line notes onto a second line and
+     orphaned them — "opreme." at 0.11 of the longest line, "ločenem ceniku."
+     at 0.21. Measured across every live `.text-body` on Home, Process,
+     Solution detail, Catalog, References, About, Service and Jobs at
+     390/768/1024/1440: balance changed the line count of **nothing**, made
+     **nothing** worse, and lifted every ragged last line (worst case
+     0.11 → 1.00, 0.16 → 1.00, 0.32 → 1.00).
+
+     The known limit is Chromium's ~6-line balancing cutoff. The longest live
+     paragraph in this role is exactly 6 lines (the CNC conveyor note at 390)
+     and it still balances — 0.32 → 1.00. If body copy ever grows past that,
+     balance degrades silently to normal wrapping, which is the current
+     behaviour, so the failure mode is a no-op rather than a regression.
+     `text-wrap: pretty` was tested first and is near-useless here: 0.11 → 0.21
+     and no change on the rest. */
   .text-body {
-    @apply text-[15px] leading-7 text-neutral-600 sm:text-base;
+    @apply text-[15px] leading-6 text-balance text-neutral-600 sm:text-base sm:leading-[26px];
   }
 
   .text-body-compact {
     @apply text-[14px] leading-6 text-neutral-600;
   }
 
+  /* Display hero H1 — dark/image page heroes (and hub landings on white).
+     Colour is inherited so the same role works on dark and light. Mirrors
+     HEADING.page in src/components/systems/catalog/roles.ts. */
   .text-display {
-    @apply text-4xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-5xl lg:text-6xl;
+    @apply text-[40px] font-semibold leading-[0.95] tracking-[-0.04em] text-balance sm:text-[56px] lg:text-[68px];
+  }
+
+  /* Document H1 — editorial / white document pages (reference detail,
+     development projects, news article, legal, EditorialPage). */
+  .text-document-title {
+    @apply text-[36px] font-semibold leading-[1] tracking-[-0.04em] text-balance text-neutral-950 sm:text-[44px] lg:text-[52px];
   }
 
   /* Technical spec / data */
@@ -170,12 +261,6 @@ body {
   .content-panel-muted {
     @apply rounded-[var(--radius-structural)] border border-neutral-200;
     background-color: var(--surface);
-  }
-
-  /* Feature title — 2-column / feature proof cards and the proofProject
-     evidence block. One step above the card title, below the 28 subsection. */
-  .text-feature-title {
-    @apply text-[24px] font-semibold leading-[1.25] tracking-[-0.03em] text-neutral-950;
   }
 
   .image-block {
@@ -217,9 +302,6 @@ body {
 }
 
 .legal-content h2:first-child {
-  /* Display hero H1 — dark/image page heroes (and hub landings on white).
-     Colour is inherited so the same role works on dark and light. Mirrors
-     HEADING.page in src/components/systems/catalog/roles.ts. */
   margin-top: 0;
 }
 

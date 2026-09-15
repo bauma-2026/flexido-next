@@ -6,6 +6,7 @@ import Button from "@/components/ui/Button";
 import type { Locale } from "@/i18n/config";
 import type { ContactPageContent } from "@/content/contact/types";
 import { contactFacts } from "@/content/contact/shared";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function ContactPageTemplate({
   locale,
@@ -77,17 +78,13 @@ export default function ContactPageTemplate({
         <Section className="bg-white">
           <Container>
             <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-              <div className="max-w-[520px]">
-                <p className="eyebrow">{content.details.eyebrow}</p>
-
-                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                  {content.details.heading}
-                </h2>
-
-                <p className="mt-5 text-[16px] leading-7 text-neutral-600">
-                  {content.details.body}
-                </p>
-              </div>
+              <SectionHeader
+                className="max-w-[520px]"
+                eyebrow={content.details.eyebrow}
+                title={content.details.heading}
+                desc={content.details.body}
+                descClassName="measure-prose"
+              />
 
               <div className="grid gap-5 sm:grid-cols-2">
                 <a
@@ -183,7 +180,7 @@ export default function ContactPageTemplate({
                   {content.final.eyebrow}
                 </p>
 
-                <h2 className="mt-4 max-w-[14ch] text-4xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-5xl">
+                <h2 className="text-section-title mt-3 measure-heading text-white">
                   {content.final.heading}
                 </h2>
 

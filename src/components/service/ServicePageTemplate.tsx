@@ -9,6 +9,7 @@ import Button from "@/components/ui/Button";
 import type { Locale } from "@/i18n/config";
 import { getPath } from "@/i18n/routes";
 import type { ServicePageContent } from "@/content/service/types";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function ServicePageTemplate({
   locale,
@@ -66,10 +67,10 @@ export default function ServicePageTemplate({
         <Section id={content.coverage.id} className="scroll-mt-24 border-b border-neutral-200 bg-white">
           <Container>
             <div className="max-w-[720px]">
-              <p className="eyebrow">{content.coverage.eyebrow}</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                {content.coverage.heading}
-              </h2>
+              <SectionHeader
+                eyebrow={content.coverage.eyebrow}
+                title={content.coverage.heading}
+              />
               <div className="mt-5 space-y-4 text-[16px] leading-7 text-neutral-600">
                 {content.coverage.paragraphs.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
@@ -82,15 +83,13 @@ export default function ServicePageTemplate({
         <Section id={content.request.id} className="scroll-mt-24 surface-muted">
           <Container>
             <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-              <div className="max-w-[520px]">
-                <p className="eyebrow">{content.request.eyebrow}</p>
-                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                  {content.request.heading}
-                </h2>
-                <p className="mt-5 text-[16px] leading-7 text-neutral-600">
-                  {content.request.body}
-                </p>
-              </div>
+              <SectionHeader
+                className="max-w-[520px]"
+                eyebrow={content.request.eyebrow}
+                title={content.request.heading}
+                desc={content.request.body}
+                descClassName="measure-prose"
+              />
               <ol className="divide-y divide-neutral-200 border-t border-neutral-200">
                 {content.request.details.map((detail, index) => (
                   <li key={detail} className="grid grid-cols-[40px_1fr] items-baseline gap-x-4 py-6">
@@ -107,12 +106,11 @@ export default function ServicePageTemplate({
 
         <Section id={content.flow.id} className="scroll-mt-24 border-y border-neutral-200 bg-white">
           <Container>
-            <div className="max-w-[760px]">
-              <p className="eyebrow">{content.flow.eyebrow}</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                {content.flow.heading}
-              </h2>
-            </div>
+            <SectionHeader
+              className="max-w-[760px]"
+              eyebrow={content.flow.eyebrow}
+              title={content.flow.heading}
+            />
             <div className="mt-10 grid gap-5 md:grid-cols-3">
               {content.flow.items.map((item) => (
                 <div key={item.step} className="rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-7">
@@ -131,15 +129,13 @@ export default function ServicePageTemplate({
 
         <Section id={content.equipment.id} className="scroll-mt-24 bg-white">
           <Container>
-            <div className="max-w-[720px]">
-              <p className="eyebrow">{content.equipment.eyebrow}</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                {content.equipment.heading}
-              </h2>
-              <p className="mt-5 text-[16px] leading-7 text-neutral-600">
-                {content.equipment.body}
-              </p>
-            </div>
+            <SectionHeader
+              className="max-w-[720px]"
+              eyebrow={content.equipment.eyebrow}
+              title={content.equipment.heading}
+              desc={content.equipment.body}
+              descClassName="measure-prose"
+            />
 
             <div className="mt-10 grid border-t border-neutral-200 sm:grid-cols-2 sm:divide-x sm:divide-neutral-200">
               {content.equipment.groups.map((group) => (
@@ -163,19 +159,14 @@ export default function ServicePageTemplate({
         <Section id={content.pricing.id} className="border-y border-neutral-200 surface-muted">
           <Container>
             <div className="grid items-end gap-8 lg:grid-cols-[minmax(0,1fr)_auto]">
-              <div className="max-w-[720px]">
-                <p className="eyebrow">{content.pricing.eyebrow}</p>
-                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                  {content.pricing.heading}
-                </h2>
-                <p className="mt-4 text-[16px] leading-7 text-neutral-600">{content.pricing.body}</p>
-              </div>
-              <Link
-                href={pricingHref}
-                className="inline-flex items-center justify-center rounded-full border border-neutral-950 px-6 py-3 text-[14px] font-medium text-neutral-950 transition hover:bg-neutral-950 hover:text-white"
-              >
-                {content.pricing.ctaLabel}
-              </Link>
+              <SectionHeader
+                className="max-w-[720px]"
+                eyebrow={content.pricing.eyebrow}
+                title={content.pricing.heading}
+                desc={content.pricing.body}
+                descClassName="measure-prose"
+              />
+              <Button href={pricingHref}>{content.pricing.ctaLabel}</Button>
             </div>
           </Container>
         </Section>
@@ -189,7 +180,7 @@ export default function ServicePageTemplate({
           <Container className="relative">
             <div className="max-w-[720px]">
               <p className="eyebrow-on-dark">{content.cta.eyebrow}</p>
-              <h2 className="mt-4 max-w-[16ch] text-4xl font-semibold leading-[0.95] tracking-[-0.04em] text-white sm:text-5xl">
+              <h2 className="text-section-title mt-3 measure-heading text-white">
                 {content.cta.heading}
               </h2>
               <p className="mt-5 max-w-[58ch] text-[16px] leading-7 text-white/72 sm:text-lg">
