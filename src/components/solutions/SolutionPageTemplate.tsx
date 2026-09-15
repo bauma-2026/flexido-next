@@ -91,7 +91,7 @@ export default function SolutionPageTemplate({
                   </span>
                 ))}
               </h1>
-              <p className="mt-5 max-w-[58ch] text-[16px] leading-7 text-white/75">{content.hero.subhead}</p>
+              <p className="mt-5 max-w-[58ch] text-balance text-[16px] leading-7 text-white/75">{content.hero.subhead}</p>
               <div className="mt-8 flex flex-wrap gap-3">
                 {content.hero.ctas.map((cta, index) => (
                   <a
@@ -138,7 +138,7 @@ export default function SolutionPageTemplate({
                 <h2 className="text-section-title mt-3 measure-heading text-white">
                   {content.kontakt.heading}
                 </h2>
-                <p className="mt-5 max-w-[58ch] text-[16px] leading-7 text-white/72 sm:text-lg">{content.kontakt.body}</p>
+                <p className="mt-5 max-w-[58ch] text-balance text-[16px] leading-7 text-white/72 sm:text-lg">{content.kontakt.body}</p>
                 <div className="mt-8">
                   <a
                     href={`mailto:${content.kontakt.mailto}`}
@@ -262,7 +262,7 @@ function SectionBlock({
                   ) : (
                     <div key={itemIndex} className="border-b border-r border-neutral-200 p-5 sm:p-6">
                       <h3 className="text-list-title">{item.title}</h3>
-                      <p className="mt-3 text-[15px] leading-6 text-neutral-600">{item.body}</p>
+                      <p className="mt-3 text-balance text-[15px] leading-6 text-neutral-600">{item.body}</p>
                     </div>
                   )
                 )}
@@ -302,7 +302,7 @@ function SectionBlock({
                 <div key={sideIndex} className="border-b border-r border-neutral-200 p-6 sm:p-8">
                   <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">{side.tag}</p>
                   <h3 className="text-feature-title mt-3">{side.title}</h3>
-                  <p className="mt-4 max-w-[52ch] text-[15px] leading-6 text-neutral-600">{side.body}</p>
+                  <p className="mt-4 max-w-[52ch] text-balance text-[15px] leading-6 text-neutral-600">{side.body}</p>
                   {side.link ? (
                     <ResolvedFamilyLink
                       link={side.link}
@@ -412,7 +412,7 @@ function SectionBlock({
                                 ))}
                               </ul>
                             ) : group.body ? (
-                              <p className="mt-3 max-w-[34ch] text-[15px] leading-6 text-neutral-600 lg:pr-8">
+                              <p className="mt-3 max-w-[34ch] text-balance text-[15px] leading-6 text-neutral-600 lg:pr-8">
                                 {group.body}
                               </p>
                             ) : null}
@@ -459,7 +459,7 @@ function SectionBlock({
                       ))}
                     </ul>
                   ) : group.body ? (
-                    <p className="mt-3 text-[15px] leading-6 text-neutral-600">{group.body}</p>
+                    <p className="mt-3 text-balance text-[15px] leading-6 text-neutral-600">{group.body}</p>
                   ) : null}
                 </section>
               ))}
@@ -585,7 +585,7 @@ function SectionBlock({
           <>
             <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">{right.tag}</p>
             <h3 className="text-card-title mt-3">{right.title}</h3>
-            <p className="mt-3 max-w-[52ch] text-[15px] leading-6 text-neutral-600">{right.body}</p>
+            <p className="mt-3 max-w-[52ch] text-balance text-[15px] leading-6 text-neutral-600">{right.body}</p>
             {boxHref ? (
               <span className="mt-5 inline-flex items-center text-[14px] font-medium text-neutral-700 transition group-hover:text-neutral-950">
                 {right.link.label}
@@ -766,7 +766,7 @@ function SectionBlock({
               />
               {section.body ? <p className="mt-4 text-lg leading-8 text-neutral-600">{section.body}</p> : null}
             </div>
-            <div className="mt-10 grid gap-6 lg:grid-cols-2 lg:gap-8">
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:gap-8">
               {section.items.map((proof) => (
                 <ProofCard
                   key={proof.title}
@@ -776,7 +776,7 @@ function SectionBlock({
                   title={proof.title}
                   body={proof.body}
                   image={{ src: proof.image.src, alt: proof.title, objectPosition: proof.image.objectPosition }}
-                  imageSizes="(min-width: 1024px) 50vw, 100vw"
+                  imageSizes="(min-width: 640px) 50vw, 100vw"
                   resultLabel={section.resultLabel}
                   result={proof.result}
                   linkLabel={section.readMoreLabel}
@@ -828,7 +828,7 @@ function SectionBlock({
                   className="focus-ring group block border-b border-r border-neutral-200 p-6 transition-colors hover:bg-neutral-50 sm:p-7"
                 >
                   <h3 className="text-card-title">{item.title}</h3>
-                  <p className="mt-3 text-[15px] leading-6 text-neutral-600">{item.body}</p>
+                  <p className="mt-3 text-balance text-[15px] leading-6 text-neutral-600">{item.body}</p>
                   <span className="mt-5 inline-flex items-center text-[14px] font-medium text-neutral-700 transition group-hover:text-neutral-950">
                     {section.linkLabel}
                     <span className="link-arrow">→</span>
