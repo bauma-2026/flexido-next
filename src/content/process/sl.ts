@@ -43,7 +43,7 @@ export const processContent: ProcessPageContent = {
       {
         number: "03",
         title: "Integracija v proizvodnjo",
-        desc: "Rešitev povežemo z obstoječimi stroji, operaterji, prostorom in realnim ritmom dela.",
+        desc: "Sistem povežemo z obstoječimi stroji, umestimo v prostor in uskladimo z dejanskim ritmom dela operaterjev.",
       },
       {
         number: "04",

@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import Container from "@/components/layout/Container";
+import Section from "@/components/layout/Section";
 
 const before = [
   "Ročno nalaganje in odlaganje kosov.",
@@ -23,15 +24,16 @@ const results = [
 
 export default function FlagshipCase() {
   return (
-    <section
+    <Section
       id="reference"
-      className="border-b border-neutral-200 bg-white py-20 sm:py-24 lg:py-28"
+      variant="large"
+      className="border-b border-neutral-200 bg-white"
     >
       <Container>
         {/* HEADER */}
         <div className="grid gap-8 lg:grid-cols-[0.78fr_1fr] lg:items-end">
           <div>
-            <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-500">
+            <p className="eyebrow">
               Primer uporabe
             </p>
 
@@ -48,7 +50,7 @@ export default function FlagshipCase() {
         </div>
 
         {/* MAIN CASE */}
-        <div className="mt-12 overflow-hidden rounded-[2rem] border border-neutral-200 bg-neutral-950 text-white shadow-sm">
+        <div className="mt-12 overflow-hidden rounded-[var(--radius-panel)] border border-neutral-200 bg-neutral-950 text-white">
           <div className="grid lg:grid-cols-[1.05fr_0.95fr]">
             {/* LEFT */}
             <div className="p-7 sm:p-9 lg:p-12">
@@ -85,7 +87,7 @@ export default function FlagshipCase() {
 
             {/* RIGHT */}
             <div className="border-t border-white/10 bg-white/[0.035] p-7 sm:p-9 lg:border-l lg:border-t-0 lg:p-12">
-              <p className="text-[11px] uppercase tracking-[0.18em] text-white/40">
+              <p className="eyebrow-on-dark">
                 Kaj se uredi
               </p>
 
@@ -93,7 +95,7 @@ export default function FlagshipCase() {
                 {results.map((item) => (
                   <div
                     key={item}
-                    className="flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/[0.045] px-4 py-4"
+                    className="flex items-center justify-between gap-4 rounded-[var(--radius-structural)] border border-white/10 bg-white/[0.045] px-4 py-4"
                   >
                     <span className="text-sm leading-5 text-white/72">
                       {item}
@@ -107,7 +109,7 @@ export default function FlagshipCase() {
         </div>
 
      {/* BEFORE / AFTER */}
-<div className="mt-5 grid overflow-hidden rounded-[1.75rem] border border-neutral-200 bg-white shadow-[0_18px_60px_rgba(15,23,42,0.06)] lg:grid-cols-2">
+<div className="mt-5 grid overflow-hidden rounded-[var(--radius-panel)] border border-neutral-200 bg-white lg:grid-cols-2">
   {/* BEFORE */}
   <div className="border-b border-neutral-200 bg-neutral-50 p-6 sm:p-7 lg:border-b-0 lg:border-r lg:p-8">
     <div className="flex items-center gap-3">
@@ -115,7 +117,7 @@ export default function FlagshipCase() {
         −
       </span>
 
-      <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-400">
+      <p className="eyebrow">
         Pred
       </p>
     </div>
@@ -130,7 +132,7 @@ export default function FlagshipCase() {
       {before.map((item) => (
         <div
           key={item}
-          className="rounded-2xl border border-neutral-200 bg-white px-4 py-3"
+          className="rounded-[var(--radius-structural)] border border-neutral-200 bg-white px-4 py-3"
         >
           <p className="text-sm leading-6 text-neutral-600">{item}</p>
         </div>
@@ -145,7 +147,7 @@ export default function FlagshipCase() {
         ✓
       </span>
 
-      <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-400">
+      <p className="eyebrow">
         Po
       </p>
     </div>
@@ -160,7 +162,7 @@ export default function FlagshipCase() {
       {after.map((item) => (
         <div
           key={item}
-          className="rounded-2xl border border-[#0ea5e9]/20 bg-[#f0f9ff] px-4 py-3"
+          className="rounded-[var(--radius-structural)] border border-[#0ea5e9]/20 bg-[#f0f9ff] px-4 py-3"
         >
           <p className="text-sm leading-6 text-[#0a2540]">{item}</p>
         </div>
@@ -169,6 +171,6 @@ export default function FlagshipCase() {
   </div>
 </div>
       </Container>
-    </section>
+    </Section>
   );
 }

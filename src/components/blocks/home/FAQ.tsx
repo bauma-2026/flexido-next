@@ -31,7 +31,7 @@ export default function FAQ() {
     <Section
       id="faq"
       variant="default"
-      className="border-b border-neutral-200 bg-white py-16 sm:py-20 lg:py-24"
+      className="border-b border-neutral-200 bg-white"
     >
       <Container>
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
@@ -50,7 +50,7 @@ export default function FAQ() {
           </div>
 
           {/* RIGHT */}
-          <div className="rounded-[28px] border border-neutral-200 bg-neutral-50 p-2 shadow-[0_18px_60px_rgba(15,23,42,0.05)]">
+          <div className="rounded-[var(--radius-structural)] border border-neutral-200 bg-neutral-50 p-2">
             {items.map((item, index) => {
               const isOpen = openIndex === index;
 
@@ -62,7 +62,7 @@ export default function FAQ() {
                   <button
                     type="button"
                     onClick={() => setOpenIndex(isOpen ? -1 : index)}
-                   className="group flex w-full items-start justify-between gap-6 rounded-[22px] px-5 py-4 text-left transition hover:bg-white sm:px-6"
+                   className="group flex w-full items-start justify-between gap-6 rounded-[var(--radius-structural)] px-5 py-4 text-left transition hover:bg-white sm:px-6"
                     aria-expanded={isOpen}
                   >
                    <span className="text-[16px] font-semibold leading-snug tracking-[-0.02em] text-neutral-900 sm:text-[17px]">

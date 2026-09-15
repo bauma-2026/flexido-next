@@ -22,6 +22,9 @@ export const hubContent: HubContent = {
     { routeKey: "solutionInjectionMolding", title: "Brizganje plastike", desc: "Stabilen cikel, odvzem kosov in manj ročnega dela.", label: "Cikel proizvodnje", icon: "imm" },
     { routeKey: "solutionManipulation", title: "Manipulacija materiala", desc: "Premikanje, obračanje in prenos kosov med fazami.", label: "Prenos materiala", icon: "manipulation" },
     { routeKey: "solutionLogistics", title: "Paletizacija in interna logistika", desc: "Ko material ne teče gladko skozi proizvodnjo.", label: "Tok materiala", icon: "materialFlow" },
+    { routeKey: "solutionProductionAutomation", title: "Avtomatizacija proizvodnje", desc: "Ko želite povezati več korakov procesa v stabilen tok." },
+    { routeKey: "solutionCustomSystems", title: "Namenski sistemi", desc: "Ko standardna rešitev ne pokrije prostora, kosov in realnega poteka dela." },
+    { routeKey: "solutionCobots", title: "Kolaborativni roboti", desc: "Pomoč pri ponavljajočih se nalogah in delu z operaterjem." },
   ],
   gridReadMoreLabel: "Preberi več",
   widerApproach: {
@@ -31,12 +34,12 @@ export const hubContent: HubContent = {
     paths: [
       {
         title: "Avtomatizacija proizvodnje",
-        body: "Ko želite povezati več korakov procesa v stabilen tok.",
+        body: "Ko odločitev ni več vezana na en stroj, temveč na povezavo več operacij.",
         routeKey: "solutionProductionAutomation",
       },
       {
         title: "Namenski sistemi",
-        body: "Ko standardna rešitev ne pokrije prostora, kosov in realnega poteka dela.",
+        body: "Ko zaporedje operacij, postaje in omejitve izvedbe zahtevajo skupno zasnovo.",
         routeKey: "solutionCustomSystems",
       },
     ],
@@ -88,7 +91,7 @@ export const hubContent: HubContent = {
   finalCta: {
     eyebrow: "Naslednji korak",
     heading: "Poglejmo vaš proces.",
-    body: "Povejte nam, kaj želite avtomatizirati. Skupaj bomo preverili, katera rešitev ima največ smisla za vaš proces.",
+    body: "Opišite stroj, kos in korak procesa, ki ga želite avtomatizirati. Skupaj preverimo, katero področje je pravo izhodišče.",
     ctaLabel: "Pošlji povpraševanje",
     mailto: "info@flexido.eu",
   },

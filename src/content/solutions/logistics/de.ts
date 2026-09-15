@@ -37,7 +37,8 @@ export const logisticsContent: SolutionPageContent = {
         "Behälter oder Paletten warten auf die nächste Phase",
         "Transport und Produktion sind nicht aufeinander abgestimmt",
       ],
-      result: "Ergebnis: solange die Phasen nicht verbunden sind, wartet Material zwischen den Operationen.",
+      result: "solange die Phasen nicht verbunden sind, wartet Material zwischen den Operationen.",
+      resultLabel: "Ergebnis",
     },
     {
       type: "capabilityGroups",

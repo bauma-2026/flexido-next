@@ -29,11 +29,11 @@ export default function LegalPage({
         <section className="border-b border-neutral-200 bg-white">
           <Container className="pt-12 pb-10 sm:pt-16 sm:pb-12 lg:pt-20 lg:pb-14">
             <div className="max-w-[920px]">
-              <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-400">
+              <p className="eyebrow">
                 {eyebrow}
               </p>
 
-              <h1 className="mt-5 text-[40px] font-semibold leading-[0.98] tracking-[-0.055em] text-neutral-950 sm:text-[54px] lg:text-[64px]">
+              <h1 className="text-document-title mt-5">
                 {title}
               </h1>
 

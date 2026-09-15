@@ -63,7 +63,10 @@ export type ProblemSplitBlock = {
   body: string | string[];
   itemsEyebrow: string;
   items: [string, string, string, string];
+  /** The synthesis sentence — no inline "Result:"/"Rezultat:"/"Ergebnis:" prefix; that label is `resultLabel`. */
   result: string;
+  /** Small eyebrow-style label above `result`, e.g. "Rezultat" / "Result" / "Ergebnis". */
+  resultLabel: string;
 };
 
 /**
@@ -95,18 +98,19 @@ export type ComparisonSplitBlock = {
 
 /**
  * Titled groups, each either a bullet list or a short paragraph.
- * `layout` picks the visual pattern: "boxed" (default) = bordered 2-col
- * grid with bullet lists; "plainColumns" = ungirded multi-col grid, title +
- * bullet list, no borders; "numberedRows" = single-column numbered rows,
- * each with one paragraph; "numberedGrid" = boxed multi-col grid, each card
- * numbered with a title + paragraph; "connectedPath" = the homepage Process
- * grammar — one shared hairline with a node per item, blue index (via
- * `.index-label`), title + paragraph; horizontal on wide desktop, a single
- * vertical line on everything narrower; "openColumns" = intro stacked full
- * width above, then equal open columns below (one shared top hairline,
- * `divide-x` between columns on desktop, hairline-separated stack on
- * mobile) — no per-item borders, no numbering; for parallel alternatives
- * or grouped-fact columns, not a process.
+ *
+ * Two grammars (Pass 2B-2), picked by meaning rather than appearance:
+ *
+ *   peer      unordered capability areas — a hairline grid, no index, no
+ *             marks, no hover. 2 or 3 columns from the group count.
+ *   sequence  a genuine order — the same grammar as the Process steps:
+ *             brand index via `.index-label`, node and connector marks,
+ *             horizontal rows on desktop, one vertical line on mobile.
+ *             `rowSizes` splits long sequences into desktop rows.
+ *
+ * The pre-2B-2 names remain as aliases so locale content needs no edit:
+ * "boxed" and "openColumns" mean `peer`; "numberedRows" and
+ * "connectedPath" mean `sequence`. Default is `peer`.
  */
 export type CapabilityGroupsBlock = {
   type: "capabilityGroups";
@@ -114,14 +118,12 @@ export type CapabilityGroupsBlock = {
   eyebrow: string;
   heading: string;
   body: string;
-  layout?: "boxed" | "plainColumns" | "numberedRows" | "numberedGrid" | "connectedPath" | "openColumns";
+  layout?: "peer" | "sequence" | "boxed" | "openColumns" | "numberedRows" | "connectedPath";
   groups: { number?: string; title: string; items?: string[]; body?: string }[];
   /**
-   * `plainColumns` only: split `groups` into stacked rows of these sizes
-   * (e.g. `[3, 2]`) instead of one flat `grid-cols-3`, so a trailing row
-   * with fewer items spans the full width as its own group instead of
-   * leaving an empty column. A hairline separates rows after the first,
-   * desktop only — mobile always collapses to one continuous column.
+   * `sequence` only: split the steps into desktop rows of these sizes
+   * (e.g. `[3, 2]`), so a five-step sequence reads as 3 + 2 instead of five
+   * thin columns. Mobile always renders one continuous vertical sequence.
    */
   rowSizes?: number[];
   /** Optional trailing sentence within the same section, e.g. "See also X, Y and Z." */

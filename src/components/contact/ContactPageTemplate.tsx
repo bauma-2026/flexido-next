@@ -6,6 +6,7 @@ import Button from "@/components/ui/Button";
 import type { Locale } from "@/i18n/config";
 import type { ContactPageContent } from "@/content/contact/types";
 import { contactFacts } from "@/content/contact/shared";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function ContactPageTemplate({
   locale,
@@ -25,11 +26,11 @@ export default function ContactPageTemplate({
           <Container className="relative py-20 sm:py-24 lg:py-28">
             <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
               <div className="max-w-[720px]">
-                <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-500">
+                <p className="eyebrow">
                   {content.hero.eyebrow}
                 </p>
 
-                <h1 className="mt-4 max-w-[13ch] text-5xl font-semibold leading-[0.95] tracking-[-0.04em] text-neutral-950 sm:text-6xl lg:text-[68px]">
+                <h1 className="text-display mt-4 max-w-[13ch]">
                   {content.hero.heading}
                 </h1>
 
@@ -42,17 +43,14 @@ export default function ContactPageTemplate({
                     {content.hero.primaryCtaLabel}
                   </Button>
 
-                  <a
-                    href={contactFacts.phoneHref}
-                    className="inline-flex items-center rounded-full border border-neutral-200 bg-white px-6 py-3 text-[14px] font-medium text-neutral-700 transition hover:border-neutral-300 hover:text-neutral-950"
-                  >
+                  <Button href={contactFacts.phoneHref} variant="secondary">
                     {content.hero.secondaryCtaLabel}
-                  </a>
+                  </Button>
                 </div>
               </div>
 
-              <div className="rounded-[28px] border border-neutral-200 bg-neutral-50 p-7 sm:p-8">
-                <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-500">
+              <div className="rounded-[var(--radius-structural)] border border-neutral-200 bg-neutral-50 p-7 sm:p-8">
+                <p className="eyebrow">
                   {content.hero.stepsEyebrow}
                 </p>
 
@@ -80,22 +78,18 @@ export default function ContactPageTemplate({
         <Section className="bg-white">
           <Container>
             <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-              <div className="max-w-[520px]">
-                <p className="eyebrow">{content.details.eyebrow}</p>
-
-                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                  {content.details.heading}
-                </h2>
-
-                <p className="mt-5 text-[16px] leading-7 text-neutral-600">
-                  {content.details.body}
-                </p>
-              </div>
+              <SectionHeader
+                className="max-w-[520px]"
+                eyebrow={content.details.eyebrow}
+                title={content.details.heading}
+                desc={content.details.body}
+                descClassName="measure-prose"
+              />
 
               <div className="grid gap-5 sm:grid-cols-2">
                 <a
                   href={contactFacts.emailHref}
-                  className="rounded-[24px] border border-neutral-200 bg-white p-6 transition hover:-translate-y-0.5 hover:border-neutral-300 hover:shadow-[0_18px_50px_rgba(15,23,42,0.06)]"
+                  className="rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-6 transition hover:-translate-y-0.5 hover:border-neutral-300"
                 >
                   <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
                     {content.details.emailLabel}
@@ -108,7 +102,7 @@ export default function ContactPageTemplate({
 
                 <a
                   href={contactFacts.phoneHref}
-                  className="rounded-[24px] border border-neutral-200 bg-white p-6 transition hover:-translate-y-0.5 hover:border-neutral-300 hover:shadow-[0_18px_50px_rgba(15,23,42,0.06)]"
+                  className="rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-6 transition hover:-translate-y-0.5 hover:border-neutral-300"
                 >
                   <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
                     {content.details.phoneLabel}
@@ -119,7 +113,7 @@ export default function ContactPageTemplate({
                   </p>
                 </a>
 
-                <div className="rounded-[24px] border border-neutral-200 bg-neutral-50 p-6 sm:col-span-2">
+                <div className="rounded-[var(--radius-structural)] border border-neutral-200 bg-neutral-50 p-6 sm:col-span-2">
                   <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
                     {content.details.companyLabel}
                   </p>
@@ -157,7 +151,7 @@ export default function ContactPageTemplate({
                   </div>
                 </div>
 
-                <div className="rounded-[24px] border border-neutral-200 bg-neutral-50 p-6 sm:col-span-2">
+                <div className="rounded-[var(--radius-structural)] border border-neutral-200 bg-neutral-50 p-6 sm:col-span-2">
                   <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
                     {content.details.topicsLabel}
                   </p>
@@ -182,11 +176,11 @@ export default function ContactPageTemplate({
           <Container className="py-16 sm:py-20 lg:py-24">
             <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
               <div className="max-w-[680px]">
-                <p className="text-[11px] uppercase tracking-[0.16em] text-white/45">
+                <p className="eyebrow-on-dark">
                   {content.final.eyebrow}
                 </p>
 
-                <h2 className="mt-4 max-w-[14ch] text-4xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-5xl">
+                <h2 className="text-section-title mt-3 measure-heading text-white">
                   {content.final.heading}
                 </h2>
 

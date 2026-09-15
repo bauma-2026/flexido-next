@@ -47,32 +47,32 @@ export default function LocaleSwitcher({
   const hash = useSyncExternalStore(subscribeToHashChange, getHashSnapshot, getServerHashSnapshot);
 
   return (
-    <div className="flex items-center gap-3 text-[13px]">
-      <span className="text-neutral-400">{switcherLabel[currentLocale]}:</span>
+    <div
+      role="group"
+      aria-label={switcherLabel[currentLocale]}
+      className="flex items-center gap-2 text-[13px]"
+    >
+      {locales.map((locale) => {
+        const target = resolveLanguageSwitch(routeKey, locale, parentKey);
+        const isExactRoute = target === getPath(routeKey, locale);
+        const href = isExactRoute && hash ? `${target}${hash}` : target;
+        const isCurrent = locale === currentLocale;
 
-      <div className="flex items-center gap-2">
-        {locales.map((locale) => {
-          const target = resolveLanguageSwitch(routeKey, locale, parentKey);
-          const isExactRoute = target === getPath(routeKey, locale);
-          const href = isExactRoute && hash ? `${target}${hash}` : target;
-          const isCurrent = locale === currentLocale;
-
-          return (
-            <Link
-              key={locale}
-              href={href}
-              aria-current={isCurrent ? "true" : undefined}
-              className={
-                isCurrent
-                  ? "focus-ring font-semibold text-neutral-950 underline underline-offset-4"
-                  : "focus-ring text-neutral-500 transition hover:text-neutral-950"
-              }
-            >
-              {locale.toUpperCase()}
-            </Link>
-          );
-        })}
-      </div>
+        return (
+          <Link
+            key={locale}
+            href={href}
+            aria-current={isCurrent ? "true" : undefined}
+            className={
+              isCurrent
+                ? "focus-ring font-semibold text-neutral-950 underline underline-offset-4"
+                : "focus-ring text-neutral-500 transition hover:text-neutral-950"
+            }
+          >
+            {locale.toUpperCase()}
+          </Link>
+        );
+      })}
     </div>
   );
 }

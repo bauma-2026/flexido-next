@@ -16,6 +16,9 @@ export const hubContent: HubContent = {
     { routeKey: "solutionInjectionMolding", title: "Injection molding", desc: "A stable cycle, part removal, and less manual work.", label: "Production cycle", icon: "imm" },
     { routeKey: "solutionManipulation", title: "Material handling", desc: "Moving, turning, and transferring parts between stages.", label: "Material transfer", icon: "manipulation" },
     { routeKey: "solutionLogistics", title: "Palletizing and internal logistics", desc: "When material doesn't flow smoothly through production.", label: "Material flow", icon: "materialFlow" },
+    { routeKey: "solutionProductionAutomation", title: "Production automation", desc: "When you want to connect several process steps into a stable flow." },
+    { routeKey: "solutionCustomSystems", title: "Custom-built systems", desc: "When a standard solution doesn't cover the space, the parts, and the real workflow." },
+    { routeKey: "solutionCobots", title: "Collaborative robots", desc: "Help with repetitive tasks alongside an operator." },
   ],
   gridReadMoreLabel: "Read more",
   widerApproach: {
@@ -25,12 +28,12 @@ export const hubContent: HubContent = {
     paths: [
       {
         title: "Production automation",
-        body: "When you want to connect several process steps into a stable flow.",
+        body: "When the decision is no longer about one machine, but about connecting several operations.",
         routeKey: "solutionProductionAutomation",
       },
       {
         title: "Custom-built systems",
-        body: "When a standard solution doesn't cover the space, the parts, and the real workflow.",
+        body: "When the sequence of operations, stations, and implementation constraints require a coordinated design.",
         routeKey: "solutionCustomSystems",
       },
     ],
@@ -82,7 +85,7 @@ export const hubContent: HubContent = {
   finalCta: {
     eyebrow: "Next step",
     heading: "Let's look at your process.",
-    body: "Tell us what you want to automate. Together we'll work out which solution makes the most sense for your process.",
+    body: "Describe the machine, part, and process step you want to automate. Together we identify which area is the right starting point.",
     ctaLabel: "Send an inquiry",
     mailto: "info@flexido.eu",
   },

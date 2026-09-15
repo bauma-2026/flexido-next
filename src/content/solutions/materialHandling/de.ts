@@ -36,7 +36,8 @@ export const materialHandlingContent: SolutionPageContent = {
         "Wie es ausgerichtet sein muss",
         "Wie es weitergegeben wird",
       ],
-      result: "Ergebnis: die Übergabe des Werkstücks muss Teil der Operation selbst sein, nicht ein Zusatz dazu.",
+      result: "die Übergabe des Werkstücks muss Teil der Operation selbst sein, nicht ein Zusatz dazu.",
+      resultLabel: "Ergebnis",
     },
     {
       type: "capabilityGroups",

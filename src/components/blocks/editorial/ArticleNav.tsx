@@ -28,7 +28,7 @@ export default function ArticleNav({ slug }: Props) {
           {prev && (
             <Link
               href={prev.href}
-              className="block rounded-2xl border border-neutral-200 px-4 py-3 text-[13px] text-neutral-600 transition hover:border-neutral-300 hover:text-neutral-950 sm:text-center"
+              className="block rounded-[var(--radius-structural)] border border-neutral-200 px-4 py-3 text-[13px] text-neutral-600 transition hover:border-neutral-300 hover:text-neutral-950 sm:text-center"
             >
               ← Prejšnja
             </Link>
@@ -39,7 +39,7 @@ export default function ArticleNav({ slug }: Props) {
           {next && (
             <Link
               href={next.href}
-              className="block rounded-2xl border border-neutral-200 px-4 py-3 text-[13px] text-neutral-600 transition hover:border-neutral-300 hover:text-neutral-950 sm:text-center"
+              className="block rounded-[var(--radius-structural)] border border-neutral-200 px-4 py-3 text-[13px] text-neutral-600 transition hover:border-neutral-300 hover:text-neutral-950 sm:text-center"
             >
               Naslednja →
             </Link>

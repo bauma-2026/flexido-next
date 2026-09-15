@@ -5,44 +5,47 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
+import ProofCard from "@/components/ui/ProofCard";
 import WikiNav from "@/components/wiki/WikiNav";
 import { flexidoSystems } from "@/data/flexido-systems";
 import type { Locale } from "@/i18n/config";
 import { getPath } from "@/i18n/routes";
 import type { SolutionPageContent, SolutionSectionBlock } from "@/content/solutions/types";
-import { ResolvedFamilyLink, renderTemplate } from "./links";
+import { ResolvedFamilyLink, isRouteLink, renderTemplate } from "./links";
 import ProblemSplitBlock from "./ProblemSplitBlock";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 /**
  * Section background, chosen by what the block *is* — not by its position
  * in the array. Same-role blocks always render the same tone, so reordering
  * or adding a section never silently changes visual meaning.
  *
- *  - white          orientation / main explanation (intro, facts, comparison, capability breakdown)
- *  - surface-muted  quiet/secondary (asides, sequences, cross-sell, navigation)
- *  - surface-soft   proof — reserved exclusively for documented results, never reused elsewhere
+ *  - white          orientation, explanation, comparison, capability, secondary navigation
+ *  - surface-soft   proof — reserved exclusively for documented results
+ *
+ * Secondary blocks stay on white so proof is always white → soft, never
+ * muted (#F2F2F2) adjacent to soft (#E7E7E7). Do not add a fifth surface.
  */
 function backgroundForBlock(type: SolutionSectionBlock["type"]): string {
   switch (type) {
-    case "textOnly":
-    case "numberedSteps":
-    case "ctaBanner":
-    case "relatedSolutions":
-      return "surface-muted";
     case "proofProject":
     case "proofGrid":
       return "surface-soft";
-    case "intro":
-    case "problemSplit":
-    case "factGrid":
-    case "comparisonSplit":
-    case "capabilityGroups":
     default:
       return "bg-white";
   }
 }
 
 /** Splits `items` into consecutive slices of the given `sizes` (any remainder becomes a final row). */
+/** Ordered-sequence desktop columns; a row never exceeds five steps. */
+const SEQUENCE_COLUMNS: Record<number, string> = {
+  1: "lg:grid-cols-1",
+  2: "lg:grid-cols-2",
+  3: "lg:grid-cols-3",
+  4: "lg:grid-cols-4",
+  5: "lg:grid-cols-5",
+};
+
 function chunkBySizes<T>(items: T[], sizes: number[]): T[][] {
   const rows: T[][] = [];
   let offset = 0;
@@ -80,10 +83,10 @@ export default function SolutionPageTemplate({
               <Link href={hubHref} className="inline-flex text-[13px] text-white/55 transition hover:text-white">
                 {content.hero.backLabel}
               </Link>
-              <p className="mt-6 text-[11px] uppercase tracking-[0.16em] text-white/50">{content.hero.eyebrow}</p>
-              <h1 className="mt-4 max-w-[16ch] text-4xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-5xl lg:text-6xl">
+              <p className="mt-6 eyebrow-on-dark">{content.hero.eyebrow}</p>
+              <h1 className="text-display mt-4 max-w-[16ch]">
                 {content.hero.titleLines.map((line, index) => (
-                  <span key={index} className="block max-w-[15ch]">
+                  <span key={index} className="block">
                     {line}
                   </span>
                 ))}
@@ -108,10 +111,18 @@ export default function SolutionPageTemplate({
           </Container>
         </section>
 
-        <WikiNav items={content.wikiNav.map((item) => ({ href: `#${item.id}`, label: item.label }))} />
+        <WikiNav
+          variant="index"
+          items={content.wikiNav.map((item) => ({ href: `#${item.id}`, label: item.label }))}
+        />
 
-        {content.sections.map((section) => (
-          <SectionBlock key={section.id} section={section} locale={locale} />
+        {content.sections.map((section, index) => (
+          <SectionBlock
+            key={section.id}
+            section={section}
+            locale={locale}
+            previousType={content.sections[index - 1]?.type}
+          />
         ))}
 
         {content.kontakt.variant === "photo" ? (
@@ -124,7 +135,7 @@ export default function SolutionPageTemplate({
             <Container className="relative">
               <div className="max-w-[720px]">
                 <p className="eyebrow-on-dark">{content.kontakt.eyebrow}</p>
-                <h2 className="mt-4 max-w-[16ch] text-4xl font-semibold leading-[0.95] tracking-[-0.04em] text-white sm:text-5xl">
+                <h2 className="text-section-title mt-3 measure-heading text-white">
                   {content.kontakt.heading}
                 </h2>
                 <p className="mt-5 max-w-[58ch] text-[16px] leading-7 text-white/72 sm:text-lg">{content.kontakt.body}</p>
@@ -147,11 +158,13 @@ export default function SolutionPageTemplate({
           >
             <Container>
               <div className="max-w-[720px]">
-                <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-500">{content.kontakt.eyebrow}</p>
-                <h2 className="mt-3 max-w-[16ch] text-3xl font-semibold leading-[0.98] tracking-[-0.04em] text-neutral-950 sm:text-4xl lg:text-5xl">
-                  {content.kontakt.heading}
-                </h2>
-                <p className="mt-5 max-w-[58ch] text-[15px] leading-7 text-neutral-600 sm:text-[16px]">{content.kontakt.body}</p>
+                <SectionHeader
+                  eyebrow={content.kontakt.eyebrow}
+                  title={content.kontakt.heading}
+                  headingClassName="measure-heading"
+                  desc={content.kontakt.body}
+                  descClassName="measure-prose"
+                />
                 <div className="mt-8">
                   <a
                     href={`mailto:${content.kontakt.mailto}`}
@@ -171,7 +184,16 @@ export default function SolutionPageTemplate({
   );
 }
 
-function SectionBlock({ section, locale }: { section: SolutionSectionBlock; locale: Locale }) {
+function SectionBlock({
+  section,
+  locale,
+  previousType,
+}: {
+  section: SolutionSectionBlock;
+  locale: Locale;
+  /** The block rendered immediately above, so a section can own its own top boundary. */
+  previousType?: SolutionSectionBlock["type"];
+}) {
   switch (section.type) {
     case "problemSplit":
       return <ProblemSplitBlock section={section} />;
@@ -180,11 +202,13 @@ function SectionBlock({ section, locale }: { section: SolutionSectionBlock; loca
       return (
         <Section id={section.id} className={`scroll-mt-24 ${backgroundForBlock(section.type)}`}>
           <Container>
-            <div className="max-w-[720px]">
-              <p className="eyebrow">{section.eyebrow}</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">{section.heading}</h2>
-              <p className="mt-5 text-[16px] leading-7 text-neutral-600">{section.body}</p>
-            </div>
+            <SectionHeader
+              className="max-w-[720px]"
+              eyebrow={section.eyebrow}
+              title={section.heading}
+              desc={section.body}
+              descClassName="measure-prose"
+            />
           </Container>
         </Section>
       );
@@ -193,11 +217,13 @@ function SectionBlock({ section, locale }: { section: SolutionSectionBlock; loca
       return (
         <Section id={section.id} className={`scroll-mt-24 border-y border-neutral-200 ${backgroundForBlock(section.type)}`}>
           <Container>
-            <div className="max-w-[760px]">
-              <p className="eyebrow">{section.eyebrow}</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">{section.heading}</h2>
-              <p className="mt-5 text-[16px] leading-7 text-neutral-600">{section.body}</p>
-            </div>
+            <SectionHeader
+              className="max-w-[760px]"
+              eyebrow={section.eyebrow}
+              title={section.heading}
+              desc={section.body}
+              descClassName="measure-prose"
+            />
           </Container>
         </Section>
       );
@@ -218,21 +244,25 @@ function SectionBlock({ section, locale }: { section: SolutionSectionBlock; loca
         <Section id={section.id} className={`scroll-mt-24 ${backgroundForBlock(section.type)}`}>
           <Container>
             <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
-              <div className="max-w-[580px]">
-                <p className="eyebrow">{section.eyebrow}</p>
-                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">{section.heading}</h2>
-                <p className="mt-5 text-[16px] leading-7 text-neutral-600">{section.body}</p>
-              </div>
-              <div className={hasCards ? `grid gap-4 ${colsClass}` : `grid gap-px overflow-hidden border border-neutral-200 bg-neutral-200 ${colsClass}`}>
+              <SectionHeader
+                className="max-w-[580px]"
+                eyebrow={section.eyebrow}
+                title={section.heading}
+                desc={section.body}
+                descClassName="measure-prose"
+              />
+              {/* One hairline grid for both shapes — no gap-px grey fill, no
+                  per-cell card border (Pass 2B-3). */}
+              <div className={`grid border-l border-t border-neutral-200 ${colsClass}`}>
                 {section.items.map((item, itemIndex) =>
                   typeof item === "string" ? (
-                    <div key={itemIndex} className="bg-white p-5 sm:p-6">
+                    <div key={itemIndex} className="border-b border-r border-neutral-200 p-5 sm:p-6">
                       <p className="text-[15px] font-medium leading-6 text-neutral-950">{item}</p>
                     </div>
                   ) : (
-                    <div key={itemIndex} className="border border-neutral-200 bg-white p-5 sm:p-6">
-                      <h3 className="text-[16px] font-semibold text-neutral-950">{item.title}</h3>
-                      <p className="mt-3 text-[14px] leading-6 text-neutral-600">{item.body}</p>
+                    <div key={itemIndex} className="border-b border-r border-neutral-200 p-5 sm:p-6">
+                      <h3 className="text-list-title">{item.title}</h3>
+                      <p className="mt-3 text-[15px] leading-6 text-neutral-600">{item.body}</p>
                     </div>
                   )
                 )}
@@ -257,17 +287,22 @@ function SectionBlock({ section, locale }: { section: SolutionSectionBlock; loca
       return (
         <Section id={section.id} className={`scroll-mt-24 border-t border-neutral-200 ${backgroundForBlock(section.type)}`}>
           <Container>
-            <div className="max-w-[720px]">
-              <p className="eyebrow">{section.eyebrow}</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">{section.heading}</h2>
-              <p className="mt-5 text-[16px] leading-7 text-neutral-600">{section.body}</p>
-            </div>
-            <div className="mt-10 grid gap-px overflow-hidden border border-neutral-200 bg-neutral-200 lg:grid-cols-2">
+            <SectionHeader
+              className="max-w-[720px]"
+              eyebrow={section.eyebrow}
+              title={section.heading}
+              desc={section.body}
+              descClassName="measure-prose"
+            />
+            {/* A two-way decision, so the pair keeps its own structure — but as a
+                hairline grid, not a grey-filled frame. Cells are not clickable;
+                only the inline link is (Pass 2B-3). */}
+            <div className="mt-10 grid border-l border-t border-neutral-200 lg:grid-cols-2">
               {[section.left, section.right].map((side, sideIndex) => (
-                <div key={sideIndex} className={sideIndex === 0 ? "bg-white p-8 sm:p-9" : "bg-[#f6f9fc] p-8 sm:p-9"}>
+                <div key={sideIndex} className="border-b border-r border-neutral-200 p-6 sm:p-8">
                   <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">{side.tag}</p>
-                  <h3 className="mt-4 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">{side.title}</h3>
-                  <p className="mt-4 max-w-[52ch] text-[15px] leading-7 text-neutral-600">{side.body}</p>
+                  <h3 className="text-feature-title mt-3">{side.title}</h3>
+                  <p className="mt-4 max-w-[52ch] text-[15px] leading-6 text-neutral-600">{side.body}</p>
                   {side.link ? (
                     <ResolvedFamilyLink
                       link={side.link}
@@ -283,241 +318,153 @@ function SectionBlock({ section, locale }: { section: SolutionSectionBlock; loca
       );
 
     case "capabilityGroups": {
-      const layout = section.layout ?? "boxed";
+      // Pass 2B-2: five presentation branches collapsed into two semantic
+      // grammars. `sequence` (content aliases: numberedRows, connectedPath) is
+      // the Process step grammar — brand index, tick and dot, ordered list.
+      // `peer` (aliases: boxed, openColumns) is an unordered hairline grid —
+      // no index, no marks, no hover, no arrow. Column count follows the
+      // group count; a trailing odd cell spans the row.
+      const isSequence =
+        section.layout === "sequence" ||
+        section.layout === "numberedRows" ||
+        section.layout === "connectedPath";
 
-      if (layout === "connectedPath") {
+      // Consecutive capability sections used to touch with no boundary at all
+      // (logistics ran 1931px of undivided white). One hairline, owned by the
+      // second section, so no neighbour ever draws a double rule (Pass 3).
+      const followsCapability = previousType === "capabilityGroups";
+      const topRule = followsCapability ? "border-t border-neutral-200 " : "";
+
+      const header = (
+        <SectionHeader
+          className="max-w-[720px]"
+          eyebrow={section.eyebrow}
+          title={section.heading}
+          desc={section.body}
+          descClassName="measure-prose"
+        />
+      );
+
+      const trailingNote = section.trailingNote ? (
+        <div className="mt-8 border-t border-neutral-200 pt-6 text-[15px] leading-7 text-neutral-600">
+          {renderTemplate(
+            section.trailingNote.template,
+            section.trailingNote.links,
+            locale,
+            "font-medium text-neutral-950 underline decoration-neutral-300 underline-offset-4 transition hover:decoration-neutral-950"
+          )}
+        </div>
+      ) : null;
+
+      if (isSequence) {
         const rows = section.rowSizes ? chunkBySizes(section.groups, section.rowSizes) : [section.groups];
+        // Row-start offsets, so an unnumbered step can fall back to its
+        // position in the whole sequence without mutating during render.
+        const rowOffsets = rows.reduce<number[]>(
+          (acc, row, index) => [...acc, (acc[index] ?? 0) + row.length],
+          [0]
+        );
 
         return (
-          <Section id={section.id} className={`scroll-mt-24 ${backgroundForBlock(section.type)}`}>
+          <Section id={section.id} className={`scroll-mt-24 ${topRule}${backgroundForBlock(section.type)}`}>
             <Container>
-              <div className="max-w-[720px]">
-                <p className="eyebrow">{section.eyebrow}</p>
-                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">{section.heading}</h2>
-                <p className="mt-5 text-[16px] leading-7 text-neutral-600">{section.body}</p>
-              </div>
-
+              {header}
               <div className="relative mt-10 lg:mt-14">
-                {/* mobile/tablet: single column, shared vertical line (unchanged) */}
+                {/* Mobile: one continuous vertical line through every row. */}
                 <span aria-hidden className="absolute left-0 top-1 bottom-1 w-px bg-neutral-200 lg:hidden" />
-                <ol className="lg:hidden">
-                  {section.groups.map((group) => (
-                    <li key={group.title} className="relative pb-8 pl-8 last:pb-0">
-                      <span
-                        aria-hidden
-                        className="absolute left-0 top-[5px] h-[7px] w-[7px] -translate-x-1/2 rounded-full border-[1.5px] border-[#1693e6] bg-white"
-                      />
-                      <p className="index-label">{group.number}</p>
-                      <h3 className="mt-2 text-[16px] font-semibold leading-[1.2] tracking-[-0.02em] text-neutral-950">{group.title}</h3>
-                      <p className="mt-3 text-[14px] leading-6 text-neutral-500">{group.body}</p>
-                    </li>
-                  ))}
-                </ol>
-
-                {/* desktop/tablet: full-width rows, own shared hairline + nodes per row */}
-                <div className="hidden lg:block">
-                  {rows.map((row, rowIndex) => (
+                {rows.map((row, rowIndex) => {
+                  const isLastRow = rowIndex === rows.length - 1;
+                  return (
                     <ol
                       key={rowIndex}
-                      className={`grid gap-x-8 border-t border-neutral-200 ${
-                        row.length === 2 ? "grid-cols-2" : row.length === 3 ? "grid-cols-3" : "grid-cols-1"
-                      } ${rowIndex > 0 ? "mt-12" : ""}`}
+                      className={`lg:grid lg:gap-x-8 lg:border-t lg:border-neutral-200 ${
+                        SEQUENCE_COLUMNS[Math.min(row.length, 5)]
+                      } ${rowIndex > 0 ? "lg:mt-12" : ""}`}
                     >
-                      {row.map((group) => (
-                        <li key={group.title} className="relative pt-7">
-                          <span aria-hidden className="absolute left-0 top-0 h-7 w-px bg-[#1693e6]/50" />
-                          <span
-                            aria-hidden
-                            className="absolute left-0 top-0 h-[7px] w-[7px] -translate-x-1/2 -translate-y-1/2 rounded-full border-[1.5px] border-[#1693e6] bg-white"
-                          />
-                          <p className="index-label">{group.number}</p>
-                          <h3 className="mt-2 text-[17px] font-semibold leading-[1.2] tracking-[-0.02em] text-neutral-950">{group.title}</h3>
-                          <p className="mt-3 text-[14px] leading-6 text-neutral-500">{group.body}</p>
-                        </li>
-                      ))}
+                      {row.map((group, i) => {
+                        const position = (rowOffsets[rowIndex] ?? 0) + i + 1;
+                        const isLast = isLastRow && i === row.length - 1;
+                        return (
+                          <li
+                            key={group.title}
+                            className={`relative pl-8 lg:pl-0 lg:pt-7 ${isLast ? "pb-0" : "pb-8 lg:pb-0"}`}
+                          >
+                            <span
+                              aria-hidden
+                              className="absolute left-0 top-[5px] h-[7px] w-[7px] -translate-x-1/2 rounded-full border-[1.5px] border-[var(--color-brand)] bg-white lg:hidden"
+                            />
+                            <span
+                              aria-hidden
+                              className="absolute left-0 top-0 hidden h-7 w-px bg-[var(--color-brand)]/50 lg:block"
+                            />
+                            <span
+                              aria-hidden
+                              className="absolute left-0 top-0 hidden h-[7px] w-[7px] -translate-x-1/2 -translate-y-1/2 rounded-full border-[1.5px] border-[var(--color-brand)] bg-white lg:block"
+                            />
+                            <p className="index-label">{group.number ?? String(position).padStart(2, "0")}</p>
+                            <h3 className="mt-3 max-w-[20ch] text-[18px] font-semibold leading-[1.2] tracking-[-0.02em] text-neutral-950">
+                              {group.title}
+                            </h3>
+                            {group.items ? (
+                              <ul className="mt-3 max-w-[34ch] space-y-2 text-[15px] leading-6 text-neutral-600 lg:pr-8">
+                                {group.items.map((item) => (
+                                  <li key={item}>{item}</li>
+                                ))}
+                              </ul>
+                            ) : group.body ? (
+                              <p className="mt-3 max-w-[34ch] text-[15px] leading-6 text-neutral-600 lg:pr-8">
+                                {group.body}
+                              </p>
+                            ) : null}
+                          </li>
+                        );
+                      })}
                     </ol>
-                  ))}
-                </div>
+                  );
+                })}
               </div>
-
-              {section.trailingNote ? (
-                <div className="mt-8 border-t border-neutral-200 pt-6 text-[15px] leading-7 text-neutral-600">
-                  {renderTemplate(
-                    section.trailingNote.template,
-                    section.trailingNote.links,
-                    locale,
-                    "font-medium text-neutral-950 underline decoration-neutral-300 underline-offset-4 transition hover:decoration-neutral-950"
-                  )}
-                </div>
-              ) : null}
+              {trailingNote}
             </Container>
           </Section>
         );
       }
 
-      if (layout === "openColumns") {
-        const cols = section.groups.length;
-        const colsClass = cols === 2 ? "sm:grid-cols-2" : cols === 4 ? "sm:grid-cols-4" : "sm:grid-cols-3";
-
-        return (
-          <Section id={section.id} className={`scroll-mt-24 ${backgroundForBlock(section.type)}`}>
-            <Container>
-              <div className="max-w-[720px]">
-                <p className="eyebrow">{section.eyebrow}</p>
-                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">{section.heading}</h2>
-                <p className="mt-5 text-[16px] leading-7 text-neutral-600">{section.body}</p>
-              </div>
-
-              <div className={`mt-10 grid border-t border-neutral-200 ${colsClass} sm:divide-x sm:divide-neutral-200`}>
-                {section.groups.map((group) => (
-                  <div
-                    key={group.title}
-                    className="border-b border-neutral-200 py-8 last:border-b-0 sm:border-b-0 sm:px-8 sm:py-10 sm:first:pl-0 sm:last:pr-0"
-                  >
-                    {group.number ? <p className="index-label">{group.number}</p> : null}
-                    <h3
-                      className={`${group.number ? "mt-3 text-xl" : "text-lg"} font-semibold tracking-[-0.02em] text-neutral-950`}
-                    >
-                      {group.title}
-                    </h3>
-                    {group.items ? (
-                      <ul className="mt-5 space-y-3 text-[15px] leading-6 text-neutral-600">
-                        {group.items.map((item) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
-                    ) : (
-                      <p className="mt-4 text-[15px] leading-7 text-neutral-600">{group.body}</p>
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              {section.trailingNote ? (
-                <div className="mt-8 border-t border-neutral-200 pt-6 text-[15px] leading-7 text-neutral-600">
-                  {renderTemplate(
-                    section.trailingNote.template,
-                    section.trailingNote.links,
-                    locale,
-                    "font-medium text-neutral-950 underline decoration-neutral-300 underline-offset-4 transition hover:decoration-neutral-950"
-                  )}
-                </div>
-              ) : null}
-            </Container>
-          </Section>
-        );
-      }
+      const count = section.groups.length;
+      const columns = count % 3 === 0 ? 3 : 2;
 
       return (
-        <Section id={section.id} className={`scroll-mt-24 ${backgroundForBlock(section.type)}`}>
+        <Section id={section.id} className={`scroll-mt-24 ${topRule}${backgroundForBlock(section.type)}`}>
           <Container>
+            {header}
             <div
-              className={
-                layout === "plainColumns"
-                  ? "grid gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16"
-                  : "grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16"
-              }
+              className={`mt-10 grid border-l border-t border-neutral-200 ${
+                columns === 3 ? "sm:grid-cols-3" : "sm:grid-cols-2"
+              }`}
             >
-              <div className="max-w-[540px]">
-                <p className="eyebrow">{section.eyebrow}</p>
-                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">{section.heading}</h2>
-                <p className="mt-5 text-[16px] leading-7 text-neutral-600">{section.body}</p>
-              </div>
-
-              {layout === "numberedRows" ? (
-                <div className="divide-y divide-neutral-200 border-y border-neutral-200">
-                  {section.groups.map((group) => (
-                    <section key={group.title} className="grid gap-4 py-6 sm:grid-cols-[48px_minmax(0,1fr)] sm:py-7">
-                      <span className="text-[12px] font-medium tracking-[0.14em] text-neutral-400">{group.number}</span>
-                      <div>
-                        <h3 className="text-xl font-semibold tracking-[-0.02em] text-neutral-950">{group.title}</h3>
-                        {group.body ? (
-                          <p className="mt-3 max-w-[58ch] text-[15px] leading-7 text-neutral-600">{group.body}</p>
-                        ) : null}
-                      </div>
-                    </section>
-                  ))}
-                </div>
-              ) : layout === "numberedGrid" ? (
-                <div className="grid gap-px overflow-hidden border border-neutral-200 bg-neutral-200 lg:grid-cols-3">
-                  {section.groups.map((group) => (
-                    <div key={group.title} className="bg-white p-7 sm:p-8">
-                      <p className="text-[11px] font-medium tracking-[0.16em] text-neutral-400">{group.number}</p>
-                      <h3 className="mt-5 text-[19px] font-semibold text-neutral-950">{group.title}</h3>
-                      <p className="mt-4 text-[15px] leading-7 text-neutral-600">{group.body}</p>
-                    </div>
-                  ))}
-                </div>
-              ) : layout === "plainColumns" ? (
-                section.rowSizes ? (
-                  <div>
-                    {chunkBySizes(section.groups, section.rowSizes).map((row, rowIndex) => (
-                      <div
-                        key={rowIndex}
-                        className={`grid gap-8 ${
-                          row.length === 2 ? "sm:grid-cols-2" : row.length === 3 ? "sm:grid-cols-3" : "sm:grid-cols-1"
-                        } ${rowIndex > 0 ? "mt-8 sm:mt-10 sm:border-t sm:border-neutral-200 sm:pt-8" : ""}`}
-                      >
-                        {row.map((group) => (
-                          <div key={group.title}>
-                            <h3 className="text-[15px] font-semibold text-neutral-950">{group.title}</h3>
-                            <ul className="mt-4 space-y-2 text-[14px] leading-6 text-neutral-600">
-                              {group.items?.map((item) => (
-                                <li key={item} className="border-b border-neutral-200 pb-2">
-                                  {item}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ))}
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="grid gap-8 sm:grid-cols-3">
-                    {section.groups.map((group) => (
-                      <div key={group.title}>
-                        <h3 className="text-[15px] font-semibold text-neutral-950">{group.title}</h3>
-                        <ul className="mt-4 space-y-2 text-[14px] leading-6 text-neutral-600">
-                          {group.items?.map((item) => (
-                            <li key={item} className="border-b border-neutral-200 pb-2">
-                              {item}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
-                )
-              ) : (
-                <div className="grid border-l border-t border-neutral-200 sm:grid-cols-2">
-                  {section.groups.map((group) => (
-                    <section key={group.title} className="border-b border-r border-neutral-200 p-7 sm:p-8">
-                      <h3 className="text-lg font-semibold tracking-[-0.02em] text-neutral-950">{group.title}</h3>
-                      {group.items ? (
-                        <ul className="mt-5 space-y-3 text-[15px] leading-6 text-neutral-600">
-                          {group.items.map((item) => (
-                            <li key={item}>{item}</li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <p className="mt-4 text-[15px] leading-7 text-neutral-600">{group.body}</p>
-                      )}
-                    </section>
-                  ))}
-                </div>
-              )}
+              {section.groups.map((group, groupIndex) => (
+                <section
+                  key={group.title}
+                  className={`border-b border-r border-neutral-200 p-5 sm:p-6 ${
+                    columns === 2 && count % 2 === 1 && groupIndex === count - 1 ? "sm:col-span-2" : ""
+                  }`}
+                >
+                  {/* One title size across the peer grammar: every capability cell
+                      carries content (a list or a paragraph), so none is the
+                      compact title-only inventory the 16px list role is for. */}
+                  <h3 className="text-card-title">{group.title}</h3>
+                  {group.items ? (
+                    <ul className="mt-3 space-y-2 text-[15px] leading-6 text-neutral-600">
+                      {group.items.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  ) : group.body ? (
+                    <p className="mt-3 text-[15px] leading-6 text-neutral-600">{group.body}</p>
+                  ) : null}
+                </section>
+              ))}
             </div>
-            {section.trailingNote ? (
-              <div className="mt-8 border-t border-neutral-200 pt-6 text-[15px] leading-7 text-neutral-600">
-                {renderTemplate(
-                  section.trailingNote.template,
-                  section.trailingNote.links,
-                  locale,
-                  "font-medium text-neutral-950 underline decoration-neutral-300 underline-offset-4 transition hover:decoration-neutral-950"
-                )}
-              </div>
-            ) : null}
+            {trailingNote}
           </Container>
         </Section>
       );
@@ -530,11 +477,13 @@ function SectionBlock({ section, locale }: { section: SolutionSectionBlock; loca
           <Container>
             {layout === "grid" ? (
               <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-16">
-                <div className="max-w-[560px]">
-                  <p className="eyebrow">{section.eyebrow}</p>
-                  <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">{section.heading}</h2>
-                  <p className="mt-5 text-[16px] leading-7 text-neutral-600">{section.body}</p>
-                </div>
+                <SectionHeader
+                  className="max-w-[560px]"
+                  eyebrow={section.eyebrow}
+                  title={section.heading}
+                  desc={section.body}
+                  descClassName="measure-prose"
+                />
                 <div className="grid gap-px overflow-hidden border border-neutral-200 bg-neutral-200 sm:grid-cols-2 lg:grid-cols-5">
                   {section.steps.map((step, stepIndex) => {
                     const isLinked = typeof step !== "string";
@@ -570,11 +519,13 @@ function SectionBlock({ section, locale }: { section: SolutionSectionBlock; loca
               </div>
             ) : (
               <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:gap-16">
-                <div className="max-w-[550px]">
-                  <p className="eyebrow">{section.eyebrow}</p>
-                  <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">{section.heading}</h2>
-                  <p className="mt-5 text-[16px] leading-7 text-neutral-600">{section.body}</p>
-                </div>
+                <SectionHeader
+                  className="max-w-[550px]"
+                  eyebrow={section.eyebrow}
+                  title={section.heading}
+                  desc={section.body}
+                  descClassName="measure-prose"
+                />
                 <ol className="w-full lg:max-w-[640px] lg:justify-self-end">
                   {section.steps.map((step, stepIndex) => {
                     const isLinked = typeof step !== "string";
@@ -625,20 +576,46 @@ function SectionBlock({ section, locale }: { section: SolutionSectionBlock; loca
       const right = section.right;
 
       if (right.kind === "box") {
+        const boxHref = isRouteLink(right.link)
+          ? (getPath(right.link.routeKey, locale) ?? "#")
+          : locale === "sl"
+            ? right.link.href
+            : null;
+        const boxInner = (
+          <>
+            <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">{right.tag}</p>
+            <h3 className="text-card-title mt-3">{right.title}</h3>
+            <p className="mt-3 max-w-[52ch] text-[15px] leading-6 text-neutral-600">{right.body}</p>
+            {boxHref ? (
+              <span className="mt-5 inline-flex items-center text-[14px] font-medium text-neutral-700 transition group-hover:text-neutral-950">
+                {right.link.label}
+                <span className="link-arrow">→</span>
+              </span>
+            ) : null}
+          </>
+        );
         return (
-          <Section id={section.id} className="scroll-mt-24 bg-[#f6f9fc]">
+          <Section id={section.id} className="scroll-mt-24 border-t border-neutral-200 bg-white">
             <Container>
               <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16">
-                <div className="max-w-[560px]">
-                  <p className="eyebrow">{section.eyebrow}</p>
-                  <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">{section.heading}</h2>
-                  <p className="mt-5 text-[16px] leading-7 text-neutral-600">{section.body}</p>
-                </div>
-                <div className="border border-neutral-200 bg-white p-7 sm:p-8">
-                  <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">{right.tag}</p>
-                  <h3 className="mt-4 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">{right.title}</h3>
-                  <p className="mt-4 max-w-[52ch] text-[15px] leading-7 text-neutral-600">{right.body}</p>
-                  <ResolvedFamilyLink link={right.link} locale={locale} className="mt-7 inline-flex text-[14px] font-medium text-neutral-700 transition hover:text-neutral-950" />
+                <SectionHeader
+                  className="max-w-[560px]"
+                  eyebrow={section.eyebrow}
+                  title={section.heading}
+                  desc={section.body}
+                  descClassName="measure-prose"
+                />
+                <div className="grid border-l border-t border-neutral-200">
+                  {boxHref ? (
+                    <Link
+                      href={boxHref}
+                      className="focus-ring group block border-b border-r border-neutral-200 p-6 transition-colors hover:bg-neutral-50 sm:p-7"
+                    >
+                      {boxInner}
+                    </Link>
+                  ) : (
+                    <div className="border-b border-r border-neutral-200 p-6 sm:p-7">{boxInner}</div>
+                  )}
                 </div>
               </div>
             </Container>
@@ -656,7 +633,7 @@ function SectionBlock({ section, locale }: { section: SolutionSectionBlock; loca
           : "lg:grid-cols-[minmax(0,1fr)_340px]";
 
       return (
-        <Section id={section.id} className="scroll-mt-24 border-y border-neutral-200 surface-muted">
+        <Section id={section.id} className="scroll-mt-24 border-y border-neutral-200 bg-white">
           <Container>
             <div className={`grid gap-10 lg:items-center lg:gap-16 ${gridColsClass}`}>
               {right.reversed ? (
@@ -681,13 +658,16 @@ function SectionBlock({ section, locale }: { section: SolutionSectionBlock; loca
       if (!system) return null;
 
       return (
-        <Section id={section.id} className="scroll-mt-24 bg-[#f6f9fc]">
+        <Section id={section.id} className="scroll-mt-24 border-t border-neutral-200 bg-white">
           <Container>
             <div className="grid gap-8 border border-neutral-200 bg-white lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
               <div className="p-7 sm:p-8 lg:p-10">
-                <p className="eyebrow">{section.eyebrow}</p>
-                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">{section.heading}</h2>
-                <p className="mt-5 max-w-[52ch] text-[16px] leading-7 text-neutral-600">{section.body}</p>
+                <SectionHeader
+                  eyebrow={section.eyebrow}
+                  title={section.heading}
+                  desc={section.body}
+                  descClassName="max-w-[52ch]"
+                />
                 <ResolvedFamilyLink link={section.link} locale={locale} className="mt-7 inline-flex text-[14px] font-medium text-neutral-700 transition hover:text-neutral-950" />
               </div>
               <div className="relative aspect-[16/10] overflow-hidden bg-neutral-100">
@@ -708,50 +688,66 @@ function SectionBlock({ section, locale }: { section: SolutionSectionBlock; loca
     }
 
     case "proofProject": {
-      const isOpenChrome = section.chrome === "open";
+      // Pass 2B-1: proofProject is the feature member of the proof family.
+      // It keeps its two-column editorial composition but shares the family
+      // chrome (1px border, radius 12, 4:3 frame on mobile, eyebrow, feature
+      // title 24, body rhythm, arrow label). The former `chrome: "open"`
+      // borderless variant is folded into the family; `resultTone` still
+      // picks the quiet result line versus the accent callout.
       const isQuietResult = section.resultTone === "quiet";
+      const proofHref = section.routeKey ? getPath(section.routeKey, locale) : undefined;
+      const focal = section.image.objectPosition?.trim().split(/\s+/)[0] ?? "";
+      const focalClass = /^object-\[[^\]]+\]$/.test(focal) ? focal : "";
 
       const card = (
         <>
-          <div className="relative aspect-[16/10] overflow-hidden bg-neutral-300 lg:aspect-auto">
-            <Image src={section.image.src} alt={section.image.alt} fill sizes="(min-width: 1024px) 50vw, 100vw" className={`object-cover ${section.image.objectPosition ?? ""} transition-transform duration-500 group-hover:scale-[1.02]`} />
+          <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100 lg:aspect-auto">
+            <Image
+              src={section.image.src}
+              alt={section.image.alt}
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className={`object-cover ${focalClass} transition-transform duration-500 ${proofHref ? "group-hover:scale-[1.02]" : ""}`}
+            />
           </div>
-          <div className="p-7 sm:p-8 lg:p-10">
+          <div className="p-6 sm:p-8 lg:p-10">
             <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">{section.tag}</p>
-            <h3 className="mt-4 text-2xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-3xl">{section.title}</h3>
-            <p className="mt-5 text-[16px] leading-7 text-neutral-600">{section.body}</p>
+            <h3 className="text-feature-title mt-3">{section.title}</h3>
+            <p className="text-body mt-4">{section.body}</p>
             {section.result ? (
               isQuietResult ? (
-                <p className="mt-5 border-t border-neutral-200 pt-4 text-[15px] font-medium leading-7 text-neutral-800">{section.result}</p>
+                <p className="mt-5 border-t border-neutral-200 pt-4 text-[15px] font-medium leading-6 text-neutral-800">{section.result}</p>
               ) : (
                 <p className="proof-callout mt-5">{section.result}</p>
               )
             ) : null}
-            {section.routeKey && getPath(section.routeKey, locale) ? (
-              <p className="mt-8 inline-flex text-[14px] font-medium text-neutral-700 transition group-hover:text-neutral-950">
-                {section.readMoreLabel} <span className="ml-2">→</span>
+            {proofHref ? (
+              <p className="mt-7 inline-flex items-center text-[14px] font-medium text-neutral-700 transition-colors duration-300 group-hover:text-neutral-950">
+                {section.readMoreLabel}
+                <span className="link-arrow">→</span>
               </p>
             ) : null}
           </div>
         </>
       );
 
+      const frame = "grid overflow-hidden rounded-[var(--radius-structural)] border border-neutral-200 bg-white lg:grid-cols-2";
+
       return (
         <Section id={section.id} variant="large" className={`scroll-mt-24 ${backgroundForBlock(section.type)}`}>
           <Container>
-            <div className="max-w-[720px]">
-              <p className="eyebrow">{section.eyebrow}</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">{section.heading}</h2>
-            </div>
-            <article
-              className={`mt-10 grid overflow-hidden bg-white lg:grid-cols-2 ${isOpenChrome ? "" : "border border-neutral-200"}`}
-            >
-              {section.routeKey && getPath(section.routeKey, locale) ? (
-                <Link href={getPath(section.routeKey, locale)!} className="group contents">
+            <SectionHeader
+              className="max-w-[720px]"
+              eyebrow={section.eyebrow}
+              title={section.heading}
+            />
+            <article className="mt-10">
+              {proofHref ? (
+                <Link href={proofHref} className={`focus-ring group ${frame} transition-colors duration-300 hover:border-neutral-400`}>
                   {card}
                 </Link>
               ) : (
-                <div className="contents">{card}</div>
+                <div className={frame}>{card}</div>
               )}
             </article>
           </Container>
@@ -764,58 +760,28 @@ function SectionBlock({ section, locale }: { section: SolutionSectionBlock; loca
         <Section id={section.id} className={`scroll-mt-24 ${backgroundForBlock(section.type)}`}>
           <Container>
             <div className="max-w-[720px]">
-              <p className="eyebrow">{section.eyebrow}</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">{section.heading}</h2>
+              <SectionHeader
+                eyebrow={section.eyebrow}
+                title={section.heading}
+              />
               {section.body ? <p className="mt-4 text-lg leading-8 text-neutral-600">{section.body}</p> : null}
             </div>
-            <div className="mt-10 grid gap-9 lg:grid-cols-2 lg:gap-x-11 xl:gap-x-14">
-              {section.items.map((proof) => {
-                const inner = (
-                  <>
-                    <div className="aspect-[16/10] overflow-hidden bg-neutral-100">
-                      <Image
-                        src={proof.image.src}
-                        alt={proof.title}
-                        width={proof.image.width}
-                        height={proof.image.height}
-                        className={`h-full w-full object-cover ${proof.image.objectPosition ?? ""} transition-transform duration-500 group-hover:scale-[1.02]`}
-                      />
-                    </div>
-                    <div className="flex flex-1 flex-col border-t border-neutral-200 px-5 pb-5 pt-6 sm:px-6 sm:pb-6 sm:pt-7">
-                      <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">{proof.area}</p>
-                      <h3 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">{proof.title}</h3>
-                      <p className="mt-3 leading-7 text-neutral-600">{proof.body}</p>
-                      <div className="mt-auto">
-                        {proof.result ? (
-                          <div className="mt-4">
-                            {section.resultLabel ? (
-                              <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">{section.resultLabel}</p>
-                            ) : null}
-                            <p className="mt-1.5 text-[14px] leading-6 text-neutral-600">{proof.result}</p>
-                          </div>
-                        ) : null}
-                        {proof.routeKey && getPath(proof.routeKey, locale) ? (
-                          <span className="mt-4 inline-flex items-center text-[14px] font-medium text-neutral-700 transition group-hover:text-neutral-950">
-                            {section.readMoreLabel} <span className="ml-2">→</span>
-                          </span>
-                        ) : null}
-                      </div>
-                    </div>
-                  </>
-                );
-
-                return (
-                  <article key={proof.title} className="flex h-full flex-col bg-white">
-                    {proof.routeKey && getPath(proof.routeKey, locale) ? (
-                      <Link href={getPath(proof.routeKey, locale)!} className="group flex flex-1 flex-col">
-                        {inner}
-                      </Link>
-                    ) : (
-                      <div className="flex flex-1 flex-col">{inner}</div>
-                    )}
-                  </article>
-                );
-              })}
+            <div className="mt-10 grid gap-6 lg:grid-cols-2 lg:gap-8">
+              {section.items.map((proof) => (
+                <ProofCard
+                  key={proof.title}
+                  variant="feature"
+                  href={proof.routeKey ? (getPath(proof.routeKey, locale) ?? undefined) : undefined}
+                  eyebrow={proof.area}
+                  title={proof.title}
+                  body={proof.body}
+                  image={{ src: proof.image.src, alt: proof.title, objectPosition: proof.image.objectPosition }}
+                  imageSizes="(min-width: 1024px) 50vw, 100vw"
+                  resultLabel={section.resultLabel}
+                  result={proof.result}
+                  linkLabel={section.readMoreLabel}
+                />
+              ))}
             </div>
           </Container>
         </Section>
@@ -826,15 +792,17 @@ function SectionBlock({ section, locale }: { section: SolutionSectionBlock; loca
         <Section id={section.id} className={`border-y border-neutral-200 ${backgroundForBlock(section.type)}`}>
           <Container>
             <div className="grid items-end gap-8 lg:grid-cols-[minmax(0,1fr)_auto]">
-              <div className="max-w-[720px]">
-                <p className="eyebrow">{section.eyebrow}</p>
-                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">{section.heading}</h2>
-                <p className="mt-4 text-[16px] leading-7 text-neutral-600">{section.body}</p>
-              </div>
+              <SectionHeader
+                className="max-w-[720px]"
+                eyebrow={section.eyebrow}
+                title={section.heading}
+                desc={section.body}
+                descClassName="measure-prose"
+              />
               <ResolvedFamilyLink
                 link={section.cta}
                 locale={locale}
-                className="inline-flex items-center justify-center rounded-full border border-neutral-950 px-6 py-3 text-[14px] font-medium text-neutral-950 transition hover:bg-neutral-950 hover:text-white"
+                className="focus-ring mt-2 inline-flex items-center text-[14px] font-medium text-neutral-500 transition hover:text-neutral-950 lg:mt-0"
               />
             </div>
           </Container>
@@ -843,24 +811,27 @@ function SectionBlock({ section, locale }: { section: SolutionSectionBlock; loca
 
     case "relatedSolutions":
       return (
-        <Section id={section.id} className={`scroll-mt-24 ${backgroundForBlock(section.type)}`}>
+        <Section id={section.id} className={`scroll-mt-24 border-t border-neutral-200 ${backgroundForBlock(section.type)}`}>
           <Container>
             <div className="max-w-[720px]">
-              <p className="eyebrow">{section.eyebrow}</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">{section.heading}</h2>
-              {section.body ? <p className="mt-5 text-[16px] leading-7 text-neutral-600">{section.body}</p> : null}
+              <SectionHeader
+                eyebrow={section.eyebrow}
+                title={section.heading}
+              />
+              {section.body ? <p className="text-body mt-5">{section.body}</p> : null}
             </div>
             <div className="mt-10 grid border-l border-t border-neutral-200 sm:grid-cols-2 lg:grid-cols-3">
               {section.items.map((item) => (
                 <Link
                   key={item.title}
                   href={getPath(item.routeKey, locale) ?? "#"}
-                  className="group border-b border-r border-neutral-200 p-6 transition-colors hover:bg-neutral-50 sm:p-7"
+                  className="focus-ring group block border-b border-r border-neutral-200 p-6 transition-colors hover:bg-neutral-50 sm:p-7"
                 >
-                  <h3 className="text-xl font-semibold tracking-[-0.02em] text-neutral-950">{item.title}</h3>
-                  <p className="mt-3 text-[15px] leading-7 text-neutral-600">{item.body}</p>
-                  <span className="mt-6 inline-flex text-[14px] font-medium text-neutral-600 transition group-hover:text-neutral-950">
-                    {section.linkLabel} <span className="ml-2">→</span>
+                  <h3 className="text-card-title">{item.title}</h3>
+                  <p className="mt-3 text-[15px] leading-6 text-neutral-600">{item.body}</p>
+                  <span className="mt-5 inline-flex items-center text-[14px] font-medium text-neutral-700 transition group-hover:text-neutral-950">
+                    {section.linkLabel}
+                    <span className="link-arrow">→</span>
                   </span>
                 </Link>
               ))}
@@ -912,9 +883,12 @@ function CrossSellText({
 }) {
   return (
     <div className="max-w-[680px]">
-      <p className="eyebrow">{eyebrow}</p>
-      <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">{heading}</h2>
-      <p className="mt-5 text-[16px] leading-7 text-neutral-600">{body}</p>
+      <SectionHeader
+        eyebrow={eyebrow}
+        title={heading}
+        desc={body}
+        descClassName="measure-prose"
+      />
       <ResolvedFamilyLink link={link} locale={locale} className="mt-7 inline-flex text-[14px] font-medium text-neutral-700 transition hover:text-neutral-950" />
     </div>
   );

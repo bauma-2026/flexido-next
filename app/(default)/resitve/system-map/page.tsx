@@ -3,6 +3,7 @@ import Footer from "@/components/layout/Footer";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
 import FinalCTA from "@/components/blocks/home/FinalCTA";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 const mapItems = [
   {
@@ -74,11 +75,11 @@ export default function Page() {
                 ← Vse rešitve
               </a>
 
-              <p className="mt-6 text-[11px] uppercase tracking-[0.16em] text-white/50">
+              <p className="mt-6 eyebrow-on-dark">
                 System map
               </p>
 
-             <h1 className="mt-4 max-w-[13ch] text-4xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-5xl lg:text-6xl">
+             <h1 className="text-display mt-4 max-w-[13ch]">
   Kje se ustavlja vaš proces?
 </h1>
 
@@ -114,16 +115,14 @@ export default function Page() {
         <Section className="border-b border-neutral-200/60 bg-white">
           <Container>
             <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-              <div className="max-w-[560px]">
-                <p className="eyebrow">Model</p>
-
-                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                  Najprej poiščemo, kje proces izgublja ritem.
-                </h2>
-              </div>
+              <SectionHeader
+                className="max-w-[560px]"
+                eyebrow="Model"
+                title="Najprej poiščemo, kje proces izgublja ritem."
+              />
 
               <div className="max-w-[680px]">
-                <p className="text-[16px] leading-7 text-neutral-600">
+                <p className="text-body measure-prose">
                   Avtomatizacija ni vedno vprašanje enega robota. Včasih stroj
                   čaka na operaterja. Včasih kos stoji med operacijami. Včasih
                   material ne pride pravočasno. Zato problem najprej razbijemo
@@ -140,27 +139,22 @@ export default function Page() {
         </Section>
 
         {/* SYSTEM MAP */}
-        <Section id="mapa" className="scroll-mt-24 bg-[#f6f9fc]">
+        <Section id="mapa" className="scroll-mt-24 surface-muted">
           <Container>
-            <div className="max-w-[720px]">
-              <p className="eyebrow">Mapa problemov</p>
-
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                Kje se proces ustavi?
-              </h2>
-
-              <p className="mt-5 text-[16px] leading-7 text-neutral-600">
-                Vsak zastoj ima drugačen vzrok. Zato ima tudi rešitev drugačno
-                logiko.
-              </p>
-            </div>
+            <SectionHeader
+              className="max-w-[720px]"
+              eyebrow="Mapa problemov"
+              title="Kje se proces ustavi?"
+              desc="Vsak zastoj ima drugačen vzrok. Zato ima tudi rešitev drugačno logiko."
+              descClassName="measure-prose"
+            />
 
             <div className="mt-10 grid gap-5 md:grid-cols-2">
               {mapItems.map((item) => (
                 <a
                   key={item.title}
                   href={item.href}
-                  className="group rounded-[28px] border border-neutral-200 bg-white p-7 transition hover:-translate-y-0.5 hover:border-neutral-300 hover:shadow-[0_20px_70px_rgba(15,23,42,0.08)]"
+                  className="group rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-7 transition hover:-translate-y-0.5 hover:border-neutral-300"
                 >
                   <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
                     {item.label}
@@ -187,24 +181,19 @@ export default function Page() {
         <Section className="bg-white">
           <Container>
             <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-              <div className="max-w-[520px]">
-                <p className="eyebrow">Kako to brati</p>
-
-                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                  Začni tam, kjer proces čaka.
-                </h2>
-
-                <p className="mt-5 text-[16px] leading-7 text-neutral-600">
-                  Ni treba najprej vedeti, katero tehnologijo potrebujete.
-                  Dovolj je vedeti, kje nastaja zastoj.
-                </p>
-              </div>
+              <SectionHeader
+                className="max-w-[520px]"
+                eyebrow="Kako to brati"
+                title="Začni tam, kjer proces čaka."
+                desc="Ni treba najprej vedeti, katero tehnologijo potrebujete. Dovolj je vedeti, kje nastaja zastoj."
+                descClassName="measure-prose"
+              />
 
               <div className="grid gap-4">
                 {guideItems.map((item) => (
                   <div
                     key={item.question}
-                    className="grid gap-3 rounded-2xl border border-neutral-200 bg-white p-6 sm:grid-cols-[0.9fr_1.1fr]"
+                    className="grid gap-3 rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-6 sm:grid-cols-[0.9fr_1.1fr]"
                   >
                     <p className="text-[15px] font-semibold text-neutral-950">
                       {item.question}
@@ -227,7 +216,7 @@ export default function Page() {
               <div className="max-w-[680px]">
                 <p className="eyebrow text-white/45">Diagnostika procesa</p>
 
-                <h2 className="mt-4 max-w-[14ch] text-4xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-5xl">
+                <h2 className="text-section-title mt-3 measure-heading text-white">
                   Ne začnemo pri robotu. Začnemo pri toku.
                 </h2>
 

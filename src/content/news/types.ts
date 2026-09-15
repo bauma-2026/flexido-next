@@ -32,7 +32,16 @@ export type NewsBlock =
   | { type: "note"; text: string }
   | { type: "result"; label: string; heading: string; body?: string }
   | { type: "callout"; eyebrow: string; heading: string; body: string; ctaLabel?: string; href?: string; routeKey?: RouteKey }
-  | { type: "fundingLogos"; logos: { src: string; alt: string; href?: string }[] };
+  | {
+      type: "fundingLogos";
+      logos: {
+        src: string;
+        alt: string;
+        href?: string;
+        /** Per-instance override of the shared fundingLogoOptics height — see FundingLogos.tsx. */
+        heightClassOverride?: string;
+      }[];
+    };
 
 export type NewsArticleContent = {
   slug: string;

@@ -205,7 +205,7 @@ function ConsentUi({
     <>
       {bannerVisible ? (
         <div
-          className="fixed inset-x-0 bottom-0 z-[60] border-t border-neutral-200 bg-white/95 p-4 shadow-[0_-12px_40px_rgba(15,23,42,0.08)] backdrop-blur sm:p-5"
+          className="fixed inset-x-0 bottom-0 z-[60] border-t border-neutral-200 bg-white/95 p-4 shadow-[var(--shadow-float-up)] backdrop-blur sm:p-5"
           role="region"
           aria-label={copy.title}
         >
@@ -256,7 +256,7 @@ function ConsentUi({
             role="dialog"
             aria-modal="true"
             aria-labelledby="cookie-preferences-title"
-            className="w-full max-w-lg rounded-[24px] border border-neutral-200 bg-white p-6 shadow-[0_24px_80px_rgba(15,23,42,0.18)] sm:p-7"
+            className="w-full max-w-lg rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-6 shadow-[var(--shadow-float)] sm:p-7"
             onClick={(event) => event.stopPropagation()}
           >
             <div className="flex items-start justify-between gap-4">
@@ -280,7 +280,7 @@ function ConsentUi({
             </p>
 
             <div className="mt-6 space-y-4">
-              <div className="rounded-[16px] border border-neutral-200 p-4">
+              <div className="rounded-[var(--radius-structural)] border border-neutral-200 p-4">
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="text-[14px] font-medium text-neutral-950">
@@ -296,7 +296,7 @@ function ConsentUi({
                 </div>
               </div>
 
-              <div className="rounded-[16px] border border-neutral-200 p-4">
+              <div className="rounded-[var(--radius-structural)] border border-neutral-200 p-4">
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="text-[14px] font-medium text-neutral-950">

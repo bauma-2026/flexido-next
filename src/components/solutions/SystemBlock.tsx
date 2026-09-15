@@ -44,7 +44,7 @@ export default function SystemBlock({
           <div className="max-w-[560px]">
             <p className="eyebrow">{eyebrow}</p>
 
-            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
+            <h2 className="text-section-title mt-3">
               {title}
             </h2>
 
@@ -60,7 +60,7 @@ export default function SystemBlock({
           </div>
 
           {/* RIGHT */}
-          <div className="overflow-hidden rounded-[28px] border border-neutral-200 bg-neutral-100">
+          <div className="overflow-hidden rounded-[var(--radius-panel)] border border-neutral-200 bg-neutral-100">
             <img
               src={mainImage.src}
               alt={mainImage.alt}
@@ -81,7 +81,7 @@ export default function SystemBlock({
               {items.map((item) => (
                 <div key={item.title} className="group">
                   <div
-                    className={`relative ${itemImageAspect} overflow-hidden rounded-[16px] border border-neutral-200 bg-neutral-100`}
+                    className={`relative ${itemImageAspect} overflow-hidden rounded-[var(--radius-panel)] border border-neutral-200 bg-neutral-100`}
                   >
                     <img
                       src={item.image}

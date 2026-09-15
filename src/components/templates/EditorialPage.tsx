@@ -65,7 +65,7 @@ export default function EditorialPage({
               <div className="mt-8 max-w-[760px]">
                 {eyebrow && <p className="eyebrow-on-dark">{eyebrow}</p>}
 
-                <h1 className="mt-3 max-w-[18ch] text-4xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-5xl lg:text-[52px]">
+                <h1 className="text-document-title mt-3 max-w-[18ch] text-white">
                   {title}
                 </h1>
 
@@ -88,12 +88,12 @@ export default function EditorialPage({
 
               <div className="mt-8 max-w-[760px]">
                 {eyebrow && (
-                  <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-500">
+                  <p className="eyebrow">
                     {eyebrow}
                   </p>
                 )}
 
-                <h1 className="mt-3 max-w-[18ch] text-4xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-5xl lg:text-[52px]">
+                <h1 className="text-document-title mt-3 max-w-[18ch]">
                   {title}
                 </h1>
 
@@ -114,7 +114,7 @@ export default function EditorialPage({
                 prose-p:text-neutral-700
                 prose-h2:mt-10 prose-h2:text-2xl prose-h2:font-semibold
                 prose-h3:mt-8 prose-h3:text-xl prose-h3:font-semibold
-                prose-img:rounded-2xl
+                prose-img:rounded-[var(--radius-panel)]
                 prose-strong:text-neutral-950"
               >
                 {children}
@@ -122,7 +122,7 @@ export default function EditorialPage({
 
               {details.length > 0 && (
                 <aside className="hidden lg:sticky lg:top-24 lg:col-start-3 lg:block">
-                  <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-500">
+                  <p className="eyebrow">
                     {detailsLabel}
                   </p>
 

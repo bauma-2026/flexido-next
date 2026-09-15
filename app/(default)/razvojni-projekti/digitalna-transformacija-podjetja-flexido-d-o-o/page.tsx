@@ -29,11 +29,11 @@ function DetailsCard({ mobile = false }: { mobile?: boolean }) {
   return (
     <aside
       className={[
-        "rounded-[24px] border border-neutral-200 bg-white p-6",
+        "rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-6",
         mobile ? "lg:hidden" : "hidden lg:block lg:sticky lg:top-24",
       ].join(" ")}
     >
-      <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-500">
+      <p className="eyebrow">
         Podrobnosti
       </p>
 
@@ -74,11 +74,11 @@ export default function Page() {
             </Link>
 
             <div className="mt-6 max-w-[820px]">
-              <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-400">
+              <p className="eyebrow">
                 Razvojni projekti
               </p>
 
-              <h1 className="mt-4 text-[32px] font-semibold leading-[1.04] tracking-[-0.045em] text-neutral-950 sm:text-[40px] lg:text-[48px]">
+              <h1 className="text-document-title mt-4">
                 Digitalna transformacija podjetja Flexido d.o.o.
               </h1>
 
@@ -176,19 +176,31 @@ export default function Page() {
                   ]}
                   primaryLogos={[
                     {
-                      src: "/images/funding/mgts.webp",
+                      src: "/logos/funding/ministry-mgts-alt.png",
                       alt: "Ministrstvo za gospodarstvo, turizem in šport",
                       href: "https://www.gov.si/zbirke/delovna-mesta/ministrstvo-za-gospodarski-razvoj-in-tehnologijo/",
                     },
                     {
-                      src: "/images/funding/slovenski-podjetniski-sklad.webp",
+                      // Intentionally the Home/news stacked SVG, not the
+                      // legacy compact WebP — this page wants the same
+                      // SPS lockup already approved on Home and the
+                      // Digitalna transformacija news article.
+                      src: "/logos/funding/sps.svg",
                       alt: "Slovenski podjetniški sklad",
                       href: "https://www.podjetniskisklad.si/",
+                      // Ink-mass calibrated against THIS row's MGTS-alt
+                      // (34/36, mass coefficient ~1.31) and ERDF (42/46,
+                      // ~0.76) — lower than the 36/40 used for the same
+                      // SVG in the news article, which sits next to the
+                      // much taller MGRT (44/48). Overridden per-instance
+                      // rather than via the shared map since sps.svg is
+                      // also Home's asset.
+                      heightClassOverride: "h-[30px] sm:h-[33px]",
                     },
                   ]}
                   secondaryLogos={[
                     {
-                      src: "/images/funding/eu-regionalni-sklad.webp",
+                      src: "/logos/funding/eu-regional-development-fund.png",
                       alt: "Evropski sklad za regionalni razvoj",
                       href: "https://www.eu-skladi.si/",
                     },

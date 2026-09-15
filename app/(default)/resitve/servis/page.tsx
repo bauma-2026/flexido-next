@@ -5,6 +5,8 @@ import Section from "@/components/layout/Section";
 import ProcessBand from "@/components/blocks/home/ProcessBand";
 import FinalCTA from "@/components/blocks/home/FinalCTA";
 import WikiNav from "@/components/wiki/WikiNav";
+import Button from "@/components/ui/Button";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 const pageNavItems = [
   { href: "#proces", label: "Kje nastanejo problemi" },
@@ -41,11 +43,11 @@ export default function Page() {
                 ← Vse rešitve
               </a>
 
-              <p className="mt-6 text-[11px] uppercase tracking-[0.16em] text-white/50">
+              <p className="mt-6 eyebrow-on-dark">
                 Podpora po zagonu
               </p>
 
-              <h1 className="mt-4 text-4xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-5xl lg:text-6xl">
+              <h1 className="text-display mt-4">
                 <span className="block max-w-[12ch]">Servis in</span>
                 <span className="block max-w-[12ch]">podpora</span>
               </h1>
@@ -80,22 +82,16 @@ export default function Page() {
         <Section id="proces" className="scroll-mt-24 bg-white">
           <Container>
             <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-              <div className="max-w-[560px]">
-                <p className="eyebrow">Kje nastanejo problemi</p>
-
-                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                  Sistem lahko deluje ob zagonu — in se ustavi čez dva tedna.
-                </h2>
-
-                <p className="mt-5 text-[16px] leading-7 text-neutral-600">
-                  Pravi izzivi se pokažejo šele v realni proizvodnji: spremembe
-                  v procesu, novi operaterji, drugačni kosi ali nepričakovane
-                  situacije.
-                </p>
-              </div>
+              <SectionHeader
+                className="max-w-[560px]"
+                eyebrow="Kje nastanejo problemi"
+                title="Sistem lahko deluje ob zagonu — in se ustavi čez dva tedna."
+                desc="Pravi izzivi se pokažejo šele v realni proizvodnji: spremembe v procesu, novi operaterji, drugačni kosi ali nepričakovane situacije."
+                descClassName="measure-prose"
+              />
 
               <div>
-                <p className="mb-4 text-[11px] uppercase tracking-[0.16em] text-neutral-500">
+                <p className="mb-4 eyebrow">
                   Najpogostejši razlogi
                 </p>
 
@@ -108,7 +104,7 @@ export default function Page() {
                   ].map((item) => (
                     <div
                       key={item}
-                      className="rounded-[22px] border border-neutral-200 bg-white p-6"
+                      className="rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-6"
                     >
                       <p className="text-[15px] font-medium text-neutral-950">
                         {item}
@@ -126,21 +122,15 @@ export default function Page() {
         </Section>
 
         {/* APPROACH */}
-        <Section id="pristop" className="scroll-mt-24 bg-[#f6f9fc]">
+        <Section id="pristop" className="scroll-mt-24 surface-muted">
           <Container>
-            <div className="max-w-[720px]">
-              <p className="eyebrow">Naš pristop</p>
-
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                Podpora je del sistema, ne dodatna storitev.
-              </h2>
-
-              <p className="mt-5 text-[16px] leading-7 text-neutral-600">
-                Že pri načrtovanju razmišljamo, kako se bo sistem uporabljal,
-                prilagajal in vzdrževal. Cilj je, da ostane stabilen tudi, ko se
-                proizvodnja spremeni.
-              </p>
-            </div>
+            <SectionHeader
+              className="max-w-[720px]"
+              eyebrow="Naš pristop"
+              title="Podpora je del sistema, ne dodatna storitev."
+              desc="Že pri načrtovanju razmišljamo, kako se bo sistem uporabljal, prilagajal in vzdrževal. Cilj je, da ostane stabilen tudi, ko se proizvodnja spremeni."
+              descClassName="measure-prose"
+            />
 
             <div className="mt-10 grid gap-5 lg:grid-cols-3">
               {[
@@ -159,7 +149,7 @@ export default function Page() {
               ].map((item) => (
                 <div
                   key={item.title}
-                  className="rounded-[24px] bg-white p-7 shadow-[0_18px_50px_rgba(15,23,42,0.045)]"
+                  className="rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-7"
                 >
                   <h3 className="text-[17px] font-semibold text-neutral-950">
                     {item.title}
@@ -177,18 +167,13 @@ export default function Page() {
         {/* USE CASES */}
         <Section id="primeri" className="scroll-mt-24 bg-white">
           <Container>
-            <div className="max-w-[720px]">
-              <p className="eyebrow">Primeri podpore</p>
-
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                Kjer se pokaže realna vrednost podpore
-              </h2>
-
-              <p className="mt-5 text-[16px] leading-7 text-neutral-600">
-                Podpora ni samo za napake — ključna je pri spremembah, uvajanju in
-                stabilizaciji sistema v realni proizvodnji.
-              </p>
-            </div>
+            <SectionHeader
+              className="max-w-[720px]"
+              eyebrow="Primeri podpore"
+              title="Kjer se pokaže realna vrednost podpore"
+              desc="Podpora ni samo za napake — ključna je pri spremembah, uvajanju in stabilizaciji sistema v realni proizvodnji."
+              descClassName="measure-prose"
+            />
 
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {[
@@ -201,7 +186,7 @@ export default function Page() {
               ].map((item) => (
                 <div
                   key={item}
-                  className="rounded-[22px] border border-neutral-200 bg-white p-6"
+                  className="rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-6"
                 >
                   <p className="text-[15px] font-medium text-neutral-950">
                     {item}
@@ -211,12 +196,9 @@ export default function Page() {
             </div>
 
             <div className="mt-10">
-              <a
-                href="#kontakt"
-                className="inline-flex items-center rounded-full bg-neutral-950 px-6 py-3 text-[14px] font-medium text-white transition hover:bg-neutral-800"
-              >
+              <Button href="#kontakt">
                 Poglejmo, kako zagotoviti stabilno delovanje →
-              </a>
+              </Button>
             </div>
           </Container>
         </Section>

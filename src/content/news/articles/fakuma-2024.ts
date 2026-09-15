@@ -54,22 +54,29 @@ export const article: NewsArticle = {
           type: "fundingLogos",
           logos: [
             {
-              src: "/images/funding/mgts.webp",
+              src: "/logos/funding/ministry-mgts-alt.png",
               alt: "Ministrstvo za gospodarstvo, turizem in šport",
               href: "https://www.gov.si/drzavni-organi/ministrstva/ministrstvo-za-gospodarstvo-turizem-in-sport/",
             },
             {
-              src: "/images/funding/spirit-slovenia.webp",
+              src: "/logos/funding/spirit-slovenija.svg",
               alt: "SPIRIT Slovenija",
               href: "https://www.spiritslovenia.si",
+              // Eased down for this row only: MGTS now carries the row's
+              // institutional weight, and SPIRIT should read quieter
+              // next to it. Overridden per-instance rather than in the
+              // shared map because spirit-slovenija.svg also renders on
+              // the digitalizacija-prodajnih-poti project page, which
+              // this pass must not touch.
+              heightClassOverride: "h-[25px] sm:h-[28px]",
             },
             {
-              src: "/images/funding/i-feel-slovenia.webp",
+              src: "/logos/funding/i-feel-slovenia.png",
               alt: "I feel Slovenia",
               href: "https://www.slovenia.info",
             },
             {
-              src: "/images/funding/eu-financing.webp",
+              src: "/logos/funding/eu-financing.png",
               alt: "Financira Evropska unija",
               href: "https://evropskasredstva.si/",
             },

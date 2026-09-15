@@ -35,7 +35,8 @@ export const injectionMoldingContent: SolutionPageContent = {
         "Removal, inspection, and additional operations",
         "Integration of the machine, robots, stations, and process",
       ],
-      result: "Result: automation has to cover the whole cycle, not just part removal.",
+      result: "automation has to cover the whole cycle, not just part removal.",
+      resultLabel: "Result",
     },
     {
       type: "capabilityGroups",
@@ -72,9 +73,9 @@ export const injectionMoldingContent: SolutionPageContent = {
     {
       type: "crossSell",
       id: "standardna-osnova",
-      eyebrow: "Standard foundation",
-      heading: "When a configurable cell covers the process.",
-      body: "FLEX 7 IMM Slim is the standard path for repeatable tending of the injection molding machine. Configurations, modules, and product details are gathered on the dedicated IMM cell page.",
+      eyebrow: "Injection molding",
+      heading: "FLEX 7 IMM Slim",
+      body: "Available with a 7 kg or 10 kg robot, matched to part size.",
       right: {
         kind: "image",
         src: "/images/systems/raw/flex-7-imm-slim-studio.png",

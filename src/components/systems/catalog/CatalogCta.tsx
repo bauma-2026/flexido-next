@@ -33,7 +33,7 @@ export default function CatalogCta({ kontakt }: { kontakt: KontaktContent }) {
       <Container className="relative">
         <div className="max-w-[720px]">
           <p className="eyebrow-on-dark">{kontakt.eyebrow}</p>
-          <h2 className={cn("mt-3 max-w-[20ch]", HEADING.dark)}>{kontakt.heading}</h2>
+          <h2 className={cn("mt-3 measure-heading", HEADING.dark)}>{kontakt.heading}</h2>
           <p className="mt-5 max-w-[58ch] text-[15px] leading-7 text-white/72 sm:text-[16px]">
             {kontakt.body}
           </p>

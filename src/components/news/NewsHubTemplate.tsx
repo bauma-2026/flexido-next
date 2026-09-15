@@ -10,6 +10,8 @@ import { getPath } from "@/i18n/routes";
 import type { NewsHubContent } from "@/content/news/types";
 import { getNewsSummaries } from "@/content/news";
 import { formatNewsDate } from "@/content/news/formatDate";
+import Button from "@/components/ui/Button";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function NewsHubTemplate({
   locale,
@@ -29,46 +31,37 @@ export default function NewsHubTemplate({
 
       <main className="bg-white text-neutral-950">
         <section className="border-b border-neutral-200 bg-white">
-          <Container className="pt-14 pb-12 sm:pt-20 sm:pb-16 lg:pt-24 lg:pb-20">
-            <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+          <Container className="pt-14 pb-16 sm:pt-20 sm:pb-20 lg:pt-24 lg:pb-24">
+            <div className="grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:items-start lg:gap-14">
               <div className="max-w-[680px]">
                 <p className="eyebrow">{content.hero.eyebrow}</p>
 
-                <h1 className="mt-4 max-w-[12ch] text-4xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-5xl lg:text-6xl">
+                <h1 className="text-display mt-4 max-w-[12ch]">
                   {content.hero.heading}
                 </h1>
               </div>
 
-              <div className="max-w-[620px]">
-                <p className="text-[16px] leading-7 text-neutral-600">{content.hero.body}</p>
+              <div className="max-w-[42ch]">
+                <p className="text-body">{content.hero.body}</p>
                 <p className="mt-4 text-[15px] leading-7 text-neutral-500">{content.hero.aside}</p>
               </div>
             </div>
-          </Container>
-        </section>
 
-        {content.empty && articles.length === 0 ? (
-          <section className="border-b border-neutral-200 bg-white">
-            <Container className="py-16 sm:py-20 lg:py-24">
-              <div className="max-w-[720px] rounded-[28px] border border-neutral-200 bg-neutral-50 p-8 sm:p-10 lg:p-12">
-                <p className="eyebrow">{content.hero.eyebrow}</p>
-                <h2 className="mt-4 max-w-[18ch] text-3xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-4xl lg:text-5xl">
-                  {content.empty.heading}
-                </h2>
-                <p className="mt-6 max-w-[58ch] text-[16px] leading-7 text-neutral-600">
-                  {content.empty.body}
-                </p>
-              </div>
-            </Container>
-          </section>
-        ) : null}
+            {content.empty && articles.length === 0 ? (
+              <SectionHeader
+                className="mt-12 max-w-[720px] rounded-[var(--radius-structural)] border border-neutral-200 bg-neutral-50 p-8 sm:p-10 lg:p-12"
+                eyebrow={content.hero.eyebrow}
+                title={content.empty.heading}
+                headingClassName="measure-heading"
+                desc={content.empty.body}
+                descClassName="measure-prose"
+              />
+            ) : null}
 
-        {featured ? (
-          <section className="border-b border-neutral-200 bg-white">
-            <Container className="py-14 sm:py-16 lg:py-20">
-              <div className="grid gap-8 lg:grid-cols-[0.95fr_0.8fr] lg:items-center lg:gap-14">
+            {featured ? (
+              <div className="mt-12 grid gap-8 sm:mt-14 lg:mt-16 lg:grid-cols-[1.3fr_1fr] lg:items-start lg:gap-14">
                 <Link href={getPath(featured.shared.routeKey, locale) ?? "#"} className="group block">
-                  <div className="overflow-hidden rounded-[28px] border border-neutral-200 bg-neutral-100">
+                  <div className="overflow-hidden rounded-[var(--radius-panel)] border border-neutral-200 bg-neutral-100">
                     {featured.shared.image ? (
                       <Image
                         src={featured.shared.image.src}
@@ -88,7 +81,7 @@ export default function NewsHubTemplate({
                   <p className="mt-3 text-[14px] text-neutral-500">
                     {formatNewsDate(featured.content.date, locale)}
                   </p>
-                  <h2 className="mt-4 text-3xl font-semibold leading-[1.02] tracking-[-0.04em] sm:text-4xl">
+                  <h2 className="text-section-title mt-3">
                     {featured.content.title}
                   </h2>
                   <p className="mt-5 text-[15px] leading-7 text-neutral-600">
@@ -97,28 +90,27 @@ export default function NewsHubTemplate({
                   <div className="mt-7">
                     <Link
                       href={getPath(featured.shared.routeKey, locale) ?? "#"}
-                      className="inline-flex items-center rounded-full bg-neutral-950 px-6 py-3 text-[14px] font-medium text-white transition hover:bg-neutral-800"
+                      className="focus-ring inline-flex items-center text-[14px] font-medium text-neutral-500 transition hover:text-[#0b8fdc]"
                     >
                       {content.readMoreLabel}
                     </Link>
                   </div>
                 </div>
               </div>
-            </Container>
-          </section>
-        ) : null}
+            ) : null}
+          </Container>
+        </section>
 
         {rest.length > 0 ? (
-          <Section className="bg-[#f6f9fc] py-14 sm:py-16 lg:py-20">
+          <Section className="surface-muted">
             <Container>
               <div className="mb-10 grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
-                <div className="max-w-[620px]">
-                  <p className="eyebrow">{content.grid.eyebrow}</p>
-                  <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                    {content.grid.heading}
-                  </h2>
-                </div>
-                <p className="max-w-[560px] text-[15px] leading-7 text-neutral-600">{content.grid.body}</p>
+                <SectionHeader
+                  className="max-w-[620px]"
+                  eyebrow={content.grid.eyebrow}
+                  title={content.grid.heading}
+                />
+                <p className="text-body max-w-[560px]">{content.grid.body}</p>
               </div>
 
               <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -130,7 +122,7 @@ export default function NewsHubTemplate({
                     <Link
                       key={item.id}
                       href={href}
-                      className="group overflow-hidden rounded-[26px] border border-neutral-200 bg-white transition hover:-translate-y-0.5 hover:shadow-[0_24px_70px_rgba(15,23,42,0.08)]"
+                      className="group overflow-hidden rounded-[var(--radius-panel)] border border-neutral-200 bg-white transition hover:-translate-y-0.5 hover:border-neutral-300"
                     >
                       <div className="overflow-hidden bg-neutral-100">
                         {item.shared.image ? (
@@ -167,37 +159,25 @@ export default function NewsHubTemplate({
           </Section>
         ) : null}
 
-        <section className="border-t border-neutral-200/60 bg-white py-16 sm:py-20 lg:py-24">
+        <Section className="border-y border-neutral-200/70 bg-white">
           <Container>
-            <div className="rounded-[28px] border border-neutral-200 bg-neutral-50 p-8 sm:p-10 lg:p-12">
-              <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
-                <div>
-                  <p className="eyebrow">{content.cta.eyebrow}</p>
-                  <h2 className="mt-3 max-w-[14ch] text-3xl font-semibold leading-[1] tracking-[-0.04em] sm:text-4xl">
-                    {content.cta.heading}
-                  </h2>
-                </div>
-                <div>
-                  <p className="max-w-[58ch] text-[16px] leading-7 text-neutral-600">{content.cta.body}</p>
-                  <div className="mt-7 flex flex-wrap gap-3">
-                    <Link
-                      href={solutionsHref}
-                      className="inline-flex items-center rounded-full bg-neutral-950 px-6 py-3 text-[14px] font-medium text-white transition hover:bg-neutral-800"
-                    >
-                      {content.cta.primaryLabel}
-                    </Link>
-                    <a
-                      href={`mailto:${content.cta.mailto}`}
-                      className="inline-flex items-center rounded-full border border-neutral-200 bg-white px-6 py-3 text-[14px] font-medium text-neutral-700 transition hover:border-neutral-300 hover:text-neutral-950"
-                    >
-                      {content.cta.secondaryLabel}
-                    </a>
-                  </div>
+            <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+              <SectionHeader
+                eyebrow={content.cta.eyebrow}
+                title={content.cta.heading}
+              />
+              <div>
+                <p className="text-body measure-prose">{content.cta.body}</p>
+                <div className="mt-7 flex flex-wrap gap-3">
+                  <Button href={solutionsHref}>{content.cta.primaryLabel}</Button>
+                  <Button href={`mailto:${content.cta.mailto}`} variant="secondary">
+                    {content.cta.secondaryLabel}
+                  </Button>
                 </div>
               </div>
             </div>
           </Container>
-        </section>
+        </Section>
       </main>
 
       <Footer locale={locale} />

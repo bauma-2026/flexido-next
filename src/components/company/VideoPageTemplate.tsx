@@ -7,6 +7,7 @@ import Section from "@/components/layout/Section";
 import type { Locale } from "@/i18n/config";
 import type { CompanyVideoContent } from "@/content/company/types";
 import { cn } from "@/lib/cn";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function VideoPageTemplate({
   locale,
@@ -37,11 +38,11 @@ export default function VideoPageTemplate({
 
           <Container className="relative z-10 py-20 sm:py-24 lg:py-28">
             <div className="max-w-[760px]">
-              <p className="text-[11px] uppercase tracking-[0.16em] text-white/50">
+              <p className="eyebrow-on-dark">
                 {content.hero.eyebrow}
               </p>
 
-              <h1 className="mt-4 max-w-[13ch] text-5xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-6xl lg:text-[68px]">
+              <h1 className="text-display mt-4 max-w-[13ch]">
                 {content.hero.heading}
               </h1>
 
@@ -56,14 +57,13 @@ export default function VideoPageTemplate({
           <Container>
             <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
               <div>
-                <p className="eyebrow">{content.intro.eyebrow}</p>
-
-                <h2 className="mt-3 max-w-[14ch] text-3xl font-semibold leading-[1] tracking-[-0.04em] sm:text-4xl lg:text-5xl">
-                  {content.intro.heading}
-                </h2>
+                <SectionHeader
+                  eyebrow={content.intro.eyebrow}
+                  title={content.intro.heading}
+                />
 
                 {content.intro.paragraphs.map((paragraph) => (
-                  <p key={paragraph} className="mt-5 max-w-[46ch] text-[16px] leading-7 text-neutral-600">
+                  <p key={paragraph} className="text-body mt-5 max-w-[46ch]">
                     {paragraph}
                   </p>
                 ))}
@@ -84,7 +84,7 @@ export default function VideoPageTemplate({
 
                 <div
                   className={cn(
-                    "overflow-hidden rounded-[2rem] border border-neutral-200 bg-black",
+                    "overflow-hidden rounded-[var(--radius-panel)] border border-neutral-200 bg-black",
                     (content.player.bridgeLead || content.player.bridgeBody) && "mt-6"
                   )}
                 >

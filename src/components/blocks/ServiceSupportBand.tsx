@@ -1,5 +1,6 @@
-import Link from "next/link";
 import Container from "@/components/layout/Container";
+import Section from "@/components/layout/Section";
+import Button from "@/components/ui/Button";
 
 type ServiceSupportBandProps = {
   variant?: "light" | "soft";
@@ -11,16 +12,16 @@ export default function ServiceSupportBand({
   const isSoft = variant === "soft";
 
   return (
-    <section
+    <Section
       className={[
         "border-y border-neutral-200/70",
         isSoft ? "bg-neutral-50" : "bg-white",
       ].join(" ")}
     >
-      <Container className="py-16 sm:py-20">
+      <Container>
         <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
           <div>
-            <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-500">
+            <p className="eyebrow">
               Servis in podpora
             </p>
 
@@ -37,23 +38,15 @@ export default function ServiceSupportBand({
             </p>
 
             <div className="mt-7 flex flex-wrap gap-3">
-              <Link
-                href="/servis"
-                className="inline-flex items-center rounded-full bg-neutral-950 px-6 py-3 text-[14px] font-medium text-white transition hover:bg-neutral-800"
-              >
-                Več o servisu →
-              </Link>
+              <Button href="/servis">Več o servisu →</Button>
 
-              <Link
-                href="/cenik"
-                className="inline-flex items-center rounded-full border border-neutral-200 bg-white px-6 py-3 text-[14px] font-medium text-neutral-700 transition hover:border-neutral-300 hover:text-neutral-950"
-              >
+              <Button href="/cenik" variant="secondary">
                 Cenik servisa →
-              </Link>
+              </Button>
             </div>
           </div>
         </div>
       </Container>
-    </section>
+    </Section>
   );
 }

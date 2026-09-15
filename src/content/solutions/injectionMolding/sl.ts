@@ -35,7 +35,8 @@ export const injectionMoldingContent: SolutionPageContent = {
         "Odvzem, kontrola in dodatne operacije",
         "Povezava stroja, robotov, postaj in procesa",
       ],
-      result: "Rezultat: avtomatizacija mora pokriti celoten cikel, ne le odvzem kosa.",
+      result: "avtomatizacija mora pokriti celoten cikel, ne le odvzem kosa.",
+      resultLabel: "Rezultat",
     },
     {
       type: "capabilityGroups",
@@ -54,7 +55,7 @@ export const injectionMoldingContent: SolutionPageContent = {
       type: "comparisonSplit",
       id: "resitev",
       eyebrow: "Izbira rešitve",
-      heading: "Standardna IMM celica ali prilagojena avtomatizacija.",
+      heading: "Standardna IMM celica ali namenska avtomatizacija.",
       body: "Prava pot je odvisna od stroja, orodja, kosov, insertov in potrebnih korakov okoli samega brizganja.",
       left: {
         tag: "Standardna IMM celica",
@@ -63,7 +64,7 @@ export const injectionMoldingContent: SolutionPageContent = {
         link: { label: "Poglej standardno IMM celico", routeKey: "standardCellsImm" },
       },
       right: {
-        tag: "Prilagojena avtomatizacija brizganja",
+        tag: "Namenska avtomatizacija brizganja",
         title: "Za proces z več kot ponovljivim odvzemom.",
         body: "Rešitev združi inserte, posebne prijeme, robotsko vstavljanje, dodatne postaje, kontrolo in povezavo z obstoječo opremo.",
         link: { label: "Poglej namenske sisteme", routeKey: "solutionCustomSystems" },
@@ -72,9 +73,9 @@ export const injectionMoldingContent: SolutionPageContent = {
     {
       type: "crossSell",
       id: "standardna-osnova",
-      eyebrow: "Standardna osnova",
-      heading: "Kadar proces pokrije konfigurabilna celica.",
-      body: "FLEX 7 IMM Slim je standardna pot za ponovljivo strego stroja za brizganje. Konfiguracije, moduli in produktne podrobnosti so zbrani na specialistični strani IMM celice.",
+      eyebrow: "Brizganje plastike",
+      heading: "FLEX 7 IMM Slim",
+      body: "Na voljo z robotom nosilnosti 7 ali 10 kg, prilagojeno velikosti kosa.",
       right: {
         kind: "image",
         src: "/images/systems/raw/flex-7-imm-slim-studio.png",
@@ -103,7 +104,7 @@ export const injectionMoldingContent: SolutionPageContent = {
   kontakt: {
     eyebrow: "Kontakt",
     heading: "Poglejmo vaš proces brizganja.",
-    body: "Pošljite nam osnovne informacije o stroju, orodju, kosih, insertih in potrebnih dodatnih operacijah. Skupaj ocenimo, ali proces pokrije standardna celica ali prilagojena avtomatizacija.",
+    body: "Pošljite nam osnovne informacije o stroju, orodju, kosih, insertih in potrebnih dodatnih operacijah. Skupaj ocenimo, ali proces pokrije standardna celica ali namenska avtomatizacija.",
     ctaLabel: "Pošljite povpraševanje",
     mailto: "info@flexido.eu",
     imageSrc: "/images/systems/raw/flexido-imm-machine-studio.png",

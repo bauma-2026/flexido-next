@@ -37,7 +37,8 @@ export const logisticsContent: SolutionPageContent = {
         "Containers or pallets wait for the next stage",
         "Transport and production aren't in sync",
       ],
-      result: "Result: until the stages are connected, material waits between operations.",
+      result: "until the stages are connected, material waits between operations.",
+      resultLabel: "Result",
     },
     {
       type: "capabilityGroups",

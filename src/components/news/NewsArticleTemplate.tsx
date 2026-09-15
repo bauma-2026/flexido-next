@@ -15,23 +15,20 @@ import { formatNewsDate } from "@/content/news/formatDate";
 function DetailsCard({
   label,
   details,
-  mobile = false,
+  className = "",
 }: {
   label: string;
   details: { label: string; value: string }[];
-  mobile?: boolean;
+  className?: string;
 }) {
   return (
     <aside
-      className={[
-        "rounded-[24px] border border-neutral-200 bg-white p-6",
-        mobile ? "lg:hidden" : "hidden lg:block lg:sticky lg:top-24",
-      ].join(" ")}
+      className={`rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-6 ${className}`}
     >
-      <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-500">{label}</p>
-      <div className="mt-5 divide-y divide-neutral-200">
+      <p className="eyebrow">{label}</p>
+      <div className="mt-4 divide-y divide-neutral-200">
         {details.map((item) => (
-          <div key={item.label} className="py-4 first:pt-0 last:pb-0">
+          <div key={item.label} className="py-3 first:pt-0 last:pb-0">
             <p className="text-[13px] font-medium text-neutral-950">{item.label}</p>
             <p className="mt-1 text-[14px] leading-6 text-neutral-600">{item.value}</p>
           </div>
@@ -66,8 +63,8 @@ export default function NewsArticleTemplate({
       />
 
       <main className="bg-white text-neutral-950">
-        <section className="border-b border-neutral-200 bg-[#f6f9fc]">
-          <Container className="pt-8 pb-8 sm:pt-10 sm:pb-9 lg:pt-12 lg:pb-10">
+        <section className="bg-white">
+          <Container className="pt-8 pb-14 sm:pt-10 sm:pb-16 lg:pt-12 lg:pb-20">
             <Link
               href={hubHref}
               className="inline-flex text-[14px] text-neutral-500 transition hover:text-neutral-950"
@@ -76,41 +73,45 @@ export default function NewsArticleTemplate({
             </Link>
 
             <div className="mt-6 max-w-[820px]">
-              <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-400">
+              <p className="eyebrow">
                 {hub.hero.eyebrow}
               </p>
-              <h1 className="mt-4 text-[32px] font-semibold leading-[1.04] tracking-[-0.045em] text-neutral-950 sm:text-[40px] lg:text-[48px]">
+              <h1 className="text-document-title mt-4">
                 {content.title}
               </h1>
               <p className="mt-4 text-[14px] text-neutral-500">
                 {formatNewsDate(content.date, locale)}
               </p>
             </div>
-          </Container>
-        </section>
 
-        <section className="bg-white">
-          <Container className="py-14 sm:py-16 lg:py-20">
-            <div className="grid gap-10 lg:grid-cols-[minmax(0,760px)_280px] lg:gap-14 xl:grid-cols-[minmax(0,820px)_300px]">
-              <article>
-                {shared.image ? (
+            <article>
+              {shared.image ? (
+                <div className="mt-12 grid gap-6 sm:mt-14 lg:mt-10 lg:grid-cols-[1fr_300px] lg:items-start lg:gap-12 xl:grid-cols-[1fr_340px] xl:gap-14">
                   <Image
                     src={shared.image.src}
                     alt={content.imageAlt ?? content.title}
                     width={1200}
                     height={800}
-                    className="w-full rounded-[26px] border border-neutral-200 bg-neutral-100"
+                    className="w-full rounded-[var(--radius-panel)] border border-neutral-200 bg-neutral-100"
                     priority
                   />
-                ) : null}
 
-                {content.details.length > 0 ? (
-                  <div className={shared.image ? "mt-6" : undefined}>
-                    <DetailsCard label={hub.chrome.detailsLabel} details={content.details} mobile />
-                  </div>
-                ) : null}
+                  {content.details.length > 0 ? (
+                    <DetailsCard label={hub.chrome.detailsLabel} details={content.details} />
+                  ) : null}
+                </div>
+              ) : content.details.length > 0 ? (
+                <DetailsCard
+                  label={hub.chrome.detailsLabel}
+                  details={content.details}
+                  className="mt-12 max-w-[340px] sm:mt-14 lg:mt-16"
+                />
+              ) : null}
 
-                <div className={`${shared.image ? "mt-10" : ""} space-y-7 text-[16px] leading-8 text-neutral-700`}>
+              <div className="max-w-[820px]">
+                <div
+                  className={`${shared.image || content.details.length > 0 ? "mt-10" : ""} space-y-7 text-[16px] leading-8 text-neutral-700`}
+                >
                   {(() => {
                     const primaryCalloutIndex = (() => {
                       const withCta = content.blocks.findIndex(
@@ -153,7 +154,7 @@ export default function NewsArticleTemplate({
                       return (
                         <div
                           key={block.text}
-                          className="mt-8 rounded-2xl border border-neutral-200 bg-neutral-50 p-5 text-[14px] leading-6 text-neutral-600"
+                          className="mt-8 rounded-[var(--radius-structural)] border border-neutral-200 bg-neutral-50 p-5 text-[14px] leading-6 text-neutral-600"
                         >
                           {block.text}
                         </div>
@@ -164,7 +165,7 @@ export default function NewsArticleTemplate({
                       return (
                         <div
                           key={block.heading}
-                          className="mt-10 rounded-2xl border border-neutral-200 bg-neutral-50 p-6"
+                          className="mt-10 rounded-[var(--radius-structural)] border border-neutral-200 bg-neutral-50 p-6"
                         >
                           <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
                             {block.label}
@@ -197,7 +198,7 @@ export default function NewsArticleTemplate({
                               rel={isExternal ? "noreferrer" : undefined}
                               className={
                                 isPrimary
-                                  ? "mt-6 inline-flex items-center rounded-full bg-neutral-950 px-6 py-3 text-[14px] font-medium text-white transition hover:bg-neutral-800"
+                                  ? "mt-6 inline-flex items-center rounded-full bg-[var(--color-interactive)] px-6 py-3 text-[14px] font-medium text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.18)] transition hover:bg-[var(--color-interactive-hover)] hover:text-white focus:outline-none focus:ring-2 focus:ring-[var(--color-interactive)]/30 focus:ring-offset-2"
                                   : "mt-3 inline-flex items-center text-[14px] font-medium text-neutral-900 underline decoration-neutral-300 underline-offset-4 transition hover:decoration-neutral-900"
                               }
                             >
@@ -208,7 +209,7 @@ export default function NewsArticleTemplate({
                               href={href}
                               className={
                                 isPrimary
-                                  ? "mt-6 inline-flex items-center rounded-full bg-neutral-950 px-6 py-3 text-[14px] font-medium text-white transition hover:bg-neutral-800"
+                                  ? "mt-6 inline-flex items-center rounded-full bg-[var(--color-interactive)] px-6 py-3 text-[14px] font-medium text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.18)] transition hover:bg-[var(--color-interactive-hover)] hover:text-white focus:outline-none focus:ring-2 focus:ring-[var(--color-interactive)]/30 focus:ring-offset-2"
                                   : "mt-3 inline-flex items-center text-[14px] font-medium text-neutral-900 underline decoration-neutral-300 underline-offset-4 transition hover:decoration-neutral-900"
                               }
                             >
@@ -221,7 +222,7 @@ export default function NewsArticleTemplate({
                         return (
                           <div
                             key={block.heading}
-                            className="mt-8 rounded-2xl border border-neutral-200 bg-white p-6"
+                            className="mt-8 rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-6"
                           >
                             <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
                               {block.eyebrow}
@@ -261,9 +262,13 @@ export default function NewsArticleTemplate({
                   });
                   })()}
                 </div>
+              </div>
 
+              <div className="mt-12">
                 <NewsCTA />
+              </div>
 
+              <div className="max-w-[820px]">
                 <div className="not-prose mt-14 border-t border-neutral-200 pt-6">
                   <div className="grid gap-3 sm:grid-cols-3 sm:items-center">
                     <Link
@@ -276,7 +281,7 @@ export default function NewsArticleTemplate({
                       {prev && getPath(prev.shared.routeKey, locale) ? (
                         <Link
                           href={getPath(prev.shared.routeKey, locale)!}
-                          className="block rounded-2xl border border-neutral-200 px-4 py-3 text-[13px] text-neutral-600 transition hover:border-neutral-300 hover:text-neutral-950 sm:text-center"
+                          className="block rounded-[var(--radius-structural)] border border-neutral-200 px-4 py-3 text-[13px] text-neutral-600 transition hover:border-neutral-300 hover:text-neutral-950 sm:text-center"
                         >
                           {hub.chrome.prevLabel}
                         </Link>
@@ -286,7 +291,7 @@ export default function NewsArticleTemplate({
                       {next && getPath(next.shared.routeKey, locale) ? (
                         <Link
                           href={getPath(next.shared.routeKey, locale)!}
-                          className="block rounded-2xl border border-neutral-200 px-4 py-3 text-[13px] text-neutral-600 transition hover:border-neutral-300 hover:text-neutral-950 sm:text-center"
+                          className="block rounded-[var(--radius-structural)] border border-neutral-200 px-4 py-3 text-[13px] text-neutral-600 transition hover:border-neutral-300 hover:text-neutral-950 sm:text-center"
                         >
                           {hub.chrome.nextLabel}
                         </Link>
@@ -294,12 +299,8 @@ export default function NewsArticleTemplate({
                     </div>
                   </div>
                 </div>
-              </article>
-
-              {content.details.length > 0 ? (
-                <DetailsCard label={hub.chrome.detailsLabel} details={content.details} />
-              ) : null}
-            </div>
+              </div>
+            </article>
           </Container>
         </section>
       </main>

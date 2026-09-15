@@ -10,7 +10,7 @@ export const automationContent: SolutionPageContent = {
     subhead:
       "When a single cell isn't enough, we design automation around the machines, parts, material flow, and operations the process actually needs.",
     ctas: [{ label: "See the options", anchor: "#resitev" }],
-    videoSrc: "/video/flexido/hero-home.mp4",
+    videoSrc: "/video/flexido/hero-production.mp4",
   },
   wikiNav: [
     { id: "proces", label: "Broader automation" },
@@ -24,7 +24,7 @@ export const automationContent: SolutionPageContent = {
       type: "problemSplit",
       id: "proces",
       eyebrow: "Broader automation",
-      heading: "The process connects more than one cell.",
+      heading: "When the production process extends beyond one cell.",
       body: "A production process rarely runs on a single machine. Broader automation connects machines, robots, additional operations, and material flow into one coordinated process.",
       itemsEyebrow: "What needs to be connected",
       items: [
@@ -33,13 +33,14 @@ export const automationContent: SolutionPageContent = {
         "Additional operations, inspection, and safety",
         "Material flow and equipment integration",
       ],
-      result: "Result: broader automation has to connect machines, robots, additional operations, and material flow into one coordinated process.",
+      result: "broader automation has to connect machines, robots, additional operations, and material flow into one coordinated process.",
+      resultLabel: "Result",
     },
     {
       type: "capabilityGroups",
       id: "gradniki",
       eyebrow: "Technical building blocks",
-      heading: "What we can combine into a single solution.",
+      heading: "What can work as one connected process.",
       body: "Automation can bring together equipment and operations that need to work as one coordinated system in real production.",
       layout: "openColumns",
       groups: [

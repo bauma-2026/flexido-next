@@ -8,7 +8,7 @@ export const customSystemsContent: SolutionPageContent = {
     eyebrow: "Namenska sestava sistema",
     titleLines: ["Namenski sistemi", "za povezane operacije."],
     subhead:
-      "Kadar niti konfigurabilna celica niti eno specialistično področje ne opišeta celotne rešitve, zasnujemo sistem okoli konkretne sestave operacij, postaj in omejitev izvedbe.",
+      "Ko zaporedje operacij določa postaje, orodja in povezave z obstoječo opremo, zasnujemo namenski sistem.",
     ctas: [
       { label: "Kdaj je sistem namenski", anchor: "#izbira" },
       { label: "Pogovor o izvedbi", anchor: "#kontakt" },
@@ -28,10 +28,9 @@ export const customSystemsContent: SolutionPageContent = {
       type: "problemSplit",
       id: "sistem",
       eyebrow: "Namenski sistem",
-      heading: "Rešitev presega eno celico ali eno področje.",
+      heading: "Ko mora več operacij delovati kot celota.",
       body: [
-        "Namenski sistem redko določi en sam gradnik.",
-        "Sestavljajo ga povezane operacije, namenske postaje in orodja, omejitve izvedbe ter usklajena sestava celote.",
+        "Zasnovo določijo zaporedje operacij, postaje in orodja ter povezave z obstoječo opremo. Razporeditev in predaje med njimi določijo, kako mora celota delovati.",
       ],
       itemsEyebrow: "Kaj ga določa",
       items: [
@@ -40,14 +39,15 @@ export const customSystemsContent: SolutionPageContent = {
         "Omejitve izvedbe",
         "Usklajena sestava",
       ],
-      result: "Rezultat: sistem določa sestava operacij, postaj in omejitev, ne en sam gradnik.",
+      result: "sistem določa sestava operacij, postaj in omejitev, ne en sam gradnik.",
+      resultLabel: "Rezultat",
     },
     {
       type: "capabilityGroups",
       id: "sestava",
       eyebrow: "Namenska sestava",
-      heading: "Sistem določa to, kar mora delovati skupaj.",
-      body: "Namenski sistem ni katalog gradnikov. Je ena izvedba, v kateri so posamezni deli določeni s konkretnim zaporedjem dela in medsebojnimi omejitvami.",
+      heading: "Zaporedje dela določa sestavo sistema.",
+      body: "Postaje, orodja in povezave izberemo glede na potek operacij ter omejitve prostora in obstoječe opreme.",
       layout: "boxed",
       groups: [
         { title: "Povezane operacije", body: "Zaporedje več korakov mora delovati kot ena usklajena izvedba, ne kot samostojna celica z dodatkom." },

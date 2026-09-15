@@ -4,7 +4,9 @@ import Footer from "@/components/layout/Footer";
 import Container from "@/components/layout/Container";
 import Image from "next/image";
 import DarkBand from "@/components/ui/DarkBand";
+import Section from "@/components/layout/Section";
 import { konstrukterJob } from "@/content/careers/konstrukter";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 /** Live SL listing (flexido.eu/zaposlitev) currently shows exactly one active opening, 1/1. */
 const jobs = [konstrukterJob];
@@ -33,11 +35,11 @@ export default function ZaposlitevPage() {
 
           <Container className="relative z-10 flex min-h-[440px] items-end py-16 sm:min-h-[520px] sm:py-20 lg:min-h-[560px] lg:py-24">
             <div className="max-w-[720px]">
-              <p className="text-[11px] uppercase tracking-[0.18em] text-white/50">
+              <p className="eyebrow-on-dark">
                 Zaposlitev
               </p>
 
-              <h1 className="mt-4 text-5xl font-semibold leading-[0.96] tracking-[-0.045em] sm:text-6xl lg:text-[68px]">
+              <h1 className="text-display mt-4">
                 Prosta delovna mesta.
               </h1>
 
@@ -66,21 +68,18 @@ export default function ZaposlitevPage() {
         </section>
 
         {/* INTRO */}
-        <section className="border-b border-neutral-200 bg-white py-16 sm:py-20">
+        <Section className="border-b border-neutral-200 bg-white">
           <Container>
             <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
               <div>
-                <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-500">
-                  Odprta mesta
-                </p>
-
-                <h2 className="mt-3 max-w-[15ch] text-3xl font-semibold leading-[1] tracking-[-0.04em] sm:text-4xl">
-                  Pridružite se ekipi, ki dela na proizvodnih sistemih.
-                </h2>
+                <SectionHeader
+                  eyebrow="Odprta mesta"
+                  title="Pridružite se ekipi, ki dela na proizvodnih sistemih."
+                />
               </div>
 
               <div className="max-w-[680px]">
-                <p className="text-[16px] leading-7 text-neutral-600">
+                <p className="text-body measure-prose">
                   Flexido razvija in integrira robotske celice, proizvodne
                   sisteme in rešitve za avtomatizacijo. Delo je praktično,
                   tehnično in povezano z realnimi izzivi proizvodnje.
@@ -88,112 +87,97 @@ export default function ZaposlitevPage() {
               </div>
             </div>
           </Container>
-        </section>
+        </Section>
 
         {/* JOBS */}
-        <section id="odprta-mesta" className="bg-[#f6f9fc] py-16 sm:py-20 lg:py-24">
+        <Section id="odprta-mesta" className="surface-muted">
           <Container>
-            <div className="space-y-8">
+            <div className="space-y-16 lg:space-y-20">
               {jobs.map((job, index) => (
                 <article
                   key={job.title}
-                  className="overflow-hidden rounded-[30px] border border-neutral-200 bg-white shadow-[0_18px_60px_rgba(15,23,42,0.055)]"
+                  className={index > 0 ? "border-t border-neutral-200 pt-16 lg:pt-20" : undefined}
                 >
-                  <div className="border-b border-neutral-200 bg-white p-7 sm:p-8 lg:p-10">
-                    <div className="flex flex-wrap items-start justify-between gap-6">
-                      <div className="max-w-[720px]">
-                        <div className="flex flex-wrap items-center gap-3">
-                          <span className="rounded-full bg-[#0089d6] px-3 py-1 text-xs font-medium text-white">
-                            {index + 1}/{jobs.length}
-                          </span>
+                  <div className="max-w-[760px]">
+                    <div className="flex flex-wrap items-center gap-3">
+                      <p className="eyebrow">
+                        {index + 1}/{jobs.length}
+                      </p>
+                      <p className="text-[13px] text-neutral-500">{job.date}</p>
+                    </div>
 
-                          <p className="text-sm text-neutral-500">
-                            {job.date}
-                          </p>
-                        </div>
+                    <h2 className="text-section-title mt-4">
+                      <Link href={job.href} className="transition hover:text-neutral-700">
+                        {job.title}
+                      </Link>
+                    </h2>
 
-                        <h2 className="mt-4 text-3xl font-semibold leading-[1] tracking-[-0.04em] text-neutral-950 sm:text-4xl">
-                          <Link href={job.href} className="transition hover:text-neutral-700">
-                            {job.title}
-                          </Link>
-                        </h2>
+                    <p className="text-body mt-5 measure-prose">
+                      {job.summary}
+                    </p>
 
-                        <p className="mt-5 max-w-[68ch] text-[15px] leading-7 text-neutral-600 sm:text-[16px]">
-                          {job.summary}
-                        </p>
-                      </div>
+                    <p className="mt-5 text-[11px] uppercase tracking-[0.16em] text-neutral-400">
+                      {job.meta.join(" / ")}
+                    </p>
+
+                    <a
+                      href="mailto:info@flexido.eu"
+                      className="focus-ring mt-6 inline-flex items-center text-[15px] font-semibold text-[#0078bd] transition hover:text-[#0089d6]"
+                    >
+                      Prijava →
+                    </a>
+                  </div>
+
+                  <div className="mt-12 grid gap-8 lg:mt-14 lg:grid-cols-[1.05fr_1.05fr_0.9fr] lg:items-start lg:gap-12">
+                    {job.sections.map((section, i) => (
+                      <section
+                        key={section.title}
+                        className={i > 0 ? "lg:border-l lg:border-neutral-200 lg:pl-10" : undefined}
+                      >
+                        <h3 className="text-[15px] font-semibold text-[#0078bd]">
+                          {section.title}
+                        </h3>
+
+                        <ul className="mt-4 list-disc space-y-2 pl-5 text-[14px] leading-6 text-neutral-700">
+                          {section.items.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </section>
+                    ))}
+                  </div>
+
+                  <div className="mt-14 grid gap-8 border-t border-neutral-200 pt-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12">
+                    <div>
+                      <h3 className="text-[15px] font-semibold text-neutral-950">
+                        Opis delovnega okolja
+                      </h3>
+
+                      <p className="mt-3 max-w-[52ch] text-[14px] leading-6 text-neutral-600">
+                        {job.workEnvironment}
+                      </p>
+                    </div>
+
+                    <div className="lg:border-l lg:border-neutral-200 lg:pl-10">
+                      <p className="eyebrow">Prijava</p>
+
+                      <p className="text-body mt-3 max-w-[52ch]">
+                        {job.applicationNote}
+                      </p>
 
                       <a
                         href="mailto:info@flexido.eu"
-                        className="inline-flex shrink-0 items-center rounded-full bg-neutral-950 px-5 py-3 text-[14px] font-medium text-white transition hover:bg-neutral-800"
+                        className="focus-ring mt-5 inline-flex items-center text-[15px] font-semibold text-[#0078bd] transition hover:text-[#0089d6]"
                       >
-                        Prijava →
+                        info@flexido.eu →
                       </a>
-                    </div>
-
-                    <div className="mt-7 flex flex-wrap gap-2">
-                      {job.meta.map((item) => (
-                        <span
-                          key={item}
-                          className="rounded-full border border-neutral-200 bg-neutral-50 px-4 py-2 text-[13px] font-medium text-neutral-600"
-                        >
-                          {item}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="p-7 sm:p-8 lg:p-10">
-                    <div className="grid gap-8 lg:grid-cols-3">
-                      {job.sections.map((section) => (
-                        <section key={section.title}>
-                          <h3 className="text-[15px] font-semibold text-[#0078bd]">
-                            {section.title}
-                          </h3>
-
-                          <ul className="mt-4 list-disc space-y-2 pl-5 text-[14px] leading-6 text-neutral-700">
-                            {section.items.map((item) => (
-                              <li key={item}>{item}</li>
-                            ))}
-                          </ul>
-                        </section>
-                      ))}
-                    </div>
-
-                    <div className="mt-10 grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-                      <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
-                        <h3 className="text-[15px] font-semibold text-neutral-950">
-                          Opis delovnega okolja
-                        </h3>
-
-                        <p className="mt-3 text-[14px] leading-6 text-neutral-600">
-                          {job.workEnvironment}
-                        </p>
-                      </div>
-
-                      <div className="rounded-2xl bg-neutral-950 p-6 text-white">
-                        <p className="text-[11px] uppercase tracking-[0.16em] text-white/45">
-                          Prijava
-                        </p>
-
-                        <p className="mt-3 text-[15px] leading-7 text-white/75">
-                          {job.applicationNote}
-                        </p>
-
-                        <a
-                          href="mailto:info@flexido.eu"
-                          className="mt-5 inline-flex items-center rounded-full bg-white px-5 py-3 text-[14px] font-medium text-neutral-950 transition hover:bg-white/90"
-                        >
-                          info@flexido.eu →
-                        </a>
-                      </div>
                     </div>
                   </div>
                 </article>
               ))}
             </div>
           </Container>
-        </section>
+        </Section>
 
         {/* FINAL CTA */}
         <DarkBand

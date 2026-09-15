@@ -7,6 +7,7 @@ import Section from "@/components/layout/Section";
 import type { Locale } from "@/i18n/config";
 import { getPath } from "@/i18n/routes";
 import type { ProcessPageContent } from "@/content/process/types";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function ProcessPageTemplate({
   locale,
@@ -40,11 +41,11 @@ export default function ProcessPageTemplate({
 
           <Container className="relative z-10 flex min-h-[520px] items-end py-16 sm:min-h-[600px] sm:py-20 lg:min-h-[640px] lg:py-24">
             <div className="max-w-[760px]">
-              <p className="text-[11px] uppercase tracking-[0.16em] text-white/50">
+              <p className="eyebrow-on-dark">
                 {content.hero.eyebrow}
               </p>
 
-              <h1 className="mt-4 max-w-[13ch] text-5xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-6xl lg:text-[68px]">
+              <h1 className="text-display mt-4 max-w-[13ch]">
                 {content.hero.heading}
               </h1>
 
@@ -79,13 +80,10 @@ export default function ProcessPageTemplate({
                 (mirrors the reference-detail intro pattern) gives the two
                 paragraphs distinct weight instead of one uniform block. */}
             <div className="grid gap-8 lg:grid-cols-[0.7fr_1fr] lg:gap-12">
-              <div>
-                <p className="eyebrow">{content.intro.eyebrow}</p>
-
-                <h2 className="mt-3 max-w-[14ch] text-3xl font-semibold leading-[1] tracking-[-0.04em] sm:text-4xl">
-                  {content.intro.heading}
-                </h2>
-              </div>
+              <SectionHeader
+                eyebrow={content.intro.eyebrow}
+                title={content.intro.heading}
+              />
 
               <div className="max-w-[560px] lg:border-l lg:border-neutral-200 lg:pl-10">
                 {content.intro.paragraphs.map((paragraph, index) => (
@@ -107,17 +105,13 @@ export default function ProcessPageTemplate({
 
         <Section id={content.steps.id} className="scroll-mt-24 surface-muted">
           <Container>
-            <div className="max-w-[720px]">
-              <p className="eyebrow">{content.steps.eyebrow}</p>
-
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                {content.steps.heading}
-              </h2>
-
-              <p className="mt-5 text-[16px] leading-7 text-neutral-600">
-                {content.steps.body}
-              </p>
-            </div>
+            <SectionHeader
+              className="max-w-[720px]"
+              eyebrow={content.steps.eyebrow}
+              title={content.steps.heading}
+              desc={content.steps.body}
+              descClassName="measure-prose"
+            />
 
             {/* Connected sequence, homepage-pattern: a shared hairline (left on
                 mobile, top on desktop) carries a node + stem per step, and
@@ -155,13 +149,11 @@ export default function ProcessPageTemplate({
 
         <Section className="bg-white">
           <Container>
-            <div className="max-w-[720px]">
-              <p className="eyebrow">{content.principles.eyebrow}</p>
-
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                {content.principles.heading}
-              </h2>
-            </div>
+            <SectionHeader
+              className="max-w-[720px]"
+              eyebrow={content.principles.eyebrow}
+              title={content.principles.heading}
+            />
 
             {/* Grounded technical layout, not floating cards: one shared
                 top rule + divide-x columns — calm and structural, not decorative. */}
@@ -184,31 +176,31 @@ export default function ProcessPageTemplate({
           </Container>
         </Section>
 
-        {/* Proof continuation, before the terminal contact CTA — same quiet
-            bordered-strip language as the reference template's own related
-            block, so this reads as a next step, not a second CTA band. */}
+        {/* Related-next: same split-statement grammar as the page intro
+            (thesis left, copy right behind a desktop hairline). Quiet because
+            it stays `tight` and the CTA stays a tertiary text link — not a
+            second conversion band before the dark contact section. */}
         {referencesHref ? (
-          <Section className="border-b border-neutral-200 bg-white">
+          <Section variant="tight" className="border-y border-neutral-200 bg-white">
             <Container>
-              <div className="max-w-[620px] border-t border-neutral-200 pt-10">
-                <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
-                  {content.proof.eyebrow}
-                </p>
+              <div className="grid gap-8 lg:grid-cols-[0.7fr_1fr] lg:gap-12">
+                <SectionHeader
+                  eyebrow={content.proof.eyebrow}
+                  title={content.proof.heading}
+                />
 
-                <h2 className="mt-3 text-[20px] font-semibold tracking-[-0.03em] text-neutral-950">
-                  {content.proof.heading}
-                </h2>
+                <div className="max-w-[560px] lg:border-l lg:border-neutral-200 lg:pl-10">
+                  <p className="text-body">
+                    {content.proof.body}
+                  </p>
 
-                <p className="mt-3 max-w-[58ch] text-[15px] leading-7 text-neutral-600">
-                  {content.proof.body}
-                </p>
-
-                <Link
-                  href={referencesHref}
-                  className="mt-6 inline-flex items-center rounded-full bg-neutral-950 px-6 py-3 text-[14px] font-medium text-white transition hover:bg-neutral-800"
-                >
-                  {content.proof.ctaLabel}
-                </Link>
+                  <Link
+                    href={referencesHref}
+                    className="focus-ring mt-6 inline-flex items-center text-[14px] font-medium text-neutral-500 transition hover:text-[#0b8fdc]"
+                  >
+                    {content.proof.ctaLabel}
+                  </Link>
+                </div>
               </div>
             </Container>
           </Section>
@@ -233,7 +225,7 @@ export default function ProcessPageTemplate({
             <div className="max-w-[720px]">
               <p className="eyebrow-on-dark">{content.cta.eyebrow}</p>
 
-              <h2 className="mt-4 max-w-[16ch] text-4xl font-semibold leading-[0.95] tracking-[-0.04em] text-white sm:text-5xl">
+              <h2 className="text-section-title mt-3 measure-heading text-white">
                 {content.cta.heading}
               </h2>
 

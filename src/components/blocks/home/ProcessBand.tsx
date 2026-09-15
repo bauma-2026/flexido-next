@@ -1,5 +1,5 @@
+import Link from "next/link";
 import Container from "@/components/layout/Container";
-import Button from "@/components/ui/Button";
 
 export default function ProcessBand() {
   return (
@@ -23,7 +23,7 @@ export default function ProcessBand() {
               Kako Flexido pomaga
             </p>
 
-            <h2 className="mt-3 text-4xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-5xl">
+            <h2 className="text-section-title mt-3 text-white">
               Ne dodamo samo robota.
               <br />
               Uredimo tok dela.
@@ -35,9 +35,13 @@ export default function ProcessBand() {
             </p>
 
             <div className="mt-8">
-              <Button href="/proces" variant="secondary">
-                Kako poteka projekt →
-              </Button>
+              <Link
+                href="/proces"
+                className="focus-ring inline-flex items-center text-[14px] font-medium text-white/70 transition hover:text-white"
+              >
+                Kako poteka projekt
+                <span className="link-arrow">→</span>
+              </Link>
             </div>
           </div>
 

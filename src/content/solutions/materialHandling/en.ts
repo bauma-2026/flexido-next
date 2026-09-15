@@ -36,7 +36,8 @@ export const materialHandlingContent: SolutionPageContent = {
         "How it needs to be oriented",
         "How it is handed off further",
       ],
-      result: "Result: moving the part has to be part of the operation itself, not an afterthought.",
+      result: "moving the part has to be part of the operation itself, not an afterthought.",
+      resultLabel: "Result",
     },
     {
       type: "capabilityGroups",

@@ -37,14 +37,15 @@ export const logisticsContent: SolutionPageContent = {
         "Zaboji ali palete čakajo na naslednjo fazo",
         "Transport in proizvodnja nista usklajena",
       ],
-      result: "Rezultat: dokler faze niso povezane, material čaka med operacijami.",
+      result: "dokler faze niso povezane, material čaka med operacijami.",
+      resultLabel: "Rezultat",
     },
     {
       type: "capabilityGroups",
       id: "sistemi",
       eyebrow: "Fizični tok materiala",
       heading: "Elementi, ki povežejo proizvodne faze.",
-      body: "Materialni tok sestavimo iz elementov, ki jih zahtevajo konkretni stroji, enote materiala in pot skozi proizvodnjo. Pri mobilnem transportu ločimo vodene poti od avtonomnih mobilnih enot, ki navigirajo z onboard senzoriko, dinamično prilagajajo pot in varno delujejo v okolju z ljudmi — brez fiksne vodilne infrastrukture, kjer je to smiselno.",
+      body: "Materialni tok sestavimo iz elementov, ki jih določajo konkretni stroji, enote materiala in pot skozi proizvodnjo. Pri mobilnem transportu ločimo vodene poti od avtonomnih mobilnih enot. Te navigirajo z vgrajeno senzoriko, dinamično prilagajajo pot in lahko varno delujejo v okolju z ljudmi; fiksne vodilne infrastrukture ne potrebujejo tam, kjer je to smiselno.",
       groups: [
         { title: "KLT, zaboji in palete", body: "Enote materiala, ki morajo med fazami ostati v določenem toku." },
         { title: "Trakovi in transportne poti", body: "Povezave med stroji, postajami in predajnimi mesti." },
@@ -61,8 +62,8 @@ export const logisticsContent: SolutionPageContent = {
       type: "capabilityGroups",
       id: "izvedbe",
       eyebrow: "Konfiguracije prevzema",
-      heading: "Kako mobilni transport poveže sprejemno enoto.",
-      body: "Pri prevzemu na sprejemni enoti izberemo izvedbo glede na operacijo, ritm procesa in raven avtomatizacije. To so implementacijski vzorci, ne standardni produkti ali reference.",
+      heading: "Kako mobilni transport preda tovor na postajo.",
+      body: "Pri prevzemu na sprejemni enoti izberemo izvedbo glede na operacijo, ritm procesa in raven avtomatizacije. Primeri prikazujejo načine predaje tovora na postaji, ne pa standardnih produktov ali referenc.",
       layout: "openColumns",
       groups: [
         {

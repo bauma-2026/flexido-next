@@ -5,14 +5,18 @@ import type { Locale } from "@/i18n/config";
  * typography pass edits.
  *
  * Typography pass 1A: `section`, `lead` and `dark` now share one canonical
- * section scale (30 / 36 / 44, leading 1.06, tracking -0.04em), which is the
- * same scale as `.text-section-title` in app/globals.css. Keep the two in
- * sync — this file is the catalogue's copy of that role, not a second scale.
+ * section scale (30 / 36 / 44, leading 1.06, tracking -0.04em, `text-balance`),
+ * which is the same scale as `.text-section-title` in app/globals.css. Keep the
+ * two in sync — this file is the catalogue's copy of that role, not a second
+ * scale. `text-balance` is part of the role: it is what keeps a heading from
+ * orphaning its last word, and it is why call sites here carry no `max-w-[Nch]`
+ * of their own. The one exception is `.measure-heading` (~20ch), for a heading
+ * whose only parent is a 620–720px body-width wrapper.
  *
  * Do not add a new heading string in a Catalog* component. Add a role here.
  */
 const SECTION_BASE =
-  "text-[30px] font-semibold leading-[1.06] tracking-[-0.04em] sm:text-[36px] lg:text-[44px]";
+  "text-[30px] font-semibold leading-[1.06] tracking-[-0.04em] text-balance sm:text-[36px] lg:text-[44px]";
 
 export const HEADING = {
   /** h1 — page title, hero only. The shared display role from app/globals.css (40 / 56 / 68). */
@@ -35,8 +39,11 @@ export const HEADING = {
 export const BODY = {
   /** First paragraph of intro / identity — carries the statement. */
   lead: "text-[17px] font-medium leading-8 text-neutral-800",
-  /** Continuation paragraphs. */
-  base: "text-[16px] leading-8 text-neutral-600",
+  /** Continuation paragraphs. The shared body role from app/globals.css
+   *  (15/24 mobile, 16/26 desktop). Was a local 16/32 — ratio 2.0, the airiest
+   *  body on the site — which is exactly the canonical role's job, so it now
+   *  defers to it rather than restating a second set of numbers. */
+  base: "text-body",
   /** Standalone descriptive paragraph (identity, module classes). */
   strong: "text-[16px] leading-8 text-neutral-700",
   /** Card and note bodies. */

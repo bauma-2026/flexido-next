@@ -35,7 +35,8 @@ export const cncContent: SolutionPageContent = {
         "Mehrere CNC-Maschinen oder zusätzliche Arbeitsschritte",
         "Materialfluss, Prüfung und Abstimmung der Ausrüstung",
       ],
-      result: "Ergebnis: die Lösung muss um den tatsächlichen Prozess herum gestaltet werden, nicht nur um die CNC-Maschine.",
+      result: "die Lösung muss um den tatsächlichen Prozess herum gestaltet werden, nicht nur um die CNC-Maschine.",
+      resultLabel: "Ergebnis",
     },
     {
       type: "capabilityGroups",
@@ -96,9 +97,9 @@ export const cncContent: SolutionPageContent = {
     {
       type: "crossSell",
       id: "standardna-osnova",
-      eyebrow: "Standardbasis",
-      heading: "Wenn eine konfigurierbare Zelle den Prozess abdeckt.",
-      body: "FLEX 7 CNC Slim bleibt der Ausgangspunkt für die wiederkehrende CNC-Beschickung.",
+      eyebrow: "CNC-Maschinen",
+      heading: "FLEX 7 CNC Slim",
+      body: "Erhältlich mit einer Roboter-Traglast von 7 oder 10 kg, abgestimmt auf die Teilegröße.",
       right: {
         kind: "image",
         src: "/images/systems/raw/flex-7-cnc-slim-studio.png",

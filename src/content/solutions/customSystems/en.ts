@@ -40,7 +40,8 @@ export const customSystemsContent: SolutionPageContent = {
         "Implementation constraints",
         "Coordinated assembly",
       ],
-      result: "Result: the system is defined by the combination of operations, stations, and constraints — not by a single building block.",
+      result: "the system is defined by the combination of operations, stations, and constraints — not by a single building block.",
+      resultLabel: "Result",
     },
     {
       type: "capabilityGroups",

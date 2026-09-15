@@ -65,17 +65,30 @@ export const article: NewsArticle = {
           type: "fundingLogos",
           logos: [
             {
-              src: "/images/funding/mgrt.webp",
+              src: "/logos/funding/ministry-mgrt.png",
               alt: "Republika Slovenija, Ministrstvo za gospodarski razvoj in tehnologijo",
               href: "https://www.gov.si/",
             },
             {
-              src: "/images/funding/slovenski-podjetniski-sklad.webp",
+              // Intentionally the Home stacked SVG, not the legacy
+              // compact WebP used elsewhere on news/project pages —
+              // this page wants visual consistency with Home even
+              // though it's a different SPS lockup.
+              src: "/logos/funding/sps.svg",
               alt: "Slovenski podjetniški sklad",
               href: "https://www.podjetniskisklad.si/",
+              // Ink-mass calibrated against this row's MGRT (44/48,
+              // mass coefficient ~0.78) and ERDF (42/46, ~0.76): the
+              // stacked SVG's solid gold/navy icon carries the same
+              // kind of outsized Gestalt weight the compact WebP did,
+              // so it's eased just below ERDF to keep MGRT reading as
+              // the anchor and SPS as the lightest of the three, not
+              // equal heights. Overridden per-instance rather than via
+              // the shared map since sps.svg is also Home's asset.
+              heightClassOverride: "h-[36px] sm:h-[40px]",
             },
             {
-              src: "/images/funding/eu-skladi.webp",
+              src: "/logos/funding/eu-regional-development-fund.png",
               alt: "Evropska unija, Evropski sklad za regionalni razvoj",
               href: "https://www.eu-skladi.si/",
             },

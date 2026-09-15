@@ -43,7 +43,7 @@ export const processContent: ProcessPageContent = {
       {
         number: "03",
         title: "Integration into production",
-        desc: "We connect the solution with existing machines, operators, space, and the real work rhythm.",
+        desc: "We connect the system to existing machines, integrate it into the space, and align it with operators’ actual work rhythm.",
       },
       {
         number: "04",

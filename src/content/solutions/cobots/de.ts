@@ -35,7 +35,8 @@ export const cobotsContent: SolutionPageContent = {
         "Sich ändernde Anforderungen",
         "Ausrüstung rund um den Arbeitsschritt",
       ],
-      result: "Ergebnis: ein Cobot ist sinnvoll, wenn er zu Arbeitsschritt, Arbeitsplatz und Prozessbedingungen passt.",
+      result: "ein Cobot ist sinnvoll, wenn er zu Arbeitsschritt, Arbeitsplatz und Prozessbedingungen passt.",
+      resultLabel: "Ergebnis",
     },
     {
       type: "capabilityGroups",

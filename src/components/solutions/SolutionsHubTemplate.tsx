@@ -1,11 +1,13 @@
-import Image from "next/image";
 import Link from "next/link";
+import ProofCard from "@/components/ui/ProofCard";
 
-import Solutions from "@/components/blocks/home/Solutions";
 import Container from "@/components/layout/Container";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
+import Section from "@/components/layout/Section";
 import Button from "@/components/ui/Button";
+import RuledRowList from "@/components/ui/RuledRowList";
+import SectionHeader from "@/components/ui/SectionHeader";
 import type { Locale } from "@/i18n/config";
 import { getPath } from "@/i18n/routes";
 import type { HubContent } from "@/content/solutions/types";
@@ -30,7 +32,7 @@ export default function SolutionsHubTemplate({ locale, content }: { locale: Loca
           <Container className="relative">
             <p className="eyebrow-on-dark mb-5">{content.hero.eyebrow}</p>
             <div className="max-w-3xl">
-              <h1 className="text-4xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-5xl lg:text-6xl">{content.hero.heading}</h1>
+              <h1 className="text-display">{content.hero.heading}</h1>
               <p className="mt-6 max-w-2xl text-[17px] leading-8 text-white/72 sm:text-lg">{content.hero.subhead}</p>
               <Button href="#resitve-grid" variant="light" className="mt-9">
                 {content.hero.ctaLabel} <span className="ml-2">→</span>
@@ -39,39 +41,44 @@ export default function SolutionsHubTemplate({ locale, content }: { locale: Loca
           </Container>
         </section>
 
-        <div id="resitve-grid">
-          <Solutions
-            compact
-            title={content.gridHeading}
-            desc={content.gridBody}
-            eyebrow={content.hero.eyebrow}
-            compactItems={content.gridItems.map((item) => ({
-              href: getPath(item.routeKey, locale) ?? "#",
-              title: item.title,
-              desc: item.desc,
-              label: item.label,
-              icon: item.icon,
-            }))}
-          />
-        </div>
-
-        <section className="border-y border-neutral-200 bg-white py-16 sm:py-20">
+        <Section id="resitve-grid" className="surface-muted scroll-mt-24">
           <Container>
-            <div className="max-w-2xl">
-              <p className="eyebrow">{content.widerApproach.eyebrow}</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-4xl">{content.widerApproach.heading}</h2>
-            </div>
+            <SectionHeader
+              className="max-w-[760px]"
+              eyebrow={content.hero.eyebrow}
+              title={content.gridHeading}
+              desc={content.gridBody}
+              descClassName="measure-prose"
+            />
+            <RuledRowList
+              className="mt-8 lg:mt-10"
+              items={content.gridItems.map((item) => ({
+                href: getPath(item.routeKey, locale) ?? "#",
+                title: item.title,
+                desc: item.desc,
+              }))}
+            />
+          </Container>
+        </Section>
 
-            <div className="mt-10 grid border-t border-neutral-200 sm:grid-cols-2 sm:divide-x sm:divide-neutral-200">
+        <Section className="border-y border-neutral-200 bg-white">
+          <Container>
+            <SectionHeader
+              className="max-w-2xl"
+              eyebrow={content.widerApproach.eyebrow}
+              title={content.widerApproach.heading}
+            />
+
+            <div className="mt-10 grid border-l border-t border-neutral-200 sm:grid-cols-2">
               {content.widerApproach.paths.map((path) => (
                 <Link
                   key={path.routeKey}
                   href={getPath(path.routeKey, locale) ?? "#"}
-                  className="focus-ring group flex h-full flex-col border-b border-neutral-200 py-8 transition-colors duration-300 last:border-b-0 sm:border-b-0 sm:py-10 sm:first:pr-10 sm:last:pl-10 lg:first:pr-14 lg:last:pl-14"
+                  className="focus-ring group flex h-full flex-col border-b border-r border-neutral-200 p-6 transition-colors duration-300 hover:bg-neutral-50 sm:p-7"
                 >
-                  <h3 className="text-xl font-semibold tracking-[-0.02em] text-neutral-950 sm:text-[22px]">{path.title}</h3>
-                  <p className="mt-3 max-w-[42ch] leading-7 text-neutral-600">{path.body}</p>
-                  <span className="mt-auto inline-flex items-center pt-7 text-[14px] font-medium text-neutral-700 transition-colors duration-300 group-hover:text-neutral-950">
+                  <h3 className="text-card-title">{path.title}</h3>
+                  <p className="mt-3 max-w-[42ch] text-[15px] leading-6 text-neutral-600">{path.body}</p>
+                  <span className="mt-auto inline-flex items-center pt-5 text-[14px] font-medium text-neutral-700 transition-colors duration-300 group-hover:text-neutral-950">
                     {content.widerApproach.linkLabel}
                     <span className="link-arrow">→</span>
                   </span>
@@ -79,7 +86,7 @@ export default function SolutionsHubTemplate({ locale, content }: { locale: Loca
               ))}
             </div>
 
-            <p className="mt-10 max-w-2xl border-t border-neutral-200 pt-6 text-[13.5px] leading-6 text-neutral-500">
+            <p className="mt-10 max-w-2xl border-t border-neutral-200 pt-6 text-[14px] leading-[22px] text-neutral-600">
               {renderTemplate(
                 content.widerApproach.footNote.template,
                 [content.widerApproach.footNote.link],
@@ -88,58 +95,35 @@ export default function SolutionsHubTemplate({ locale, content }: { locale: Loca
               )}
             </p>
           </Container>
-        </section>
+        </Section>
 
-        <section className="surface-soft py-16 sm:py-20">
+        <Section className="surface-soft">
           <Container>
             <div className="max-w-2xl">
-              <p className="eyebrow">{content.proof.eyebrow}</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-neutral-950 sm:text-4xl">{content.proof.heading}</h2>
+              <SectionHeader
+                eyebrow={content.proof.eyebrow}
+                title={content.proof.heading}
+              />
               <p className="mt-4 text-lg leading-8 text-neutral-600">{content.proof.body}</p>
             </div>
 
-            <div className="mt-10 grid gap-9 lg:grid-cols-2 lg:gap-x-11 xl:gap-x-14">
-              {content.proof.items.map((proof) => {
-                const inner = (
-                  <>
-                    <div className="aspect-[16/10] overflow-hidden bg-neutral-100">
-                      <Image
-                        src={proof.image.src}
-                        alt={proof.title}
-                        width={proof.image.width}
-                        height={proof.image.height}
-                        className={`h-full w-full object-cover transition-transform duration-500 ${proof.image.objectPosition ?? "group-hover:scale-[1.02]"}`}
-                      />
-                    </div>
-                    <div className="flex flex-1 flex-col border-t border-neutral-200 px-5 pb-5 pt-6 sm:px-6 sm:pb-6 sm:pt-7">
-                      <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">{proof.area}</p>
-                      <h3 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">{proof.title}</h3>
-                      <p className="mt-3 leading-7 text-neutral-600">{proof.body}</p>
-                      {proof.routeKey && getPath(proof.routeKey, locale) ? (
-                        <span className="mt-auto inline-flex items-center pt-7 text-[14px] font-medium text-neutral-700 transition-colors duration-300 group-hover:text-neutral-950">
-                          {content.proof.readMoreLabel}
-                          <span className="link-arrow">→</span>
-                        </span>
-                      ) : null}
-                    </div>
-                  </>
-                );
-
-                return (
-                  <article key={proof.title} className="flex h-full flex-col bg-white">
-                    {proof.routeKey && getPath(proof.routeKey, locale) ? (
-                      <Link href={getPath(proof.routeKey, locale)!} className="focus-ring group flex flex-1 flex-col">
-                        {inner}
-                      </Link>
-                    ) : (
-                      <div className="flex flex-1 flex-col">{inner}</div>
-                    )}
-                  </article>
-                );
-              })}
+            <div className="mt-10 grid gap-6 lg:grid-cols-2 lg:gap-8">
+              {content.proof.items.map((proof) => (
+                <ProofCard
+                  key={proof.title}
+                  variant="feature"
+                  href={proof.routeKey ? (getPath(proof.routeKey, locale) ?? undefined) : undefined}
+                  eyebrow={proof.area}
+                  title={proof.title}
+                  body={proof.body}
+                  image={{ src: proof.image.src, alt: proof.title, objectPosition: proof.image.objectPosition }}
+                  imageSizes="(min-width: 1024px) 50vw, 100vw"
+                  linkLabel={content.proof.readMoreLabel}
+                />
+              ))}
             </div>
           </Container>
-        </section>
+        </Section>
 
         <section className="border-t border-neutral-200 bg-white py-7 sm:py-9">
           <Container>
@@ -176,7 +160,7 @@ export default function SolutionsHubTemplate({ locale, content }: { locale: Loca
           <Container className="relative">
             <div className="max-w-3xl">
               <p className="eyebrow-on-dark">{content.finalCta.eyebrow}</p>
-              <h2 className="mt-4 text-4xl font-semibold leading-[0.95] tracking-[-0.04em] text-white sm:text-5xl">{content.finalCta.heading}</h2>
+              <h2 className="text-section-title mt-3 text-white">{content.finalCta.heading}</h2>
               <p className="mt-6 max-w-2xl text-[16px] leading-7 text-white/72 sm:text-lg">{content.finalCta.body}</p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <a

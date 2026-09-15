@@ -1,5 +1,5 @@
+import Link from "next/link";
 import Container from "@/components/layout/Container";
-import Button from "@/components/ui/Button";
 
 export default function WhyFlexido() {
   return (
@@ -44,9 +44,13 @@ export default function WhyFlexido() {
 
           {/* CTA */}
           <div className="mt-8">
-            <Button href="#process" variant="secondary">
-              Naš pristop →
-            </Button>
+            <Link
+              href="#process"
+              className="focus-ring inline-flex items-center text-[14px] font-medium text-white/70 transition hover:text-white"
+            >
+              Naš pristop
+              <span className="link-arrow">→</span>
+            </Link>
           </div>
 
         </div>

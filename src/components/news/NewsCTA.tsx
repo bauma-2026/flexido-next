@@ -1,6 +1,6 @@
 export default function NewsCTA() {
   return (
-    <div className="relative mt-12 overflow-hidden rounded-[28px] bg-[var(--color-dark-band)]">
+    <div className="relative mt-12 overflow-hidden rounded-[var(--radius-panel)] bg-[var(--color-dark-band)]">
       <div className="absolute inset-0 opacity-20">
         <img
           src="/images/flexido/legacy/s-3.jpg.jpeg"
@@ -12,7 +12,7 @@ export default function NewsCTA() {
 
       <div className="relative p-8 sm:p-10 lg:p-12">
         <p className="eyebrow-on-dark">Naslednji korak</p>
-        <h2 className="mt-4 max-w-[16ch] text-3xl font-semibold leading-[1] tracking-[-0.04em] text-white sm:text-4xl">
+        <h2 className="mt-3 max-w-[16ch] text-3xl font-semibold leading-[1] tracking-[-0.04em] text-white sm:text-4xl">
           Poglejmo vaš proces.
         </h2>
         <p className="mt-4 max-w-[52ch] text-[15px] leading-7 text-white/75 sm:text-[16px]">

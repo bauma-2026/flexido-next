@@ -23,7 +23,7 @@ export default function FinalCTA({ content = defaultContent }: Props) {
     <Section
       id="kontakt"
       variant="large"
-      className="relative overflow-hidden border-t border-white/10 bg-neutral-950 text-white"
+      className="relative overflow-hidden border-t border-white/10 bg-[var(--color-dark-band)] text-white"
     >
       <Image
         src="/images/flexido-process.jpg"
@@ -32,15 +32,15 @@ export default function FinalCTA({ content = defaultContent }: Props) {
         sizes="100vw"
         className="object-cover"
       />
-      <div className="absolute inset-0 bg-neutral-950/80" />
+      <div className="absolute inset-0 bg-[var(--color-dark-band)]/80" />
 
       <Container className="relative z-10">
         <div className="max-w-[560px]">
-          <p className="text-[11px] uppercase tracking-[0.16em] text-white/50">
+          <p className="eyebrow-on-dark">
             {content.eyebrow}
           </p>
 
-          <h2 className="mt-4 max-w-[15ch] text-4xl font-semibold leading-[0.95] tracking-[-0.04em] text-white sm:text-5xl lg:text-6xl">
+          <h2 className="text-section-title mt-3 text-white">
             {content.heading}
           </h2>
 
@@ -49,11 +49,7 @@ export default function FinalCTA({ content = defaultContent }: Props) {
           </p>
 
           <div className="mt-7">
-            <Button
-              href="mailto:info@flexido.eu"
-              variant="secondary"
-              className="h-12 bg-white px-6 text-[15px] text-neutral-950 hover:bg-neutral-200"
-            >
+            <Button href="mailto:info@flexido.eu" variant="light" className="h-12">
               {content.ctaLabel} →
             </Button>
           </div>

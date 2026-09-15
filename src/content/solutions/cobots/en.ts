@@ -35,7 +35,8 @@ export const cobotsContent: SolutionPageContent = {
         "Changing requirements",
         "Equipment around the operation",
       ],
-      result: "Result: a cobot makes sense when it fits the operation, the workstation, and the constraints of the process.",
+      result: "a cobot makes sense when it fits the operation, the workstation, and the constraints of the process.",
+      resultLabel: "Result",
     },
     {
       type: "capabilityGroups",

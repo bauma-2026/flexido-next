@@ -11,6 +11,7 @@ import { buildAlternates } from "@/i18n/metadata";
 import { getPath } from "@/i18n/routes";
 import type { RouteKey } from "@/i18n/routes";
 import DarkBand from "@/components/ui/DarkBand";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 export const metadata: Metadata = {
   title: fundingMetadata.fundingProjects.title,
@@ -142,11 +143,11 @@ export default function Page() {
 
           <Container className="relative z-10 py-20 sm:py-24 lg:py-28">
             <div className="max-w-[820px]">
-              <p className="text-[11px] uppercase tracking-[0.16em] text-white/50">
+              <p className="eyebrow-on-dark">
                 Razvojni projekti
               </p>
 
-              <h1 className="mt-4 max-w-[13ch] text-5xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-6xl lg:text-[68px]">
+              <h1 className="text-display mt-4 max-w-[13ch]">
                 Razvoj, digitalizacija in podpora inovacijam.
               </h1>
 
@@ -179,16 +180,13 @@ export default function Page() {
         <Section className="border-b border-neutral-200 bg-white">
           <Container>
             <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start lg:gap-16">
-              <div>
-                <p className="eyebrow">V praksi</p>
-
-                <h2 className="mt-3 max-w-[16ch] text-3xl font-semibold leading-[1] tracking-[-0.04em] sm:text-4xl">
-                  Kaj razvojni projekti pomenijo za delo Flexida.
-                </h2>
-              </div>
+              <SectionHeader
+                eyebrow="V praksi"
+                title="Kaj razvojni projekti pomenijo za delo Flexida."
+              />
 
               <div className="max-w-[760px]">
-                <p className="text-[16px] leading-7 text-neutral-600">
+                <p className="text-body measure-prose">
                   Vsak projekt sodi v eno od treh vlog: razvija novo tehnologijo,
                   digitalizira poslovni proces, ali prenaša razvito rešitev v
                   realno uporabo na trgu.
@@ -215,18 +213,15 @@ export default function Page() {
         </Section>
 
         {/* PROJECTS */}
-        <Section id="projekti" className="scroll-mt-24 bg-[#f6f9fc]">
+        <Section id="projekti" className="scroll-mt-24 surface-muted">
           <Container>
             <div className="mb-10 grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
-              <div>
-                <p className="eyebrow">Projekti</p>
+              <SectionHeader
+                eyebrow="Projekti"
+                title="Pregled razvojnih projektov"
+              />
 
-                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-                  Pregled razvojnih projektov
-                </h2>
-              </div>
-
-              <p className="max-w-[620px] text-[15px] leading-7 text-neutral-600">
+              <p className="text-body measure-prose">
                 Posamezen projekt ima svojo stran z opisom aktivnosti,
                 področjem, programom in pripadajočimi informacijami o
                 sofinanciranju.
@@ -238,7 +233,7 @@ export default function Page() {
                 <Link
                   key={project.href}
                   href={project.href}
-                  className="group rounded-[28px] border border-neutral-200 bg-white p-7 transition hover:-translate-y-0.5 hover:shadow-[0_24px_70px_rgba(15,23,42,0.08)] sm:p-8"
+                  className="group rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-7 transition hover:-translate-y-0.5 hover:border-neutral-300 sm:p-8"
                 >
                   <div className="flex flex-wrap items-center gap-3">
                     <span className="rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1 text-[12px] font-medium text-neutral-600">
@@ -254,7 +249,7 @@ export default function Page() {
                     {project.title}
                   </h3>
 
-                  <p className="mt-4 max-w-[62ch] text-[15px] leading-7 text-neutral-600">
+                  <p className="text-body mt-4 measure-prose">
                     {project.desc}
                   </p>
 
@@ -271,18 +266,12 @@ export default function Page() {
         <Section className="border-b border-neutral-200 bg-white">
           <Container>
             <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start lg:gap-16">
-              <div>
-                <p className="eyebrow">Povezave</p>
-
-                <h2 className="mt-3 max-w-[16ch] text-3xl font-semibold leading-[1] tracking-[-0.04em] sm:text-4xl">
-                  Kje se razvojni projekti povezujejo s prakso.
-                </h2>
-
-                <p className="mt-5 max-w-[42ch] text-[15px] leading-7 text-neutral-600">
-                  Vsaka povezava vodi na rešitev, stran ali novico, ki je
-                  neposreden rezultat enega od projektov.
-                </p>
-              </div>
+              <SectionHeader
+                eyebrow="Povezave"
+                title="Kje se razvojni projekti povezujejo s prakso."
+                desc="Vsaka povezava vodi na rešitev, stran ali novico, ki je neposreden rezultat enega od projektov."
+                descClassName="max-w-[42ch]"
+              />
 
               <div className="grid gap-3 sm:grid-cols-2">
                 {practiceConnections.map((item) => {
@@ -293,7 +282,7 @@ export default function Page() {
                     <Link
                       key={item.label}
                       href={href}
-                      className="group flex items-center justify-between gap-3 rounded-2xl border border-neutral-200 bg-white px-5 py-4 transition hover:border-neutral-300 hover:shadow-[0_12px_34px_rgba(15,23,42,0.05)]"
+                      className="group flex items-center justify-between gap-3 rounded-[var(--radius-structural)] border border-neutral-200 bg-white px-5 py-4 transition hover:border-neutral-300"
                     >
                       <span>
                         <span className="block text-[14px] font-medium text-neutral-900">

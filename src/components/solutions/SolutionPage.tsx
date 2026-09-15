@@ -81,7 +81,7 @@ export default function SolutionPage({ content }: { content: SolutionContent }) 
 
         <Container className="relative z-10 py-20 sm:py-24 lg:py-28">
           <div className="max-w-[720px]">
-            <p className="text-[11px] uppercase tracking-[0.16em] text-white/50">
+            <p className="eyebrow-on-dark">
               {content.hero.eyebrow}
             </p>
 
@@ -113,7 +113,7 @@ export default function SolutionPage({ content }: { content: SolutionContent }) 
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {content.problem.bullets.map((b) => (
-              <div key={b} className="rounded-[20px] border p-5">
+              <div key={b} className="rounded-[var(--radius-structural)] border p-5">
                 {b}
               </div>
             ))}
@@ -132,7 +132,7 @@ export default function SolutionPage({ content }: { content: SolutionContent }) 
 
           <div className="mt-8 grid gap-5 lg:grid-cols-3">
             {content.solution.steps.map((step) => (
-              <div key={step.title} className="rounded-[22px] bg-white p-6">
+              <div key={step.title} className="rounded-[var(--radius-structural)] bg-white p-6">
                 <h3 className="font-semibold">{step.title}</h3>
                 <p className="mt-3 text-sm text-neutral-600">
                   {step.desc}
@@ -154,7 +154,7 @@ export default function SolutionPage({ content }: { content: SolutionContent }) 
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {content.results.items.map((r) => (
-              <div key={r} className="rounded-[20px] border p-5">
+              <div key={r} className="rounded-[var(--radius-structural)] border p-5">
                 {r}
               </div>
             ))}
@@ -173,7 +173,7 @@ export default function SolutionPage({ content }: { content: SolutionContent }) 
 
           <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {content.useCases.items.map((c) => (
-              <div key={c.title} className="rounded-[20px] border p-5">
+              <div key={c.title} className="rounded-[var(--radius-structural)] border p-5">
                 <h3 className="font-medium">{c.title}</h3>
                 <p className="mt-2 text-sm text-neutral-600">
                   {c.desc}
@@ -195,7 +195,7 @@ export default function SolutionPage({ content }: { content: SolutionContent }) 
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {content.forWho.items.map((i) => (
-              <div key={i} className="rounded-[20px] bg-white p-5">
+              <div key={i} className="rounded-[var(--radius-structural)] bg-white p-5">
                 {i}
               </div>
             ))}

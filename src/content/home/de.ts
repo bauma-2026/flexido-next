@@ -13,9 +13,12 @@ export const homeContent: HomePageContent = {
       "Wir verbinden den Fluss zwischen Maschinen.",
       "Nicht nur ein Roboter an der Maschine.",
     ],
+    titleMobile: "Wir verbinden Maschinen zu einem Produktionsfluss.",
     subhead:
       "Wir bauen Standard-Roboterzellen und kundenspezifische Zellen — und verbinden sie zu einem stabilen Fluss zwischen Maschinen, mit weniger Wartezeit zwischen den Phasen.",
-    slogan: "Bei Flexido machen wir Automatisierung einfach.",
+    subheadMobile:
+      "Nicht nur ein Roboter an der Maschine. Standard- und kundenspezifische Zellen, verbunden zu einem stabilen Fluss.",
+    slogan: "Ein Team prüft den Prozess, plant und integriert das System und nimmt es in Betrieb.",
     ctaPrimary: "Schauen wir uns Ihren Prozess an",
     ctaSecondary: "Wie ein Projekt abläuft",
   },
@@ -24,7 +27,7 @@ export const homeContent: HomePageContent = {
     items: [
       {
         href: "https://www.flexido.eu/images/pdf/FLEXIDO-9001-CERT-Certificate-SLO-24092021.pdf",
-        src: "/logos/trust/bureau-veritas-iso-9001.webp",
+        src: "/logos/funding/bureau-veritas-iso9001.svg",
         alt: "ISO 9001 Bureau Veritas Certification",
         external: true,
       },
@@ -33,7 +36,7 @@ export const homeContent: HomePageContent = {
   solutions: {
     eyebrow: "Lösungen",
     title: "Wo Automatisierung helfen kann",
-    desc: "Von einer einzelnen Maschine bis zur Verbindung mehrerer Phasen — wir wählen die Lösung danach, wo der Prozess Zeit, Stabilität oder Vorhersehbarkeit verliert.",
+    desc: "Von einer einzelnen Maschine bis zu verbundenen Produktionsphasen prüfen wir zunächst, wo der Prozess Zeit, Stabilität oder Vorhersehbarkeit verliert.",
     compactReadMoreLabel: "Mehr erfahren",
     compactItems: [
       {
@@ -61,26 +64,27 @@ export const homeContent: HomePageContent = {
         icon: "materialFlow",
       },
     ],
+    bridge: "Eine Standardroboterzelle kann der Ausgangspunkt sein; anschließend passen wir sie an Maschine, Werkstück und die tatsächlichen Produktionsbedingungen an.",
   },
   productProof: {
     eyebrow: "Systeme",
-    heading: "Systeme, die wir dem Prozess anpassen.",
+    heading: "Von der Standardzelle zur Umsetzung in der Produktion.",
     body:
-      "Standardroboterzellen sind die Basis für Lösungen, die wir an Produktion, Teile, Raum und vorhandene Ausrüstung anpassen.",
+      "Wir gehen von einer Standardroboterzelle aus und passen sie an Werkstück, Raum und vorhandene Ausrüstung an.",
     viewAllLabel: "Alle Systeme ansehen",
     viewAllRouteKey: "standardCells",
     viewSystemLabel: "System ansehen",
     systems: [
       {
         slug: "flex-7-cnc",
-        category: "Automatisierung von CNC-Maschinen",
+        category: "CNC-Maschinen",
         shortDescription:
           "Kompakte Roboterzelle für die Beschickung von CNC-Maschinen — Beladen, Entnehmen und ein stabilerer Teilefluss.",
         routeKey: "standardCellsCnc",
       },
       {
         slug: "flex-7-imm",
-        category: "IMM-Automatisierung",
+        category: "Spritzgießen",
         shortDescription:
           "Kompakte Roboterzelle für die Beschickung von Spritzgießmaschinen — Teileentnahme, Insert Moulding und Kontrolle.",
         routeKey: "standardCellsImm",
@@ -90,14 +94,16 @@ export const homeContent: HomePageContent = {
   competencies: {
     eyebrow: "Kompetenzen",
     heading: "Was wir im Projekt abdecken",
+    intro: "Konstruktion, Programmierung, Integration und Inbetriebnahme übernimmt dasselbe Team.",
     items: [
-      "Durchführung von Machbarkeitsstudien",
+      "Machbarkeitsstudie",
       "Konstruktion",
       "Elektroprojektierung",
       "Robot- und SPS-Programmierung",
-      "Systeme für intelligentes Bildverarbeitung",
+      "Intelligente Bildverarbeitung",
       "Projektleitung",
     ],
+    developmentProjectsLabel: "Referenzen ansehen",
   },
   process: {
     eyebrow: "Prozess",
@@ -117,7 +123,7 @@ export const homeContent: HomePageContent = {
       {
         step: "03",
         title: "Umsetzung und Integration",
-        desc: "Wir verbinden die Lösung mit bestehenden Maschinen, Bedienern, Raum und dem realen Arbeitsrhythmus.",
+        desc: "Wir verbinden das System mit bestehenden Maschinen, integrieren es in den Raum und stimmen es auf den tatsächlichen Arbeitsrhythmus der Bediener ab.",
       },
       {
         step: "04",
@@ -137,7 +143,14 @@ export const homeContent: HomePageContent = {
     imageCaption:
       "Wo verliert der Prozess Zeit, Material oder einen stabilen Rhythmus?",
   },
-  showFundingTrust: false,
+  fundingCertification: {
+    eyebrow: "Förderung",
+    developmentSupportLabel: "Entwicklungsunterstützung",
+    legalNote:
+      "Die Investition wird von der Republik Slowenien und der Europäischen Union aus dem Europäischen Fonds für regionale Entwicklung kofinanziert. Weitere Informationen finden Sie unter",
+    legalNoteLinkHref: "https://www.eu-skladi.si",
+    legalNoteLinkLabel: "www.eu-skladi.si",
+  },
 };
 
 /** @deprecated Use `homeContent.hero` */
