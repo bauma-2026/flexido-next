@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -16,13 +16,15 @@ import deMessages from "../../../messages/de.json";
 import {
   CncMachineIcon,
   InjectionMoldingIcon,
-  CobotIcon,
-  ManipulationIcon,
-  MaterialFlowIcon,
   CustomSystemIcon,
   ServiceSupportIcon,
   StandardCellIcon,
 } from "@/components/icons/FlexidoProcessIcons";
+import {
+  CobotIconNav as CobotIcon,
+  ManipulationIconNav as ManipulationIcon,
+  MaterialFlowIconNav as MaterialFlowIcon,
+} from "@/components/icons/FlexidoNavIcons";
 
 const navIcons = {
   cnc: CncMachineIcon,
@@ -35,11 +37,17 @@ const navIcons = {
   standardCell: StandardCellIcon,
 } as const;
 
+/**
+ * Top-level panel only. No top border/radius: the header's own bottom
+ * hairline is the shared seam the panel hangs from, not a second edge
+ * drawn 1px below it. The child flyout keeps its own full border/radius —
+ * it floats beside a row, not against the header.
+ */
 const dropdownPanelClass =
-  "rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-2 shadow-[0_12px_40px_rgba(15,23,42,0.12)]";
+  "rounded-b-[var(--radius-structural)] border-x border-b border-neutral-200 bg-white p-2 shadow-sm";
 const dropdownRowRadiusClass = "rounded-lg";
 const dropdownFlyoutPanelClass =
-  "rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-2 shadow-[0_12px_34px_rgba(15,23,42,0.12)]";
+  "rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-2 shadow-sm";
 
 type NavIconName = keyof typeof navIcons;
 
@@ -56,7 +64,6 @@ type DropdownItem = {
 };
 
 type HeaderProps = {
-  sticky?: boolean;
   /** Defaults to "sl" — every existing `(default)` page renders unchanged. */
   locale?: Locale;
   /** Current page's route key, used only to resolve the language switcher's target. */
@@ -196,30 +203,129 @@ function resolveNavSection(
   return null;
 }
 
+/**
+ * Which top-level dropdown is open. Lifted to `Header` so only one panel can be
+ * open at a time and so a trigger can hand focus back to itself on Escape.
+ */
+type DropdownController = {
+  openKey: string | null;
+  open: (key: string) => void;
+  close: (key: string) => void;
+};
+
+function useDropdownController(): DropdownController {
+  const [openKey, setOpenKey] = useState<string | null>(null);
+
+  const open = useCallback((key: string) => setOpenKey(key), []);
+  const close = useCallback(
+    (key: string) => setOpenKey((current) => (current === key ? null : current)),
+    [],
+  );
+  return { openKey, open, close };
+}
+
+/**
+ * Mouse, focus and keyboard wiring shared by every desktop dropdown.
+ *
+ * The panel holds plain links in native tab order rather than `role="menu"`
+ * items, so this is a disclosure, not a menu: Tab walks the links, Escape
+ * closes and returns focus to the trigger, and leaving the wrapper with either
+ * pointer or focus closes it. `mouseleave` deliberately does not close while
+ * focus is still inside, so a keyboard user does not lose the panel when the
+ * pointer happens to drift across it.
+ */
+function useDropdownBehavior(key: string, controller: DropdownController) {
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const triggerRef = useRef<HTMLAnchorElement | HTMLButtonElement | null>(null);
+  const isOpen = controller.openKey === key;
+
+  const holdsFocus = () =>
+    Boolean(wrapperRef.current && wrapperRef.current.contains(document.activeElement));
+
+  const wrapperProps = {
+    ref: wrapperRef,
+    onMouseEnter: () => controller.open(key),
+    onMouseLeave: () => {
+      if (!holdsFocus()) controller.close(key);
+    },
+    onFocus: () => controller.open(key),
+    onBlur: (event: React.FocusEvent<HTMLDivElement>) => {
+      const next = event.relatedTarget as Node | null;
+      if (!next || !wrapperRef.current?.contains(next)) controller.close(key);
+    },
+    onKeyDown: (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.key !== "Escape" || !isOpen) return;
+      event.stopPropagation();
+      controller.close(key);
+      triggerRef.current?.focus();
+    },
+  };
+
+  return { isOpen, wrapperProps, triggerRef };
+}
+
+/**
+ * Three independently readable trigger states.
+ *
+ * Surface carries *interaction* (hover, and open — open is an intensified
+ * hover, so it reuses the same surface). The rule under the label carries
+ * *location*. Colour supports both but decides neither, so hovering a sibling
+ * can no longer be mistaken for the current section.
+ *
+ * Font weight is constant at 400 in every state: the old 400→600 swap widened
+ * the active trigger by ~3px and shifted every item beside it between pages.
+ */
 const navTriggerClass =
-  "focus-ring inline-flex h-10 items-center gap-1.5 rounded-full px-1.5 text-[14px] font-normal text-neutral-600 transition hover:text-neutral-950";
-const navTriggerActiveClass = "font-semibold text-neutral-950";
+  "group focus-ring relative inline-flex h-10 items-center gap-1.5 rounded-full px-3 text-[14px] font-normal transition-colors";
+const navTriggerIdleClass = "text-neutral-600 hover:text-neutral-800";
+const navTriggerActiveClass = "text-neutral-950";
 const navLinkClass =
-  "focus-ring inline-flex h-10 items-center rounded-full px-1.5 text-[14px] font-normal text-neutral-600 transition hover:text-neutral-950";
-const navLinkActiveClass = "font-semibold text-neutral-950";
+  "group focus-ring relative inline-flex h-10 items-center rounded-full px-3 text-[14px] font-normal transition-colors";
+const navLinkIdleClass = "text-neutral-600 hover:text-neutral-800";
+const navLinkActiveClass = "text-neutral-950";
+
+/**
+ * Current-section rule. Absolute, so switching it on never moves anything.
+ *
+ * Neutral, not brand. There is exactly one blue accent in the sticky stack and
+ * it belongs to the WikiNav rail below, which marks live reading position on a
+ * long page — the thing that actually changes as you scroll. This marks the
+ * site section, which the reader already knows, so it reinforces the
+ * `text-neutral-950` label rather than competing with it. Two identical 2px
+ * brand rules stacked 65px apart was what made the two bars read as equals.
+ *
+ * `neutral-500` deliberately, not `neutral-400`: hover is `neutral-300`, and a
+ * single step above it would read as a hover stuck on.
+ */
+function NavCurrentMarker() {
+  return (
+    <span
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-x-3 bottom-1 h-[2px] rounded-full bg-neutral-500"
+    />
+  );
+}
+
+/**
+ * Hover-only counterpart to `NavCurrentMarker` — same geometry, quieter still,
+ * invisible until hovered or focused. Only rendered on non-current items, so
+ * it never stacks with the current rule.
+ */
+function NavHoverMarker() {
+  return (
+    <span
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-x-3 bottom-1 h-[2px] rounded-full bg-neutral-300 opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100"
+    />
+  );
+}
+/* Same rule as desktop: location is a marker, never a weight swap. */
 const mobileTopLinkClass =
-  "block border-b border-neutral-200 pb-4 text-[19px] font-normal tracking-[-0.03em] text-neutral-950";
-const mobileTopLinkActiveClass = "font-semibold";
+  "focus-ring flex min-h-[52px] flex-1 items-center px-3 text-[19px] font-normal tracking-[-0.03em] text-neutral-800 transition-colors hover:bg-neutral-100 active:bg-neutral-200";
+const mobileTopLinkActiveClass = "text-neutral-950";
 
 const solutionsNavMessages = { en: enMessages.solutionsNav, de: deMessages.solutionsNav };
 const standardCellsNavMessages = { en: enMessages.standardCellsNav, de: deMessages.standardCellsNav };
-
-const solutionIconByKey: Partial<Record<RouteKey, NavIconName>> = {
-  solutionProductionAutomation: "customSystem",
-  solutionCnc: "cnc",
-  solutionInjectionMolding: "imm",
-  solutionCobots: "cobot",
-  solutionManipulation: "manipulation",
-  solutionLogistics: "materialFlow",
-  solutionCustomSystems: "customSystem",
-  service: "service",
-  servicePricing: "service",
-};
 
 /** Desktop Rešitve dropdown — process categories first, then broader entries. */
 const SOLUTION_PRIMARY_KEYS: RouteKey[] = [
@@ -233,14 +339,6 @@ const SOLUTION_PRIMARY_KEYS: RouteKey[] = [
 ];
 
 const SOLUTION_SUPPORT_KEYS: RouteKey[] = ["service", "servicePricing"];
-
-const SOLUTION_PRIMARY_ICON_KEYS = new Set<RouteKey>([
-  "solutionCnc",
-  "solutionInjectionMolding",
-  "solutionCobots",
-  "solutionManipulation",
-  "solutionLogistics",
-]);
 
 const systemIconByKey: Partial<Record<RouteKey, NavIconName>> = {
   standardCells: "standardCell",
@@ -260,27 +358,22 @@ function getSolutionDesktopGroups(locale: Locale): {
       solutionCnc: {
         label: "CNC stroji",
         href: "/resitve/avtomatizacija-cnc-strojev",
-        icon: "cnc",
       },
       solutionInjectionMolding: {
         label: "Brizganje plastike",
         href: "/resitve/brizganje-plastike",
-        icon: "imm",
       },
       solutionCobots: {
         label: "Kolaborativni roboti",
         href: "/resitve/kolaborativni-roboti",
-        icon: "cobot",
       },
       solutionManipulation: {
         label: "Manipulacija materiala",
         href: "/resitve/manipulacija",
-        icon: "manipulation",
       },
       solutionLogistics: {
         label: "Interna logistika",
         href: "/resitve/logistika",
-        icon: "materialFlow",
       },
       solutionProductionAutomation: {
         label: "Avtomatizacija proizvodnje",
@@ -317,9 +410,6 @@ function getSolutionDesktopGroups(locale: Locale): {
         label: item.label,
         desc: key === "solutionProductionAutomation" ? item.desc : undefined,
         href: getPath(key, locale) ?? "#",
-        icon: SOLUTION_PRIMARY_ICON_KEYS.has(key)
-          ? solutionIconByKey[key]
-          : undefined,
       };
     });
 
@@ -420,8 +510,8 @@ function getCatalogItems(locale: Locale): DropdownItem[] {
 function getLocalizedMainNavItems(locale: Exclude<Locale, "sl">) {
   const messages = locale === "en" ? enMessages : deMessages;
   const keys: { key: RouteKey; label: string }[] = [
-    { key: "process", label: messages.nav.process },
     { key: "references", label: messages.nav.references },
+    { key: "process", label: messages.nav.process },
   ];
 
   return keys
@@ -447,7 +537,6 @@ function getCompanyItems(locale: Locale): DropdownItem[] {
     ];
 
     const fundingProjectChildren: { key: RouteKey; label: string }[] = [
-      { key: "fundingProjects", label: "Pregled razvojnih projektov" },
       { key: "fundingProjectSalesDigitalization", label: "Digitalizacija prodajnih poti" },
       { key: "fundingProjectPolyDigit", label: "Poly Digit" },
       { key: "fundingProjectFlexidoDigital", label: "Digitalna transformacija" },
@@ -493,32 +582,90 @@ function getLocalizedCompanyItems(locale: Exclude<Locale, "sl">): DropdownItem[]
 }
 
 const mainNavItems = [
-  { label: "Proces", href: "/proces" },
   { label: "Reference", href: "/reference" },
+  { label: "Proces", href: "/proces" },
 ];
 
-function SolutionDropdownRow({ item }: { item: DropdownItem }) {
+/**
+ * The single row grammar for every panel — Rešitve, E-katalog and Podjetje.
+ *
+ * Fixed anatomy: optional icon, label, optional description, optional trailing
+ * submenu chevron. Whole row is the click target, so there is no per-row `→`;
+ * the only trailing glyph left is the chevron on a row that genuinely opens a
+ * submenu. Current destination is a 2px leading rule — absolute, like the
+ * trigger marker, so marking it moves nothing.
+ *
+ * Icons are all-or-none per panel, decided by the data each panel passes.
+ */
+function DropdownRow({
+  item,
+  featuredLabel,
+  pathname,
+  hasChildren = false,
+}: {
+  item: DropdownItem;
+  featuredLabel?: string;
+  pathname: string;
+  hasChildren?: boolean;
+}) {
   const Icon = item.icon ? navIcons[item.icon] : null;
+  const isCurrent = isSamePath(item.href, pathname);
 
   return (
     <Link
       href={item.href}
-      className={cn("block px-3 py-2 transition hover:bg-neutral-50", dropdownRowRadiusClass)}
+      aria-current={isCurrent ? "page" : undefined}
+      className={cn(
+        "focus-ring relative block px-3 transition-colors hover:bg-neutral-100",
+        dropdownRowRadiusClass,
+        item.featured ? "border-b border-neutral-100 pb-3 pt-2" : "py-2",
+      )}
     >
-      <div className="flex min-w-0 items-center gap-3">
-        {Icon ? (
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center text-[#1693e6]">
-            <Icon className="h-7 w-7" />
-          </span>
-        ) : null}
+      {isCurrent ? (
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-2 left-0 w-[2px] rounded-full bg-[var(--color-brand)]"
+        />
+      ) : null}
 
-        <div className="min-w-0">
-          <p className="text-[14px] font-normal leading-[1.2] text-neutral-800">{item.label}</p>
-
-          {item.desc ? (
-            <p className="mt-1 text-[12px] leading-[1.35] text-neutral-500">{item.desc}</p>
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex min-w-0 items-center gap-3">
+          {Icon ? (
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center text-[var(--color-brand)]">
+              <Icon className="h-7 w-7" />
+            </span>
           ) : null}
+
+          <div className="min-w-0">
+            <p
+              className={cn(
+                "text-[14px] font-normal leading-[1.2]",
+                isCurrent ? "text-neutral-950" : "text-neutral-600",
+              )}
+            >
+              {item.label}
+            </p>
+
+            {item.desc ? (
+              <p className="mt-1 text-[12px] leading-[1.35] text-neutral-500">{item.desc}</p>
+            ) : null}
+          </div>
         </div>
+
+        {hasChildren ? (
+          /* Points the way the submenu actually opens — see the flyout note in
+             DesktopDropdown. */
+          <svg viewBox="0 0 20 20" aria-hidden="true" className="h-4 w-4 shrink-0 text-neutral-400">
+            <path
+              d="M12.5 5.5 8 10l4.5 4.5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.7"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        ) : null}
       </div>
     </Link>
   );
@@ -532,6 +679,9 @@ function SolutionsDesktopDropdown({
   primaryItems,
   supportItems,
   isActive = false,
+  ariaCurrent,
+  controller,
+  pathname,
 }: {
   href?: string;
   label: string;
@@ -540,22 +690,29 @@ function SolutionsDesktopDropdown({
   primaryItems: DropdownItem[];
   supportItems: DropdownItem[];
   isActive?: boolean;
+  ariaCurrent?: "page" | "true";
+  controller: DropdownController;
+  pathname: string;
 }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const panelId = useId();
+  const { isOpen, wrapperProps, triggerRef } = useDropdownBehavior("solutions", controller);
 
   return (
-    <div
-      className="relative"
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
-    >
+    <div className="relative" {...wrapperProps}>
       {href ? (
         <Link
+          ref={triggerRef as React.Ref<HTMLAnchorElement>}
           href={href}
-          className={cn(navTriggerClass, isActive && navTriggerActiveClass)}
-          aria-current={isActive ? "page" : undefined}
+          className={cn(
+            navTriggerClass,
+            isActive ? navTriggerActiveClass : navTriggerIdleClass,
+          )}
+          aria-current={ariaCurrent}
+          aria-expanded={isOpen}
+          aria-controls={panelId}
         >
           <span>{label}</span>
+          {isActive ? <NavCurrentMarker /> : <NavHoverMarker />}
 
           <svg
             viewBox="0 0 20 20"
@@ -576,12 +733,19 @@ function SolutionsDesktopDropdown({
         </Link>
       ) : (
         <button
+          ref={triggerRef as React.Ref<HTMLButtonElement>}
           type="button"
-          className={cn(navTriggerClass, isActive && navTriggerActiveClass)}
+          className={cn(
+            navTriggerClass,
+            isActive ? navTriggerActiveClass : navTriggerIdleClass,
+          )}
           aria-expanded={isOpen}
-          aria-current={isActive ? "page" : undefined}
+          aria-controls={panelId}
+          aria-current={ariaCurrent}
+          onClick={() => (isOpen ? controller.close("solutions") : controller.open("solutions"))}
         >
           <span>{label}</span>
+          {isActive ? <NavCurrentMarker /> : <NavHoverMarker />}
 
           <svg
             viewBox="0 0 20 20"
@@ -603,7 +767,7 @@ function SolutionsDesktopDropdown({
       )}
 
       {isOpen ? (
-        <div className="absolute left-0 top-full z-50 w-[330px] pt-3">
+        <div id={panelId} className="absolute left-1/2 top-full z-50 w-[330px] -translate-x-1/2 pt-3">
           <div className={dropdownPanelClass}>
             <div className="border-b border-neutral-100 px-3 pb-2 pt-2">
               <p className="text-[10px] uppercase tracking-[0.18em] text-neutral-400">
@@ -613,7 +777,7 @@ function SolutionsDesktopDropdown({
 
             <div className="mt-2 flex flex-col gap-1">
               {primaryItems.map((item) => (
-                <SolutionDropdownRow key={item.href} item={item} />
+                <DropdownRow key={item.href} item={item} pathname={pathname} />
               ))}
             </div>
 
@@ -627,7 +791,7 @@ function SolutionsDesktopDropdown({
 
                 <div className="flex flex-col gap-1">
                   {supportItems.map((item) => (
-                    <SolutionDropdownRow key={item.href} item={item} />
+                    <DropdownRow key={item.href} item={item} pathname={pathname} />
                   ))}
                 </div>
               </div>
@@ -646,6 +810,10 @@ function DesktopDropdown({
   items,
   featuredLabel,
   isActive = false,
+  ariaCurrent,
+  dropdownKey,
+  controller,
+  pathname,
 }: {
   href?: string;
   label: string;
@@ -653,22 +821,30 @@ function DesktopDropdown({
   items: DropdownItem[];
   featuredLabel: string;
   isActive?: boolean;
+  ariaCurrent?: "page" | "true";
+  dropdownKey: string;
+  controller: DropdownController;
+  pathname: string;
 }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const panelId = useId();
+  const { isOpen, wrapperProps, triggerRef } = useDropdownBehavior(dropdownKey, controller);
 
   return (
-    <div
-      className="relative"
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
-    >
+    <div className="relative" {...wrapperProps}>
     {href ? (
   <Link
+    ref={triggerRef as React.Ref<HTMLAnchorElement>}
     href={href}
-    className={cn(navTriggerClass, isActive && navTriggerActiveClass)}
-    aria-current={isActive ? "page" : undefined}
+    className={cn(
+      navTriggerClass,
+      isActive ? navTriggerActiveClass : navTriggerIdleClass,
+    )}
+    aria-current={ariaCurrent}
+    aria-expanded={isOpen}
+    aria-controls={panelId}
   >
     <span>{label}</span>
+    {isActive ? <NavCurrentMarker /> : <NavHoverMarker />}
 
     <svg
       viewBox="0 0 20 20"
@@ -689,12 +865,19 @@ function DesktopDropdown({
   </Link>
 ) : (
   <button
+    ref={triggerRef as React.Ref<HTMLButtonElement>}
     type="button"
-    className={cn(navTriggerClass, isActive && navTriggerActiveClass)}
+    className={cn(
+      navTriggerClass,
+      isActive ? navTriggerActiveClass : navTriggerIdleClass,
+    )}
     aria-expanded={isOpen}
-    aria-current={isActive ? "page" : undefined}
+    aria-controls={panelId}
+    aria-current={ariaCurrent}
+    onClick={() => (isOpen ? controller.close(dropdownKey) : controller.open(dropdownKey))}
   >
     <span>{label}</span>
+    {isActive ? <NavCurrentMarker /> : <NavHoverMarker />}
 
     <svg
       viewBox="0 0 20 20"
@@ -716,7 +899,7 @@ function DesktopDropdown({
 )}
 
       {isOpen ? (
-        <div className="absolute left-0 top-full z-50 w-[330px] pt-3">
+        <div id={panelId} className="absolute left-1/2 top-full z-50 w-[330px] -translate-x-1/2 pt-3">
           <div className={dropdownPanelClass}>
             <div className="border-b border-neutral-100 px-3 pb-2 pt-2">
               <p className="text-[10px] uppercase tracking-[0.18em] text-neutral-400">
@@ -726,86 +909,39 @@ function DesktopDropdown({
 
             <div className="mt-2 flex flex-col gap-1">
               {items.map((item) => {
-                const hasChildren = item.children && item.children.length > 0;
-                const Icon = item.icon ? navIcons[item.icon] : null;
+                const hasChildren = Boolean(item.children?.length);
 
                 return (
                   <div key={item.href} className="group/item relative">
-                    <Link
-                      href={item.href}
-                      className={cn(
-                        "block px-3 py-2 transition",
-                        dropdownRowRadiusClass,
-                        item.featured
-                          ? "bg-neutral-950 text-white hover:bg-neutral-900"
-                          : "hover:bg-neutral-50"
-                      )}
-                    >
-                      {item.featured && (
-                        <span className="mb-1.5 block text-[10px] uppercase tracking-[0.16em] text-white/45">
-                          {featuredLabel}
-                        </span>
-                      )}
-<div className="flex items-center justify-between gap-4">
-  <div className="flex min-w-0 items-center gap-3">
-    {Icon && (
-      <span
-        className={`flex h-9 w-9 shrink-0 items-center justify-center ${
-          item.featured ? "text-white/85" : "text-[#1693e6]"
-        }`}
-      >
-        <Icon className="h-7 w-7" />
-      </span>
-    )}
+                    <DropdownRow
+                      item={item}
+                      featuredLabel={featuredLabel}
+                      pathname={pathname}
+                      hasChildren={hasChildren}
+                    />
 
-    <div className="min-w-0">
-      <p
-        className={`text-[14px] font-normal leading-[1.2] ${
-          item.featured ? "text-white" : "text-neutral-800"
-        }`}
-      >
-        {item.label}
-      </p>
-
-                      {item.desc ? (
-                        <p
-                          className={`mt-1 text-[12px] leading-[1.35] ${
-                            item.featured ? "text-white/60" : "text-neutral-500"
-                          }`}
-                        >
-                          {item.desc}
-                        </p>
-                      ) : null}
-    </div>
-  </div>
-
-  <span
-    className={`shrink-0 text-[13px] transition group-hover/item:translate-x-0.5 ${
-      item.featured
-        ? "text-white/45 group-hover/item:text-white"
-        : "text-neutral-300 group-hover/item:text-neutral-700"
-    }`}
-  >
-    →
-  </span>
-</div>
-                    </Link>
-
+                    {/* Child flyout.
+                        Opens to the LEFT. The only dropdown that carries
+                        children is Podjetje, which is the terminal nav item, so
+                        with the nav axis-centred its panel sits near the right
+                        edge: a right-opening flyout ran past the viewport
+                        between 1280 and ~1359 and produced a real horizontal
+                        page scroll. The left side of that panel is always free,
+                        so the direction is deterministic rather than measured.
+                        If a dropdown in the left half of the nav ever gains
+                        children, revisit this.
+                        Width matches the parent panel so child labels stop
+                        wrapping into uneven 41/62px rows.
+                        `group-focus-within` keeps it open while Tab walks it. */}
                     {hasChildren ? (
-                      <div className="invisible absolute left-full top-0 z-50 w-[198px] pl-2 opacity-0 transition-opacity duration-150 group-hover/item:visible group-hover/item:opacity-100">
+                      <div className="invisible absolute right-full top-0 z-50 w-[330px] pr-2 opacity-0 transition-opacity duration-150 group-hover/item:visible group-hover/item:opacity-100 group-focus-within/item:visible group-focus-within/item:opacity-100">
                         <div className={dropdownFlyoutPanelClass}>
                           {item.children?.map((child) => (
-                            <Link
+                            <DropdownRow
                               key={child.href}
-                              href={child.href}
-                              className={cn(
-                                "flex items-center justify-between px-3 py-2.5 text-[14px] font-normal text-neutral-700 transition hover:bg-neutral-50 hover:text-neutral-950",
-                                dropdownRowRadiusClass
-                              )}
-                            >
-                              <span>{child.label}</span>
-                              <span className="text-neutral-300">→</span>
-                            </Link>
+                              item={{ label: child.label, href: child.href }}
+                              pathname={pathname}
+                            />
                           ))}
                         </div>
                       </div>
@@ -821,76 +957,162 @@ function DesktopDropdown({
   );
 }
 
-function MobileSolutionRow({
+/** Chevron shared by both mobile accordion levels. Rotation is a secondary cue. */
+function MobileChevron({ open }: { open: boolean }) {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      aria-hidden="true"
+      className={cn(
+        "h-4 w-4 shrink-0 text-neutral-400 transition-transform duration-200",
+        open && "rotate-180 text-neutral-600",
+      )}
+    >
+      <path
+        d="M5.5 7.5 10 12l4.5-4.5"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+/**
+ * Mobile destination row — the phone-sized sibling of `DropdownRow`.
+ *
+ * Same grammar: optional icon, label, optional description, current marked by
+ * a 2px leading rule rather than a weight change. Rows are 44px minimum so
+ * every target is thumb-sized.
+ */
+function MobileRow({
   item,
   featuredLabel,
+  pathname,
+  onClose,
+  indented = false,
+}: {
+  item: DropdownItem;
+  featuredLabel?: string;
+  pathname: string;
+  onClose: () => void;
+  indented?: boolean;
+}) {
+  const Icon = item.icon ? navIcons[item.icon] : null;
+  const isCurrent = isSamePath(item.href, pathname);
+
+  return (
+    <Link
+      href={item.href}
+      onClick={onClose}
+      aria-current={isCurrent ? "page" : undefined}
+      className={cn(
+        "focus-ring relative flex min-h-[44px] items-center px-3 transition-colors hover:bg-neutral-100 active:bg-neutral-200",
+        dropdownRowRadiusClass,
+        indented && "pl-6",
+        item.featured ? "border-b border-neutral-100 pb-3 pt-2" : "py-2",
+      )}
+    >
+      {isCurrent ? (
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-2 left-0 w-[2px] rounded-full bg-[var(--color-brand)]"
+        />
+      ) : null}
+
+      <span className="flex min-w-0 items-center gap-3">
+        {Icon ? (
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center text-[var(--color-brand)]">
+            <Icon className="h-6 w-6" />
+          </span>
+        ) : null}
+
+        <span className="min-w-0">
+          <span
+            className={cn(
+              "block text-[15px] font-normal leading-5",
+              isCurrent ? "text-neutral-950" : "text-neutral-600",
+            )}
+          >
+            {item.label}
+          </span>
+
+          {item.desc ? (
+            <span className="mt-0.5 block text-[12px] leading-[1.35] text-neutral-500">
+              {item.desc}
+            </span>
+          ) : null}
+        </span>
+      </span>
+    </Link>
+  );
+}
+
+/**
+ * Second-level accordion, used only by Podjetje → Razvojni projekti.
+ * Auto-opens when the visitor is already on one of its children, so a deep
+ * route still reveals itself without any tapping.
+ */
+function MobileSubGroup({
+  item,
+  pathname,
   onClose,
 }: {
   item: DropdownItem;
-  featuredLabel: string;
+  pathname: string;
   onClose: () => void;
 }) {
-  const Icon = item.icon ? navIcons[item.icon] : null;
+  const panelId = useId();
+  const holdsCurrent = Boolean(item.children?.some((child) => isSamePath(child.href, pathname)));
+  const [open, setOpen] = useState(holdsCurrent);
+  const isCurrent = isSamePath(item.href, pathname);
 
   return (
-    <div key={item.href}>
-      <Link
-        href={item.href}
-        onClick={onClose}
-        className={`block rounded-[14px] px-3 py-3 transition ${
-          item.featured ? "bg-neutral-950 text-white" : "hover:bg-white"
-        }`}
-      >
-        {item.featured && (
-          <span className="mb-1.5 block text-[10px] uppercase tracking-[0.16em] text-white/45">
-            {featuredLabel}
-          </span>
-        )}
+    <div>
+      <div className="relative flex items-center">
+        {isCurrent || holdsCurrent ? (
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-2 left-0 w-[2px] rounded-full bg-[var(--color-brand)]"
+          />
+        ) : null}
 
-        <div className="flex items-start gap-3">
-          {Icon && (
-            <span
-              className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center ${
-                item.featured ? "text-white/80" : "text-[#1693e6]"
-              }`}
-            >
-              <Icon className="h-7 w-7" />
-            </span>
+        <Link
+          href={item.href}
+          onClick={onClose}
+          aria-current={isCurrent ? "page" : undefined}
+          className={cn(
+            "focus-ring flex min-h-[44px] flex-1 items-center px-3 py-2 text-[15px] font-normal leading-5 transition-colors hover:bg-neutral-100 active:bg-neutral-200",
+            dropdownRowRadiusClass,
+            isCurrent || holdsCurrent ? "text-neutral-950" : "text-neutral-600",
           )}
+        >
+          {item.label}
+        </Link>
 
-          <div>
-            <p
-              className={`text-[15px] font-normal leading-5 ${
-                item.featured ? "text-white" : "text-neutral-900"
-              }`}
-            >
-              {item.label}
-            </p>
+        <button
+          type="button"
+          onClick={() => setOpen((value) => !value)}
+          aria-expanded={open}
+          aria-controls={panelId}
+          aria-label={item.label}
+          className="focus-ring flex h-11 w-11 shrink-0 items-center justify-center rounded-lg transition-colors hover:bg-neutral-100 active:bg-neutral-200"
+        >
+          <MobileChevron open={open} />
+        </button>
+      </div>
 
-            {item.desc ? (
-              <p
-                className={`mt-1 text-[12px] leading-5 ${
-                  item.featured ? "text-white/60" : "text-neutral-500"
-                }`}
-              >
-                {item.desc}
-              </p>
-            ) : null}
-          </div>
-        </div>
-      </Link>
-
-      {item.children ? (
-        <div className="ml-3 mt-1 flex flex-col gap-1 border-l border-neutral-200 pl-3">
-          {item.children.map((child) => (
-            <Link
+      {open ? (
+        <div id={panelId} className="ml-3 flex flex-col border-l border-neutral-200 pl-2">
+          {item.children?.map((child) => (
+            <MobileRow
               key={child.href}
-              href={child.href}
-              onClick={onClose}
-              className="rounded-[12px] px-3 py-2 text-[14px] font-normal text-neutral-700 transition hover:bg-white hover:text-neutral-950"
-            >
-              {child.label}
-            </Link>
+              item={{ label: child.label, href: child.href }}
+              pathname={pathname}
+              onClose={onClose}
+            />
           ))}
         </div>
       ) : null}
@@ -898,91 +1120,139 @@ function MobileSolutionRow({
   );
 }
 
-function MobileLinkGroup({
+/**
+ * Top-level mobile section.
+ *
+ * The title stays a link when the section has a hub route, so no destination
+ * disappears from the menu; the chevron beside it is the accordion's button.
+ * Sections without a hub (Podjetje) make the whole row the button. Which
+ * section is open is owned by `Header` so only one can be expanded at a time.
+ */
+function MobileSection({
+  sectionKey,
   href,
   title,
   eyebrow,
   items,
-  featuredLabel,
-  onClose,
-  isActive = false,
   supportEyebrow,
   supportItems,
-  flatGroupContainer = false,
+  isActive,
+  ariaCurrent,
+  pathname,
+  openKey,
+  setOpenKey,
+  onClose,
 }: {
+  sectionKey: NavSection;
   href?: string;
   title: string;
   eyebrow: string;
   items: DropdownItem[];
-  featuredLabel: string;
-  onClose: () => void;
-  isActive?: boolean;
-  /** Optional quieter second group (e.g. Servis/Cenik), rendered below a divider. */
   supportEyebrow?: string;
   supportItems?: DropdownItem[];
-  /** Flat list chrome for Rešitve — avoids nested-card feel on mobile. */
-  flatGroupContainer?: boolean;
+  isActive: boolean;
+  ariaCurrent?: "page" | "true";
+  pathname: string;
+  openKey: NavSection | null;
+  setOpenKey: (key: NavSection | null) => void;
+  onClose: () => void;
 }) {
+  const panelId = useId();
+  const isOpen = openKey === sectionKey;
+  const toggle = () => setOpenKey(isOpen ? null : sectionKey);
+
   return (
-    <div>
-    {href ? (
-  <Link
-    href={href}
-    onClick={onClose}
-    className={cn(mobileTopLinkClass, isActive && mobileTopLinkActiveClass)}
-    aria-current={isActive ? "page" : undefined}
-  >
-    {title}
-  </Link>
-) : (
-  <div
-    className={cn(mobileTopLinkClass, isActive && mobileTopLinkActiveClass)}
-    aria-current={isActive ? "page" : undefined}
-  >
-    {title}
-  </div>
-)}
+    <div className="border-b border-neutral-200">
+      <div className="relative flex items-center">
+        {isActive ? (
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-3 left-0 w-[2px] rounded-full bg-[var(--color-brand)]"
+          />
+        ) : null}
 
-      <div
-        className={cn(
-          "mt-4",
-          flatGroupContainer ? "pt-2" : "rounded-[22px] bg-neutral-50 p-2"
+        {href ? (
+          <>
+            {/* Sections with a hub keep the title as a link so no destination
+                drops out of the menu; the chevron beside it is the disclosure
+                control. */}
+            <Link
+              href={href}
+              onClick={onClose}
+              aria-current={ariaCurrent}
+              className={cn(mobileTopLinkClass, isActive && mobileTopLinkActiveClass)}
+            >
+              {title}
+            </Link>
+
+            <button
+              type="button"
+              onClick={toggle}
+              aria-expanded={isOpen}
+              aria-controls={panelId}
+              aria-label={title}
+              className="focus-ring flex h-11 w-11 shrink-0 items-center justify-center rounded-lg transition-colors hover:bg-neutral-100 active:bg-neutral-200"
+            >
+              <MobileChevron open={isOpen} />
+            </button>
+          </>
+        ) : (
+          /* No hub route, so the whole row is the disclosure and the chevron
+             rides inside it — one control, one accessible name. */
+          <button
+            type="button"
+            onClick={toggle}
+            aria-expanded={isOpen}
+            aria-controls={panelId}
+            aria-current={ariaCurrent}
+            className={cn(
+              mobileTopLinkClass,
+              "justify-between pr-3 text-left",
+              isActive && mobileTopLinkActiveClass,
+            )}
+          >
+            {title}
+            <MobileChevron open={isOpen} />
+          </button>
         )}
-      >
-        <p className="px-3 pb-2 pt-2 text-[10px] uppercase tracking-[0.18em] text-neutral-400">
-          {eyebrow}
-        </p>
+      </div>
 
-        <div className="flex flex-col gap-1">
-          {items.map((item) => (
-            <MobileSolutionRow
-              key={item.href}
-              item={item}
-              featuredLabel={featuredLabel}
-              onClose={onClose}
-            />
-          ))}
-        </div>
+      {isOpen ? (
+        <div id={panelId} className="pb-4">
+          <p className="px-3 pb-1 pt-1 text-[10px] uppercase tracking-[0.18em] text-neutral-400">
+            {eyebrow}
+          </p>
 
-        {supportItems && supportItems.length > 0 ? (
-          <div className="mt-2 border-t border-neutral-200 pt-2">
-            <p className="px-3 pb-2 pt-1 text-[10px] uppercase tracking-[0.18em] text-neutral-400">
-              {supportEyebrow}
-            </p>
-
-            <div className="flex flex-col gap-1">
-              {supportItems.map((item) => (
-                <MobileSolutionRow
+          <div className="flex flex-col">
+            {items.map((item) =>
+              item.children?.length ? (
+                <MobileSubGroup
                   key={item.href}
                   item={item}
-                  featuredLabel={featuredLabel}
+                  pathname={pathname}
                   onClose={onClose}
                 />
-              ))}
-            </div>
+              ) : (
+                <MobileRow key={item.href} item={item} pathname={pathname} onClose={onClose} />
+              ),
+            )}
           </div>
-        ) : null}
-      </div>
+
+          {supportItems && supportItems.length > 0 ? (
+            <div className="mt-2 border-t border-neutral-200 pt-2">
+              <p className="px-3 pb-1 pt-1 text-[10px] uppercase tracking-[0.18em] text-neutral-400">
+                {supportEyebrow}
+              </p>
+
+              <div className="flex flex-col">
+                {supportItems.map((item) => (
+                  <MobileRow key={item.href} item={item} pathname={pathname} onClose={onClose} />
+                ))}
+              </div>
+            </div>
+          ) : null}
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -1053,9 +1323,35 @@ function isReferencesHref(href: string): boolean {
   );
 }
 
-export default function Header({ sticky = true, locale = "sl", routeKey = "home", parentKey }: HeaderProps) {
+/** Exact-route test, reusing the file's existing `normalizePath`. */
+const isSamePath = (href: string | undefined, pathname: string) =>
+  Boolean(href) && normalizePath(href as string) === normalizePath(pathname);
+
+/**
+ * `page` is reserved for the exact current route. A trigger whose section owns
+ * the current page but is not the page itself gets `true`, so `/e-katalog/cnc`
+ * no longer makes the E-katalog trigger claim to be the current page.
+ */
+function currentFor(isActive: boolean, href: string | undefined, pathname: string) {
+  if (!isActive) return undefined;
+  if (!href) return "true" as const;
+  return isSamePath(href, pathname) ? ("page" as const) : ("true" as const);
+}
+
+export default function Header({ locale = "sl", routeKey = "home", parentKey }: HeaderProps) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const dropdowns = useDropdownController();
+  const mobilePanelId = useId();
+  const burgerRef = useRef<HTMLButtonElement | null>(null);
+  const mobilePanelRef = useRef<HTMLDivElement | null>(null);
+
+  const [openMobileSection, setOpenMobileSection] = useState<NavSection | null>(null);
+
+  const closeMobile = useCallback(() => {
+    setOpen(false);
+    burgerRef.current?.focus();
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -1064,6 +1360,44 @@ export default function Header({ sticky = true, locale = "sl", routeKey = "home"
       document.body.style.overflow = "";
     };
   }, [open]);
+
+  /** Escape closes the mobile panel from anywhere and hands focus back. */
+  useEffect(() => {
+    if (!open) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") closeMobile();
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open, closeMobile]);
+
+  /**
+   * Minimal focus containment: the panel is `fixed` over the page, so Tab must
+   * cycle between the burger and the panel's own links instead of walking into
+   * the content behind it. No dependency, no focus library.
+   */
+  const onMobileKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key !== "Tab") return;
+
+    const focusables = mobilePanelRef.current?.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+    );
+    if (!focusables?.length) return;
+
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    const burger = burgerRef.current;
+
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      burger?.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      burger?.focus();
+    }
+  };
 
   const labels = chromeLabels[locale];
   const solutionDesktopGroups = getSolutionDesktopGroups(locale);
@@ -1075,14 +1409,24 @@ export default function Header({ sticky = true, locale = "sl", routeKey = "home"
   const contactHref = getPath("contact", locale);
   const activeSection = resolveNavSection(pathname, locale, routeKey, parentKey);
 
+  /*
+    Sticky by system design, on every page — site-level navigation is the top
+    layer of a two-layer stack, with the WikiNav section index pinning directly
+    beneath it at `--header-h`. There is deliberately no opt-out: the old
+    `sticky={false}` prop existed only because the rail also claimed `top-0`,
+    and the two would overlap. The rail has moved down instead.
+
+    `h-16` on the Container below plus this hairline is what `--header-h`
+    records; the two have to be changed together.
+  */
   return (
-    <header
-      className={`${
-        sticky ? "sticky top-0" : "relative"
-      } z-50 border-b border-neutral-200 bg-white/95 backdrop-blur`}
-    >
-      <Container className="flex h-16 items-center justify-between">
-        <div className="flex items-center gap-10 lg:gap-12">
+    <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white">
+      {/* `relative` makes the Container the positioning context for the nav.
+          Logo and utilities stay in normal flex flow at the two edges; the nav
+          is taken out of flow and pinned to the container's own axis, so its
+          centre no longer depends on how wide the utilities are in a given
+          locale. */}
+      <Container className="relative flex h-16 items-center justify-between">
         <Link
           href={getPath("home", locale) ?? "/"}
           className="flex shrink-0 items-center"
@@ -1097,7 +1441,7 @@ export default function Header({ sticky = true, locale = "sl", routeKey = "home"
           />
         </Link>
 
-        <nav className="hidden items-center gap-6 md:flex">
+        <nav className="absolute inset-y-0 left-1/2 hidden -translate-x-1/2 items-center gap-6 xl:flex">
           <SolutionsDesktopDropdown
             href={solutionsHubHref}
             label={labels.trigger}
@@ -1106,16 +1450,23 @@ export default function Header({ sticky = true, locale = "sl", routeKey = "home"
             primaryItems={solutionDesktopGroups.primary}
             supportItems={solutionDesktopGroups.support}
             isActive={activeSection === "solutions"}
+            ariaCurrent={currentFor(activeSection === "solutions", solutionsHubHref, pathname)}
+            controller={dropdowns}
+            pathname={pathname}
           />
 
           {catalogItems.length > 0 && catalogTriggerHref ? (
             <DesktopDropdown
+              dropdownKey="catalog"
               href={catalogTriggerHref}
               label={labels.catalogTrigger}
               eyebrow={labels.catalogEyebrow}
               items={catalogItems}
               featuredLabel={labels.catalogFeatured}
               isActive={activeSection === "catalog"}
+              ariaCurrent={currentFor(activeSection === "catalog", catalogTriggerHref, pathname)}
+              controller={dropdowns}
+              pathname={pathname}
             />
           ) : null}
 
@@ -1128,37 +1479,58 @@ export default function Header({ sticky = true, locale = "sl", routeKey = "home"
               <Link
                 key={item.href}
                 href={item.href}
-                className={cn(navLinkClass, isActive && navLinkActiveClass)}
-                aria-current={isActive ? "page" : undefined}
+                className={cn(
+                  navLinkClass,
+                  isActive ? navLinkActiveClass : navLinkIdleClass,
+                )}
+                aria-current={currentFor(isActive, item.href, pathname)}
               >
                 {item.label}
+                {isActive ? <NavCurrentMarker /> : <NavHoverMarker />}
               </Link>
             );
           })}
 
         {visibleCompanyItems.length > 0 ? (
           <DesktopDropdown
+            dropdownKey="company"
             label={labels.companyTrigger}
             eyebrow={labels.companyEyebrow}
             items={visibleCompanyItems}
             featuredLabel={labels.companyFeatured}
             isActive={activeSection === "company"}
+            ariaCurrent={currentFor(activeSection === "company", undefined, pathname)}
+            controller={dropdowns}
+            pathname={pathname}
           />
         ) : null}
         </nav>
-        </div>
 
-        <div className="hidden items-center gap-4 md:flex">
+        <div className="hidden items-center gap-4 xl:flex">
           <LocaleSwitcher currentLocale={locale} routeKey={routeKey} parentKey={parentKey} />
-          {contactHref ? <Button href={contactHref}>{labels.kontakt}</Button> : null}
+          {contactHref ? (
+            <Button href={contactHref} variant="brand">
+              {labels.kontakt}
+            </Button>
+          ) : null}
         </div>
 
         <button
+          ref={burgerRef}
           type="button"
-          onClick={() => setOpen((value) => !value)}
-          className="focus-ring flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-900 transition hover:border-neutral-300 md:hidden"
+          onClick={() => {
+            setOpen((value) => {
+              /* Opening lands the visitor on their own section already
+                 expanded; on Home `activeSection` is null, so everything
+                 starts collapsed. */
+              if (!value) setOpenMobileSection(activeSection);
+              return !value;
+            });
+          }}
+          className="focus-ring flex h-11 w-11 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-900 transition hover:border-neutral-300 xl:hidden"
           aria-label={open ? labels.closeMenu : labels.openMenu}
           aria-expanded={open}
+          aria-controls={mobilePanelId}
         >
           <span className="relative block h-3.5 w-5">
             <span
@@ -1181,31 +1553,49 @@ export default function Header({ sticky = true, locale = "sl", routeKey = "home"
       </Container>
 
       {open && (
-        <div className="fixed inset-x-0 top-16 z-40 max-h-[calc(100vh-4rem)] overflow-y-auto border-b border-black/5 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.08)] md:hidden">
+        <div
+          id={mobilePanelId}
+          ref={mobilePanelRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label={labels.openMenu}
+          onKeyDown={onMobileKeyDown}
+          // Hangs from the header's real bottom edge, hairline included.
+          // `top-16` was the header's content box alone, leaving the panel
+          // sitting 1px high over the seam.
+          className="fixed inset-x-0 bottom-0 top-[var(--header-h)] z-40 overflow-y-auto border-b border-black/5 bg-white xl:hidden"
+        >
           <Container className="py-6">
-            <nav className="flex flex-col gap-7">
-              <MobileLinkGroup
+            <nav className="flex flex-col">
+              <MobileSection
+                sectionKey="solutions"
                 href={solutionsHubHref}
                 title={labels.trigger}
                 eyebrow={labels.eyebrow}
                 items={solutionDesktopGroups.primary}
                 supportEyebrow={labels.supportEyebrow}
                 supportItems={solutionDesktopGroups.support}
-                featuredLabel={labels.mobileFeatured}
                 onClose={() => setOpen(false)}
                 isActive={activeSection === "solutions"}
-                flatGroupContainer
+                ariaCurrent={currentFor(activeSection === "solutions", solutionsHubHref, pathname)}
+                pathname={pathname}
+                openKey={openMobileSection}
+                setOpenKey={setOpenMobileSection}
               />
 
               {catalogItems.length > 0 && catalogTriggerHref ? (
-                <MobileLinkGroup
+                <MobileSection
+                  sectionKey="catalog"
                   href={catalogTriggerHref}
                   title={labels.catalogTrigger}
                   eyebrow={labels.catalogEyebrow}
                   items={catalogItems}
-                  featuredLabel={labels.catalogFeatured}
                   onClose={() => setOpen(false)}
                   isActive={activeSection === "catalog"}
+                  ariaCurrent={currentFor(activeSection === "catalog", catalogTriggerHref, pathname)}
+                  pathname={pathname}
+                  openKey={openMobileSection}
+                  setOpenKey={setOpenMobileSection}
                 />
               ) : null}
 
@@ -1215,26 +1605,38 @@ export default function Header({ sticky = true, locale = "sl", routeKey = "home"
                   (isReferencesHref(item.href) && activeSection === "references");
 
                 return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    className={cn(mobileTopLinkClass, isActive && mobileTopLinkActiveClass)}
-                    aria-current={isActive ? "page" : undefined}
-                  >
-                    {item.label}
-                  </Link>
+                  <div key={item.href} className="relative flex items-center border-b border-neutral-200">
+                    {isActive ? (
+                      <span
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-y-3 left-0 w-[2px] rounded-full bg-[var(--color-brand)]"
+                      />
+                    ) : null}
+
+                    <Link
+                      href={item.href}
+                      onClick={() => setOpen(false)}
+                      className={cn(mobileTopLinkClass, isActive && mobileTopLinkActiveClass)}
+                      aria-current={currentFor(isActive, item.href, pathname)}
+                    >
+                      {item.label}
+                    </Link>
+                  </div>
                 );
               })}
 
             {visibleCompanyItems.length > 0 ? (
-              <MobileLinkGroup
+              <MobileSection
+                sectionKey="company"
                 title={labels.companyTrigger}
                 eyebrow={labels.companyEyebrow}
                 items={visibleCompanyItems}
-                featuredLabel={labels.companyFeatured}
                 onClose={() => setOpen(false)}
                 isActive={activeSection === "company"}
+                ariaCurrent={currentFor(activeSection === "company", undefined, pathname)}
+                pathname={pathname}
+                openKey={openMobileSection}
+                setOpenKey={setOpenMobileSection}
               />
             ) : null}
             </nav>
@@ -1242,7 +1644,7 @@ export default function Header({ sticky = true, locale = "sl", routeKey = "home"
             <div className="flex flex-col gap-4 pt-7">
               <LocaleSwitcher currentLocale={locale} routeKey={routeKey} parentKey={parentKey} />
               {contactHref ? (
-                <Button href={contactHref} className="w-full justify-center">
+                <Button href={contactHref} variant="brand" className="w-full justify-center">
                   {labels.kontakt}
                 </Button>
               ) : null}
