@@ -1001,3 +1001,178 @@ Audited, classified B, and deliberately not implemented:
   so this is the balanced result)
 
 No new recommendations are carried forward. Copy and IA were not reopened.
+
+---
+
+# Solution detail — LOCKED
+
+Closes the seven `/resitve/*` solution detail pages. All of them render through
+one block-dispatch template, so every change here is shared-template systemic.
+
+## Status
+
+- Solution detail visual polish **implemented**
+- shared template: `src/components/solutions/SolutionPageTemplate.tsx`
+- commit: `7d9c528f5b2dd63e6d4653053618fa009b6ed431`
+- pushed to `origin/main`
+- local `main` and `origin/main` **in sync** (0 ahead, 0 behind)
+
+## Implemented changes
+
+One file, +10 / −10.
+
+**A1 + A3 — `text-balance`** added to:
+
+- hero subhead
+- kontakt body
+- all **six** template-local description declarations of the same role
+
+**A2 — proofGrid breakpoint:** `lg:grid-cols-2` → `sm:grid-cols-2`, matching the
+`capabilityGroups` and `relatedSolutions` grids in the same template, which
+already stepped at `sm`.
+
+**A2 — proofGrid responsive image hint:**
+`(min-width: 1024px) 50vw, 100vw` → `(min-width: 640px) 50vw, 100vw`.
+
+Nothing else moved: no font size, leading, colour, max-width, spacing, gap,
+`ProofCard` variant, aspect ratio, object-fit, content or IA change.
+
+## Important audit correction
+
+The original audit's line mapping for A3 was **incomplete**, and this is worth
+recording because the numbers and the measurements disagreed:
+
+- the audit cited description declarations around lines **305 / 415 / 588**
+- but the actual worst orphan cases (`lastR` 0.20 / 0.31) were produced by the
+  **bare** description declarations around lines **265 / 462 / 831**
+  (`capabilityGroups`, sequence groups, `relatedSolutions`)
+- applying only the originally cited lines left `lastR` 0.20 in place, still
+  computing `text-wrap: wrap` — caught on re-measure, not assumed
+- those three were added to the balanced set alongside the cited variants
+
+**Final result: all six template-local description declarations of that role
+carry `text-balance`.** That is more coherent than three arbitrary instances —
+the role is balanced consistently across the template.
+
+## Measured results
+
+### Text balancing
+
+`namenski-sistemi`:
+
+| | before → after |
+|---|---|
+| SL hero @375 | **0.39 → 1.00** |
+| SL hero @1440 | **0.37 → 0.88** |
+| SL kontakt @375 | **0.38 → 1.00** |
+| EN kontakt @375 | **0.28 → 0.99** |
+| DE hero @375 | 0.58 → **1.00** |
+
+`avtomatizacija-proizvodnje`:
+
+| | before → after |
+|---|---|
+| comparisonSplit body @375 | **0.24 → 1.00** |
+| hero @768 | 0.60 → **0.98** |
+| kontakt @768 | **0.41 → 0.97** |
+
+- **zero line-count changes**
+- **zero paragraph-height changes** (confirmed by stash/re-measure A/B)
+- the DE 7-line kontakt body remains a safe **no-op** — it sits beyond
+  Chromium's ~6-line balancing range, so it holds at 0.73 either side. Not a
+  regression; the same documented failure mode as the A6-follow-up.
+
+### proofGrid
+
+| width | before | after |
+|---|---|---|
+| 640 | 1770 | **908** |
+| 768 | **1916** | **910** |
+| 1024 | 962 | unchanged at **962** |
+| 1440 | 1058 | unchanged at **1058** |
+
+- the previous **718px tablet image peak is removed**
+- card widths remain healthy at 640 / 768 (284px / 348px, cards equal-height)
+- the responsive image hint now matches the actual 640px grid switch
+
+On monotonicity, stated precisely: image width runs 333 → 348 → 282 → 346 → 462
+→ 590 across 375/390/640/768/1024/1440. It is **not strictly monotonic**,
+because the layout changes column count at 640 and the image necessarily steps
+down there. What matters is that the pathological tablet spike is gone and **no
+tablet image exceeds the 1440 rendered width**.
+
+## Verification
+
+- representative Solution detail pages checked across **SL / EN / DE**
+- widths: **375 / 390 / 640 / 768 / 1024 / 1440** (90 page × width checks)
+- **no real page-level horizontal overflow caused by this pass**
+- proof cards remain equal-height at every 2-up width
+  (642/642, 644/644, 655/655, 751/751)
+- no title/body overflow at 640
+- 1024 / 1440 layout unchanged except the intended word redistribution —
+  section heights and page totals identical either side of a stash A/B
+- `ProofCard` and `RuledRowList` internals untouched; the ProofCard-internal
+  orphan was deliberately left in place
+- `tsc --noEmit` **exit 0**
+- `next build` **exit 0**
+
+## LOCKED areas
+
+Closed. No further changes without an explicit unlock:
+
+- Shared `SolutionPageTemplate` visual composition
+- Hero composition
+- Local supporting-copy balance
+- Problem / context sections
+- `capabilityGroups`
+- `relatedSolutions`
+- proofGrid breakpoint
+- proofGrid responsive image sizing
+- Section order
+- Surface ramp / block-to-tone mapping
+- Image aspect ratios and focal-point handling
+- Kontakt composition
+- Locale parity
+- Global typography/rhythm system
+- `SectionHeader`
+- Prose measures
+- Header / WikiNav / anchors **as architecture**
+- Global section padding system
+- Home
+- Solutions hub
+- Catalog architecture
+- `ProofCard` / `RuledRowList` contracts
+- Content / IA / copy
+
+## Explicitly leave alone
+
+Audited, classified B, deliberately not implemented:
+
+- **B1** — proofProject / crossSell image peak at tablet. The measured 2-up
+  alternative would make text columns too narrow (231px ≈ 33 CPL at 640,
+  359px ≈ 42 CPL at 768), so the cure is worse than the symptom.
+- **B2** — authored hero line breaks on mobile (2 authored lines render as 4)
+- **B3** — `comparisonSplit` `lg` breakpoint
+- **B4** — ProofCard-internal orphan
+- **B5** — inert H1 `max-w-[16ch]`
+
+No new recommendations are carried forward.
+
+## Separate known pre-existing WikiNav bug
+
+Recorded here for traceability, but **not part of Solution detail polish** and
+not addressed by this pass:
+
+- `.wiki-nav-rail` **clips** hidden tabs because it uses `overflow-x: hidden`
+  rather than scrolling
+- at 375 SL: `scrollWidth` ~599 vs `clientWidth` 375
+- at 640 DE: `scrollWidth` ~801 vs `clientWidth` 640
+- DE `produktionsautomatisierung` at 640 can push the document ~7px wide
+  (`scrollWidth` 647 vs 640) from the same nav-tab issue
+- **verified identical in the baseline before this pass** (stash A/B), so it is
+  neither caused nor worsened here
+- WikiNav source was untouched
+
+This should be handled **separately, as a global bug**, despite the navigation
+architecture otherwise being locked — tabs beyond the clip are currently
+unreachable.
