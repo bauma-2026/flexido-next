@@ -1158,21 +1158,75 @@ Audited, classified B, deliberately not implemented:
 
 No new recommendations are carried forward.
 
-## Separate known pre-existing WikiNav bug
+## WikiNav note — CORRECTED
 
-Recorded here for traceability, but **not part of Solution detail polish** and
-not addressed by this pass:
+An earlier revision of this section recorded two WikiNav claims that were
+**investigated and disproven**. They are withdrawn; what follows replaces them.
 
-- `.wiki-nav-rail` **clips** hidden tabs because it uses `overflow-x: hidden`
-  rather than scrolling
-- at 375 SL: `scrollWidth` ~599 vs `clientWidth` 375
-- at 640 DE: `scrollWidth` ~801 vs `clientWidth` 640
-- DE `produktionsautomatisierung` at 640 can push the document ~7px wide
-  (`scrollWidth` 647 vs 640) from the same nav-tab issue
-- **verified identical in the baseline before this pass** (stash A/B), so it is
-  neither caused nor worsened here
-- WikiNav source was untouched
+### Withdrawn
 
-This should be handled **separately, as a global bug**, despite the navigation
-architecture otherwise being locked — tabs beyond the clip are currently
-unreachable.
+- ~~the rail's clipping leaves tabs unreachable~~
+- ~~DE `produktionsautomatisierung` at 640 produces a real ~7px document
+  overflow~~
+
+### What is actually true
+
+- `overflow-x: hidden` on `.wiki-nav-rail` is **intentional and remains
+  correct**. It keeps the element a scroll container — so `scrollLeft` and the
+  UA's focus-reveal work — while the UA refuses every user scroll input.
+- `scrollWidth > clientWidth` is **expected**, not a symptom: WikiNav is a
+  programmatically scrollable, non-pannable rail.
+- The reported **+7px was a measurement artifact** — `documentElement.scrollWidth`
+  was compared against the *requested* viewport width rather than actual
+  `innerWidth`. Measured properly, `scrollWidth === innerWidth` at every width
+  (647/647 at a requested 640, 661/661 at 660, 768/768 at 768); the delta was
+  the vertical scrollbar gutter, which varies with viewport scaling.
+- **There was no real document-level horizontal scroll.** Setting
+  `documentElement.scrollLeft = 9999` leaves it at `0` at every width.
+- **Direct hash reveal and active-item programmatic reveal already worked
+  correctly** and were never broken.
+
+### The actual bug — narrower
+
+A **keyboard-focused** tab could remain partially clipped, because the browser
+considered it "visible enough" to skip its own scroll-into-view. The UA's
+focus-reveal only fires for an item wholly outside the scrollport.
+
+Example — DE `/produktionsautomatisierung` @768, Tab to the last tab
+("Projekte"): the tab was **9px clipped** and sat under the 32px edge fade
+while carrying the focus ring.
+
+CSS-only routes were tested and **all failed** to trigger a scroll:
+`scroll-padding-inline` on the rail (32px and asymmetric) and
+`scroll-margin-inline-end` on the item each left `scrollLeft` at 0.
+
+### The fix
+
+Reuses the **existing minimal-movement reveal logic** on focus:
+`revealActive()` gained an optional focused-anchor target, called from
+`onFocus` in both variants. No CSS change, no `overflow` change, no new
+algorithm.
+
+Commit: `e51bd2602b2427b6ee12d806b656e1efed1c2f2e` — `Fix WikiNav keyboard
+focus reveal`.
+
+### Verified before → after
+
+| case | before | after |
+|---|---|---|
+| DE @768, last tab focused | `scrollLeft 0`, right edge **777** vs 768 → **9px clipped**, fade `end` | `scrollLeft 33`, right edge **744**, **fully visible**, fade `start` |
+| SL @375, direct hash `#dokaz` | `scrollLeft 224`, active fully visible | **unchanged** — `scrollLeft 224`, active fully visible |
+| DE @640, document | no real horizontal overflow | **no real horizontal overflow** |
+
+After the fix:
+
+- focused tab fully visible
+- fade state correct (`end` at rest, `start` at the end, `none` where the rail fits)
+- no manual panning — a synthetic `wheel deltaX:200` leaves `scrollLeft` at 0
+- sticky geometry unchanged — nav 48px, `top: 65px` = `--header-h`
+- both **index** and **pills** variants verified with real keyboard traversal
+- direct hash behaviour unchanged
+- desktop is a strict no-op: the rail fits, so the handler returns early
+
+The locked navigation architecture is not reopened — the change is additive,
+extending the existing reveal to a case it silently missed.
