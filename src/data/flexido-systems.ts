@@ -224,7 +224,7 @@ export const flexidoSystems: FlexidoSystem[] = [
       "Povezovalni sloj med proizvodno opremo, transportnimi enotami, postajami in ERP oziroma proizvodnimi sistemi.",
     description:
       "Middleware povezuje avtomatizacijsko opremo, materialni tok, transportne enote in ERP sisteme v strukturiran komunikacijski sloj proizvodnje.",
-    image: "/images/systems/raw/middleware-main.webp",
+    image: "/images/systems/raw/middleware-system-studio.png",
     applications: [
       "Povezava strojev in postaj",
       "ERP integracija",

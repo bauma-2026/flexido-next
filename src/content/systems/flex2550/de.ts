@@ -8,27 +8,27 @@ export const flex2550SystemContent: SystemPageContent = {
   routeKey: "standardCellsFlex2550",
   meta: {
     title: "FLEX 25 / 50 | Flexido",
-    description: "Hochflexible Roboterzelle für anspruchsvollere Anwendungen, höhere Traglast und ein breiteres Optionsspektrum.",
+    description: "Konfigurierbare Roboterzelle mit einem Roboter mit 25 oder 50 kg Traglast für anspruchsvollere Produktionsschritte.",
   },
   backLabel: "← Alle Standardzellen",
-  layoutRefresh: true,
   hero: {
     eyebrow: "Standardroboterzellen",
     heading: "FLEX 25 / 50",
-    subhead: "Hochflexible Roboterzelle für anspruchsvollere Anwendungen, höhere Traglast und ein breiteres Optionsspektrum.",
+    subhead: "Konfigurierbare Roboterzelle mit einem Roboter mit 25 oder 50 kg Traglast für anspruchsvollere Produktionsschritte.",
     media: { kind: "image", src: "/images/systems/raw/flex-25-50-studio-wide.webp", alt: "FLEX 25 / 50 Roboterzelle" },
   },
   intro: {
-    eyebrow: "Hochflexible Zelle",
-    heading: "Plattform für anspruchsvollere Anwendungen.",
+    eyebrow: "Wann FLEX 25 / 50 wählen",
+    heading: "Wenn FLEX 7 die erforderliche Traglast, Reichweite oder Optionen nicht abdeckt.",
     paragraphs: [
-      "Bei manchen Umsetzungen ist FLEX 25 / 50 ein konfigurierbarer Ausgangspunkt — vor allem dann, wenn die Standardzelle FLEX 7 die erforderliche Traglast, Reichweite oder das Optionsspektrum nicht abdeckt.",
+      "FLEX 25 / 50 ist ein konfigurierbarer Ausgangspunkt für Umsetzungen, bei denen die erforderliche Traglast, Reichweite und zusätzliche Module berücksichtigt werden müssen.",
     ],
     image: { src: "/raw/flex-25-50-isometric-robotic-manufacturing-cell.png", alt: "Gesamtes FLEX 25 / 50 Automatisierungssystem mit Sicherheitszaun" },
   },
   product: {
     eyebrow: "Standardzelle",
     systemSlug: "flex-25-50",
+    imageSrc: "/images/systems/raw/flex-25-50-studio-wide.webp",
     description:
       "FLEX 25 / 50 ist eine leistungsfähigere Automatisierungsplattform für Insert Placing, Insert Moulding, Qualitätskontrolle und Prozessanwendungen, bei denen größere Roboter, höhere Traglast oder ein breiteres Optionsspektrum erforderlich sind.",
     showTechnical: true,
@@ -41,6 +41,7 @@ export const flex2550SystemContent: SystemPageContent = {
   },
   itemGrids: [
     {
+      role: "applications",
       eyebrow: "Anwendungen",
       heading: "Wo FLEX 25 / 50 eingesetzt wird.",
       items: [
@@ -53,7 +54,7 @@ export const flex2550SystemContent: SystemPageContent = {
   ],
   applicationSignals: {
     eyebrow: "Anwendungssignale",
-    heading: "Mid- & High-Performance-Anwendungen mit minimalem Footprint.",
+    heading: "Beispiele für Teile und Komponenten.",
     items: [
       {
         image: { src: "/images/flexido/products/flex-25-50/flex-25-50-stator.jpg", alt: "Stator" },
@@ -81,7 +82,7 @@ export const flex2550SystemContent: SystemPageContent = {
       },
     ],
   },
-  optionGroupsHeading: { heading: "Dokumentierte Konfigurationen" },
+  optionGroupsHeading: { eyebrow: "Module und technische Elemente", heading: "Dokumentierte Konfigurationen" },
   optionGrids: [
     {
       eyebrow: "Greifer",
@@ -122,8 +123,8 @@ export const flex2550SystemContent: SystemPageContent = {
       ],
     },
     {
-      eyebrow: "Zuführung / Abführung",
-      heading: "Infeed und Outfeed",
+      eyebrow: "Zuführung und Abführung",
+      heading: "Zuführung und Abführung",
       items: [
         {
           image: {

@@ -17,8 +17,9 @@ export const hubSystemsContent: SystemsHubContent = {
     eyebrow: "Offering",
     heading: "We choose the system based on the process.",
     paragraphs: [
-      "The offering spans standard robot cells for tending CNC machines and injection molding machines, the TMX collaborative robot platform, and the Middleware connecting layer linking equipment, transport, and ERP or production systems.",
-      "The interchangeable Station System allows adaptation with modules, grippers, and stations to match the machine, part, and specific production flow.",
+      "The program combines standard robot cells, a mobile robotic platform, and a connecting layer between equipment, transport, and production systems.",
+      "A standard platform is the starting point, adapted to the machine, part, space, and process.",
+      "When several operations or stations need to work together in a coordinated way, we design a custom-built system.",
     ],
   },
   cardsHeading: {
@@ -27,11 +28,11 @@ export const hubSystemsContent: SystemsHubContent = {
   },
   cardLinkLabel: "View system",
   cards: [
-    { routeKey: "standardCellsCnc", systemSlug: "flex-7-cnc", title: "FLEX 7 CNC Slim", eyebrow: "Robot cell", desc: "A compact robot cell for tending CNC machines — loading, unloading, and a more stable part flow." },
-    { routeKey: "standardCellsImm", systemSlug: "flex-7-imm", title: "FLEX 7 IMM Slim", eyebrow: "Robot cell", desc: "A robot cell for tending injection molding machines — part removal, insert moulding, and inspection." },
-    { routeKey: "standardCellsFlex2550", systemSlug: "flex-25-50", title: "FLEX 25 / 50", eyebrow: "Robot cell", desc: "A flexible robot cell for medium and more demanding applications, with higher payload capacity and the option of additional modules." },
-    { routeKey: "standardCellsTmx", systemSlug: "tmx", title: "TMX", eyebrow: "Collaborative robot platform", desc: "A mobile collaborative robot platform for pick and place, simple assembly, quality inspection, and operator assistance." },
-    { routeKey: "standardCellsMiddleware", systemSlug: "middleware", title: "Middleware", eyebrow: "Connecting layer", desc: "A connecting layer between production equipment, transport units, stations, and ERP or production systems." },
+    { routeKey: "standardCellsCnc", systemSlug: "flex-7-cnc", title: "FLEX 7 CNC Slim", eyebrow: "CNC machines", desc: "A compact robot cell for tending CNC machines — loading, unloading, and a more stable part flow." },
+    { routeKey: "standardCellsImm", systemSlug: "flex-7-imm", title: "FLEX 7 IMM Slim", eyebrow: "Injection molding", desc: "A robot cell for tending injection molding machines — part removal, insert moulding, and inspection." },
+    { routeKey: "standardCellsFlex2550", systemSlug: "flex-25-50", title: "FLEX 25 / 50", eyebrow: "25 / 50 kg payload", desc: "A configurable robot cell with a 25 or 50 kg payload robot when FLEX 7 does not cover the required payload, reach, or options." },
+    { routeKey: "standardCellsTmx", systemSlug: "tmx", title: "TMX", eyebrow: "Collaborative robot platform", desc: "A collaborative robot on a mobile platform for tasks alongside existing equipment and across different work areas." },
+    { routeKey: "standardCellsMiddleware", systemSlug: "middleware", title: "Middleware", eyebrow: "Connecting layer", desc: "Connects equipment, mobile transport, storage and buffer units, and ERP. Exchanges transport orders, station status, and material context." },
   ],
   modules: {
     eyebrow: "Modules and technical elements",

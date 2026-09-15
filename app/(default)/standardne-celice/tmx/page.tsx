@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import TmxPageTemplate from "@/components/systems/TmxPageTemplate";
+import CatalogPageTemplate from "@/components/systems/CatalogPageTemplate";
 import { getTmxSystemContent } from "@/content/systems";
 import { buildAlternates } from "@/i18n/metadata";
 
@@ -16,5 +16,5 @@ export function generateMetadata(): Metadata {
 }
 
 export default function Page() {
-  return <TmxPageTemplate locale="sl" content={getTmxSystemContent("sl")} />;
+  return <CatalogPageTemplate locale="sl" content={getTmxSystemContent("sl")} />;
 }

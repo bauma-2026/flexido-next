@@ -13,11 +13,11 @@ export const middlewareSystemContent: SystemPageContent = {
   },
   backLabel: "← Alle Standardzellen",
   hero: {
-    eyebrow: "Standardroboterzellen",
+    eyebrow: "Verbindungsebene",
     heading: "Middleware",
     subhead:
       "Eine Verbindungsschicht zwischen Produktionsausrüstung, Transporteinheiten, Stationen, Lagerung und ERP- bzw. Produktionssystemen.",
-    media: { kind: "image", src: "/images/systems/raw/middleware-main.webp", alt: "Middleware-Verbindungsschicht" },
+    media: { kind: "image", src: "/raw/middleware-industrial-robot-1-1.png", alt: "Middleware-Verbindungsschicht" },
   },
   intro: {
     eyebrow: "Verbindung von Ausrüstung und Systemen",
@@ -39,6 +39,7 @@ export const middlewareSystemContent: SystemPageContent = {
   },
   itemGrids: [
     {
+      role: "technical-definitions",
       eyebrow: "Integrationsschicht",
       heading: "Wie Middleware Maschinen, Transport und ERP verbindet.",
       items: [
@@ -50,6 +51,8 @@ export const middlewareSystemContent: SystemPageContent = {
       ],
     },
     {
+      role: "module-class",
+      media: { kind: "image", src: "/raw/middleware-transport-unit-sdv-1.png", alt: "Mobile Transportplattform SDV/AMR (dokumentierte OTTO-Linien)" },
       eyebrow: "Transportplattformen",
       heading: "Dokumentierte Klassen mobiler Transporteinheiten.",
       items: [
@@ -60,6 +63,8 @@ export const middlewareSystemContent: SystemPageContent = {
       ],
     },
     {
+      role: "module-class",
+      media: { kind: "video", src: "/video/flexido/hero-logistika.mp4", alt: "Automatisierte Lagerung und Transfer im Fluss." },
       eyebrow: "Lagerung und Robotertransfer",
       heading: "Automatisierte Lagerung und Transfer im Fluss.",
       items: [
@@ -69,37 +74,23 @@ export const middlewareSystemContent: SystemPageContent = {
       ],
     },
     {
+      role: "module-class",
       eyebrow: "Puffer und Übergabe",
       heading: "Mechanische Einheiten für Zwischenlagerung und Übergabe.",
-      items: [
-        "Linear Buffer (Ein-/Ausgang) — Servo-angetriebene Plattform, Siemens PLC, Endlagen-Sensorik",
-        "Mechanical Buffer Chute — LR (stückzahl) / W (gewicht), zwei integrierte Kammern",
-        "Mechanical Drop-off — Vertikalachse und Rotation, Siemens PLC, automatische Linienzuführung",
+      lead: "Linear Buffer (Ein-/Ausgang) — Servo-angetriebene Plattform, Siemens PLC, Endlagen-Sensorik",
+      tiles: [
+        { src: "/raw/middleware-mechanical-buffer-chute-1.png", alt: "Mechanical Buffer Chute", caption: "Mechanical Buffer Chute — LR (stückzahl) / W (gewicht), zwei integrierte Kammern" },
+        { src: "/raw/middleware-mechanical-drop-off-unit-1.png", alt: "Mechanical Drop-off unit", caption: "Mechanical Drop-off — Vertikalachse und Rotation, Siemens PLC, automatische Linienzuführung" },
       ],
+      items: [],
     },
   ],
+  optionGroupsHeading: { eyebrow: "Verbundene Ausrüstung", heading: "Maschinen, Stationen und Transporteinheiten." },
   detailPanel: {
+    placement: "related",
     paragraphs: [
       "Die praktische Integrationsfrage lautet: Wie weiß eine Station, wann eine mobile Einheit kommen soll, was sie abholen soll und wie das an ein höheres System gemeldet wird? Middleware kombiniert Hardware-Stationsschnittstelle, Transport Order Service und Backend-Logik, die Aufrufe nach Transport- und Frachttyp routet.",
       "Ein ERP- oder Produktionssystem wird nicht über ein festes Modul angebunden — eine Zwischenschicht übernimmt Transportauftragsaustausch und Kontext (MWContext Broker), anpassbar an bestehende und neue Ausrüstung im selben Betrieb.",
-    ],
-    panelEyebrow: "Dienste in der Schicht",
-    panelItems: [
-      "Hardware Station Service",
-      "Transport order service (JSON / file)",
-      "Backend routing by transport & cargo type",
-      "MWContext Broker",
-      "ERP / production-system connection context",
-    ],
-  },
-  gallery: {
-    eyebrow: "Verbundene Ausrüstung",
-    heading: "Maschinen, Stationen und Transporteinheiten.",
-    alts: [
-      "Industrielle Roboterstation ABB IRB 6700 (dokumentierte Ausführung)",
-      "Mechanical Buffer Chute",
-      "Mechanical Drop-off unit",
-      "Mobile Transportplattform SDV/AMR (dokumentierte OTTO-Linien)",
     ],
   },
   relatedSolutions: {

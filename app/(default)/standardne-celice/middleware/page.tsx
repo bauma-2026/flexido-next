@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import MiddlewarePageTemplate from "@/components/systems/MiddlewarePageTemplate";
+import CatalogPageTemplate from "@/components/systems/CatalogPageTemplate";
 import { getMiddlewareSystemContent } from "@/content/systems";
 import { buildAlternates } from "@/i18n/metadata";
 
@@ -16,5 +16,5 @@ export function generateMetadata(): Metadata {
 }
 
 export default function Page() {
-  return <MiddlewarePageTemplate locale="sl" content={getMiddlewareSystemContent("sl")} />;
+  return <CatalogPageTemplate locale="sl" content={getMiddlewareSystemContent("sl")} />;
 }

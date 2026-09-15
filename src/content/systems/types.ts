@@ -31,6 +31,23 @@ export type ProductBlock = {
   description: string;
   showTechnical?: boolean;
   /**
+   * Product-specific override for the identity image. Declared in content so
+   * the template holds no per-slug lookup table.
+   *
+   * FLEX 25/50 only: `flexidoSystems.image` is a portrait studio shot
+   * (1122×1402) that the landscape 3:2 identity frame crops hard. The `-wide`
+   * shot is the same machine, same asset family, already 3:2 (1536×1024).
+   * No new asset work — the swap just removes the crop.
+   */
+  imageSrc?: string;
+  /**
+   * Identity-frame treatment. `cover` (default) suits studio photography;
+   * `contain` on a `dark` stage suits a system diagram that has to stay
+   * fully readable rather than be cropped to fill. Middleware only.
+   */
+  imageFit?: "cover" | "contain";
+  imageStage?: "light" | "dark";
+  /**
    * Compact quick-scan bullets, authored per locale here rather than read
    * from `flexidoSystems[].highlights` — that array is Slovenian-only, and
    * the template renders every locale's page from the same shared data.
@@ -43,6 +60,12 @@ export type GalleryBlock = {
   heading: string;
   /** Localized alts aligned with `flexidoSystems[].gallery` by index. Paths stay in the data file. */
   alts: string[];
+  /**
+   * `options` — the images *are* the product's documented options (TMX:
+   * gripper / interfaces / safety scanner), so the gallery renders as an
+   * Options subgroup. A gallery with no role renders nowhere.
+   */
+  role?: "options";
 };
 
 export type RelatedSolutionsBlock = {
@@ -65,10 +88,37 @@ export type PageMeta = {
   description: string;
 };
 
+/**
+ * Which catalogue slot an `itemGrids` entry belongs to. Before the shared
+ * template this was inferred from array position, which is why the same
+ * eyebrow ("Dodatne operacije") rendered as image cards on CNC and as a text
+ * matrix on IMM. The role is now declared next to the copy it describes.
+ *
+ * - `applications`          → slot 05, muted register, peer matrix
+ * - `capabilities`          → slot 06, dense text matrix ("what it contains")
+ * - `documented-systems`    → slot 04, compact inventory under the specs
+ * - `technical-definitions` → slot 04, `name — explanation` as label/value
+ * - `module-class`          → slot 06, a documented class with its own media
+ */
+export type ItemGridRole =
+  | "applications"
+  | "capabilities"
+  | "documented-systems"
+  | "technical-definitions"
+  | "module-class";
+
 export type ItemGridBlock = {
   eyebrow: string;
   heading: string;
   items: string[];
+  /** Defaults to `applications` when omitted — the majority role. */
+  role?: ItemGridRole;
+  /** `module-class` only: opening paragraph above the media/tiles. */
+  lead?: string;
+  /** `module-class` only: the single documented visual for this class. */
+  media?: { kind: "image"; src: string; alt: string } | { kind: "video"; src: string; alt: string };
+  /** `module-class` only: a paired set of documented units, each captioned. */
+  tiles?: { src: string; alt: string; caption?: string }[];
 };
 
 /** Compact technical option row — thumbnail + title + one line (low-res legacy assets). */
@@ -103,8 +153,21 @@ export type DetailPanelBlock = {
   eyebrow?: string;
   heading?: string;
   paragraphs: string[];
-  panelEyebrow: string;
-  panelItems: string[];
+  /**
+   * The bordered list that closes an `options`-placed panel. Optional: a
+   * `related`-placed panel contributes only its paragraphs, and Middleware's
+   * panel list was dropped once the same five services became the Technical
+   * Data definitions.
+   */
+  panelEyebrow?: string;
+  panelItems?: string[];
+  /**
+   * Which slot the panel closes. `options` renders it as the integration note
+   * at the end of slot 06 (IMM); `related` renders its paragraphs as the
+   * lead-in above the related cards (Middleware, unchanged from today).
+   * Declared rather than inferred from whether `heading` is set.
+   */
+  placement?: "options" | "related";
 };
 
 export type BenefitsBlock = {
@@ -128,14 +191,8 @@ export type KontaktContent = {
 export type SystemPageContent = {
   routeKey: RouteKey;
   meta: PageMeta;
-  /** Omitted on cnc/imm to preserve their exact existing structure (no back link today). */
+  /** Hero back link to the catalogue hub. Present on all five products. */
   backLabel?: string;
-  /**
-   * Opt-in editorial layout pass (intro text/image order, product section
-   * flip, dark photographic kontakt band) — CNC only for now. Off by default
-   * so IMM/FLEX 25-50/TMX/middleware keep their current layout untouched.
-   */
-  layoutRefresh?: boolean;
   hero: SystemHero;
   intro: IntroBlock;
   product: ProductBlock;
@@ -151,7 +208,7 @@ export type SystemPageContent = {
    * outfeed / Preparation) rather than unrelated sections. Only rendered
    * when `optionGrids.length > 1` — a single-group page (CNC/IMM) ignores it.
    */
-  optionGroupsHeading?: { heading: string };
+  optionGroupsHeading?: { eyebrow?: string; heading: string };
   detailPanel?: DetailPanelBlock;
   gallery?: GalleryBlock;
   benefits?: BenefitsBlock;

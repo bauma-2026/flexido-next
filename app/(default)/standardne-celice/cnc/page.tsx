@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import CncPageTemplate from "@/components/systems/CncPageTemplate";
+import CatalogPageTemplate from "@/components/systems/CatalogPageTemplate";
 import { getCncSystemContent } from "@/content/systems";
 import { buildAlternates } from "@/i18n/metadata";
 
@@ -16,5 +16,5 @@ export function generateMetadata(): Metadata {
 }
 
 export default function Page() {
-  return <CncPageTemplate locale="sl" content={getCncSystemContent("sl")} />;
+  return <CatalogPageTemplate locale="sl" content={getCncSystemContent("sl")} />;
 }

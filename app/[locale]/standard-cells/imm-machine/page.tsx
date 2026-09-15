@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import ImmPageTemplate from "@/components/systems/ImmPageTemplate";
+import CatalogPageTemplate from "@/components/systems/CatalogPageTemplate";
 import { getImmSystemContent } from "@/content/systems";
 import { buildAlternates } from "@/i18n/metadata";
 
@@ -26,5 +26,5 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
   const { locale } = await params;
   if (locale !== "en") notFound();
 
-  return <ImmPageTemplate locale="en" content={getImmSystemContent("en")} />;
+  return <CatalogPageTemplate locale="en" content={getImmSystemContent("en")} />;
 }

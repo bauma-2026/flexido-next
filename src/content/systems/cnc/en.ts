@@ -8,7 +8,6 @@ export const cncSystemContent: SystemPageContent = {
       "Robot cells for tending CNC machines — for loading, unloading, flexible part changeover, and additional operations in the production process.",
   },
   backLabel: "← All standard cells",
-  layoutRefresh: true,
   hero: {
     eyebrow: "Standard robot cells",
     heading: "CNC machines",
@@ -41,6 +40,7 @@ export const cncSystemContent: SystemPageContent = {
   },
   itemGrids: [
     {
+      role: "documented-systems",
       eyebrow: "Loading and unloading",
       heading: "Documented loading and unloading systems.",
       items: [

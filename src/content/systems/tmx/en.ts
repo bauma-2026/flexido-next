@@ -36,11 +36,13 @@ export const tmxSystemContent: SystemPageContent = {
   },
   itemGrids: [
     {
+      role: "applications",
       eyebrow: "Applications",
       heading: "Where TMX is used.",
       items: ["Pick and place applications", "Quality control", "Simple assembly applications"],
     },
     {
+      role: "capabilities",
       eyebrow: "Advantages",
       heading: "Why choose TMX.",
       items: [
@@ -55,6 +57,7 @@ export const tmxSystemContent: SystemPageContent = {
     },
   ],
   gallery: {
+    role: "options",
     eyebrow: "Options",
     heading: "Gripper, interfaces, and safety.",
     alts: [

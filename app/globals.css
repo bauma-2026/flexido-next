@@ -106,6 +106,18 @@ body {
     @apply text-3xl font-semibold leading-[1] tracking-[-0.04em] text-neutral-950 sm:text-4xl;
   }
 
+  /* Card / ruled-cell title — product cards, related cells, peer cells
+     with a body. Mirrors HEADING.card in catalog/roles.ts. */
+  .text-card-title {
+    @apply text-[20px] font-semibold leading-[1.3] tracking-[-0.03em] text-neutral-950;
+  }
+
+  /* List / tile title — compact inventory items, title-only peer cells and
+     catalog option tiles. */
+  .text-list-title {
+    @apply text-[16px] font-semibold leading-[1.375] tracking-[-0.02em] text-neutral-950;
+  }
+
   .text-subsection-title {
     @apply text-2xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-3xl;
   }

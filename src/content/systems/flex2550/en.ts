@@ -8,27 +8,27 @@ export const flex2550SystemContent: SystemPageContent = {
   routeKey: "standardCellsFlex2550",
   meta: {
     title: "FLEX 25 / 50 | Flexido",
-    description: "A highly flexible robotic cell for more demanding applications, higher payload, and a wider range of options.",
+    description: "A configurable robot cell with a 25 or 50 kg payload robot for more demanding production steps.",
   },
   backLabel: "← All standard cells",
-  layoutRefresh: true,
   hero: {
     eyebrow: "Standard robot cells",
     heading: "FLEX 25 / 50",
-    subhead: "A highly flexible robotic cell for more demanding applications, higher payload, and a wider range of options.",
+    subhead: "A configurable robot cell with a 25 or 50 kg payload robot for more demanding production steps.",
     media: { kind: "image", src: "/images/systems/raw/flex-25-50-studio-wide.webp", alt: "FLEX 25 / 50 robotic cell" },
   },
   intro: {
-    eyebrow: "A highly flexible cell",
-    heading: "A platform for more demanding applications.",
+    eyebrow: "When to choose FLEX 25 / 50",
+    heading: "When FLEX 7 does not cover the required payload, reach, or options.",
     paragraphs: [
-      "In some builds, FLEX 25 / 50 is a configurable starting point — particularly when the standard FLEX 7 cell doesn't cover the required payload, reach, or range of options.",
+      "FLEX 25 / 50 is a configurable starting point for implementations that require the necessary payload, reach, and additional modules.",
     ],
     image: { src: "/raw/flex-25-50-isometric-robotic-manufacturing-cell.png", alt: "Complete FLEX 25 / 50 automation system with safety fencing" },
   },
   product: {
     eyebrow: "Standard cell",
     systemSlug: "flex-25-50",
+    imageSrc: "/images/systems/raw/flex-25-50-studio-wide.webp",
     description:
       "FLEX 25 / 50 is a more powerful automation platform for insert placing, insert molding, quality control, and process applications where larger robots, higher payload, or a wider range of options are needed.",
     showTechnical: true,
@@ -41,6 +41,7 @@ export const flex2550SystemContent: SystemPageContent = {
   },
   itemGrids: [
     {
+      role: "applications",
       eyebrow: "Applications",
       heading: "Where FLEX 25 / 50 is used.",
       items: [
@@ -53,7 +54,7 @@ export const flex2550SystemContent: SystemPageContent = {
   ],
   applicationSignals: {
     eyebrow: "Application signals",
-    heading: "Mid & high performance applications with minimal footprint.",
+    heading: "Examples of parts and components.",
     items: [
       {
         image: { src: "/images/flexido/products/flex-25-50/flex-25-50-stator.jpg", alt: "Stator" },
@@ -81,7 +82,7 @@ export const flex2550SystemContent: SystemPageContent = {
       },
     ],
   },
-  optionGroupsHeading: { heading: "Documented configurations" },
+  optionGroupsHeading: { eyebrow: "Modules and technical elements", heading: "Documented configurations" },
   optionGrids: [
     {
       eyebrow: "Grippers",
@@ -122,7 +123,7 @@ export const flex2550SystemContent: SystemPageContent = {
       ],
     },
     {
-      eyebrow: "Infeed / outfeed",
+      eyebrow: "Infeed and outfeed",
       heading: "Infeed and outfeed",
       items: [
         {

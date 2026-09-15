@@ -3,7 +3,6 @@ import type { SystemPageContent } from "../types";
 export const immSystemContent: SystemPageContent = {
   routeKey: "standardCellsImm",
   backLabel: "← All standard cells",
-  layoutRefresh: true,
   meta: {
     title: "IMM machines | Flexido",
     description:
@@ -41,6 +40,7 @@ export const immSystemContent: SystemPageContent = {
   },
   itemGrids: [
     {
+      role: "applications",
       eyebrow: "Applications",
       heading: "Documented FLEX 7 IMM Slim applications.",
       items: [
@@ -51,6 +51,7 @@ export const immSystemContent: SystemPageContent = {
       ],
     },
     {
+      role: "capabilities",
       eyebrow: "Additional operations",
       heading: "More than just removing the part from the mold.",
       items: [
@@ -104,6 +105,7 @@ export const immSystemContent: SystemPageContent = {
     },
   ],
   detailPanel: {
+    placement: "options",
     eyebrow: "Cell integration",
     heading: "The 6-axis robot handles basic machine tending and insert placement into the mold.",
     paragraphs: [

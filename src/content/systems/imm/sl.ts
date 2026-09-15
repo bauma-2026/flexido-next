@@ -4,7 +4,6 @@ import type { SystemPageContent } from "../types";
 export const immSystemContent: SystemPageContent = {
   routeKey: "standardCellsImm",
   backLabel: "← Standardne celice",
-  layoutRefresh: true,
   meta: {
     title: "IMM stroji | Flexido",
     description:
@@ -21,7 +20,7 @@ export const immSystemContent: SystemPageContent = {
     eyebrow: "IMM avtomatizacija",
     heading: "Alternativa tradicionalnim linearnim manipulatorjem.",
     paragraphs: [
-      "Standardne celice Flexido so pri robotskem posluževanju strojev za plastiko odlična alternativa tradicionalnim rešitvam avtomatizacije z linearnimi manipulatorji.",
+      "Standardne celice Flexido so alternativa linearnim manipulatorjem pri posluževanju strojev za brizganje plastike.",
       "V standardnih robotskih celicah so integrirani 6-osni roboti, ki poleg osnovne funkcije odvzemanja kosov iz orodja nudijo tudi dodatne operacije.",
       "Standardne robotske celice se uporabijo tudi v primerih, ko so stroji inštalirani v proizvodnih prostorih z nizko višino.",
     ],
@@ -42,6 +41,7 @@ export const immSystemContent: SystemPageContent = {
   },
   itemGrids: [
     {
+      role: "applications",
       eyebrow: "Aplikacije",
       heading: "Dokumentirane aplikacije FLEX 7 IMM Slim.",
       items: [
@@ -52,6 +52,7 @@ export const immSystemContent: SystemPageContent = {
       ],
     },
     {
+      role: "capabilities",
       eyebrow: "Dodatne operacije",
       heading: "Več kot samo odvzem kosa iz orodja.",
       items: [
@@ -99,12 +100,13 @@ export const immSystemContent: SystemPageContent = {
             alt: "Vision sistem za kontrolo kakovosti",
           },
           title: "Vision sistem",
-          description: "Kontrola kakovosti kot dokumentirana celična opcija.",
+          description: "Preverjanje kakovosti kosov v celici.",
         },
       ],
     },
   ],
   detailPanel: {
+    placement: "options",
     eyebrow: "Integracija v celici",
     heading: "6-osni robot izvaja osnovno posluževanje stroja in vstavljanje insertov v orodje.",
     paragraphs: [

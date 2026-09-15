@@ -17,8 +17,9 @@ export const hubSystemsContent: SystemsHubContent = {
     eyebrow: "Angebot",
     heading: "Wir wählen das System passend zum Prozess.",
     paragraphs: [
-      "Das Angebot umfasst Standardroboterzellen für die Beschickung von CNC-Maschinen und Spritzgießmaschinen, die kollaborative Roboterplattform TMX sowie die Verbindungsschicht Middleware zur Anbindung von Ausrüstung, Transport und ERP- bzw. Produktionssystemen.",
-      "Das austauschbare Station System ermöglicht die Anpassung mit Modulen, Greifern und Stationen je nach Maschine, Werkstück und konkretem Produktionsablauf.",
+      "Das Programm vereint Standardroboterzellen, eine mobile Roboterplattform und eine Verbindungsebene zwischen Ausrüstung, Transport und Produktionssystemen.",
+      "Eine Standardplattform ist der Ausgangspunkt und wird an Maschine, Werkstück, Raum und Prozess angepasst.",
+      "Wenn mehrere Arbeitsschritte oder Stationen koordiniert zusammenwirken müssen, entwickeln wir ein kundenspezifisches System.",
     ],
   },
   cardsHeading: {
@@ -27,11 +28,11 @@ export const hubSystemsContent: SystemsHubContent = {
   },
   cardLinkLabel: "System ansehen",
   cards: [
-    { routeKey: "standardCellsCnc", systemSlug: "flex-7-cnc", title: "FLEX 7 CNC Slim", eyebrow: "Roboterzelle", desc: "Kompakte Roboterzelle für die Beschickung von CNC-Maschinen — Beladen, Entnehmen und ein stabilerer Teilefluss." },
-    { routeKey: "standardCellsImm", systemSlug: "flex-7-imm", title: "FLEX 7 IMM Slim", eyebrow: "Roboterzelle", desc: "Roboterzelle für die Beschickung von Spritzgießmaschinen — Teileentnahme, Insert Moulding und Kontrolle." },
-    { routeKey: "standardCellsFlex2550", systemSlug: "flex-25-50", title: "FLEX 25 / 50", eyebrow: "Roboterzelle", desc: "Flexible Roboterzelle für mittlere und anspruchsvollere Anwendungen mit höherer Traglast und der Möglichkeit zusätzlicher Module." },
-    { routeKey: "standardCellsTmx", systemSlug: "tmx", title: "TMX", eyebrow: "Kollaborative Roboterplattform", desc: "Mobile kollaborative Roboterplattform für Pick & Place, einfache Montage, Qualitätskontrolle und Bedienerunterstützung." },
-    { routeKey: "standardCellsMiddleware", systemSlug: "middleware", title: "Middleware", eyebrow: "Verbindungsschicht", desc: "Verbindungsschicht zwischen Produktionsausrüstung, Transporteinheiten, Stationen und ERP- bzw. Produktionssystemen." },
+    { routeKey: "standardCellsCnc", systemSlug: "flex-7-cnc", title: "FLEX 7 CNC Slim", eyebrow: "CNC-Maschinen", desc: "Kompakte Roboterzelle für die Beschickung von CNC-Maschinen — Beladen, Entnehmen und ein stabilerer Teilefluss." },
+    { routeKey: "standardCellsImm", systemSlug: "flex-7-imm", title: "FLEX 7 IMM Slim", eyebrow: "Spritzgießen", desc: "Roboterzelle für die Beschickung von Spritzgießmaschinen — Teileentnahme, Insert Moulding und Kontrolle." },
+    { routeKey: "standardCellsFlex2550", systemSlug: "flex-25-50", title: "FLEX 25 / 50", eyebrow: "25 / 50 kg Traglast", desc: "Konfigurierbare Roboterzelle mit einem Roboter mit 25 oder 50 kg Traglast, wenn FLEX 7 die erforderliche Traglast, Reichweite oder Optionen nicht abdeckt." },
+    { routeKey: "standardCellsTmx", systemSlug: "tmx", title: "TMX", eyebrow: "Kollaborative Roboterplattform", desc: "Kollaborativer Roboter auf mobiler Plattform für Aufgaben an bestehender Ausrüstung und an verschiedenen Arbeitsplätzen." },
+    { routeKey: "standardCellsMiddleware", systemSlug: "middleware", title: "Middleware", eyebrow: "Verbindungsebene", desc: "Verbindet Ausrüstung, mobilen Transport, Lager- und Puffereinheiten sowie ERP. Tauscht Transportaufträge, Stationsstatus und Materialkontext aus." },
   ],
   modules: {
     eyebrow: "Module und technische Elemente",

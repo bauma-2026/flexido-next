@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import ImmPageTemplate from "@/components/systems/ImmPageTemplate";
+import CatalogPageTemplate from "@/components/systems/CatalogPageTemplate";
 import { getImmSystemContent } from "@/content/systems";
 import { buildAlternates } from "@/i18n/metadata";
 
@@ -16,5 +16,5 @@ export function generateMetadata(): Metadata {
 }
 
 export default function Page() {
-  return <ImmPageTemplate locale="sl" content={getImmSystemContent("sl")} />;
+  return <CatalogPageTemplate locale="sl" content={getImmSystemContent("sl")} />;
 }

@@ -8,7 +8,6 @@ export const cncSystemContent: SystemPageContent = {
       "Roboterzellen für die Beschickung von CNC-Maschinen — zum Beladen, Entnehmen, für den flexiblen Teilewechsel und zusätzliche Vorgänge im Produktionsprozess.",
   },
   backLabel: "← Alle Standardzellen",
-  layoutRefresh: true,
   hero: {
     eyebrow: "Standardroboterzellen",
     heading: "CNC-Maschinen",
@@ -41,6 +40,7 @@ export const cncSystemContent: SystemPageContent = {
   },
   itemGrids: [
     {
+      role: "documented-systems",
       eyebrow: "Beladen und Entnehmen",
       heading: "Dokumentierte Belade- und Entnahmesysteme.",
       items: [

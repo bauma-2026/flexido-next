@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import SystemPageTemplate from "@/components/systems/SystemPageTemplate";
+import CatalogPageTemplate from "@/components/systems/CatalogPageTemplate";
 import { getFlex2550SystemContent } from "@/content/systems";
 import { buildAlternates } from "@/i18n/metadata";
 
@@ -16,5 +16,5 @@ export function generateMetadata(): Metadata {
 }
 
 export default function Page() {
-  return <SystemPageTemplate locale="sl" content={getFlex2550SystemContent("sl")} />;
+  return <CatalogPageTemplate locale="sl" content={getFlex2550SystemContent("sl")} />;
 }

@@ -3,7 +3,6 @@ import type { SystemPageContent } from "../types";
 export const immSystemContent: SystemPageContent = {
   routeKey: "standardCellsImm",
   backLabel: "← Alle Standardzellen",
-  layoutRefresh: true,
   meta: {
     title: "Spritzgießmaschinen | Flexido",
     description:
@@ -41,6 +40,7 @@ export const immSystemContent: SystemPageContent = {
   },
   itemGrids: [
     {
+      role: "applications",
       eyebrow: "Anwendungen",
       heading: "Dokumentierte FLEX 7 IMM Slim Anwendungen.",
       items: [
@@ -51,6 +51,7 @@ export const immSystemContent: SystemPageContent = {
       ],
     },
     {
+      role: "capabilities",
       eyebrow: "Zusätzliche Vorgänge",
       heading: "Mehr als nur die Teileentnahme aus dem Werkzeug.",
       items: [
@@ -104,6 +105,7 @@ export const immSystemContent: SystemPageContent = {
     },
   ],
   detailPanel: {
+    placement: "options",
     eyebrow: "Integration in der Zelle",
     heading: "Der 6-Achs-Roboter führt die grundlegende Maschinenbeschickung und das Einlegen von Inserts ins Werkzeug aus.",
     paragraphs: [

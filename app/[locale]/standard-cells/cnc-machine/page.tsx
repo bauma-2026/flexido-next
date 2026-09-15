@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import CncPageTemplate from "@/components/systems/CncPageTemplate";
+import CatalogPageTemplate from "@/components/systems/CatalogPageTemplate";
 import { getCncSystemContent } from "@/content/systems";
 import { buildAlternates } from "@/i18n/metadata";
 
@@ -26,5 +26,5 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
   const { locale } = await params;
   if (locale !== "en") notFound();
 
-  return <CncPageTemplate locale="en" content={getCncSystemContent("en")} />;
+  return <CatalogPageTemplate locale="en" content={getCncSystemContent("en")} />;
 }

@@ -8,52 +8,53 @@ export const flex2550SystemContent: SystemPageContent = {
   routeKey: "standardCellsFlex2550",
   meta: {
     title: "FLEX 25 / 50 | Flexido",
-    description: "Visoko fleksibilna robotska celica za zahtevnejše aplikacije, večjo nosilnost in širši nabor opcij.",
+    description: "Konfigurabilna robotska celica z robotom nosilnosti 25 ali 50 kg za zahtevnejše proizvodne korake.",
   },
   backLabel: "← Standardne celice",
-  layoutRefresh: true,
   hero: {
     eyebrow: "Standardne robotske celice",
     heading: "FLEX 25 / 50",
-    subhead: "Visoko fleksibilna robotska celica za zahtevnejše aplikacije, večjo nosilnost in širši nabor opcij.",
+    subhead: "Konfigurabilna robotska celica z robotom nosilnosti 25 ali 50 kg za zahtevnejše proizvodne korake.",
     media: { kind: "image", src: "/images/systems/raw/flex-25-50-studio-wide.webp", alt: "FLEX 25 / 50 robotska celica" },
   },
   intro: {
-    eyebrow: "Visoko fleksibilna celica",
-    heading: "Platforma za zahtevnejše aplikacije.",
+    eyebrow: "Kdaj izbrati FLEX 25 / 50",
+    heading: "Ko FLEX 7 ne pokrije zahtevane nosilnosti, dosega ali potrebnih opcij.",
     paragraphs: [
-      "Pri nekaterih izvedbah je FLEX 25 / 50 konfigurabilno izhodišče — predvsem takrat, ko standardna celica FLEX 7 ne pokrije zahtevane nosilnosti, dosega ali nabora opcij.",
+      "FLEX 25 / 50 je konfigurabilno izhodišče za izvedbe, pri katerih je treba upoštevati zahtevano nosilnost, doseg in dodatne module.",
     ],
     image: { src: "/raw/flex-25-50-isometric-robotic-manufacturing-cell.png", alt: "Celoten avtomatizacijski sistem FLEX 25 / 50 z varnostno ograjo" },
   },
   product: {
     eyebrow: "Standardna celica",
     systemSlug: "flex-25-50",
+    imageSrc: "/images/systems/raw/flex-25-50-studio-wide.webp",
     description:
       "FLEX 25 / 50 je zmogljivejša avtomatizacijska platforma za insert placing, insert moulding, kontrolo kakovosti in procesne aplikacije, kjer so potrebni večji roboti, večja nosilnost ali širši nabor opcij.",
     showTechnical: true,
     highlights: [
       "Srednje in zahtevnejše aplikacije",
       "Fleksibilne možnosti prijemal",
-      "Infeed in outfeed sistemi",
+      "Sistemi za dovod in odvod",
       "Vision in senzorske opcije",
     ],
   },
   itemGrids: [
     {
+      role: "applications",
       eyebrow: "Aplikacije",
       heading: "Kje se FLEX 25 / 50 uporablja.",
       items: [
         "Vstavljanje insertov in insert moulding",
-        "Laser cleaning insertov pred brizgalnim procesom",
-        "Laser graviranje po brizgalnem procesu",
+        "Lasersko čiščenje insertov pred brizganjem",
+        "Lasersko graviranje po brizganju",
         "Kontrola kakovosti in procesna kontrola",
       ],
     },
   ],
   applicationSignals: {
     eyebrow: "Signali aplikacij",
-    heading: "Aplikacije srednje in visoke zmogljivosti z minimalnim tlorisom.",
+    heading: "Primeri kosov in komponent.",
     items: [
       {
         image: { src: "/images/flexido/products/flex-25-50/flex-25-50-stator.jpg", alt: "Stator" },
@@ -77,11 +78,11 @@ export const flex2550SystemContent: SystemPageContent = {
       },
       {
         image: { src: "/images/flexido/products/flex-25-50/flex-25-50-gear.png", alt: "Gear" },
-        label: "Gear",
+        label: "Zobnik",
       },
     ],
   },
-  optionGroupsHeading: { heading: "Dokumentirane konfiguracije" },
+  optionGroupsHeading: { eyebrow: "Moduli in tehnični elementi", heading: "Dokumentirane konfiguracije" },
   optionGrids: [
     {
       eyebrow: "Prijemala",
@@ -122,15 +123,15 @@ export const flex2550SystemContent: SystemPageContent = {
       ],
     },
     {
-      eyebrow: "Dovod / odvod",
-      heading: "Infeed in outfeed",
+      eyebrow: "Dovod in odvod kosov",
+      heading: "Dovod in odvod kosov",
       items: [
         {
           image: {
             src: "/images/flexido/products/flex-25-50/flex-25-50-cell-vibratory-bowl-feeder.png",
             alt: "Celica s vibro posodo in transporterom",
           },
-          title: "Vibro posoda + transporter",
+          title: "Vibro posoda in transporter",
           description: "Dovod kosov ali insertov z vibro posode na transporter v celico.",
         },
         {
@@ -138,24 +139,24 @@ export const flex2550SystemContent: SystemPageContent = {
             src: "/images/flexido/products/flex-25-50/flex-25-50-cell-conveyor-camera.png",
             alt: "Transporter s 2D kamerom",
           },
-          title: "Transporter + 2D kamera",
-          description: "Vodeni dovod ali odvod s 2D vision za orientacijo ali kontrolu.",
+          title: "Transporter z 2D kamero",
+          description: "Dovod ali odvod kosov z 2D Vision sistemom za orientacijo ali kontrolo.",
         },
         {
           image: {
             src: "/images/flexido/products/flex-25-50/flex-25-50-cell-vibrating-feeder-plate.png",
             alt: "Vibro plošča in transporter",
           },
-          title: "Vibro plošča + transporter",
-          description: "INFEED: vibro plošča — OUTFEED: transporter v dokumentiranem sistemu.",
+          title: "Vibro plošča in transporter",
+          description: "Dovod z vibro ploščo in odvod s transporterjem.",
         },
         {
           image: {
             src: "/images/flexido/products/flex-25-50/flex-25-50-infeed-trays.png",
             alt: "2x dovod + 2x odvod pladnjev",
           },
-          title: "2× infeed + 2× outfeed trays",
-          description: "Dve dovodne in dve odvodne tray postaje — ločeno od tray stacker sistema.",
+          title: "2 × dovod + 2 × odvod pladnjev",
+          description: "Dve dovodni in dve odvodni postaji za pladnje, ločeno od tray stacker sistema.",
         },
         {
           image: {
@@ -163,7 +164,7 @@ export const flex2550SystemContent: SystemPageContent = {
             alt: "Dovod s papirnatimi pladnji",
           },
           title: "Dovod s papirnatimi pladnji",
-          description: "Transporter za papirnate pladnje z inserti ali kosmi.",
+          description: "Transporter za papirnate pladnje z inserti ali kosi.",
         },
         {
           image: {
@@ -171,7 +172,7 @@ export const flex2550SystemContent: SystemPageContent = {
             alt: "Trak za dovod insertov",
           },
           title: "Trak za dovod insertov",
-          description: "Belt dovod za inserte v pripravo ali prijemalo.",
+          description: "Dovod insertov po traku do priprave ali prijemala.",
         },
       ],
     },
@@ -216,7 +217,7 @@ export const flex2550SystemContent: SystemPageContent = {
             src: "/images/flexido/products/flex-25-50/flex-25-50-bowl-feeder-inserts.jpg",
             alt: "Bowl feeder za inserte",
           },
-          title: "Bowl feeder / sortiranje insertov",
+          title: "Vibro posoda za dovod in sortiranje insertov",
           description: "Dovod in orientacija insertov pred vstavljanjem.",
         },
         {
@@ -225,7 +226,7 @@ export const flex2550SystemContent: SystemPageContent = {
             alt: "Vision sistem za kontrolo kakovosti",
           },
           title: "Vision sistem za kontrolo kakovosti",
-          description: "Dokumentirana vision postaja za kontrolo kakovosti.",
+          description: "Preverjanje kakovosti kosov v celici.",
         },
         {
           image: {
@@ -253,12 +254,12 @@ export const flex2550SystemContent: SystemPageContent = {
     items: [
       {
         title: "Namenski sistemi",
-        body: "Pri nekaterih izvedbah je FLEX 25 / 50 konfigurabilno izhodišče, ko standardna celica FLEX 7 ne pokrije zahtevane nosilnosti, dosega ali nabora opcij.",
+        body: "FLEX 25 / 50 je lahko ena od platform v namenskem sistemu.",
         routeKey: "solutionCustomSystems",
       },
       {
         title: "Avtomatizacija brizganja plastike",
-        body: "Aplikacije vključujejo vstavljanje insertov, insert moulding ter korake pred in po IM procesu.",
+        body: "Za vstavljanje insertov, insert moulding ter korake pred in po brizganju plastike.",
         routeKey: "solutionInjectionMolding",
       },
     ],
@@ -272,6 +273,6 @@ export const flex2550SystemContent: SystemPageContent = {
     imageSrc: "/raw/flex-25-50-cell-rear-studio.png",
     imageAlt: "FLEX 25 / 50 v proizvodnji",
     captionEyebrow: "Prvi korak",
-    captionText: "Katera aplikacija zahteva večjo nosilnost ali doseg?",
+    captionText: "Katera aplikacija zahteva nosilnost 25 ali 50 kg oziroma določen doseg?",
   },
 };

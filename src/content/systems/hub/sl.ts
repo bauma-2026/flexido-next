@@ -4,9 +4,10 @@ import type { SystemsHubContent } from "../types";
  * Semantic reframe: the five commercial offers span robotske celice (CNC,
  * IMM, FLEX 25/50), a kolaborativna robotska platforma (TMX), and a
  * povezovalni sloj (Middleware) — not five "cells". Card `title` carries the
- * product name and `eyebrow` carries the category, matching the taxonomy
- * already established in `/e-katalog` (`offerTypes` in its page.tsx before
- * that route was consolidated into this hub).
+ * product name; card `eyebrow` carries the task/type that distinguishes the
+ * card in the catalogue (repeated "Robotska celica" on the three cells did
+ * not). Matches the taxonomy already established when `/e-katalog` was
+ * consolidated into this hub.
  */
 export const hubSystemsContent: SystemsHubContent = {
   meta: {
@@ -25,8 +26,9 @@ export const hubSystemsContent: SystemsHubContent = {
     eyebrow: "Ponudba",
     heading: "Sistem izberemo glede na proces.",
     paragraphs: [
-      "Ponudba obsega standardne robotske celice za strego CNC strojev in strojev za brizganje plastike, kolaborativno robotsko platformo TMX ter povezovalni sloj Middleware za povezavo opreme, transporta in ERP oziroma proizvodnih sistemov.",
-      "Izmenljiv Station System omogoča prilagoditev z moduli, prijemali in postajami glede na stroj, kos in konkreten potek proizvodnje.",
+      "Program združuje standardne robotske celice, mobilno robotsko platformo in povezovalni sloj med opremo, transportom ter proizvodnimi sistemi.",
+      "Standardna platforma je izhodišče, ki ga prilagodimo stroju, kosu, prostoru in procesu.",
+      "Kadar mora več operacij ali postaj delovati usklajeno, zasnujemo namenski sistem.",
     ],
   },
   cardsHeading: {
@@ -35,11 +37,11 @@ export const hubSystemsContent: SystemsHubContent = {
   },
   cardLinkLabel: "Poglej sistem",
   cards: [
-    { routeKey: "standardCellsCnc", systemSlug: "flex-7-cnc", title: "FLEX 7 CNC Slim", eyebrow: "Robotska celica", desc: "Kompaktna robotska celica za strego CNC strojev, nalaganje, odvzem in stabilnejši tok kosov." },
-    { routeKey: "standardCellsImm", systemSlug: "flex-7-imm", title: "FLEX 7 IMM Slim", eyebrow: "Robotska celica", desc: "Robotska celica za strego strojev za brizganje plastike, odvzem kosov, insert moulding in kontrolo." },
-    { routeKey: "standardCellsFlex2550", systemSlug: "flex-25-50", title: "FLEX 25 / 50", eyebrow: "Robotska celica", desc: "Fleksibilna robotska celica za srednje in zahtevnejše aplikacije z večjo nosilnostjo in možnostjo dodatnih modulov." },
-    { routeKey: "standardCellsTmx", systemSlug: "tmx", title: "TMX", eyebrow: "Kolaborativna robotska platforma", desc: "Mobilna kolaborativna robotska platforma za pick and place, enostavno montažo, kontrolo kakovosti in pomoč operaterju." },
-    { routeKey: "standardCellsMiddleware", systemSlug: "middleware", title: "Middleware", eyebrow: "Povezovalni sloj", desc: "Povezovalni sloj med proizvodno opremo, transportnimi enotami, postajami in ERP oziroma proizvodnimi sistemi." },
+    { routeKey: "standardCellsCnc", systemSlug: "flex-7-cnc", title: "FLEX 7 CNC Slim", eyebrow: "CNC stroji", desc: "Kompaktna robotska celica za strego CNC strojev, nalaganje, odvzem in stabilnejši tok kosov." },
+    { routeKey: "standardCellsImm", systemSlug: "flex-7-imm", title: "FLEX 7 IMM Slim", eyebrow: "Brizganje plastike", desc: "Robotska celica za strego strojev za brizganje plastike, odvzem kosov, insert moulding in kontrolo." },
+    { routeKey: "standardCellsFlex2550", systemSlug: "flex-25-50", title: "FLEX 25 / 50", eyebrow: "25 / 50 kg nosilnosti", desc: "Konfigurabilna robotska celica z robotom nosilnosti 25 ali 50 kg, kadar FLEX 7 ne pokrije potrebne nosilnosti, dosega ali opcij." },
+    { routeKey: "standardCellsTmx", systemSlug: "tmx", title: "TMX", eyebrow: "Kolaborativna robotska platforma", desc: "Kolaborativni robot na mobilni platformi za naloge ob obstoječi opremi in na različnih delovnih mestih." },
+    { routeKey: "standardCellsMiddleware", systemSlug: "middleware", title: "Middleware", eyebrow: "Povezovalni sloj", desc: "Povezuje opremo, mobilni transport, skladiščne in buffer enote ter ERP. Izmenjuje transportna naročila, stanje postaj in kontekst materiala." },
   ],
   modules: {
     eyebrow: "Moduli in tehnični elementi",
@@ -51,23 +53,23 @@ export const hubSystemsContent: SystemsHubContent = {
       {
         title: "Postaje in transport",
         items: [
-          "Bowl feeder",
+          "Vibro posoda",
           "Stacker",
-          "Cleaning station",
-          "Engraving",
-          "Infeed sorting station",
-          "Conveyor",
+          "Čistilna postaja",
+          "Graviranje",
+          "Dovodna sortirna postaja",
+          "Transporter",
           "Buffer",
           "Storage lift",
         ],
       },
       {
         title: "Prijem in kontrola",
-        items: ["Gripper", "Vision system", "3D safety scanner"],
+        items: ["Prijemalo", "Vision system", "3D varnostni skener"],
       },
       {
         title: "Vmesniki",
-        items: ["Interfaces"],
+        items: ["Vmesniki"],
       },
     ],
   },

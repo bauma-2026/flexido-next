@@ -13,18 +13,18 @@ export const middlewareSystemContent: SystemPageContent = {
   },
   backLabel: "← Standardne celice",
   hero: {
-    eyebrow: "Standardne robotske celice",
+    eyebrow: "Povezovalni sloj",
     heading: "Middleware",
     subhead:
       "Povezovalni sloj med proizvodno opremo, transportnimi enotami, postajami, shrambo in ERP oziroma proizvodnimi sistemi.",
-    media: { kind: "image", src: "/images/systems/raw/middleware-main.webp", alt: "Middleware povezovalni sloj" },
+    media: { kind: "image", src: "/raw/middleware-industrial-robot-1-1.png", alt: "Middleware povezovalni sloj" },
   },
   intro: {
     eyebrow: "Povezava opreme in sistemov",
-    heading: "Povezava opreme, postaj in podatkov.",
+    heading: "Med postajami, transportom in proizvodnimi sistemi.",
     paragraphs: [
-      "Middleware povezuje avtomatizacijsko opremo, mobilni transport, shrambo, buffer postaje in višje proizvodne oziroma ERP sisteme v en strukturiran komunikacijski sloj.",
-      "Sloj ne nadomešča posameznih naprav — vzpostavi, kako postaje, transportne enote in višji sistemi izmenjajo transportna naročila, stanje postaj in kontekst materiala.",
+      "Middleware povezuje avtomatizacijsko opremo, mobilni transport, skladiščne in buffer enote z ERP oziroma proizvodnim sistemom.",
+      "Prek njega se izmenjujejo transportna naročila, stanje postaj in kontekst materiala.",
     ],
     image: {
       src: "/images/systems/raw/custom-robotic-cell-studio-render.png",
@@ -39,17 +39,20 @@ export const middlewareSystemContent: SystemPageContent = {
   },
   itemGrids: [
     {
+      role: "technical-definitions",
       eyebrow: "Integracijski sloj",
       heading: "Kako Middleware poveže stroje, transport in ERP.",
       items: [
-        "Hardware Station Service — standardni hardware vmesnik za postaje in transportne enote",
-        "Transport order service API — JSON struktura ali datotečna izmenjava (npr. FTP)",
+        "Hardware Station Service — Vmesnik med postajami, transportnimi enotami in Middlewareom.",
+        "Transport order service API — Vmesnik za izmenjavo transportnih naročil v JSON strukturi ali prek datotek (npr. FTP).",
         "Backend storitev — dinamično usmerjanje naročil glede na tip transporta in tovora",
-        "MWContext Broker — kontekstna povezava med proizvodno opremo in višjimi sistemi",
-        "Povezava z ERP / proizvodnim sistemom — konfigurabilna izmenjava podatkov",
+        "MWContext Broker — Povezuje kontekst materiala med proizvodno opremo in višjimi sistemi.",
+        "Povezava z ERP / proizvodnim sistemom — Izmenjava transportnih naročil in konteksta z ERP oziroma proizvodnim sistemom.",
       ],
     },
     {
+      role: "module-class",
+      media: { kind: "image", src: "/raw/middleware-transport-unit-sdv-1.png", alt: "Mobilna transportna platforma SDV/AMR (dokumentirane linije OTTO)" },
       eyebrow: "Transportne platforme",
       heading: "Dokumentirani razredi mobilnih transportnih enot.",
       items: [
@@ -60,6 +63,8 @@ export const middlewareSystemContent: SystemPageContent = {
       ],
     },
     {
+      role: "module-class",
+      media: { kind: "video", src: "/video/flexido/hero-logistika.mp4", alt: "Avtomatsko skladiščenje in transfer v tok." },
       eyebrow: "Shramba in robotski premik",
       heading: "Avtomatsko skladiščenje in transfer v tok.",
       items: [
@@ -69,37 +74,23 @@ export const middlewareSystemContent: SystemPageContent = {
       ],
     },
     {
+      role: "module-class",
       eyebrow: "Buffer in predaje",
       heading: "Mehanske enote za vmesno hrambo in predajo.",
-      items: [
-        "Linear Buffer (vhod/izhod) — servo pogonski podest, Siemens PLC, senzorika končne lege",
-        "Mechanical Buffer Chute — LR (številčno) / W (masno), dve integrirane komore",
-        "Mechanical Drop-off — vertikalna os in rotacija, Siemens PLC, avtomatska predaja v linijo",
+      lead: "Linear Buffer (vhod/izhod) — servo pogonski podest, Siemens PLC, senzorika končne lege",
+      tiles: [
+        { src: "/raw/middleware-mechanical-buffer-chute-1.png", alt: "Mechanical Buffer Chute", caption: "Mechanical Buffer Chute — LR (številčno) / W (masno), dve integrirane komore" },
+        { src: "/raw/middleware-mechanical-drop-off-unit-1.png", alt: "Mechanical Drop-off unit", caption: "Mechanical Drop-off — vertikalna os in rotacija, Siemens PLC, avtomatska predaja v linijo" },
       ],
+      items: [],
     },
   ],
+  optionGroupsHeading: { eyebrow: "Povezana oprema", heading: "Stroji, postaje in transportne enote." },
   detailPanel: {
+    placement: "related",
     paragraphs: [
-      "Praktično vprašanje integracije je: kako postaja ve, kdaj naj mobilna enota pride, kaj prevzame in kako se to sporoči višjemu sistemu. Middleware združi hardware vmesnik postaj, transport order service in backend logiko, ki usmerja klice glede na tip transporta in tovora.",
-      "ERP ali proizvodni sistem se ne poveže z enim fiksnim modulom — vzpostavi se vmesna plast za izmenjavo transportnih naročil in konteksta (MWContext Broker), prilagodljiva na obstoječo in novo opremo v istem obratu.",
-    ],
-    panelEyebrow: "Storitve v sloju",
-    panelItems: [
-      "Hardware Station Service",
-      "Transport order service (JSON / file)",
-      "Backend routing by transport & cargo type",
-      "MWContext Broker",
-      "ERP / production-system connection context",
-    ],
-  },
-  gallery: {
-    eyebrow: "Povezana oprema",
-    heading: "Stroji, postaje in transportne enote.",
-    alts: [
-      "Industrijska robotska postaja ABB IRB 6700 (dokumentirana izvedba)",
-      "Mechanical Buffer Chute",
-      "Mechanical Drop-off unit",
-      "Mobilna transportna platforma SDV/AMR (dokumentirane linije OTTO)",
+      "Ko je treba uskladiti postajo, mobilno enoto in višji sistem, je ključno, da se ve, kdaj enota pride, kaj prevzame in kako se to sporoči naprej.",
+      "Middleware omogoča izmenjavo transportnih naročil in konteksta med obstoječo ali novo opremo ter ERP oziroma proizvodnim sistemom.",
     ],
   },
   relatedSolutions: {

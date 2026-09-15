@@ -20,10 +20,10 @@ export const tmxSystemContent: SystemPageContent = {
   },
   intro: {
     eyebrow: "Mobilna avtomatizacija",
-    heading: "Fleksibilnost namesto fiksne postavitve.",
+    heading: "Mobilna platforma za naloge ob obstoječi opremi.",
     paragraphs: [
       "Platforma je primerna, kadar naloga ne zahteva polne robotske celice, temveč hitro prestavljivo pomoč ob obstoječi opremi.",
-      "Pri dokumentiranem premestitvenem postopku platforma se premakne med postajami; kamera prebere lokacijski marker na postaji in uporabi to za umerjanje položaja na novi lokaciji.",
+      "V dokumentiranem postopku prestavitve se platforma premakne med postajami. Kamera na postaji prebere lokacijski marker in z njim umeri položaj platforme na novi lokaciji.",
     ],
     image: { src: "/raw/0-tmx.png", alt: "TMX kolaborativna robotska platforma v celoti" },
   },
@@ -36,13 +36,15 @@ export const tmxSystemContent: SystemPageContent = {
   },
   itemGrids: [
     {
+      role: "applications",
       eyebrow: "Aplikacije",
       heading: "Kje se TMX uporablja.",
       items: ["Pick and place aplikacije", "Kontrola kakovosti", "Enostavne montažne aplikacije"],
     },
     {
-      eyebrow: "Prednosti",
-      heading: "Zakaj izbrati TMX.",
+      role: "capabilities",
+      eyebrow: "Oprema in funkcije",
+      heading: "Kaj platforma vključuje.",
       items: [
         "Kolaborativni robot na mobilni platformi",
         "Univerzalno pnevmatsko prijemalo",
@@ -55,6 +57,7 @@ export const tmxSystemContent: SystemPageContent = {
     },
   ],
   gallery: {
+    role: "options",
     eyebrow: "Opcije",
     heading: "Prijemalo, vmesniki in varnost.",
     alts: [
@@ -70,7 +73,7 @@ export const tmxSystemContent: SystemPageContent = {
     items: [
       {
         title: "Kolaborativni roboti",
-        body: "TMX je mobilna kolaborativna platforma za naloge, kjer je pomembna uporaba na različnih mestih v proizvodnji.",
+        body: "Za naloge, kjer se robot premika med različnimi postajami ali delovnimi mesti.",
         routeKey: "solutionCobots",
       },
       {

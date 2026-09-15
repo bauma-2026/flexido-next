@@ -13,11 +13,11 @@ export const middlewareSystemContent: SystemPageContent = {
   },
   backLabel: "← All standard cells",
   hero: {
-    eyebrow: "Standard robot cells",
+    eyebrow: "Connecting layer",
     heading: "Middleware",
     subhead:
       "A connecting layer between production equipment, transport units, stations, storage, and ERP or production systems.",
-    media: { kind: "image", src: "/images/systems/raw/middleware-main.webp", alt: "Middleware connectivity layer" },
+    media: { kind: "image", src: "/raw/middleware-industrial-robot-1-1.png", alt: "Middleware connectivity layer" },
   },
   intro: {
     eyebrow: "Connecting equipment and systems",
@@ -39,6 +39,7 @@ export const middlewareSystemContent: SystemPageContent = {
   },
   itemGrids: [
     {
+      role: "technical-definitions",
       eyebrow: "Integration layer",
       heading: "How Middleware connects machines, transport, and ERP.",
       items: [
@@ -50,6 +51,8 @@ export const middlewareSystemContent: SystemPageContent = {
       ],
     },
     {
+      role: "module-class",
+      media: { kind: "image", src: "/raw/middleware-transport-unit-sdv-1.png", alt: "Mobile transport platform SDV/AMR (documented OTTO lines)" },
       eyebrow: "Transport platforms",
       heading: "Documented classes of mobile transport units.",
       items: [
@@ -60,6 +63,8 @@ export const middlewareSystemContent: SystemPageContent = {
       ],
     },
     {
+      role: "module-class",
+      media: { kind: "video", src: "/video/flexido/hero-logistika.mp4", alt: "Automated storage and transfer in the flow." },
       eyebrow: "Storage and robot transfer",
       heading: "Automated storage and transfer in the flow.",
       items: [
@@ -69,37 +74,23 @@ export const middlewareSystemContent: SystemPageContent = {
       ],
     },
     {
+      role: "module-class",
       eyebrow: "Buffer and drop-off",
       heading: "Mechanical units for intermediate storage and handoff.",
-      items: [
-        "Linear Buffer (entry/exit) — servo-driven platform, Siemens PLC, end-position sensing",
-        "Mechanical Buffer Chute — LR (count-based) / W (weight-based), two integrated chambers",
-        "Mechanical Drop-off — vertical axis and rotation, Siemens PLC, automatic line feeding",
+      lead: "Linear Buffer (entry/exit) — servo-driven platform, Siemens PLC, end-position sensing",
+      tiles: [
+        { src: "/raw/middleware-mechanical-buffer-chute-1.png", alt: "Mechanical Buffer Chute", caption: "Mechanical Buffer Chute — LR (count-based) / W (weight-based), two integrated chambers" },
+        { src: "/raw/middleware-mechanical-drop-off-unit-1.png", alt: "Mechanical Drop-off unit", caption: "Mechanical Drop-off — vertical axis and rotation, Siemens PLC, automatic line feeding" },
       ],
+      items: [],
     },
   ],
+  optionGroupsHeading: { eyebrow: "Connected equipment", heading: "Machines, stations, and transport units." },
   detailPanel: {
+    placement: "related",
     paragraphs: [
       "The practical integration question is: how does a station know when a mobile unit should arrive, what it should pick up, and how that is reported to a higher-level system? Middleware combines the hardware station interface, transport order service, and backend logic that routes calls by transport and cargo type.",
       "An ERP or production system is not connected through one fixed module — an intermediate layer handles transport-order exchange and context (MWContext Broker), adaptable to existing and new equipment in the same plant.",
-    ],
-    panelEyebrow: "Services in the layer",
-    panelItems: [
-      "Hardware Station Service",
-      "Transport order service (JSON / file)",
-      "Backend routing by transport & cargo type",
-      "MWContext Broker",
-      "ERP / production-system connection context",
-    ],
-  },
-  gallery: {
-    eyebrow: "Connected equipment",
-    heading: "Machines, stations, and transport units.",
-    alts: [
-      "Industrial robot station ABB IRB 6700 (documented setup)",
-      "Mechanical Buffer Chute",
-      "Mechanical Drop-off unit",
-      "Mobile transport platform SDV/AMR (documented OTTO lines)",
     ],
   },
   relatedSolutions: {

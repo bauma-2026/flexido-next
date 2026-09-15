@@ -9,7 +9,6 @@ export const cncSystemContent: SystemPageContent = {
       "Robotske celice za posluževanje CNC strojev — za nalaganje, odvzemanje, fleksibilno menjavo kosov in dodatne operacije v proizvodnem procesu.",
   },
   backLabel: "← Standardne celice",
-  layoutRefresh: true,
   hero: {
     eyebrow: "Standardne robotske celice",
     heading: "CNC stroji",
@@ -22,7 +21,7 @@ export const cncSystemContent: SystemPageContent = {
     heading: "Fleksibilno posluževanje CNC strojev z robotom.",
     paragraphs: [
       "Flexido celice ponujajo bogat nabor opcij pri robotiziranem posluževanju CNC strojev. Za nalaganje in odvzem kosov izberemo ustrezni sistem glede na kos, obdelavo in prostor.",
-      "Vedno bolj se uporablja tudi odvzem kosov z robotom z uporabo sistema pametnega vida Vision, ki omogoča višjo stopnjo fleksibilnosti robotske celice.",
+      "Vision sistem je možnost za odvzem kosov, kadar se oblike kosov spreminjajo.",
       "Robot lahko pri integrirani opciji Pick & Place z vhodnega traku pobira različne kose različnih oblik.",
     ],
     image: { src: "/images/systems/raw/flexido-cnc-machine-studio.png", alt: "CNC stroj s Flexido robotsko celico" },
@@ -42,6 +41,7 @@ export const cncSystemContent: SystemPageContent = {
   },
   itemGrids: [
     {
+      role: "documented-systems",
       eyebrow: "Nalaganje in odvzem",
       heading: "Dokumentirani sistemi za nalaganje in odvzem kosov.",
       items: [

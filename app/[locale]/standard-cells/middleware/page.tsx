@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import MiddlewarePageTemplate from "@/components/systems/MiddlewarePageTemplate";
+import CatalogPageTemplate from "@/components/systems/CatalogPageTemplate";
 import { getMiddlewareSystemContent } from "@/content/systems";
 import { buildAlternates } from "@/i18n/metadata";
 
@@ -26,5 +26,5 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
   const { locale } = await params;
   if (locale !== "en") notFound();
 
-  return <MiddlewarePageTemplate locale="en" content={getMiddlewareSystemContent("en")} />;
+  return <CatalogPageTemplate locale="en" content={getMiddlewareSystemContent("en")} />;
 }
