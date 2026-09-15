@@ -778,3 +778,100 @@ pre-existing raw-anchor ones. Compiled CSS confirmed to contain `text-wrap:balan
 
 **Verdict: kept.** The 58ch measure and body balancing now work together — the
 cap fixes line length, balance pays its only cost.
+
+---
+
+# Home — LOCKED
+
+Closes the Home series. The global typography/rhythm system was already locked
+before this pass; this records the final **local, Home-only** polish (A1–A5 of
+the Home visual polish audit) and freezes the page.
+
+## Status
+
+- Home visual polish **A1–A5 implemented**
+- commit: `82dc6afc2abf2f38607eb0b141f624c41b5ef27e`
+- pushed to `origin/main`
+- local `main` and `origin/main` **in sync** (0 ahead, 0 behind)
+
+## Locked areas
+
+No further changes without an explicit unlock:
+
+- Hero composition and H1 wrapping across SL / EN / DE
+- Section tone sequence
+- Standard-cell section
+- Competencies register
+- Process section
+- Dark CTA band
+- Funding/certification block
+- Footer desktop **and** mobile composition
+- Global typography/rhythm system
+- Heading balance and measures
+- `.text-body` leading and adoption
+- prose measure system
+- `SectionHeader` composition
+
+## Final Home polish changes that landed
+
+Three files, +26 / −8. Every change is a mobile-breakpoint qualifier on a local
+utility — desktop output is byte-identical.
+
+| # | Change | File |
+|---|---|---|
+| A1 | mobile footer right rail → 2-column layout with Solutions spanning | `src/components/layout/Footer.tsx` |
+| A2 | footer legal-spacing issue **resolved indirectly** by the new row gap — `mt-9` left untouched | — |
+| A3 | Process mobile title cap relaxed (`max-w-none sm:max-w-[18ch]`) | `src/components/blocks/home/Process.tsx` |
+| A4 | Process mobile paragraph cap relaxed (`max-w-none sm:max-w-[32ch]`) | `src/components/blocks/home/Process.tsx` |
+| A5 | EN/DE duplicate funding micro-label removed | `src/components/blocks/home/FundingCertification.tsx` |
+
+## Measured impact — final pass
+
+Footer, mobile:
+
+| locale | before | after | Δ |
+|---|---|---|---|
+| SL | 1808 | **1469** | −339 |
+| EN | 1925 | **1510** | −415 |
+| DE | 1972 | **1538** | −434 |
+
+Process, mobile:
+
+| locale | before | after | Δ |
+|---|---|---|---|
+| SL | 901 | **857** | −44 |
+| EN | 997 | **889** | −108 |
+| DE | 1043 | **1001** | −42 |
+
+Whole page:
+
+| locale | before | after | Δ |
+|---|---|---|---|
+| SL | 7682 | **7299** | −383 |
+| EN | 7689 | **7135** | −554 |
+| DE | 7965 | **7458** | −507 |
+
+## Verification
+
+- `tsc --noEmit` **exit 0**
+- `next build` **exit 0**
+- no horizontal overflow at **375 / 390 / 768 / 1024 / 1440**
+- desktop unchanged except the intended EN/DE funding-label cleanup — proven by
+  stash/re-measure A/B, not assertion: SL at 768 / 1024 / 1440 matches baseline
+  to the sub-pixel (grid tracks, gaps, column heights, page totals)
+- SL funding unchanged (711px mobile, 632px desktop, all three labels)
+- no unrelated files changed
+
+## CLOSED — leave alone
+
+Verified correct in the final pass. Do not reopen:
+
+- Competencies spacing / divider / icon grammar
+- Funding padding / logo sizing / legal-note spacing
+- Standard-cell bottom transition
+- Process divider rhythm and desktop grid
+- Footer desktop hierarchy
+- page-level surface ramp and section order
+
+B1–B5 from the Home visual polish audit stay **deferred and unopened**. No new
+recommendations are carried forward.
