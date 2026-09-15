@@ -53,14 +53,14 @@ export default function Process({ content = defaultContent, processHref = "/proc
         <ol className="mt-10 divide-y divide-neutral-200 lg:mt-14 lg:grid lg:grid-cols-4 lg:gap-x-8 lg:divide-y-0 lg:divide-x">
           {content.steps.map((item) => (
             <li key={item.step} className="py-6 first:pt-0 last:pb-0 lg:py-0">
-              <h3 className="flex max-w-[18ch] items-baseline gap-2 text-[18px] font-semibold leading-[1.15] tracking-[-0.02em] text-[#0a2540] sm:text-[19px]">
+              <h3 className="flex max-w-none items-baseline gap-2 text-[18px] font-semibold leading-[1.15] tracking-[-0.02em] text-[#0a2540] sm:max-w-[18ch] sm:text-[19px]">
                 <span className="tabular-nums text-[13px] font-normal text-[var(--color-brand)]">
                   {item.step}
                 </span>
                 {item.title}
               </h3>
 
-              <p className="mt-3 max-w-[32ch] text-[14px] leading-[22px] text-neutral-600 lg:pr-8">
+              <p className="mt-3 max-w-none text-[14px] leading-[22px] text-neutral-600 sm:max-w-[32ch] lg:pr-8">
                 {item.desc}
               </p>
             </li>

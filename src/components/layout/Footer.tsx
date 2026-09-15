@@ -276,9 +276,18 @@ export default function Footer({ locale = "sl" }: { locale?: Locale }) {
 </div>
 </div>
          {/* RIGHT */}
-<div className="grid gap-8 sm:grid-cols-3 lg:gap-10">
+{/*
+  Below sm the three link groups would otherwise stack into one ~1000px
+  rail. Two columns instead, with Solutions spanning the full first row —
+  its labels are the longest set (DE "Produktionsautomatisierung" /
+  "Kundenspezifische Systeme" at 193px) and are the only ones that would
+  wrap in a half-column. gap-y-10 also keeps the column gap above the
+  legal sub-block's mt-9, so that group stays subordinate to Contact.
+  sm and up are unchanged.
+*/}
+<div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 sm:gap-8 lg:gap-10">
   {/* SOLUTIONS */}
-  <div>
+  <div className="col-span-2 sm:col-span-1">
     <p className="text-[11px] uppercase tracking-[0.16em] text-white/40">
       {copy.solutionsHeading}
     </p>

@@ -153,10 +153,19 @@ export default function FundingCertification({
               </div>
             )}
             <div className={showSlOnlyGroup ? "mt-6 border-t border-neutral-200 pt-6 sm:mt-7 sm:pt-7" : ""}>
-              <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-neutral-500">
-                {content.developmentSupportLabel}
-              </p>
-              <div className="mt-4">
+              {/*
+                The group label, like the hairline above, only earns its
+                place when both groups render. With a single group (EN/DE)
+                it lands directly under the section eyebrow at the same
+                11px/uppercase/neutral-500 treatment and reads as a
+                duplicated eyebrow rather than a distinguishing label.
+              */}
+              {showSlOnlyGroup && (
+                <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-neutral-500">
+                  {content.developmentSupportLabel}
+                </p>
+              )}
+              <div className={showSlOnlyGroup ? "mt-4" : ""}>
                 <FundingLogoRow logos={fundingLogosShared} />
               </div>
             </div>
