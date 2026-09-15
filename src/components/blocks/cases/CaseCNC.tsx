@@ -11,7 +11,7 @@ export default function CaseCNC() {
     <div className="flex flex-col gap-12 sm:gap-16 lg:gap-20">
       {/* HEADER */}
       <div className="max-w-[58ch]">
-        <p className="eyebrow text-neutral-500">Primer iz prakse</p>
+        <p className="eyebrow">Primer iz prakse</p>
 
         <h2 className="mt-4 max-w-[15ch] text-4xl font-semibold leading-[0.95] tracking-[-0.03em] text-neutral-950 sm:text-5xl">
           Ročni CNC proces → neprekinjen tok
@@ -25,7 +25,7 @@ export default function CaseCNC() {
 
       {/* CONTEXT + PROBLEM */}
       <div className="grid gap-6 md:grid-cols-2">
-        <div className="rounded-2xl border border-neutral-200 bg-white p-6 sm:p-8">
+        <div className="rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-6 sm:p-8">
           <h3 className="text-base font-semibold text-neutral-900">
             Kontekst
           </h3>
@@ -38,7 +38,7 @@ export default function CaseCNC() {
           </ul>
         </div>
 
-        <div className="rounded-2xl border border-neutral-200 bg-white p-6 sm:p-8">
+        <div className="rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-6 sm:p-8">
           <h3 className="text-base font-semibold text-neutral-900">
             Problem
           </h3>
@@ -54,14 +54,14 @@ export default function CaseCNC() {
 
       {/* BEFORE / AFTER */}
       <div className="grid gap-4 md:grid-cols-2">
-        <div className="rounded-2xl border border-neutral-200 bg-white p-6">
+        <div className="rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-6">
           <p className="eyebrow text-neutral-400">Prej</p>
           <p className="mt-3 text-lg font-medium leading-snug text-neutral-950">
             Vsak cikel je bil odvisen od operaterja.
           </p>
         </div>
 
-        <div className="rounded-2xl border border-neutral-200 bg-white p-6">
+        <div className="rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-6">
           <p className="eyebrow text-neutral-400">Potem</p>
           <p className="mt-3 text-lg font-medium leading-snug text-neutral-950">
             Proces teče avtomatsko, brez ročnega posega med kosi.
@@ -83,7 +83,7 @@ export default function CaseCNC() {
       </div>
 
       {/* FLOW */}
-      <div className="rounded-2xl border border-neutral-200 bg-white p-6 sm:p-8">
+      <div className="rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-6 sm:p-8">
         <div className="max-w-[52ch]">
           <h3 className="text-base font-semibold text-neutral-900">
             Kako teče proces
@@ -108,7 +108,7 @@ export default function CaseCNC() {
           ].map((item, index) => (
             <li
               key={item}
-              className="rounded-xl border border-neutral-200 bg-neutral-50 p-4"
+              className="rounded-[var(--radius-structural)] border border-neutral-200 bg-neutral-50 p-4"
             >
               <span className="text-xs font-medium text-neutral-400">
                 {String(index + 1).padStart(2, "0")}
@@ -123,7 +123,7 @@ export default function CaseCNC() {
 
       {/* RESULT + INSIGHT */}
       <div className="grid gap-6 md:grid-cols-[1.05fr_0.95fr] md:items-stretch">
-        <div className="rounded-2xl bg-neutral-950 p-6 text-white sm:p-8">
+        <div className="rounded-[var(--radius-structural)] bg-neutral-950 p-6 text-white sm:p-8">
           <p className="eyebrow text-white/45">Rezultat</p>
 
           <h3 className="mt-4 max-w-[15ch] text-3xl font-semibold leading-[1] tracking-[-0.03em] sm:text-4xl">
@@ -138,7 +138,7 @@ export default function CaseCNC() {
           </ul>
         </div>
 
-        <div className="flex rounded-2xl border border-neutral-200 bg-white p-6 sm:p-8">
+        <div className="flex rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-6 sm:p-8">
           <p className="self-end text-2xl font-medium leading-tight tracking-[-0.02em] text-neutral-950 sm:text-3xl">
             CNC stroji so hitri.
             <br />

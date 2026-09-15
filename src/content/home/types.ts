@@ -3,9 +3,14 @@ import type { RouteKey } from "@/i18n/routes";
 export type HomeHeroContent = {
   eyebrow: string;
   titleLines: [string, string];
-  /** Optional shorter mobile-only override for the second title line (keeps the mobile H1 rhythm compact without shrinking type). Falls back to titleLines when omitted. */
-  titleLinesMobile?: [string, string];
+  /**
+   * Mobile carries one claim, not two. `titleMobile` is the single H1 idea;
+   * the counter-claim from `titleLines[1]` is demoted into `subheadMobile`.
+   * Both fall back to the desktop strings when omitted.
+   */
+  titleMobile?: string;
   subhead: string;
+  subheadMobile?: string;
   slogan: string;
   ctaPrimary: string;
   ctaSecondary: string;
@@ -36,6 +41,12 @@ export type HomeSolutionsContent = {
   desc: string;
   compactReadMoreLabel: string;
   compactItems: HomeSolutionsCompactItem[];
+  /**
+   * Short problem→response line shown below the compact rows, previewing
+   * the Systems/productProof section that follows. Deliberately distinct
+   * from `productProof.heading`, which renders immediately after it.
+   */
+  bridge?: string;
 };
 
 export type HomeProductProofSystem = {
@@ -58,6 +69,8 @@ export type HomeProductProofContent = {
 export type HomeCompetenciesContent = {
   eyebrow: string;
   heading: string;
+  /** Optional one-line framing that connects the heading to the list below — frames the items as coverage within one project/team rather than separate services. */
+  intro?: string;
   items: string[];
   /** Optional continuation link to development-project evidence. Omitted where no equivalent route exists for the locale. */
   developmentProjectsLabel?: string;
@@ -86,6 +99,30 @@ export type HomeFinalCtaContent = {
   imageCaption: string;
 };
 
+/**
+ * Home-only funding/development-support register, rendered once near the
+ * footer. Certification (Bureau Veritas / ISO 9001) lives in the post-hero
+ * `trustStrip` instead — this block is funding only, split into two
+ * semantic subgroups: the SL-only project-funding voucher scheme (SPS,
+ * ERDF, Ministry) and the shared development-support programme (SPIRIT,
+ * EU Cohesion Fund). `quote`, `projectFundingLabel` and `legalNote` are
+ * SL-specific voucher-scheme copy (no faithful EN/DE source text exists)
+ * and are omitted for other locales; the subgroup labels and eyebrow are
+ * safe to translate since they're structural, not funding claims.
+ */
+export type HomeFundingCertificationContent = {
+  eyebrow: string;
+  quote?: string;
+  /** Label for the SL-only group (SPS, ERDF, Ministry). Omitted elsewhere. */
+  projectFundingLabel?: string;
+  /** Label for the shared group (SPIRIT, EU Cohesion Fund), all locales. */
+  developmentSupportLabel: string;
+  /** Text preceding the eu-skladi.si link, e.g. "…Več lahko najdete na". */
+  legalNote?: string;
+  legalNoteLinkHref?: string;
+  legalNoteLinkLabel?: string;
+};
+
 export type HomePageMeta = {
   title: string;
   description: string;
@@ -100,5 +137,5 @@ export type HomePageContent = {
   competencies: HomeCompetenciesContent;
   process: HomeProcessContent;
   finalCta: HomeFinalCtaContent;
-  showFundingTrust: boolean;
+  fundingCertification: HomeFundingCertificationContent;
 };

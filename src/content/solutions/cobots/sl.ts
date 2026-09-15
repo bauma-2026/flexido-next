@@ -6,7 +6,7 @@ export const cobotsContent: SolutionPageContent = {
   hero: {
     backLabel: "← Vse rešitve",
     eyebrow: "Kolaborativni roboti",
-    titleLines: ["Fleksibilna avtomatizacija za določene operacije."],
+    titleLines: ["Kolaborativni robot za jasno določene operacije."],
     subhead:
       "Kolaborativni robot je lahko primerna rešitev za prijemanje, vstavljanje, kontrolo ali montažo v obstoječem proizvodnem procesu.",
     ctas: [{ label: "Kdaj je cobot primeren?", anchor: "#primernost" }],
@@ -36,7 +36,8 @@ export const cobotsContent: SolutionPageContent = {
         "Spreminjajoče se zahteve",
         "Oprema okoli operacije",
       ],
-      result: "Rezultat: cobot je smiseln, ko se ujema z operacijo, delovnim mestom in omejitvami procesa.",
+      result: "cobot je smiseln, ko se ujema z operacijo, delovnim mestom in omejitvami procesa.",
+      resultLabel: "Rezultat",
     },
     {
       type: "capabilityGroups",
@@ -65,7 +66,7 @@ export const cobotsContent: SolutionPageContent = {
       type: "capabilityGroups",
       id: "integracija",
       eyebrow: "Integracija v proces",
-      heading: "Robot je en element delovne rešitve.",
+      heading: "Cobot je del delovnega mesta in zaporedja dela.",
       body: "Cobot dobi pomen šele, ko je usklajen z dejansko nalogo, delovnim mestom in opremo okoli njega.",
       layout: "numberedRows",
       groups: [

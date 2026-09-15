@@ -6,7 +6,7 @@ export default function ProblemSplitBlock({ section }: { section: ProblemSplitCo
   const paragraphs = Array.isArray(section.body) ? section.body : [section.body];
 
   return (
-    <Section id={section.id} variant="tight" className="scroll-mt-24 border-b border-neutral-200 bg-white">
+    <Section id={section.id} className="scroll-mt-24 border-b border-neutral-200 bg-white">
       <Container>
         <div className="grid gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-start lg:gap-16">
           <div>
@@ -21,16 +21,42 @@ export default function ProblemSplitBlock({ section }: { section: ProblemSplitCo
             ))}
           </div>
 
-          <div>
+          <div className="lg:mt-4">
             <p className="eyebrow">{section.itemsEyebrow}</p>
-            <div className="mt-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
-              {section.items.map((item) => (
-                <div key={item} className="border border-neutral-200 bg-white px-4 py-3.5">
-                  <p className="text-[15px] leading-6 text-neutral-950">{item}</p>
+            <div className="mt-4">
+              {section.items.map((item, index) => (
+                <div key={item} className="flex items-start gap-2 py-6 first:pt-0 last:pb-0 lg:gap-3">
+                  <div className="flex h-[1.375em] w-4 shrink-0 items-center text-[17px] leading-snug lg:w-6">
+                    <span
+                      aria-hidden
+                      className="block h-[5px] w-[5px] translate-y-px border border-[var(--color-brand)]/50"
+                    />
+                  </div>
+                  <div className="relative w-full max-w-[400px]">
+                    {index !== 0 && (
+                      <span
+                        aria-hidden
+                        className="absolute inset-x-0 -top-6 border-t border-neutral-200"
+                      />
+                    )}
+                    <p className="text-[17px] font-medium leading-snug text-neutral-950">{item}</p>
+                  </div>
                 </div>
               ))}
             </div>
-            <p className="mt-5 border-t border-neutral-200 pt-4 text-[13.5px] leading-6 text-neutral-500">{section.result}</p>
+            <div className="mt-6 flex items-start gap-2 lg:gap-3">
+              <div aria-hidden className="w-4 shrink-0 lg:w-6" />
+              <div className="relative w-full max-w-[400px] pt-5">
+                <span
+                  aria-hidden
+                  className="absolute inset-x-0 top-0 border-t border-[var(--color-brand)]/30"
+                />
+                <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-neutral-400">
+                  {section.resultLabel}
+                </p>
+                <p className="mt-2 text-[15px] leading-6 text-neutral-800">{section.result}</p>
+              </div>
+            </div>
           </div>
         </div>
       </Container>

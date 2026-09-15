@@ -41,11 +41,11 @@ export default function Page() {
                 ← Vse rešitve
               </a>
 
-              <p className="mt-6 text-[11px] uppercase tracking-[0.16em] text-white/50">
+              <p className="mt-6 eyebrow-on-dark">
                 Podpora po zagonu
               </p>
 
-              <h1 className="mt-4 text-4xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-5xl lg:text-6xl">
+              <h1 className="text-display mt-4">
                 <span className="block max-w-[12ch]">Servis in</span>
                 <span className="block max-w-[12ch]">podpora</span>
               </h1>
@@ -95,7 +95,7 @@ export default function Page() {
               </div>
 
               <div>
-                <p className="mb-4 text-[11px] uppercase tracking-[0.16em] text-neutral-500">
+                <p className="mb-4 eyebrow">
                   Najpogostejši razlogi
                 </p>
 
@@ -108,7 +108,7 @@ export default function Page() {
                   ].map((item) => (
                     <div
                       key={item}
-                      className="rounded-[22px] border border-neutral-200 bg-white p-6"
+                      className="rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-6"
                     >
                       <p className="text-[15px] font-medium text-neutral-950">
                         {item}
@@ -126,7 +126,7 @@ export default function Page() {
         </Section>
 
         {/* APPROACH */}
-        <Section id="pristop" className="scroll-mt-24 bg-[#f6f9fc]">
+        <Section id="pristop" className="scroll-mt-24 surface-muted">
           <Container>
             <div className="max-w-[720px]">
               <p className="eyebrow">Naš pristop</p>
@@ -159,7 +159,7 @@ export default function Page() {
               ].map((item) => (
                 <div
                   key={item.title}
-                  className="rounded-[24px] bg-white p-7 shadow-[0_18px_50px_rgba(15,23,42,0.045)]"
+                  className="rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-7"
                 >
                   <h3 className="text-[17px] font-semibold text-neutral-950">
                     {item.title}
@@ -201,7 +201,7 @@ export default function Page() {
               ].map((item) => (
                 <div
                   key={item}
-                  className="rounded-[22px] border border-neutral-200 bg-white p-6"
+                  className="rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-6"
                 >
                   <p className="text-[15px] font-medium text-neutral-950">
                     {item}
@@ -211,12 +211,9 @@ export default function Page() {
             </div>
 
             <div className="mt-10">
-              <a
-                href="#kontakt"
-                className="inline-flex items-center rounded-full bg-neutral-950 px-6 py-3 text-[14px] font-medium text-white transition hover:bg-neutral-800"
-              >
+              <Button href="#kontakt">
                 Poglejmo, kako zagotoviti stabilno delovanje →
-              </a>
+              </Button>
             </div>
           </Container>
         </Section>

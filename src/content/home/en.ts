@@ -13,9 +13,12 @@ export const homeContent: HomePageContent = {
       "We connect the flow between machines.",
       "Not just a robot next to a machine.",
     ],
+    titleMobile: "We connect machines into a production flow.",
     subhead:
       "We build standard robotic cells and custom-built cells — and connect them into a stable flow between machines, with less waiting between stages.",
-    slogan: "At Flexido, we make automation easier.",
+    subheadMobile:
+      "Not just a robot next to a machine. Standard and custom-built cells, connected into a stable flow — with less waiting between stages.",
+    slogan: "One team reviews the process, designs and integrates the system, and commissions it.",
     ctaPrimary: "Let's look at your process",
     ctaSecondary: "How a project works",
   },
@@ -24,7 +27,7 @@ export const homeContent: HomePageContent = {
     items: [
       {
         href: "https://www.flexido.eu/images/pdf/FLEXIDO-9001-CERT-Certificate-SLO-24092021.pdf",
-        src: "/logos/trust/bureau-veritas-iso-9001.webp",
+        src: "/logos/funding/bureau-veritas-iso9001.svg",
         alt: "ISO 9001 Bureau Veritas Certification",
         external: true,
       },
@@ -33,7 +36,7 @@ export const homeContent: HomePageContent = {
   solutions: {
     eyebrow: "Solutions",
     title: "Where automation can help",
-    desc: "From a single machine to connecting several stages — we choose the solution based on where the process loses time, stability, or predictability.",
+    desc: "From a single machine to connected production stages, we first identify where the process loses time, stability, or predictability.",
     compactReadMoreLabel: "Read more",
     compactItems: [
       {
@@ -61,26 +64,27 @@ export const homeContent: HomePageContent = {
         icon: "materialFlow",
       },
     ],
+    bridge: "A standard robot cell can be a starting point; we then adapt it to the machine, part, and actual production conditions.",
   },
   productProof: {
     eyebrow: "Systems",
-    heading: "Systems we adapt to the process.",
+    heading: "From a standard cell to implementation in production.",
     body:
-      "Standard robotic cells are the foundation for solutions we adapt to production, parts, space, and existing equipment.",
+      "We start with a standard robot cell and adapt it to the part, space, and existing equipment.",
     viewAllLabel: "View all systems",
     viewAllRouteKey: "standardCells",
     viewSystemLabel: "View system",
     systems: [
       {
         slug: "flex-7-cnc",
-        category: "CNC machine automation",
+        category: "CNC machines",
         shortDescription:
           "A compact robot cell for tending CNC machines — loading, unloading, and a more stable part flow.",
         routeKey: "standardCellsCnc",
       },
       {
         slug: "flex-7-imm",
-        category: "IMM automation",
+        category: "Injection molding",
         shortDescription:
           "A compact robot cell for tending injection molding machines — part removal, insert moulding, and inspection.",
         routeKey: "standardCellsImm",
@@ -90,6 +94,7 @@ export const homeContent: HomePageContent = {
   competencies: {
     eyebrow: "Competencies",
     heading: "What we cover within a project",
+    intro: "Design, programming, integration, and commissioning are carried out by the same team.",
     items: [
       "Feasibility study",
       "Mechanical design",
@@ -98,6 +103,7 @@ export const homeContent: HomePageContent = {
       "Smart vision systems",
       "Project management",
     ],
+    developmentProjectsLabel: "See references",
   },
   process: {
     eyebrow: "Process",
@@ -117,7 +123,7 @@ export const homeContent: HomePageContent = {
       {
         step: "03",
         title: "Implementation and integration",
-        desc: "We connect the solution with existing machines, operators, space, and the real work rhythm.",
+        desc: "We connect the system to existing machines, integrate it into the space, and align it with operators’ actual work rhythm.",
       },
       {
         step: "04",
@@ -136,7 +142,14 @@ export const homeContent: HomePageContent = {
     imageCaptionEyebrow: "First review",
     imageCaption: "Where does the process lose time, material, or a stable rhythm?",
   },
-  showFundingTrust: false,
+  fundingCertification: {
+    eyebrow: "Funding",
+    developmentSupportLabel: "Development support",
+    legalNote:
+      "The investment is co-financed by the Republic of Slovenia and the European Union from the European Regional Development Fund. More information at",
+    legalNoteLinkHref: "https://www.eu-skladi.si",
+    legalNoteLinkLabel: "www.eu-skladi.si",
+  },
 };
 
 /** @deprecated Use `homeContent.hero` */

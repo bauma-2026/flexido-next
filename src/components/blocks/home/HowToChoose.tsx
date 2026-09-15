@@ -23,7 +23,7 @@ export default function HowToChoose() {
     <div className="mt-12 grid gap-5 lg:grid-cols-12">
       {/* FEATURED */}
       <div className="lg:col-span-6">
-        <Card className="flex h-full flex-col justify-between rounded-[28px] border border-[#d7e3f0] bg-[#f4f8fc] p-7 sm:p-8">
+        <Card className="flex h-full flex-col justify-between rounded-[var(--radius-structural)] border border-[#d7e3f0] bg-[#f4f8fc] p-7 sm:p-8">
           <div>
             <p className="text-[11px] uppercase tracking-[0.16em] text-[#5b6b82]">
               Najpogostejši primer
@@ -86,7 +86,7 @@ export default function HowToChoose() {
         ].map((item) => (
           <Card
             key={item.title}
-            className="group rounded-[24px] border border-neutral-200 bg-white p-6 transition-all duration-300 hover:-translate-y-[2px] hover:border-[#dbe6f1] hover:shadow-[0_18px_40px_rgba(15,23,42,0.06)]"
+            className="group rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-6 transition-all duration-300 hover:-translate-y-[2px] hover:border-[#dbe6f1]"
           >
             <p className="text-[11px] uppercase tracking-[0.14em] text-[#6b7a90]">
               {item.eyebrow}
@@ -107,7 +107,7 @@ export default function HowToChoose() {
     </div>
 
     {/* CTA BAR */}
-    <div className="mt-8 rounded-[24px] border border-neutral-200 bg-neutral-50 px-6 py-5 sm:px-7">
+    <div className="mt-8 rounded-[var(--radius-structural)] border border-neutral-200 bg-neutral-50 px-6 py-5 sm:px-7">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-[15px] leading-6 text-neutral-600">
           Ne najdete svojega primera? Pogledamo lahko vaš konkreten proces in

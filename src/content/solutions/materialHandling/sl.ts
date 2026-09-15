@@ -36,7 +36,8 @@ export const materialHandlingContent: SolutionPageContent = {
         "Kako mora biti usmerjen",
         "Kako se ga preda naprej",
       ],
-      result: "Rezultat: predaja kosa mora biti del same operacije, ne dodatek k njej.",
+      result: "predaja kosa mora biti del same operacije, ne dodatek k njej.",
+      resultLabel: "Rezultat",
     },
     {
       type: "capabilityGroups",

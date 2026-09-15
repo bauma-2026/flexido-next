@@ -28,11 +28,11 @@ function DetailsCard({ mobile = false }: { mobile?: boolean }) {
   return (
     <aside
       className={[
-        "rounded-[24px] border border-neutral-200 bg-white p-6",
+        "rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-6",
         mobile ? "lg:hidden" : "hidden lg:block lg:sticky lg:top-24",
       ].join(" ")}
     >
-      <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-500">
+      <p className="eyebrow">
         Podrobnosti
       </p>
 
@@ -73,11 +73,11 @@ export default function Page() {
             </Link>
 
             <div className="mt-6 max-w-[820px]">
-              <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-400">
+              <p className="eyebrow">
                 Razvojni projekti
               </p>
 
-              <h1 className="mt-4 text-[32px] font-semibold leading-[1.04] tracking-[-0.045em] text-neutral-950 sm:text-[40px] lg:text-[48px]">
+              <h1 className="text-document-title mt-4">
                 Sofinanciranje stroškov digitalizacije prodajnih poti ter
                 predstavitvenih in trženjskih gradiv za promocijo na tujih
                 trgih.
@@ -190,19 +190,19 @@ export default function Page() {
                   ]}
                   primaryLogos={[
                     {
-                      src: "/images/funding/mgts.webp",
+                      src: "/logos/funding/ministry-mgts-alt.png",
                       alt: "Ministrstvo za gospodarstvo, turizem in šport",
                       href: "https://www.gov.si/zbirke/delovna-mesta/ministrstvo-za-gospodarski-razvoj-in-tehnologijo/",
                     },
                     {
-                      src: "/images/funding/spirit-slovenia.webp",
+                      src: "/logos/funding/spirit-slovenija.svg",
                       alt: "SPIRIT Slovenija",
                       href: "https://www.spiritslovenia.si/",
                     },
                   ]}
                   secondaryLogos={[
                     {
-                      src: "/images/funding/eu-regionalni-sklad.webp",
+                      src: "/logos/funding/eu-regional-development-fund.png",
                       alt: "Evropski sklad za regionalni razvoj",
                       href: "https://www.eu-skladi.si/",
                     },

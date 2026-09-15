@@ -29,11 +29,11 @@ function DetailsCard({ mobile = false }: { mobile?: boolean }) {
   return (
     <aside
       className={[
-        "rounded-[24px] border border-neutral-200 bg-white p-6",
+        "rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-6",
         mobile ? "lg:hidden" : "hidden lg:block lg:sticky lg:top-24",
       ].join(" ")}
     >
-      <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-500">
+      <p className="eyebrow">
         Podrobnosti
       </p>
 
@@ -74,11 +74,11 @@ export default function Page() {
             </Link>
 
             <div className="mt-6 max-w-[820px]">
-              <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-400">
+              <p className="eyebrow">
                 Razvojni projekti
               </p>
 
-              <h1 className="mt-4 text-[32px] font-semibold leading-[1.04] tracking-[-0.045em] text-neutral-950 sm:text-[40px] lg:text-[48px]">
+              <h1 className="text-document-title mt-4">
                 SmartIM — pametna tovarna Iskra Mehanizmi
               </h1>
 
@@ -179,7 +179,7 @@ export default function Page() {
                 />
 
                 {/* PROJECT VALUE CALLOUT */}
-                <div className="mt-12 rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
+                <div className="mt-12 border-t border-neutral-200 pt-8">
                   <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
                     Vrednost projekta
                   </p>
@@ -204,19 +204,19 @@ export default function Page() {
                   eyebrow="Sofinanciranje"
                   primaryLogos={[
                     {
-                      src: "/images/funding/mgts.webp",
+                      src: "/logos/funding/ministry-mgts-alt.png",
                       alt: "Ministrstvo za gospodarstvo, turizem in šport",
                       href: "https://www.gov.si/zbirke/delovna-mesta/ministrstvo-za-gospodarski-razvoj-in-tehnologijo/",
                     },
                     {
-                      src: "/images/funding/noo.webp",
+                      src: "/logos/funding/noo.png",
                       alt: "Načrt za okrevanje in odpornost",
                       href: "https://www.gov.si/zbirke/projekti-in-programi/nacrt-za-okrevanje-in-odpornost/",
                     },
                   ]}
                   secondaryLogos={[
                     {
-                      src: "/images/funding/nextgenerationeu.webp",
+                      src: "/logos/funding/nextgenerationeu.png",
                       alt: "Financira Evropska unija — NextGenerationEU",
                       href: "https://www.eu-skladi.si/",
                     },

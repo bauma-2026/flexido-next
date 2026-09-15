@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
+import { competencyIcons } from "@/components/icons/CompetencyIcons";
 import type { HomeCompetenciesContent } from "@/content/home/types";
 import type { Locale } from "@/i18n/config";
 import { getPath } from "@/i18n/routes";
@@ -9,6 +10,7 @@ const defaultContent: HomeCompetenciesContent = {
   eyebrow: "Kompetence",
   heading: "Kaj obvladamo znotraj projekta",
   items: [
+  intro: "Konstrukcijo, programiranje, integracijo in zagon izvaja ista ekipa.",
     "Izvedba študije izvedljivosti",
     "Konstruiranje",
     "Elektro projektiranje",
@@ -16,7 +18,7 @@ const defaultContent: HomeCompetenciesContent = {
     "Sistemi pametnega vida",
     "Projektno vodenje",
   ],
-  developmentProjectsLabel: "Razvojne kompetence v praksi",
+  developmentProjectsLabel: "Oglejte si reference",
 };
 
 type Props = {
@@ -25,12 +27,12 @@ type Props = {
 };
 
 export default function Competencies({ content = defaultContent, locale = "sl" }: Props) {
-  const developmentProjectsHref = getPath("fundingProjects", locale);
+  const developmentProjectsHref = getPath("references", locale);
   const showDevelopmentProjectsLink =
     content.developmentProjectsLabel && developmentProjectsHref;
 
   return (
-    <Section className="border-b border-neutral-200 surface-muted text-[#0a2540]">
+    <Section className="border-b border-neutral-200 bg-white text-[#0a2540]">
       <Container>
         <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
           <div>
@@ -41,21 +43,33 @@ export default function Competencies({ content = defaultContent, locale = "sl" }
           </div>
 
           <div>
-            {content.items.map((competency) => (
-              <div
-                key={competency}
-                className="border-neutral-200 py-5 first:pt-0 last:pb-0 [&:not(:first-child)]:border-t"
-              >
-                <h3 className="text-[16px] font-semibold leading-6 text-[#0a2540]">
-                  {competency}
-                </h3>
-              </div>
-            ))}
+            {content.items.map((competency, index) => {
+              const Icon = competencyIcons[index];
+              return (
+                <div
+                  key={competency}
+                  className="relative flex items-center gap-4 py-6 first:pt-0 last:pb-0"
+                >
+                  {index !== 0 && (
+                    <span
+                      aria-hidden
+                      className="absolute left-12 right-0 top-0 max-w-[22rem] border-t border-neutral-200"
+                    />
+                  )}
+                  {Icon && (
+                    <Icon className="h-8 w-8 shrink-0 text-[var(--color-brand)]" />
+                  )}
+                  <h3 className="text-[16px] font-semibold leading-6 text-[#0a2540]">
+                    {competency}
+                  </h3>
+                </div>
+              );
+            })}
 
             {showDevelopmentProjectsLink && (
               <Link
                 href={developmentProjectsHref}
-                className="focus-ring mt-6 inline-flex items-center text-[14px] font-medium text-neutral-500 transition hover:text-[#0b8fdc]"
+                className="focus-ring mt-14 inline-flex items-center text-[14px] font-semibold text-neutral-700 transition hover:text-[#0b8fdc]"
               >
                 {content.developmentProjectsLabel}
                 <span className="link-arrow">→</span>

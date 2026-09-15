@@ -77,7 +77,7 @@ function getTrustLogos(locale: Locale) {
     },
     {
       href: isoCertificateHref,
-      src: "/logos/trust/bureau-veritas-iso-9001.webp",
+      src: "/logos/funding/bureau-veritas-iso9001.svg",
       alt: "ISO 9001 Bureau Veritas Certification",
       note:
         locale === "de"

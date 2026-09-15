@@ -1,10 +1,17 @@
 import type { ReactNode } from "react";
+import { fundingLogoImgClass, FUNDING_LOGO_BASE_CLASS } from "./fundingLogoOptics";
 
 export type ProjectFundingLogo = {
   src: string;
   alt: string;
   href?: string;
-  heightClass?: string;
+  /**
+   * Escape hatch for a source shared with an already-locked page (news
+   * or another project detail page) whose sizing must not move.
+   * Overrides the shared `fundingLogoOptics` height for this instance
+   * only — leave unset so every logo stays on the shared system.
+   */
+  heightClassOverride?: string;
 };
 
 type ProjectFundingLink = {
@@ -30,14 +37,24 @@ function FundingLogoMark({
   logo: ProjectFundingLogo;
   subdued?: boolean;
 }) {
-  const heightClass = logo.heightClass ?? "h-12 sm:h-14";
   const image = (
     <img
       src={logo.src}
       alt={logo.alt}
-      className={`w-auto object-contain ${heightClass}`}
+      className={
+        logo.heightClassOverride
+          ? `${FUNDING_LOGO_BASE_CLASS} ${logo.heightClassOverride}`
+          : fundingLogoImgClass(logo.src)
+      }
     />
   );
+
+  const wrapClass = [
+    "inline-flex max-w-full items-center",
+    subdued
+      ? "opacity-75 transition hover:opacity-90"
+      : "opacity-90 transition hover:opacity-100",
+  ].join(" ");
 
   if (logo.href) {
     return (
@@ -45,18 +62,14 @@ function FundingLogoMark({
         href={logo.href}
         target="_blank"
         rel="noopener noreferrer"
-        className={
-          subdued
-            ? "opacity-75 transition hover:opacity-90"
-            : "opacity-90 transition hover:opacity-100"
-        }
+        className={wrapClass}
       >
         {image}
       </a>
     );
   }
 
-  return <div className={subdued ? "opacity-75" : "opacity-90"}>{image}</div>;
+  return <div className={wrapClass}>{image}</div>;
 }
 
 export default function ProjectFundingBlock({
@@ -84,7 +97,7 @@ export default function ProjectFundingBlock({
     >
       <div className="max-w-[920px]">
         {eyebrow && (
-          <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
+          <p className="eyebrow">
             {eyebrow}
           </p>
         )}
@@ -130,7 +143,7 @@ export default function ProjectFundingBlock({
         {primaryLogos.length > 0 && (
           <div
             className={[
-              "flex flex-wrap items-center gap-x-8 gap-y-5",
+              "flex flex-wrap items-center gap-x-6 gap-y-5 sm:gap-x-8",
               hasText || legalLine ? "mt-6 sm:mt-7" : "",
             ].join(" ")}
           >
@@ -141,7 +154,7 @@ export default function ProjectFundingBlock({
         )}
 
         {legalLine && (
-          <div className="mt-8 max-w-[70ch] border-t border-neutral-200 pt-6 text-[13px] leading-6 text-neutral-500 sm:mt-9 sm:pt-7">
+          <div className="mt-8 max-w-[70ch] border-t border-neutral-200 pt-6 text-[13px] leading-6 text-neutral-600 sm:mt-9 sm:pt-7">
             {legalLine}
           </div>
         )}

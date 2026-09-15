@@ -8,6 +8,7 @@ import Section from "@/components/layout/Section";
 import { flexidoSystems } from "@/data/flexido-systems";
 import type { Locale } from "@/i18n/config";
 import { getPath, type RouteKey } from "@/i18n/routes";
+import { cn } from "@/lib/cn";
 import type { SystemsHubCard, SystemsHubContent } from "@/content/systems/types";
 
 /**
@@ -40,7 +41,7 @@ function HubSystemCard({ card, locale, cardLinkLabel }: { card: SystemsHubCard; 
   return (
     <Link
       href={href}
-      className="group flex h-full flex-col overflow-hidden rounded-[24px] border border-neutral-200 bg-white transition hover:border-neutral-300 hover:shadow-[0_20px_60px_rgba(15,23,42,0.08)]"
+      className="group flex h-full flex-col overflow-hidden rounded-[var(--radius-panel)] border border-neutral-200 bg-white transition-colors duration-300 hover:border-neutral-400"
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100">
         {imageSrc ? (
@@ -49,15 +50,15 @@ function HubSystemCard({ card, locale, cardLinkLabel }: { card: SystemsHubCard; 
             alt={card.title}
             fill
             sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-            className="object-cover transition duration-500 group-hover:scale-[1.03]"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
           />
         ) : null}
       </div>
       <div className="flex flex-1 flex-col p-5">
         <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">{card.eyebrow}</p>
-        <h3 className="mt-2.5 text-[22px] font-semibold tracking-[-0.03em] text-neutral-950">{card.title}</h3>
-        <p className="mt-2 line-clamp-2 text-[14px] leading-6 text-neutral-600">{card.desc}</p>
-        <p className="mt-4 text-[14px] font-medium text-neutral-500 transition group-hover:text-neutral-950">{cardLinkLabel} →</p>
+        <h3 className="text-card-title mt-2.5">{card.title}</h3>
+        <p className="mt-2 text-[14px] leading-[22px] text-neutral-600">{card.desc}</p>
+        <p className="mt-auto inline-flex items-center pt-4 text-[14px] font-medium text-neutral-500 transition group-hover:text-neutral-950">{cardLinkLabel}<span className="link-arrow">→</span></p>
       </div>
     </Link>
   );
@@ -80,8 +81,8 @@ export default function SystemsHubTemplate({ locale, content }: { locale: Locale
 
           <Container className="relative z-10 flex min-h-[520px] items-end pb-16 pt-32 sm:min-h-[620px] lg:pb-20">
             <div className="max-w-[720px]">
-              <p className="text-[11px] uppercase tracking-[0.18em] text-white/55">{content.hero.eyebrow}</p>
-              <h1 className="mt-5 max-w-[680px] text-[44px] font-semibold leading-[0.95] tracking-[-0.055em] sm:text-[64px] lg:text-[76px]">
+              <p className="eyebrow-on-dark">{content.hero.eyebrow}</p>
+              <h1 className="text-display mt-5 max-w-[18ch]">
                 {content.hero.heading}
               </h1>
               <p className="mt-6 max-w-[560px] text-[17px] leading-8 text-white/70">{content.hero.subhead}</p>
@@ -90,7 +91,7 @@ export default function SystemsHubTemplate({ locale, content }: { locale: Locale
         </section>
 
         {/* Ponudba — split statement / rationale, the approved primitive from /proces: short thesis on a narrower left column, explanation on the right behind a vertical hairline (desktop only, no divider chrome on mobile). */}
-        <Section variant="tight">
+        <Section>
           <Container>
             <div className="grid gap-8 lg:grid-cols-[0.7fr_1fr] lg:gap-12">
               <div>
@@ -145,17 +146,36 @@ export default function SystemsHubTemplate({ locale, content }: { locale: Locale
                 <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                   {content.modules.groups.map((group) => (
                     <div key={group.title}>
-                      <h3 className="text-sm font-semibold text-neutral-950">{group.title}</h3>
-                      <ul className="mt-4 space-y-2 text-[14px] leading-6 text-neutral-600">
-                        {group.items.map((item) => (
-                          <li key={item} className="border-b border-neutral-100 pb-2">
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
+                      <h3 className="text-[13px] font-semibold tracking-[-0.01em] text-neutral-950">{group.title}</h3>
+                      <div
+                        className={cn(
+                          "mt-3 grid border border-neutral-200",
+                          columns === 2 && "sm:grid-cols-2"
+                        )}
+                      >
+                        {group.items.map((item, index) => {
+                          const row = Math.floor(index / columns);
+                          const isLeft = columns === 1 || index % 2 === 0;
+                          const hasPartner = isLeft && index + 1 < group.items.length;
+
+                          return (
+                            <div
+                              key={item}
+                              className={cn(
+                                "px-5 py-3.5",
+                                index < group.items.length - 1 && "border-b border-neutral-200 sm:border-b-0",
+                                row < totalRows - 1 && "sm:border-b sm:border-neutral-200",
+                                hasPartner && "sm:border-r sm:border-neutral-200"
+                              )}
+                            >
+                              <p className="text-[15px] font-normal leading-6 text-neutral-800">{item}</p>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
-                  ))}
-                </div>
+                  );
+                })}
               </div>
             </Container>
           </Section>

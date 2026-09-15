@@ -37,11 +37,11 @@ export default function VideoPageTemplate({
 
           <Container className="relative z-10 py-20 sm:py-24 lg:py-28">
             <div className="max-w-[760px]">
-              <p className="text-[11px] uppercase tracking-[0.16em] text-white/50">
+              <p className="eyebrow-on-dark">
                 {content.hero.eyebrow}
               </p>
 
-              <h1 className="mt-4 max-w-[13ch] text-5xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-6xl lg:text-[68px]">
+              <h1 className="text-display mt-4 max-w-[13ch]">
                 {content.hero.heading}
               </h1>
 
@@ -84,7 +84,7 @@ export default function VideoPageTemplate({
 
                 <div
                   className={cn(
-                    "overflow-hidden rounded-[2rem] border border-neutral-200 bg-black",
+                    "overflow-hidden rounded-[var(--radius-panel)] border border-neutral-200 bg-black",
                     (content.player.bridgeLead || content.player.bridgeBody) && "mt-6"
                   )}
                 >

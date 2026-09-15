@@ -43,43 +43,23 @@ export default function Process({ content = defaultContent, processHref = "/proc
     <Section id="process" variant="default" className="bg-white text-[#0a2540]">
       <Container>
         <SectionHeader
+          className="max-w-[760px]"
           eyebrow={content.eyebrow}
           title={content.title}
           desc={content.desc}
         />
 
-        <ol className="relative mt-10 lg:mt-14 lg:grid lg:grid-cols-4 lg:gap-x-8 lg:border-t lg:border-neutral-200">
-          <span
-            aria-hidden
-            className="absolute left-0 top-1 bottom-1 w-px bg-neutral-200 lg:hidden"
-          />
-
+        <ol className="mt-10 divide-y divide-neutral-200 lg:mt-14 lg:grid lg:grid-cols-4 lg:gap-x-8 lg:divide-y-0 lg:divide-x">
           {content.steps.map((item) => (
-            <li key={item.step} className="relative pb-8 pl-8 last:pb-0 lg:pb-0 lg:pl-0 lg:pt-7">
-              {/* mobile: node on the shared vertical line */}
-              <span
-                aria-hidden
-                className="absolute left-0 top-[5px] h-[7px] w-[7px] -translate-x-1/2 rounded-full border-[1.5px] border-[#1693e6] bg-white lg:hidden"
-              />
-
-              {/* desktop: stem dropping from the shared top path */}
-              <span
-                aria-hidden
-                className="absolute left-0 top-0 hidden h-7 w-px bg-[#1693e6]/50 lg:block"
-              />
-              {/* desktop: node centered on the shared top path */}
-              <span
-                aria-hidden
-                className="absolute left-0 top-0 hidden h-[7px] w-[7px] -translate-x-1/2 -translate-y-1/2 rounded-full border-[1.5px] border-[#1693e6] bg-white lg:block"
-              />
-
-              <p className="index-label">{item.step}</p>
-
-              <h3 className="mt-2 max-w-[16ch] text-[18px] font-semibold leading-[1.15] tracking-[-0.02em] text-[#0a2540] sm:text-[19px]">
+            <li key={item.step} className="py-6 first:pt-0 last:pb-0 lg:py-0">
+              <h3 className="flex max-w-[18ch] items-baseline gap-2 text-[18px] font-semibold leading-[1.15] tracking-[-0.02em] text-[#0a2540] sm:text-[19px]">
+                <span className="tabular-nums text-[13px] font-normal text-[var(--color-brand)]">
+                  {item.step}
+                </span>
                 {item.title}
               </h3>
 
-              <p className="mt-3 max-w-[32ch] text-[13px] leading-5 text-neutral-500 sm:text-[14px] sm:leading-6 lg:pr-8">
+              <p className="mt-3 max-w-[32ch] text-[14px] leading-[22px] text-neutral-600 lg:pr-8">
                 {item.desc}
               </p>
             </li>

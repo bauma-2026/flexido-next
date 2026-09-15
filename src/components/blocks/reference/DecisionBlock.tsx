@@ -1,16 +1,16 @@
-import Link from "next/link";
-
 import Container from "@/components/layout/Container";
+import Section from "@/components/layout/Section";
+import Button from "@/components/ui/Button";
 
 export default function DecisionBlock() {
   return (
-    <section className="border-b border-neutral-200 bg-white py-16 sm:py-20 lg:py-24">
+    <Section className="border-b border-neutral-200 bg-white">
       <Container>
-        <div className="rounded-[2rem] border border-neutral-200 bg-neutral-50/60 p-6 sm:p-8 lg:p-10">
+        <div className="rounded-[var(--radius-structural)] border border-neutral-200 bg-neutral-50/60 p-6 sm:p-8 lg:p-10">
           {/* HEADER */}
           <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
             <div>
-              <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-500">
+              <p className="eyebrow">
                 Je to za vas
               </p>
 
@@ -28,8 +28,8 @@ export default function DecisionBlock() {
           {/* BINARY GRID */}
           <div className="mt-8 grid gap-4 lg:grid-cols-2">
             {/* YES */}
-            <div className="group rounded-[1.5rem] border border-neutral-200 bg-white p-6 transition duration-300 hover:-translate-y-0.5 hover:border-neutral-300 hover:shadow-sm sm:p-7">
-              <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-500 transition group-hover:text-neutral-950">
+            <div className="group rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-6 transition duration-300 hover:-translate-y-0.5 hover:border-neutral-300 sm:p-7">
+              <p className="eyebrow transition group-hover:text-neutral-950">
                 ✔ To je za vas
               </p>
 
@@ -52,8 +52,8 @@ export default function DecisionBlock() {
             </div>
 
             {/* NO */}
-            <div className="group rounded-[1.5rem] border border-neutral-200 bg-white p-6 transition duration-300 hover:-translate-y-0.5 hover:border-neutral-300 hover:shadow-sm sm:p-7">
-              <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-500">
+            <div className="group rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-6 transition duration-300 hover:-translate-y-0.5 hover:border-neutral-300 sm:p-7">
+              <p className="eyebrow">
                 ✖ Verjetno še ne
               </p>
 
@@ -83,15 +83,10 @@ export default function DecisionBlock() {
               in preveriti, kje avtomatizacija dejansko prinese največ učinka.
             </p>
 
-            <Link
-              href="#kontakt"
-              className="inline-flex rounded-full bg-neutral-950 px-6 py-3 text-sm font-medium text-white transition hover:-translate-y-0.5 hover:bg-neutral-800"
-            >
-              Poglejmo vaš proces
-            </Link>
+            <Button href="#kontakt">Poglejmo vaš proces</Button>
           </div>
         </div>
       </Container>
-    </section>
+    </Section>
   );
 }

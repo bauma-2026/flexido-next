@@ -8,7 +8,7 @@ const trustItems = [
   },
   {
     href: "https://www.flexido.eu/images/pdf/FLEXIDO-9001-CERT-Certificate-SLO-24092021.pdf",
-    src: "/logos/trust/bureau-veritas-iso-9001.webp",
+    src: "/logos/funding/bureau-veritas-iso9001.svg",
     alt: "ISO 9001 Bureau Veritas Certification",
     external: true,
   },
@@ -19,7 +19,7 @@ export default function TrustStrip() {
     <section className="border-b border-neutral-200 bg-white">
       <Container>
         <div className="flex flex-col gap-4 py-5 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
+          <p className="eyebrow">
             Certifikati in razvojni projekti
           </p>
 

@@ -30,11 +30,11 @@ function DetailsCard({ mobile = false }: { mobile?: boolean }) {
   return (
     <aside
       className={[
-        "rounded-[24px] border border-neutral-200 bg-white p-6",
+        "rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-6",
         mobile ? "lg:hidden" : "hidden lg:block lg:sticky lg:top-24",
       ].join(" ")}
     >
-      <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-500">
+      <p className="eyebrow">
         Podrobnosti
       </p>
 
@@ -75,11 +75,11 @@ export default function Page() {
             </Link>
 
             <div className="mt-6 max-w-[820px]">
-              <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-400">
+              <p className="eyebrow">
                 Razvojni projekti
               </p>
 
-              <h1 className="mt-4 text-[32px] font-semibold leading-[1.04] tracking-[-0.045em] text-neutral-950 sm:text-[40px] lg:text-[48px]">
+              <h1 className="text-document-title mt-4">
                 Poly Digit — digitalna preobrazba ključnih funkcij podjetja
                 Polycom
               </h1>
@@ -213,7 +213,7 @@ export default function Page() {
                 />
 
                 {/* PROJECT VALUE CALLOUT */}
-                <div className="mt-12 rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
+                <div className="mt-12 border-t border-neutral-200 pt-8">
                   <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
                     Vrednost projekta
                   </p>
@@ -250,34 +250,41 @@ export default function Page() {
                   ]}
                   primaryLogos={[
                     {
-                      src: "/images/funding/mgts.webp",
+                      src: "/logos/funding/ministry-mgts-alt.png",
                       alt: "Ministrstvo za gospodarstvo, turizem in šport",
                       href: "https://www.gov.si/drzavni-organi/ministrstva/ministrstvo-za-gospodarstvo-turizem-in-sport/",
+                      // Corrective pass: the previous 40/44 override read
+                      // as a dominant banner. MGTS should carry the same
+                      // quiet institutional authority as NOO/NextGenEU,
+                      // not lead the row. Overridden per-instance (not in
+                      // the shared map) so the already-locked Fakuma /
+                      // digitalizacija-prodajnih-poti rows are untouched.
+                      heightClassOverride: "h-[32px] sm:h-[34px]",
                     },
                     {
-                      src: "/images/funding/noo.webp",
+                      src: "/logos/funding/noo.png",
                       alt: "Načrt za okrevanje in odpornost",
                       href: "https://www.gov.si/zbirke/projekti-in-programi/nacrt-za-okrevanje-in-odpornost",
                     },
                     {
-                      src: "/images/funding/polycom.webp",
+                      src: "/logos/funding/polycom.png",
                       alt: "Polycom",
                       href: "https://www.polycom.si/en/",
                     },
                     {
-                      src: "/images/funding/lotric.webp",
+                      src: "/logos/funding/lotric.svg",
                       alt: "Lotrič Meroslovje",
                       href: "https://www.lotric.si/",
                     },
                     {
-                      src: "/images/funding/flexido-logo.webp",
+                      src: "/logo/flexido-header.svg",
                       alt: "Flexido",
                       href: "https://www.flexido.eu/",
                     },
                   ]}
                   secondaryLogos={[
                     {
-                      src: "/images/funding/nextgenerationeu.webp",
+                      src: "/logos/funding/nextgenerationeu.png",
                       alt: "NextGenerationEU",
                       href: "https://www.eu-skladi.si/",
                     },

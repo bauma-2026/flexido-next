@@ -28,7 +28,7 @@ export default function SystemArchitectureBlock({
         <div className="max-w-[720px]">
           <p className="eyebrow">{eyebrow}</p>
 
-          <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
+          <h2 className="text-section-title mt-3">
             {title}
           </h2>
 
@@ -42,7 +42,7 @@ export default function SystemArchitectureBlock({
           {layers.map((layer) => (
             <div
               key={layer.title}
-              className="relative rounded-[20px] border border-neutral-200 bg-neutral-50 p-5"
+              className="relative rounded-[var(--radius-structural)] border border-neutral-200 bg-neutral-50 p-5"
             >
               {/* LINE (flow feel) */}
               <div className="pointer-events-none absolute left-1/2 top-0 h-4 w-px -translate-x-1/2 bg-neutral-200" />

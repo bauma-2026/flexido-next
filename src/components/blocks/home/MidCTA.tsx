@@ -30,8 +30,8 @@ export default function MidCTA() {
           </p>
 
           <div className="mt-6">
-            <Button href="/kontakt" variant="secondary">
-            Kako poteka sodelovanje →
+            <Button href="/kontakt" variant="light">
+              Kako poteka sodelovanje →
             </Button>
           </div>
         </div>

@@ -43,7 +43,7 @@ export const processContent: ProcessPageContent = {
       {
         number: "03",
         title: "Integration in die Produktion",
-        desc: "Wir verbinden die Lösung mit bestehenden Maschinen, Bedienern, Raum und dem realen Arbeitsrhythmus.",
+        desc: "Wir verbinden das System mit bestehenden Maschinen, integrieren es in den Raum und stimmen es auf den tatsächlichen Arbeitsrhythmus der Bediener ab.",
       },
       {
         number: "04",

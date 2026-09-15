@@ -42,7 +42,7 @@ export default function ReferencePageTemplate({
 
       <main className="bg-white text-neutral-950">
         <section className="border-b border-neutral-200 bg-white">
-          <Container className="pt-12 pb-12 sm:pt-16 sm:pb-14 lg:pt-20 lg:pb-16">
+          <Container className="pt-12 pb-12 sm:pt-16 sm:pb-14 lg:pt-12 lg:pb-10">
             <Link
               href={backHref}
               className="inline-flex text-[14px] text-neutral-500 transition hover:text-neutral-950"
@@ -50,12 +50,12 @@ export default function ReferencePageTemplate({
               {content.backLabel}
             </Link>
 
-            <div className="mt-10 max-w-[980px]">
-              <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-400">
+            <div className="mt-10 lg:mt-6 max-w-[980px]">
+              <p className="eyebrow">
                 {content.eyebrow}
               </p>
 
-              <h1 className="mt-5 max-w-[880px] text-[42px] font-semibold leading-[0.95] tracking-[-0.055em] text-neutral-950 sm:text-[56px] lg:text-[68px]">
+              <h1 className="text-document-title mt-5 max-w-[880px]">
                 {content.title}
               </h1>
             </div>
@@ -63,14 +63,14 @@ export default function ReferencePageTemplate({
         </section>
 
         <section className="bg-white">
-          <Container className="py-14 sm:py-16 lg:py-20">
+          <Container className="pt-14 pb-14 sm:pt-16 sm:pb-16 lg:pt-14 lg:pb-20">
             {/* Image runs wider than the reading column — it's the proof
                 visual, not inline article media — while text keeps a
                 readable measure below. Aspect-ratio replaces the old
                 native-dimension render, which stretched these portrait
                 CAD renders to ~1100px tall and buried the result. */}
             <article className="max-w-[980px]">
-              <div className="relative aspect-[16/11] overflow-hidden rounded-[26px] border border-neutral-200 bg-neutral-100">
+              <div className="relative aspect-[16/11] overflow-hidden rounded-[var(--radius-panel)] border border-neutral-200 bg-neutral-100">
                 <Image
                   src={shared.image.src}
                   alt={content.imageAlt}
@@ -99,19 +99,16 @@ export default function ReferencePageTemplate({
                 </div>
 
                 {/* Documented result: the same accent-line proof language used
-                    everywhere else on the site (Solution proofProject/proofGrid,
-                    the References hub cards) — elevated above body-copy size
-                    since this is the page's single strongest proof moment, not
-                    a generic callout. Now also carries the reserved proof
-                    surface (.surface-soft) as a restrained inset panel — full
-                    padding + structural radius, no shadow, no second border —
-                    so this is the site's one place that tone is allowed to
-                    mean "documented evidence". When there's no result
+                    everywhere else on the site (Solution proofProject's
+                    "quiet result", .proof-callout) — an open accent-line
+                    layer, not a filled/rounded panel, so this reads as
+                    "documented evidence" integrated into the article rather
+                    than a feature card. When there's no result
                     (carton-forming), nothing renders here and the surrounding
                     white stays untouched — see the related block below, which
                     carries the visual pause instead of a faked/empty box. */}
                 {content.result ? (
-                  <div className="surface-soft mt-12 rounded-[var(--radius-structural)] border-l-2 border-[var(--color-accent-line)] p-6 sm:p-7">
+                  <div className="mt-14 border-l-2 border-[var(--color-accent-line)] pl-6 sm:pl-7">
                     <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
                       {content.result.label}
                     </p>
@@ -136,30 +133,30 @@ export default function ReferencePageTemplate({
                 {relatedHref || processHref || siblingHref || productHref ? (
                   <div className="mt-14 border-t border-neutral-200 pt-8">
                     {relatedHref ? (
-                      <>
+                      <div>
                         <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
                           {content.related.eyebrow}
                         </p>
 
-                        <h2 className="mt-3 text-[20px] font-semibold tracking-[-0.03em] text-neutral-950">
+                        <h2 className="text-card-title mt-3">
                           {content.related.heading}
                         </h2>
 
-                        <p className="mt-3 max-w-[58ch] text-[15px] leading-7 text-neutral-600">
+                        <p className="mt-3 max-w-[58ch] text-[15px] leading-6 text-neutral-600">
                           {content.related.body}
                         </p>
 
                         <Link
                           href={relatedHref}
-                          className="mt-6 inline-flex items-center rounded-full bg-neutral-950 px-6 py-3 text-[14px] font-medium text-white transition hover:bg-neutral-800"
+                          className="mt-5 inline-flex items-center text-[14px] font-medium text-neutral-700 transition hover:text-neutral-950"
                         >
                           {content.related.ctaLabel}
                         </Link>
-                      </>
+                      </div>
                     ) : null}
 
                     {/* Further exits, deliberately lighter than the capability
-                        button above — the matching product (when this project
+                        link above — the matching product (when this project
                         maps to one), a continuation into the method (proof →
                         process), and into another documented project. Not a
                         second competing CTA. */}

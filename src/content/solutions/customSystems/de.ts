@@ -40,7 +40,8 @@ export const customSystemsContent: SolutionPageContent = {
         "Umsetzungsbedingungen",
         "Abgestimmter Aufbau",
       ],
-      result: "Ergebnis: das System bestimmt die Kombination aus Abläufen, Stationen und Bedingungen — nicht ein einzelner Baustein.",
+      result: "das System bestimmt die Kombination aus Abläufen, Stationen und Bedingungen — nicht ein einzelner Baustein.",
+      resultLabel: "Ergebnis",
     },
     {
       type: "capabilityGroups",

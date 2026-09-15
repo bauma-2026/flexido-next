@@ -15,7 +15,7 @@ export default function KonstrukterPage() {
 
       <main className="bg-white text-neutral-950">
         {/* HEADER */}
-        <section className="border-b border-neutral-200 bg-[#f6f9fc]">
+        <section className="border-b border-neutral-200 surface-muted">
           <Container className="pt-8 pb-8 sm:pt-10 sm:pb-9 lg:pt-12 lg:pb-10">
             <Link
               href="/zaposlitev"
@@ -25,11 +25,11 @@ export default function KonstrukterPage() {
             </Link>
 
             <div className="mt-6 max-w-[820px]">
-              <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-400">
+              <p className="eyebrow">
                 Zaposlitev
               </p>
 
-              <h1 className="mt-4 text-[32px] font-semibold leading-[1.04] tracking-[-0.045em] text-neutral-950 sm:text-[40px] lg:text-[48px]">
+              <h1 className="text-document-title mt-4">
                 {job.title}
               </h1>
 
@@ -73,7 +73,7 @@ export default function KonstrukterPage() {
                 ))}
               </div>
 
-              <div className="mt-10 rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
+              <div className="mt-10 rounded-[var(--radius-structural)] border border-neutral-200 bg-neutral-50 p-6">
                 <h3 className="text-[15px] font-semibold text-neutral-950">
                   Opis delovnega okolja
                 </h3>

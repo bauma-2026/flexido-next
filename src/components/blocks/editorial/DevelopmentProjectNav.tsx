@@ -27,9 +27,11 @@ export default function DevelopmentProjectNav() {
     })
     .filter((project): project is { href: string; label: string } => project !== null);
 
+  // Open section: the pills are the navigation, the outer panel only added a
+  // second enclosure around them (Pass 2B-3).
   return (
-    <nav className="not-prose mb-10 rounded-[24px] border border-neutral-200 bg-neutral-50 p-5">
-      <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-500">
+    <nav className="not-prose mb-10 border-t border-neutral-200 pt-6">
+      <p className="eyebrow">
         Razvojni projekti
       </p>
 

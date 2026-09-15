@@ -35,7 +35,8 @@ export const cncContent: SolutionPageContent = {
         "Več CNC strojev ali dodatne operacije",
         "Tok materiala, kontrola in usklajevanje opreme",
       ],
-      result: "Rezultat: rešitev mora biti zasnovana okoli dejanskega procesa, ne le okoli CNC stroja.",
+      result: "rešitev mora biti zasnovana okoli dejanskega procesa, ne le okoli CNC stroja.",
+      resultLabel: "Rezultat",
     },
     {
       type: "capabilityGroups",
@@ -96,9 +97,9 @@ export const cncContent: SolutionPageContent = {
     {
       type: "crossSell",
       id: "standardna-osnova",
-      eyebrow: "Standardna osnova",
-      heading: "Kadar proces pokrije konfigurabilna celica.",
-      body: "FLEX 7 CNC Slim ostaja izhodišče za ponovljivo CNC strego.",
+      eyebrow: "CNC stroji",
+      heading: "FLEX 7 CNC Slim",
+      body: "Na voljo z robotom nosilnosti 7 ali 10 kg, glede na velikost obdelovancev.",
       right: {
         kind: "image",
         src: "/images/systems/raw/flex-7-cnc-slim-studio.png",

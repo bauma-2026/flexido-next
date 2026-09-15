@@ -29,11 +29,11 @@ function DetailsCard({ mobile = false }: { mobile?: boolean }) {
   return (
     <aside
       className={[
-        "rounded-[24px] border border-neutral-200 bg-white p-6",
+        "rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-6",
         mobile ? "lg:hidden" : "hidden lg:block lg:sticky lg:top-24",
       ].join(" ")}
     >
-      <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-500">
+      <p className="eyebrow">
         Podrobnosti
       </p>
 
@@ -74,11 +74,11 @@ export default function Page() {
             </Link>
 
             <div className="mt-6 max-w-[820px]">
-              <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-400">
+              <p className="eyebrow">
                 Razvojni projekti
               </p>
 
-              <h1 className="mt-4 text-[32px] font-semibold leading-[1.04] tracking-[-0.045em] text-neutral-950 sm:text-[40px] lg:text-[48px]">
+              <h1 className="text-document-title mt-4">
                 SAFEGUARD — pametna zaščitna komora
               </h1>
 
@@ -188,7 +188,7 @@ export default function Page() {
                 />
 
                 {/* PROJECT VALUE CALLOUT */}
-                <div className="mt-12 rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
+                <div className="mt-12 border-t border-neutral-200 pt-8">
                   <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
                     Vrednost projekta
                   </p>
@@ -207,7 +207,7 @@ export default function Page() {
                     href="https://www.eu-skladi.si/"
                     target="_blank"
                     rel="noreferrer"
-                    className="mt-6 inline-flex items-center rounded-full bg-neutral-950 px-6 py-3 text-[14px] font-medium text-white transition hover:bg-neutral-800"
+                    className="focus-ring mt-6 inline-flex items-center text-[14px] font-medium text-neutral-500 transition hover:text-[#0b8fdc]"
                   >
                     Več informacij →
                   </a>
@@ -221,19 +221,19 @@ export default function Page() {
                   eyebrow="Sofinanciranje"
                   primaryLogos={[
                     {
-                      src: "/images/funding/mgrt.webp",
+                      src: "/logos/funding/ministry-mgrt.png",
                       alt: "Ministrstvo za gospodarski razvoj in tehnologijo",
                       href: "https://www.gov.si/",
                     },
                     {
-                      src: "/images/funding/kameleon.webp",
+                      src: "/logos/funding/kameleon.png",
                       alt: "Kameleon",
                       href: "#",
                     },
                   ]}
                   secondaryLogos={[
                     {
-                      src: "/images/funding/eu-skladi.webp",
+                      src: "/logos/funding/eu-regional-development-fund.png",
                       alt: "EU skladi",
                       href: "https://www.eu-skladi.si/",
                     },

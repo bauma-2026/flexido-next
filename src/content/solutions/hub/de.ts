@@ -16,6 +16,9 @@ export const hubContent: HubContent = {
     { routeKey: "solutionInjectionMolding", title: "Spritzguss", desc: "Ein stabiler Zyklus, Teileentnahme und weniger manuelle Arbeit.", label: "Produktionszyklus", icon: "imm" },
     { routeKey: "solutionManipulation", title: "Materialhandhabung", desc: "Bewegen, Wenden und Übergeben von Teilen zwischen den Phasen.", label: "Materialtransfer", icon: "manipulation" },
     { routeKey: "solutionLogistics", title: "Palettierung und interne Logistik", desc: "Wenn Material nicht reibungslos durch die Produktion fließt.", label: "Materialfluss", icon: "materialFlow" },
+    { routeKey: "solutionProductionAutomation", title: "Produktionsautomatisierung", desc: "Wenn Sie mehrere Prozessschritte zu einem stabilen Ablauf verbinden möchten." },
+    { routeKey: "solutionCustomSystems", title: "Kundenspezifische Systeme", desc: "Wenn eine Standardlösung den Platz, die Teile und den tatsächlichen Arbeitsablauf nicht abdeckt." },
+    { routeKey: "solutionCobots", title: "Kollaborative Roboter", desc: "Unterstützung bei sich wiederholenden Aufgaben neben dem Bediener." },
   ],
   gridReadMoreLabel: "Mehr erfahren",
   widerApproach: {
@@ -25,12 +28,12 @@ export const hubContent: HubContent = {
     paths: [
       {
         title: "Produktionsautomatisierung",
-        body: "Wenn Sie mehrere Prozessschritte zu einem stabilen Ablauf verbinden möchten.",
+        body: "Wenn es bei der Entscheidung nicht mehr um eine Maschine geht, sondern um die Verbindung mehrerer Arbeitsschritte.",
         routeKey: "solutionProductionAutomation",
       },
       {
         title: "Kundenspezifische Systeme",
-        body: "Wenn eine Standardlösung den Platz, die Teile und den tatsächlichen Arbeitsablauf nicht abdeckt.",
+        body: "Wenn die Abfolge der Arbeitsschritte, Stationen und Umsetzungsbedingungen eine gemeinsame Planung erfordert.",
         routeKey: "solutionCustomSystems",
       },
     ],
@@ -82,7 +85,7 @@ export const hubContent: HubContent = {
   finalCta: {
     eyebrow: "Nächster Schritt",
     heading: "Schauen wir uns Ihren Prozess an.",
-    body: "Sagen Sie uns, was Sie automatisieren möchten. Gemeinsam prüfen wir, welche Lösung für Ihren Prozess am sinnvollsten ist.",
+    body: "Beschreiben Sie die Maschine, das Werkstück und den Prozessschritt, den Sie automatisieren möchten. Gemeinsam prüfen wir, welcher Bereich der richtige Ausgangspunkt ist.",
     ctaLabel: "Anfrage senden",
     mailto: "info@flexido.eu",
   },

@@ -142,11 +142,11 @@ export default function Page() {
 
           <Container className="relative z-10 py-20 sm:py-24 lg:py-28">
             <div className="max-w-[820px]">
-              <p className="text-[11px] uppercase tracking-[0.16em] text-white/50">
+              <p className="eyebrow-on-dark">
                 Razvojni projekti
               </p>
 
-              <h1 className="mt-4 max-w-[13ch] text-5xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-6xl lg:text-[68px]">
+              <h1 className="text-display mt-4 max-w-[13ch]">
                 Razvoj, digitalizacija in podpora inovacijam.
               </h1>
 
@@ -215,7 +215,7 @@ export default function Page() {
         </Section>
 
         {/* PROJECTS */}
-        <Section id="projekti" className="scroll-mt-24 bg-[#f6f9fc]">
+        <Section id="projekti" className="scroll-mt-24 surface-muted">
           <Container>
             <div className="mb-10 grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
               <div>
@@ -238,7 +238,7 @@ export default function Page() {
                 <Link
                   key={project.href}
                   href={project.href}
-                  className="group rounded-[28px] border border-neutral-200 bg-white p-7 transition hover:-translate-y-0.5 hover:shadow-[0_24px_70px_rgba(15,23,42,0.08)] sm:p-8"
+                  className="group rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-7 transition hover:-translate-y-0.5 hover:border-neutral-300 sm:p-8"
                 >
                   <div className="flex flex-wrap items-center gap-3">
                     <span className="rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1 text-[12px] font-medium text-neutral-600">
@@ -293,7 +293,7 @@ export default function Page() {
                     <Link
                       key={item.label}
                       href={href}
-                      className="group flex items-center justify-between gap-3 rounded-2xl border border-neutral-200 bg-white px-5 py-4 transition hover:border-neutral-300 hover:shadow-[0_12px_34px_rgba(15,23,42,0.05)]"
+                      className="group flex items-center justify-between gap-3 rounded-[var(--radius-structural)] border border-neutral-200 bg-white px-5 py-4 transition hover:border-neutral-300"
                     >
                       <span>
                         <span className="block text-[14px] font-medium text-neutral-900">

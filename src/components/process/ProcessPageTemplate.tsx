@@ -40,11 +40,11 @@ export default function ProcessPageTemplate({
 
           <Container className="relative z-10 flex min-h-[520px] items-end py-16 sm:min-h-[600px] sm:py-20 lg:min-h-[640px] lg:py-24">
             <div className="max-w-[760px]">
-              <p className="text-[11px] uppercase tracking-[0.16em] text-white/50">
+              <p className="eyebrow-on-dark">
                 {content.hero.eyebrow}
               </p>
 
-              <h1 className="mt-4 max-w-[13ch] text-5xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-6xl lg:text-[68px]">
+              <h1 className="text-display mt-4 max-w-[13ch]">
                 {content.hero.heading}
               </h1>
 
@@ -184,11 +184,12 @@ export default function ProcessPageTemplate({
           </Container>
         </Section>
 
-        {/* Proof continuation, before the terminal contact CTA — same quiet
-            bordered-strip language as the reference template's own related
-            block, so this reads as a next step, not a second CTA band. */}
+        {/* Related-next: same split-statement grammar as the page intro
+            (thesis left, copy right behind a desktop hairline). Quiet because
+            it stays `tight` and the CTA stays a tertiary text link — not a
+            second conversion band before the dark contact section. */}
         {referencesHref ? (
-          <Section className="border-b border-neutral-200 bg-white">
+          <Section variant="tight" className="border-y border-neutral-200 bg-white">
             <Container>
               <div className="max-w-[620px] border-t border-neutral-200 pt-10">
                 <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
@@ -203,12 +204,13 @@ export default function ProcessPageTemplate({
                   {content.proof.body}
                 </p>
 
-                <Link
-                  href={referencesHref}
-                  className="mt-6 inline-flex items-center rounded-full bg-neutral-950 px-6 py-3 text-[14px] font-medium text-white transition hover:bg-neutral-800"
-                >
-                  {content.proof.ctaLabel}
-                </Link>
+                  <Link
+                    href={referencesHref}
+                    className="focus-ring mt-6 inline-flex items-center text-[14px] font-medium text-neutral-500 transition hover:text-[#0b8fdc]"
+                  >
+                    {content.proof.ctaLabel}
+                  </Link>
+                </div>
               </div>
             </Container>
           </Section>

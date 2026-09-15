@@ -1,10 +1,11 @@
-import Image from "next/image";
 import Link from "next/link";
+import ProofCard from "@/components/ui/ProofCard";
 
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
+import RuledRowList from "@/components/ui/RuledRowList";
 import type { Locale } from "@/i18n/config";
 import { getPath } from "@/i18n/routes";
 import type { ReferencesHubContent } from "@/content/references/types";
@@ -49,7 +50,7 @@ export default function ReferencesHubTemplate({
                 {content.hero.eyebrow}
               </p>
 
-              <h1 className="mt-4 max-w-[13ch] text-4xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-5xl lg:text-6xl">
+              <h1 className="text-display mt-4 max-w-[13ch]">
                 {content.hero.heading}
               </h1>
 
@@ -76,7 +77,9 @@ export default function ReferencesHubTemplate({
           </Container>
         </section>
 
-        <Section id="projekti" className="border-b border-neutral-200 bg-white">
+        {/* The site's dedicated proof page uses the proof register, not the generic
+            structural pause (Pass 3). */}
+        <Section id="projekti" className="surface-soft">
           <Container>
             <div className="max-w-[720px]">
               <p className="eyebrow">{content.projects.eyebrow}</p>
@@ -95,48 +98,24 @@ export default function ReferencesHubTemplate({
                 const href = getPath(shared.routeKey, locale);
                 if (!href) return null;
 
+                    variant="grid"
                 return (
-                  <Link
+                  <ProofCard
                     key={shared.id}
                     href={href}
-                    className="group flex h-full flex-col border border-neutral-200 bg-white transition-colors duration-300 hover:border-neutral-300"
-                  >
-                    <div className="relative aspect-[16/10] overflow-hidden bg-neutral-100">
-                      <Image
-                        src={shared.image.src}
-                        alt={project.imageAlt}
-                        fill
-                        sizes="(min-width: 1024px) 33vw, 100vw"
-                        className={`object-cover transition-transform duration-500 group-hover:scale-[1.02] ${shared.image.objectPosition ?? ""}`}
-                      />
-                    </div>
-
-                    <div className="flex flex-1 flex-col border-t border-neutral-200 px-5 pb-5 pt-6 sm:px-6 sm:pb-6 sm:pt-7">
-                      <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
-                        {project.summary.area}
-                      </p>
-
-                      <h3 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-neutral-950">
-                        {project.summary.title}
-                      </h3>
-
-                      <p className="mt-3 leading-7 text-neutral-600">
-                        {project.summary.body}
-                      </p>
-
-                      <span className="mt-auto inline-flex items-center pt-7 text-[14px] font-medium text-neutral-700 transition-colors duration-300 group-hover:text-neutral-950">
-                        {content.projects.readMoreLabel}
-                        <span className="link-arrow">→</span>
-                      </span>
-                    </div>
-                  </Link>
+                    eyebrow={project.summary.area}
+                    title={project.summary.title}
+                    body={project.summary.body}
+                    image={{ src: shared.image.src, alt: project.imageAlt, objectPosition: shared.image.objectPosition }}
+                    linkLabel={content.projects.readMoreLabel}
+                  />
                 );
               })}
             </div>
           </Container>
         </Section>
 
-        <Section className="surface-muted">
+        <Section className="bg-white">
           <Container>
             <div className="max-w-[720px]">
               <p className="eyebrow">{content.areas.eyebrow}</p>
@@ -148,39 +127,20 @@ export default function ReferencesHubTemplate({
               <p className="mt-5 text-[16px] leading-7 text-neutral-600">
                 {content.areas.body}
               </p>
-            </div>
+            />
 
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {content.areas.items.map((item) => {
+            <RuledRowList
+              className="mt-8 lg:mt-10"
+              items={content.areas.items.flatMap((item) => {
                 const href = getPath(item.routeKey, locale);
-                if (!href) return null;
-
-                return (
-                  <Link
-                    key={item.routeKey}
-                    href={href}
-                    className="group flex flex-col border border-neutral-200 bg-white p-7 transition-all duration-300 hover:-translate-y-[1px] hover:border-neutral-300 hover:shadow-[0_18px_45px_rgba(15,23,42,0.05)]"
-                  >
-                    <h3 className="text-[20px] font-semibold tracking-[-0.03em] text-neutral-950">
-                      {item.title}
-                    </h3>
-
-                    <p className="mt-4 text-[15px] leading-[1.6] text-neutral-600">
-                      {item.body}
-                    </p>
-
-                    <span className="mt-auto inline-flex items-center pt-7 text-[14px] font-medium text-neutral-700 transition-colors duration-300 group-hover:text-neutral-950">
-                      {content.areas.linkLabel}
-                      <span className="link-arrow">→</span>
-                    </span>
-                  </Link>
-                );
+                if (!href) return [];
+                return [{ href, title: item.title, desc: item.body }];
               })}
             </div>
           </Container>
         </Section>
 
-        <Section className="bg-white">
+        <Section className="border-t border-neutral-200 bg-white">
           <Container>
             <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start lg:gap-16">
               <div>
@@ -191,17 +151,17 @@ export default function ReferencesHubTemplate({
                 </h2>
               </div>
 
-              <div className="grid border-t border-neutral-200 sm:grid-cols-3 sm:divide-x sm:divide-neutral-200">
+              <div className="lg:border-l lg:border-neutral-200 lg:pl-10">
                 {content.principles.items.map((item) => (
                   <div
                     key={item.title}
-                    className="border-b border-neutral-200 py-8 last:border-b-0 sm:border-b-0 sm:px-8 sm:py-10 sm:first:pl-0 sm:last:pr-0"
+                    className="border-b border-neutral-200 py-6 first:pt-0 last:border-b-0 last:pb-0"
                   >
-                    <h3 className="text-xl font-semibold tracking-[-0.02em] text-neutral-950">
+                    <h3 className="text-[16px] font-semibold tracking-[-0.02em] text-neutral-950">
                       {item.title}
                     </h3>
 
-                    <p className="mt-4 text-[15px] leading-6 text-neutral-600">
+                    <p className="mt-2 text-[15px] leading-6 text-neutral-600">
                       {item.desc}
                     </p>
                   </div>

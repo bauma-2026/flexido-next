@@ -74,11 +74,11 @@ export default function Page() {
                 ← Vse rešitve
               </a>
 
-              <p className="mt-6 text-[11px] uppercase tracking-[0.16em] text-white/50">
+              <p className="mt-6 eyebrow-on-dark">
                 System map
               </p>
 
-             <h1 className="mt-4 max-w-[13ch] text-4xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-5xl lg:text-6xl">
+             <h1 className="text-display mt-4 max-w-[13ch]">
   Kje se ustavlja vaš proces?
 </h1>
 
@@ -140,7 +140,7 @@ export default function Page() {
         </Section>
 
         {/* SYSTEM MAP */}
-        <Section id="mapa" className="scroll-mt-24 bg-[#f6f9fc]">
+        <Section id="mapa" className="scroll-mt-24 surface-muted">
           <Container>
             <div className="max-w-[720px]">
               <p className="eyebrow">Mapa problemov</p>
@@ -160,7 +160,7 @@ export default function Page() {
                 <a
                   key={item.title}
                   href={item.href}
-                  className="group rounded-[28px] border border-neutral-200 bg-white p-7 transition hover:-translate-y-0.5 hover:border-neutral-300 hover:shadow-[0_20px_70px_rgba(15,23,42,0.08)]"
+                  className="group rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-7 transition hover:-translate-y-0.5 hover:border-neutral-300"
                 >
                   <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
                     {item.label}
@@ -204,7 +204,7 @@ export default function Page() {
                 {guideItems.map((item) => (
                   <div
                     key={item.question}
-                    className="grid gap-3 rounded-2xl border border-neutral-200 bg-white p-6 sm:grid-cols-[0.9fr_1.1fr]"
+                    className="grid gap-3 rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-6 sm:grid-cols-[0.9fr_1.1fr]"
                   >
                     <p className="text-[15px] font-semibold text-neutral-950">
                       {item.question}

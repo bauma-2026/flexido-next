@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
+import RuledRowList from "@/components/ui/RuledRowList";
 import SectionHeader from "@/components/ui/SectionHeader";
 
 import {
@@ -55,15 +56,18 @@ type Props = {
   desc?: string;
   compact?: boolean;
   /**
-   * Locale-aware override for the compact grid's 4 cards (CNC / IMM /
-   * material handling / logistics). Omit to keep the existing hardcoded SL
-   * cards untouched — used by the SL homepage and the SL solutions hub.
-   * The migrated EN/DE hub passes this explicitly; see
-   * `src/components/solutions/SolutionsHubTemplate.tsx`.
+   * Locale-aware override for the compact peer-navigation rows (CNC / IMM /
+   * material handling / logistics). Home always passes this; omit to keep
+   * the hardcoded SL fallback below.
    */
   compactItems?: CompactOverrideItem[];
   /** Overrides the "Rešitve" eyebrow above the compact grid. */
   eyebrow?: string;
+  /**
+   * Short problem→response line rendered below the compact rows, previewing
+   * the Systems/ProductProof section immediately below. Compact only.
+   */
+  bridge?: string;
 };
 
 const solutions: Solution[] = [
@@ -140,6 +144,7 @@ export default function Solutions({
   compact = false,
   compactItems: compactItemsOverride,
   eyebrow = "Rešitve",
+  bridge = "Sisteme prilagodimo stroju, kosu in procesu.",
 }: Props) {
   const featured = solutions.find((item) => item.kind === "featured");
 
@@ -167,11 +172,7 @@ export default function Solutions({
 
   if (compact) {
     return (
-      <Section
-        id="use-cases"
-        variant="tight"
-        className="surface-muted text-[#0a2540]"
-      >
+      <Section id="use-cases" className="surface-muted text-[#0a2540]">
         <Container>
           <SectionHeader eyebrow={eyebrow} title={title} desc={desc} />
 
@@ -224,7 +225,7 @@ export default function Solutions({
         {/* FEATURED */}
         {featured && (
           <Link href={featured.href} className="group mt-12 block">
-            <div className="relative flex min-h-[280px] flex-col justify-between overflow-hidden border border-neutral-800 bg-neutral-950 px-7 py-7 text-white shadow-[0_20px_70px_rgba(15,23,42,0.12)] transition-all duration-300 hover:-translate-y-[1px] hover:shadow-[0_28px_90px_rgba(15,23,42,0.18)] sm:px-9 sm:py-9 lg:min-h-[340px]">
+            <div className="relative flex min-h-[280px] flex-col justify-between overflow-hidden border border-neutral-800 bg-neutral-950 px-7 py-7 text-white transition-all duration-300 hover:-translate-y-[1px] sm:px-9 sm:py-9 lg:min-h-[340px]">
               <video
                 autoPlay
                 muted
@@ -240,7 +241,7 @@ export default function Solutions({
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
               <div className="relative z-10 max-w-[560px]">
-                <p className="text-[11px] uppercase tracking-[0.16em] text-white/50">
+                <p className="eyebrow-on-dark">
                   {featured.meta}
                 </p>
 
@@ -277,7 +278,7 @@ export default function Solutions({
                 <Link
                   href={item.href}
                   key={item.title}
-                  className="group relative block min-h-[260px] overflow-hidden border border-neutral-800 bg-neutral-950 shadow-[0_18px_50px_rgba(15,23,42,0.05)] transition-all duration-300 hover:-translate-y-[1px] hover:shadow-[0_24px_70px_rgba(15,23,42,0.1)] sm:min-h-[240px] lg:min-h-[240px]"
+                  className="group relative block min-h-[260px] overflow-hidden border border-neutral-800 bg-neutral-950 transition-all duration-300 hover:-translate-y-[1px] sm:min-h-[240px] lg:min-h-[240px]"
                 >
                   {item.kind === "video" ? (
                     <video
@@ -338,7 +339,7 @@ export default function Solutions({
             <Link
   href={item.href}
   key={item.title}
-  className="group flex min-h-[260px] flex-col border border-neutral-200 bg-white px-8 py-8 transition-all duration-300 hover:-translate-y-[1px] hover:border-[#8fc9ed] hover:shadow-[0_18px_45px_rgba(15,23,42,0.06)]"
+  className="group flex min-h-[260px] flex-col border border-neutral-200 bg-white px-8 py-8 transition-all duration-300 hover:-translate-y-[1px] hover:border-[#8fc9ed]"
 >
 {Icon && (
   <div className="mb-5 text-[#1693e6]">

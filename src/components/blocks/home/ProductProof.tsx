@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
-import Button from "@/components/ui/Button";
 import { flexidoSystems } from "@/data/flexido-systems";
 import type { Locale } from "@/i18n/config";
 import { getPath } from "@/i18n/routes";
@@ -19,14 +18,14 @@ const defaultContent: HomeProductProofContent = {
   systems: [
     {
       slug: "flex-7-cnc",
-      category: "CNC avtomatizacija",
+      category: "CNC stroji",
       shortDescription:
         "Kompaktna robotska celica za strego CNC strojev, nalaganje, odvzem in stabilen tok kosov.",
       routeKey: "standardCellsCnc",
     },
     {
       slug: "flex-7-imm",
-      category: "Avtomatizacija brizganja plastike",
+      category: "Brizganje plastike",
       shortDescription:
         "Kompaktna robotska celica za strego strojev za brizganje plastike, odvzem kosov, insert moulding in kontrolo.",
       routeKey: "standardCellsImm",
@@ -65,17 +64,12 @@ export default function ProductProof({
   }>;
 
   return (
-    <Section className="bg-white">
+    <Section className="surface-soft">
       <Container>
         <div>
           <p className="eyebrow">{content.eyebrow}</p>
 
-          <h2 className="mt-3 max-w-[16ch] text-3xl font-semibold leading-[1] tracking-[-0.04em] sm:text-4xl lg:text-5xl">
-            {content.heading}
-          </h2>
-        </div>
-
-        <div className="mt-10 grid gap-10 border-t border-neutral-200 pt-12 sm:grid-cols-2 lg:mt-12 lg:gap-14 lg:pt-14">
+        <div className="mt-10 grid gap-10 border-t border-neutral-300 pt-12 sm:grid-cols-2 lg:mt-12 lg:gap-14 lg:pt-14">
           {systems.map(({ system, category, shortDescription, href }) => (
             <Link
               key={system.slug}
@@ -97,19 +91,19 @@ export default function ProductProof({
               </div>
 
               <div className="flex flex-1 flex-col pt-5">
-                <h3 className="text-[20px] font-semibold tracking-[-0.03em] text-neutral-950 sm:text-[22px]">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#1693e6]">
                   {category}
-                </h3>
+                </p>
 
-                <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#1693e6]">
+                <h3 className="text-card-title mt-2">
                   {system.name}
                 </p>
 
-                <p className="mt-3 max-w-[44ch] text-[13px] leading-5 text-neutral-500">
+                <p className="mt-3 max-w-[44ch] text-[14px] leading-[22px] text-neutral-600">
                   {shortDescription}
-                </p>
+                </h3>
 
-                <p className="mt-4 inline-flex items-center text-[13px] font-medium text-neutral-400 transition group-hover:text-[#0b8fdc]">
+                <p className="mt-4 inline-flex items-center text-[14px] font-medium text-neutral-600 transition group-hover:text-[#0b8fdc]">
                   {content.viewSystemLabel}
                   <span className="link-arrow">→</span>
                 </p>
@@ -118,14 +112,18 @@ export default function ProductProof({
           ))}
         </div>
 
-        <div className="mt-10 flex flex-col gap-6 border-t border-neutral-200 pt-8 sm:flex-row sm:items-center sm:justify-between lg:mt-12 lg:pt-10">
+        <div className="mt-10 flex flex-col gap-6 border-t border-neutral-300 pt-8 sm:flex-row sm:items-center sm:justify-between lg:mt-12 lg:pt-10">
           <p className="max-w-[52ch] text-[15px] leading-7 text-neutral-500 sm:text-[16px]">
             {content.body}
           </p>
 
-          <Button href={viewAllHref} variant="secondary" className="shrink-0">
-            {content.viewAllLabel} →
-          </Button>
+          <Link
+            href={viewAllHref}
+            className="focus-ring inline-flex shrink-0 items-center text-[14px] font-semibold text-neutral-950 transition hover:text-[#0b8fdc]"
+          >
+            {content.viewAllLabel}
+            <span className="link-arrow">→</span>
+          </Link>
         </div>
       </Container>
     </Section>

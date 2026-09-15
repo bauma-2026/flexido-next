@@ -10,7 +10,7 @@ export const automationContent: SolutionPageContent = {
     subhead:
       "Ko posamezna celica ni dovolj, avtomatizacijo zasnujemo okoli strojev, kosov, toka materiala in potrebnih operacij v procesu.",
     ctas: [{ label: "Poglej možnosti", anchor: "#resitev" }],
-    videoSrc: "/video/flexido/hero-home.mp4",
+    videoSrc: "/video/flexido/hero-production.mp4",
   },
   wikiNav: [
     { id: "proces", label: "Širša avtomatizacija" },
@@ -24,7 +24,7 @@ export const automationContent: SolutionPageContent = {
       type: "problemSplit",
       id: "proces",
       eyebrow: "Širša avtomatizacija",
-      heading: "Proces poveže več kot eno celico.",
+      heading: "Ko proizvodni proces preseže eno celico.",
       body: "Proizvodni proces redko poteka na enem stroju. Širša avtomatizacija poveže stroje, robote, dodatne operacije in tok materiala v en usklajen proces.",
       itemsEyebrow: "Kaj mora biti povezano",
       items: [
@@ -33,13 +33,14 @@ export const automationContent: SolutionPageContent = {
         "Dodatne operacije, kontrola in varnost",
         "Tok materiala in povezava opreme",
       ],
-      result: "Rezultat: širša avtomatizacija mora povezati stroje, robote, dodatne operacije in tok materiala v en usklajen proces.",
+      result: "širša avtomatizacija mora povezati stroje, robote, dodatne operacije in tok materiala v en usklajen proces.",
+      resultLabel: "Rezultat",
     },
     {
       type: "capabilityGroups",
       id: "gradniki",
       eyebrow: "Tehnični gradniki",
-      heading: "Kaj lahko povežemo v eno rešitev.",
+      heading: "Kaj lahko deluje v enem povezanem procesu.",
       body: "Avtomatizacija lahko združi opremo in operacije, ki morajo v realni proizvodnji delovati kot usklajen sistem.",
       layout: "openColumns",
       groups: [

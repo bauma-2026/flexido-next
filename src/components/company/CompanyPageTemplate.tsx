@@ -4,6 +4,7 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Container from "@/components/layout/Container";
+import Section from "@/components/layout/Section";
 import type { Locale } from "@/i18n/config";
 import { getPath } from "@/i18n/routes";
 import type { CompanyAboutContent } from "@/content/company/types";
@@ -40,11 +41,11 @@ export default function CompanyPageTemplate({
 
           <Container className="relative z-10 flex min-h-[480px] items-end pb-16 pt-32 sm:min-h-[560px] lg:min-h-[620px] lg:pb-20">
             <div className="max-w-[720px]">
-              <p className="text-[11px] uppercase tracking-[0.18em] text-white/45">
+              <p className="eyebrow-on-dark">
                 {content.hero.eyebrow}
               </p>
 
-              <h1 className="mt-4 max-w-[12ch] text-5xl font-semibold leading-[0.96] tracking-[-0.045em] sm:text-6xl lg:text-[66px]">
+              <h1 className="text-display mt-4 max-w-[12ch]">
                 {content.hero.heading}
               </h1>
 
@@ -81,7 +82,7 @@ export default function CompanyPageTemplate({
           </Container>
         </section>
 
-        <section className="py-14 sm:py-24 lg:py-28">
+        <Section>
           <Container>
             <div className="grid gap-6 lg:grid-cols-[0.82fr_1.18fr] lg:items-end lg:gap-8">
               <div>
@@ -105,14 +106,13 @@ export default function CompanyPageTemplate({
                 below — ties the two three-part sections to one shared
                 card language instead of two different idioms. */}
             <div className="mt-16 grid border-t border-neutral-200 sm:grid-cols-3 sm:divide-x sm:divide-neutral-200 lg:mt-20">
-              {content.whatWeDo.items.map((item, index) => (
+              {content.whatWeDo.items.map((item) => (
                 <div
                   key={item.title}
                   className="border-b border-neutral-200 py-8 last:border-b-0 sm:border-b-0 sm:px-8 sm:py-10 sm:first:pl-0 sm:last:pr-0"
                 >
-                  <p className="index-label">{String(index + 1).padStart(2, "0")}</p>
-
-                  <h3 className="mt-3 text-xl font-semibold tracking-[-0.02em] text-neutral-950">
+                  {/* Three offerings, not a sequence — no index (Pass 2A). */}
+                  <h3 className="text-xl font-semibold tracking-[-0.02em] text-neutral-950">
                     {item.title}
                   </h3>
 
@@ -123,9 +123,9 @@ export default function CompanyPageTemplate({
               ))}
             </div>
           </Container>
-        </section>
+        </Section>
 
-        <section className="border-y border-neutral-200 surface-muted py-20 sm:py-24 lg:py-28">
+        <Section variant="large" className="border-y border-neutral-200 surface-muted">
           <Container>
             <div className="grid gap-10 lg:grid-cols-[0.9fr_1.6fr] lg:items-center lg:gap-12">
               <div>
@@ -142,7 +142,7 @@ export default function CompanyPageTemplate({
                 </p>
               </div>
 
-              <div className="overflow-hidden rounded-[2rem] border border-neutral-200 bg-white">
+              <div className="overflow-hidden rounded-[var(--radius-panel)] border border-neutral-200 bg-white">
                 <div className="relative aspect-[4/3]">
                   <Image
                     src={content.team.image.src}
@@ -155,9 +155,9 @@ export default function CompanyPageTemplate({
               </div>
             </div>
           </Container>
-        </section>
+        </Section>
 
-        <section className="py-20 sm:py-24 lg:py-28">
+        <Section variant="large">
           <Container>
             <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
               <div>
@@ -175,7 +175,7 @@ export default function CompanyPageTemplate({
                   {content.video.body}
                 </p>
 
-                <div className="mt-8 overflow-hidden rounded-[2rem] border border-neutral-200 bg-black">
+                <div className="mt-8 overflow-hidden rounded-[var(--radius-panel)] border border-neutral-200 bg-black">
                   <video
                     controls
                     playsInline
@@ -188,12 +188,9 @@ export default function CompanyPageTemplate({
                 </div>
 
                 <div className="mt-6 flex flex-wrap items-center gap-4">
-                  <Link
-                    href={videoHref}
-                    className="inline-flex items-center rounded-full bg-neutral-950 px-6 py-3 text-sm font-medium text-white transition hover:bg-neutral-800"
-                  >
+                  <Button href={videoHref} className="shrink-0">
                     {content.video.ctaLabel}
-                  </Link>
+                  </Button>
 
                   <p className="text-sm leading-6 text-neutral-500">
                     {content.video.aside}
@@ -202,9 +199,11 @@ export default function CompanyPageTemplate({
               </div>
             </div>
           </Container>
-        </section>
+        </Section>
 
-        <section className="surface-muted py-14 sm:py-24 lg:py-28">
+        {/* F2 marks the team section only; approach returns to normal content
+            and owns the white-to-white boundary (Pass 3). */}
+        <Section className="border-t border-neutral-200 bg-white">
           <Container>
             <div className="max-w-[620px]">
               <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-500">
@@ -241,12 +240,13 @@ export default function CompanyPageTemplate({
               ))}
             </div>
           </Container>
-        </section>
+        </Section>
 
         {content.cta.image ? (
-          <section
+          <Section
             id={content.cta.id}
-            className="relative overflow-hidden bg-[var(--color-dark-band)] py-20 sm:py-24 lg:py-28"
+            variant="large"
+            className="relative overflow-hidden bg-[var(--color-dark-band)]"
           >
             <div className="absolute inset-0 opacity-20">
               <img
@@ -284,11 +284,12 @@ export default function CompanyPageTemplate({
                 </div>
               </div>
             </Container>
-          </section>
+          </Section>
         ) : (
-          <section
+          <Section
             id={content.cta.id}
-            className="border-t border-neutral-200/60 bg-white py-20 sm:py-24 lg:py-28"
+            variant="large"
+            className="border-t border-neutral-200/60 bg-white"
           >
             <Container>
               <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
@@ -318,7 +319,7 @@ export default function CompanyPageTemplate({
                 </div>
               </div>
             </Container>
-          </section>
+          </Section>
         )}
       </main>
 

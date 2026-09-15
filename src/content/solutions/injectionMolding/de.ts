@@ -35,7 +35,8 @@ export const injectionMoldingContent: SolutionPageContent = {
         "Entnahme, Prüfung und zusätzliche Arbeitsschritte",
         "Anbindung von Maschine, Robotern, Stationen und Prozess",
       ],
-      result: "Ergebnis: die Automatisierung muss den gesamten Zyklus abdecken, nicht nur die Teileentnahme.",
+      result: "die Automatisierung muss den gesamten Zyklus abdecken, nicht nur die Teileentnahme.",
+      resultLabel: "Ergebnis",
     },
     {
       type: "capabilityGroups",
@@ -72,9 +73,9 @@ export const injectionMoldingContent: SolutionPageContent = {
     {
       type: "crossSell",
       id: "standardna-osnova",
-      eyebrow: "Standardbasis",
-      heading: "Wenn eine konfigurierbare Zelle den Prozess abdeckt.",
-      body: "FLEX 7 IMM Slim ist der Standardweg für die wiederkehrende Beschickung der Spritzgießmaschine. Konfigurationen, Module und Produktdetails sind auf der Fachseite zur Spritzgießzelle zusammengefasst.",
+      eyebrow: "Spritzgießen",
+      heading: "FLEX 7 IMM Slim",
+      body: "Erhältlich mit einem Roboter mit 7 kg oder 10 kg Traglast, passend zur Teilegröße.",
       right: {
         kind: "image",
         src: "/images/systems/raw/flex-7-imm-slim-studio.png",

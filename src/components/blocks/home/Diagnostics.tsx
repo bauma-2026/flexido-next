@@ -70,10 +70,10 @@ export default function Diagnostics() {
                 return (
                   <div
                     key={item.title}
-                    className="min-h-[148px] rounded-[20px] border border-neutral-200 bg-white px-5 py-5 shadow-[0_12px_34px_rgba(15,23,42,0.035)]"
+                    className="min-h-[148px] rounded-[var(--radius-structural)] border border-neutral-200 bg-white px-5 py-5"
                   >
                     <div className="flex items-start gap-4">
-                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[14px] bg-[#edf7fd] text-[#1693e6]">
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--radius-structural)] bg-[#edf7fd] text-[#1693e6]">
                         <Icon className={item.iconClassName ?? "h-8 w-8"} />
                       </div>
                       <div>

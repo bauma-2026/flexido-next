@@ -28,7 +28,7 @@ export default function UseCasesBlock({
         <div className="max-w-[640px]">
           <p className="eyebrow">{eyebrow}</p>
 
-          <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
+          <h2 className="text-section-title mt-3">
             {title}
           </h2>
 
@@ -44,7 +44,7 @@ export default function UseCasesBlock({
           {cases.map((item) => (
             <div
               key={item.title}
-              className="rounded-[18px] border border-neutral-200 bg-neutral-50 p-5 transition hover:bg-white hover:shadow-[0_10px_30px_rgba(15,23,42,0.06)]"
+              className="rounded-[var(--radius-structural)] border border-neutral-200 bg-neutral-50 p-5 transition hover:bg-white"
             >
               <h3 className="text-[15px] font-semibold text-neutral-950">
                 {item.title}

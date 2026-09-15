@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
 import WikiNav from "@/components/wiki/WikiNav";
+import Button from "@/components/ui/Button";
 import type { Locale } from "@/i18n/config";
 import { getPath } from "@/i18n/routes";
 import type { ServicePageContent } from "@/content/service/types";
@@ -36,7 +37,7 @@ export default function ServicePageTemplate({
           <Container className="relative">
             <p className="eyebrow-on-dark mb-5">{content.hero.eyebrow}</p>
             <div className="max-w-3xl">
-              <h1 className="text-4xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-5xl lg:text-6xl">
+              <h1 className="text-display">
                 {content.hero.heading}
               </h1>
               <p className="mt-6 max-w-2xl text-[17px] leading-8 text-white/72 sm:text-lg">
@@ -114,7 +115,7 @@ export default function ServicePageTemplate({
             </div>
             <div className="mt-10 grid gap-5 md:grid-cols-3">
               {content.flow.items.map((item) => (
-                <div key={item.step} className="rounded-[28px] border border-neutral-200 bg-white p-7">
+                <div key={item.step} className="rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-7">
                   <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--color-interactive)]">
                     {item.step}
                   </p>

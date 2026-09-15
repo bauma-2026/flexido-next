@@ -39,8 +39,8 @@ body {
   --header-h: 65px;
 
   /* Surfaces & text */
-  --surface: #eef2f7;
-  --surface-soft: #e2e8f0;
+  --surface: #f2f2f2;
+  --surface-soft: #e7e7e7;
   --text-main: #0a2540;
   --text-muted: #425466;
   --line-soft: rgba(10, 37, 64, 0.1);
@@ -50,7 +50,7 @@ body {
   --color-interactive: #0b8fd3;
   --color-interactive-hover: #087fbd;
   --color-accent-line: #0089d6;
-  --color-dark-band: #082f5f;
+  --color-dark-band: #1f1f1f;
 
   /* Structure */
   --radius-structural: 12px;
@@ -69,6 +69,10 @@ body {
     text-decoration: none;
     color: inherit;
   }
+
+  /* One floating-UI elevation. Invert Y for bottom-fixed chrome. */
+  --shadow-float: 0 12px 40px rgba(15, 23, 42, 0.12);
+  --shadow-float-up: 0 -12px 40px rgba(15, 23, 42, 0.12);
 
   img {
     display: block;
@@ -119,7 +123,7 @@ body {
   }
 
   .text-subsection-title {
-    @apply text-2xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-3xl;
+    @apply text-[24px] font-semibold leading-[1.15] tracking-[-0.035em] text-neutral-950 sm:text-[28px];
   }
 
   .text-body {
@@ -164,11 +168,18 @@ body {
   }
 
   .content-panel-muted {
-    @apply rounded-[var(--radius-structural)] border border-neutral-200 bg-neutral-50;
+    @apply rounded-[var(--radius-structural)] border border-neutral-200;
+    background-color: var(--surface);
+  }
+
+  /* Feature title — 2-column / feature proof cards and the proofProject
+     evidence block. One step above the card title, below the 28 subsection. */
+  .text-feature-title {
+    @apply text-[24px] font-semibold leading-[1.25] tracking-[-0.03em] text-neutral-950;
   }
 
   .image-block {
-    @apply overflow-hidden rounded-[var(--radius-panel)] border border-neutral-200 bg-neutral-100;
+    @apply overflow-hidden rounded-[var(--radius-panel)] border border-neutral-200 bg-white;
   }
 
   .proof-callout {
@@ -206,6 +217,9 @@ body {
 }
 
 .legal-content h2:first-child {
+  /* Display hero H1 — dark/image page heroes (and hub landings on white).
+     Colour is inherited so the same role works on dark and light. Mirrors
+     HEADING.page in src/components/systems/catalog/roles.ts. */
   margin-top: 0;
 }
 

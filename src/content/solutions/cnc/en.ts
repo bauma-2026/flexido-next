@@ -35,7 +35,8 @@ export const cncContent: SolutionPageContent = {
         "Multiple CNC machines or additional operations",
         "Material flow, inspection, and equipment coordination",
       ],
-      result: "Result: the solution must be shaped around the real process, not only the CNC machine.",
+      result: "the solution must be shaped around the real process, not only the CNC machine.",
+      resultLabel: "Result",
     },
     {
       type: "capabilityGroups",
@@ -96,9 +97,9 @@ export const cncContent: SolutionPageContent = {
     {
       type: "crossSell",
       id: "standardna-osnova",
-      eyebrow: "Standard foundation",
-      heading: "When a configurable cell covers the process.",
-      body: "FLEX 7 CNC Slim remains the starting point for repeatable CNC tending.",
+      eyebrow: "CNC machines",
+      heading: "FLEX 7 CNC Slim",
+      body: "Available with a robot payload of 7 or 10 kg, matched to part size.",
       right: {
         kind: "image",
         src: "/images/systems/raw/flex-7-cnc-slim-studio.png",

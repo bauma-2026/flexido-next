@@ -1,10 +1,10 @@
 import type { ReactNode } from "react";
 
 type SectionHeaderProps = {
-  eyebrow?: string;
+  eyebrow?: ReactNode;
   title: ReactNode;
   desc?: ReactNode;
-  /** Prose measure for intro copy; defaults to section header width */
+  /** Wrapper classes. No default — the call site owns the header's geometry. */
   className?: string;
 };
 

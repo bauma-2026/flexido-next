@@ -38,7 +38,7 @@ export default function ProjectPracticeLink({
 
   return (
     <section className="mt-10 space-y-4 border-t border-neutral-200 pt-8">
-      <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
+      <p className="eyebrow">
         Povezava s prakso
       </p>
 

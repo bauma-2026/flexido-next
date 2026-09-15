@@ -10,7 +10,7 @@ export const automationContent: SolutionPageContent = {
     subhead:
       "Wenn eine einzelne Zelle nicht ausreicht, gestalten wir die Automatisierung rund um die Maschinen, Teile, den Materialfluss und die erforderlichen Prozessschritte.",
     ctas: [{ label: "Möglichkeiten ansehen", anchor: "#resitev" }],
-    videoSrc: "/video/flexido/hero-home.mp4",
+    videoSrc: "/video/flexido/hero-production.mp4",
   },
   wikiNav: [
     { id: "proces", label: "Umfassendere Automatisierung" },
@@ -24,7 +24,7 @@ export const automationContent: SolutionPageContent = {
       type: "problemSplit",
       id: "proces",
       eyebrow: "Umfassendere Automatisierung",
-      heading: "Der Prozess verbindet mehr als eine Zelle.",
+      heading: "Wenn der Produktionsprozess über eine Zelle hinausgeht.",
       body: "Ein Produktionsprozess läuft selten auf einer einzigen Maschine. Umfassendere Automatisierung verbindet Maschinen, Roboter, zusätzliche Arbeitsschritte und den Materialfluss zu einem abgestimmten Prozess.",
       itemsEyebrow: "Was verbunden werden muss",
       items: [
@@ -33,13 +33,14 @@ export const automationContent: SolutionPageContent = {
         "Zusätzliche Arbeitsschritte, Prüfung und Sicherheit",
         "Materialfluss und Anbindung der Ausrüstung",
       ],
-      result: "Ergebnis: umfassendere Automatisierung muss Maschinen, Roboter, zusätzliche Arbeitsschritte und den Materialfluss zu einem abgestimmten Prozess verbinden.",
+      result: "umfassendere Automatisierung muss Maschinen, Roboter, zusätzliche Arbeitsschritte und den Materialfluss zu einem abgestimmten Prozess verbinden.",
+      resultLabel: "Ergebnis",
     },
     {
       type: "capabilityGroups",
       id: "gradniki",
       eyebrow: "Technische Bausteine",
-      heading: "Was wir zu einer Lösung verbinden können.",
+      heading: "Was als ein verbundener Prozess funktionieren kann.",
       body: "Automatisierung kann Ausrüstung und Arbeitsschritte zusammenführen, die in der realen Produktion als abgestimmtes System funktionieren müssen.",
       layout: "openColumns",
       groups: [
