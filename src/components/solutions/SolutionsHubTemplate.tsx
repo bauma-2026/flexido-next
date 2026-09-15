@@ -33,7 +33,7 @@ export default function SolutionsHubTemplate({ locale, content }: { locale: Loca
             <p className="eyebrow-on-dark mb-5">{content.hero.eyebrow}</p>
             <div className="max-w-3xl">
               <h1 className="text-display">{content.hero.heading}</h1>
-              <p className="mt-6 max-w-2xl text-[17px] leading-8 text-white/72 sm:text-lg">{content.hero.subhead}</p>
+              <p className="mt-6 max-w-2xl text-balance text-[17px] leading-8 text-white/72 sm:text-lg">{content.hero.subhead}</p>
               <Button href="#resitve-grid" variant="light" className="mt-9">
                 {content.hero.ctaLabel} <span className="ml-2">→</span>
               </Button>
@@ -86,7 +86,7 @@ export default function SolutionsHubTemplate({ locale, content }: { locale: Loca
               ))}
             </div>
 
-            <p className="mt-10 max-w-2xl border-t border-neutral-200 pt-6 text-[14px] leading-[22px] text-neutral-600">
+            <p className="mt-10 max-w-2xl border-t border-neutral-200 pt-6 text-balance text-[14px] leading-[22px] text-neutral-600">
               {renderTemplate(
                 content.widerApproach.footNote.template,
                 [content.widerApproach.footNote.link],
@@ -104,10 +104,10 @@ export default function SolutionsHubTemplate({ locale, content }: { locale: Loca
                 eyebrow={content.proof.eyebrow}
                 title={content.proof.heading}
               />
-              <p className="mt-4 text-lg leading-8 text-neutral-600">{content.proof.body}</p>
+              <p className="mt-4 text-balance text-lg leading-8 text-neutral-600">{content.proof.body}</p>
             </div>
 
-            <div className="mt-10 grid gap-6 lg:grid-cols-2 lg:gap-8">
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:gap-8">
               {content.proof.items.map((proof) => (
                 <ProofCard
                   key={proof.title}
@@ -117,7 +117,7 @@ export default function SolutionsHubTemplate({ locale, content }: { locale: Loca
                   title={proof.title}
                   body={proof.body}
                   image={{ src: proof.image.src, alt: proof.title, objectPosition: proof.image.objectPosition }}
-                  imageSizes="(min-width: 1024px) 50vw, 100vw"
+                  imageSizes="(min-width: 640px) 50vw, 100vw"
                   linkLabel={content.proof.readMoreLabel}
                 />
               ))}
@@ -161,7 +161,7 @@ export default function SolutionsHubTemplate({ locale, content }: { locale: Loca
             <div className="max-w-3xl">
               <p className="eyebrow-on-dark">{content.finalCta.eyebrow}</p>
               <h2 className="text-section-title mt-3 text-white">{content.finalCta.heading}</h2>
-              <p className="mt-6 max-w-2xl text-[16px] leading-7 text-white/72 sm:text-lg">{content.finalCta.body}</p>
+              <p className="mt-6 max-w-2xl text-balance text-[16px] leading-7 text-white/72 sm:text-lg">{content.finalCta.body}</p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <a
                   href={`mailto:${content.finalCta.mailto}`}
