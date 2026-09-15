@@ -875,3 +875,129 @@ Verified correct in the final pass. Do not reopen:
 
 B1–B5 from the Home visual polish audit stay **deferred and unopened**. No new
 recommendations are carried forward.
+
+---
+
+# Solutions hub — LOCKED
+
+Closes `/resitve`. A page-level polish pass only — two A items from the Solutions
+hub visual polish audit plus one performance-consistency follow-up, all in
+`src/components/solutions/SolutionsHubTemplate.tsx`. No global system was touched.
+
+## Status
+
+- Solutions hub visual polish **implemented**
+- commit: `1a28927d3c9a7557b90c4a1cf48a18f1c92d2a3b`
+- pushed to `origin/main`
+- local `main` and `origin/main` **in sync** (0 ahead, 0 behind)
+
+## Implemented changes
+
+One file, +6 / −6.
+
+**A1 — `text-balance` on four local supporting paragraphs.** These sit outside
+`.text-body` by the A4 migration's deliberate category-C exclusions ("all
+dark-band copy", "all 17px leads", "all 14px small copy"), so the balancing added
+to `.text-body` in the A6-follow-up never reached them. Role, size, leading,
+colour and measure are unchanged — only `text-balance` was added:
+
+- hero subhead
+- wider-approach footnote
+- proof body
+- final-CTA body
+
+**A2 — proof grid breakpoint:** `lg:grid-cols-2` → `sm:grid-cols-2`, matching the
+sibling wider-approach card grid. `gap-6` and `lg:gap-8` unchanged.
+
+**Follow-up — responsive image loading hint:**
+`(min-width: 1024px) 50vw, 100vw` → `(min-width: 640px) 50vw, 100vw`, so the hint
+switches at the same breakpoint the grid now does.
+
+## Measured results
+
+Last-line ratio (`lastR` = last line ÷ longest line; ≤ 0.55 is the orphan band):
+
+| paragraph | width | before → after |
+|---|---|---|
+| DE wider-approach footnote | 375 | **0.06 → 1.00** |
+| EN hero subhead | 375 | 0.27 → **0.96** |
+| SL hero subhead | 375 | 0.35 → **1.00** |
+| DE final-CTA body | 1440 | 0.25 → **0.97** |
+
+The DE footnote was the worst line-break measured in the rebuild — its last line
+was `an.` at 20px against a 334px longest line; it now sets at 229px.
+
+**Zero line-count change** and **zero paragraph-height change** in every locale at
+every width — confirmed by stash/re-measure A/B, not inference (DE paragraph
+heights baseline vs after: `{64, 91, 96, 140}` @375 and `{32, 47, 32, 84}` @1024
+and @1440, identical both sides).
+
+Proof section height:
+
+| | before | after | Δ |
+|---|---|---|---|
+| SL @640 | 1653 | **819** | −834 |
+| SL @768 | 1821 | **843** | −978 |
+| DE @768 | 1845 | **867** | −978 |
+| 1024 | 916 / 940 | unchanged | 0 |
+| 1440 | 1012 | unchanged | 0 |
+
+The proof image no longer spikes at tablet: widths now run 335 → 284 → 348 → 464
+→ 592 across 375/640/768/1024/1440, monotonic, with the former 718px peak gone.
+
+Responsive image note:
+
+- at 768 the rendered image width is ~346px
+- the new `sizes` declares ~50vw instead of 100vw
+- layout unchanged (`sizes` cannot affect a `fill` image in a fixed `aspect-[4/3]` box)
+- source selection can now use a smaller responsive candidate
+
+## Verification
+
+- SL / EN / DE checked at **375 / 390 / 640 / 768 / 1024 / 1440**
+- no horizontal overflow — checked per element against its container, since
+  `main`'s `overflow-x-hidden` masks a document-level test
+- proof cards remain equal-height at every 2-up width (504/504, 528/528,
+  561/561, 657/657)
+- no title/body overflow at 640 (card title 60px, body 72–120px, cards even)
+- desktop 1024/1440 unchanged except the intended text rebalancing — DE section
+  heights and page totals identical either side (4806 = 4806 @1440,
+  4774 = 4774 @1024)
+- `tsc --noEmit` **exit 0**
+- `next build` **exit 0**
+
+## LOCKED areas
+
+Closed. No further changes without an explicit unlock:
+
+- Hero composition
+- Section order
+- Surface ramp
+- Solution card grid geometry
+- Wider-approach section
+- Proof-card component contract
+- Proof-grid breakpoint
+- Final CTA composition
+- Local text balancing
+- Locale parity
+- Responsive image sizing
+- Header / WikiNav / anchors
+- Global typography/rhythm system
+- `SectionHeader`
+- Prose measures
+- Catalog architecture
+
+## Explicitly leave alone
+
+Audited, classified B, and deliberately not implemented:
+
+- **B1** — "not sure" band (bypasses the `Section` system and uses a raw 20/24px
+  h2; compact reads as intentional for an interstitial, and promoting it to
+  `.text-section-title` would make it worse)
+- **B2** — final-CTA 2px button-height difference when stacked on mobile
+- **B3** — wider-approach footnote measure (77 CPL at 1440)
+- **B4** — wider-approach card body measure (43 CPL)
+- **B5** — SL H1 last-line ratio (0.55 at 1440; `.text-display` already balances,
+  so this is the balanced result)
+
+No new recommendations are carried forward. Copy and IA were not reopened.
