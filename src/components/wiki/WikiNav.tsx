@@ -33,6 +33,13 @@ type WikiNavProps = {
  * (touch, wheel, trackpad, scrollbar). Horizontal position therefore belongs
  * to navigation state alone.
  *
+ * The UA's focus-reveal only covers an item that is wholly outside the
+ * scrollport, so it does nothing for one clipped by a few pixels at the end of
+ * an overflowing rail — which is where the edge fade also sits. Items
+ * therefore reveal themselves on focus through the same minimal-movement
+ * maths the active item uses; nothing about the interaction model changes,
+ * and no user scroll input is accepted.
+ *
  * Movement is minimal by design: the rail stays put whenever the active item
  * is already seated inside the padding edges, and otherwise travels the
  * smallest distance that brings it back in. Below ~700px is the only place any
@@ -101,7 +108,7 @@ export default function WikiNav({ items, variant = "pills", label }: WikiNavProp
   /** The first positioning pass after mount lands instantly — no load-time slide. */
   const hasRevealedRef = useRef(false);
   /** Lets the stable viewport listeners reach the current reveal. */
-  const revealRef = useRef<(instant?: boolean) => void>(() => {});
+  const revealRef = useRef<(instant?: boolean, focusTarget?: HTMLAnchorElement | null) => void>(() => {});
   /** Same, for the active-section read, which owns its own `sections` closure. */
   const recomputeActiveRef = useRef<() => void>(() => {});
   /**
@@ -256,13 +263,20 @@ export default function WikiNav({ items, variant = "pills", label }: WikiNavProp
   }, [itemKey, measureFade]);
 
   /**
-   * Minimal-movement reveal of the active item. `instant` is used when the
-   * rail itself moved under the reader (rotation, address-bar collapse) —
-   * animating a correction they did not ask for would read as drift.
+   * Minimal-movement reveal. `instant` is used when the rail itself moved
+   * under the reader (rotation, address-bar collapse) — animating a
+   * correction they did not ask for would read as drift.
+   *
+   * `focusTarget` overrides the item to seat. It exists for keyboard focus: the
+   * UA's own focus-reveal only fires for an item that is wholly outside the
+   * scrollport, so a tab clipped by a few pixels at the end of an overflowing
+   * rail stayed clipped — and under the edge fade — while carrying the focus
+   * ring. Same maths, same minimal travel, just aimed at the item the reader
+   * actually moved to.
    */
-  const revealActive = useCallback((instant = false) => {
+  const revealActive = useCallback((instant = false, focusTarget?: HTMLAnchorElement | null) => {
     const nav = navRef.current;
-    const activeItem = itemRefs.current[activeHrefRef.current];
+    const activeItem = focusTarget ?? itemRefs.current[activeHrefRef.current];
 
     if (!nav || !activeItem) return;
 
@@ -357,6 +371,7 @@ export default function WikiNav({ items, variant = "pills", label }: WikiNavProp
                 }}
                 href={item.href}
                 aria-current={isActive ? "true" : undefined}
+                onFocus={(event) => revealRef.current(false, event.currentTarget)}
                 className={cn(
                   // `font-normal`, not `font-medium`: the rail used to be set a
                   // weight heavier than the global nav above it, which ranked
@@ -406,6 +421,7 @@ export default function WikiNav({ items, variant = "pills", label }: WikiNavProp
               }}
               href={item.href}
               aria-current={isActive ? "true" : undefined}
+              onFocus={(event) => revealRef.current(false, event.currentTarget)}
               className={[
                 // `min-h` rather than padding: the pill clears the 44px touch
                 // minimum without the label drifting off its optical centre.
