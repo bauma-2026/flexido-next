@@ -41,6 +41,8 @@ const solutions = [
 
 const nav = [
   { label: "Proces", href: "/proces" },
+  { label: "Servis in podpora", href: "/servis" },
+  { label: "Cenik servisa", href: "/cenik" },
     { label: "E-katalog", href: "/standardne-celice" },
   { label: "O nas", href: "/o-nas" },
   { label: "Reference", href: "/reference" },
@@ -49,20 +51,13 @@ const nav = [
   { label: "Video", href: "/video" },
 ];
 
-const trustLogosSl = [
-  {
-    href: "/razvojni-projekti",
-    src: "/logos/trust/eu-regional-development-fund.webp",
-    alt: "Evropska unija — Evropski sklad za regionalni razvoj",
-    note: "Projekt sofinancirata Republika Slovenija in Evropska unija.",
-  },
-  {
-    href: "https://www.flexido.eu/images/pdf/FLEXIDO-9001-CERT-Certificate-SLO-24092021.pdf",
-    src: "/logos/trust/bureau-veritas-iso-9001.webp",
-    alt: "ISO 9001 Bureau Veritas Certification",
-    note: "ISO 9001 — Bureau Veritas Certification.",
-  },
-];
+/**
+ * Certificate PDF is the single Bureau Veritas file published on
+ * flexido.eu — the same document in every locale; only the caption below
+ * it is translated.
+ */
+const isoCertificateHref =
+  "https://www.flexido.eu/images/pdf/FLEXIDO-9001-CERT-Certificate-SLO-24092021.pdf";
 
 function getTrustLogos(locale: Locale) {
   const euFundingHref =
@@ -80,7 +75,15 @@ function getTrustLogos(locale: Locale) {
             ? "Co-financed by the Republic of Slovenia and the European Union."
             : "Kofinanziert von der Republik Slowenien und der Europäischen Union.",
     },
-    trustLogosSl[1],
+    {
+      href: isoCertificateHref,
+      src: "/logos/trust/bureau-veritas-iso-9001.webp",
+      alt: "ISO 9001 Bureau Veritas Certification",
+      note:
+        locale === "de"
+          ? "ISO 9001 — Bureau Veritas Zertifizierung."
+          : "ISO 9001 — Bureau Veritas Certification.",
+    },
   ];
 }
 const legalRouteKeys = ["legalNotice", "salesTerms", "privacyPolicy"] as const;
