@@ -60,9 +60,9 @@ export default function ContactPageTemplate({
                       key={item.title}
                       className="border-b border-neutral-200 pb-5 last:border-b-0 last:pb-0"
                     >
-                      <h2 className="text-[16px] font-semibold text-neutral-950">
+                      <p className="text-list-title">
                         {item.title}
-                      </h2>
+                      </p>
 
                       <p className="mt-2 text-[14px] leading-6 text-neutral-600">
                         {item.desc}
@@ -89,7 +89,7 @@ export default function ContactPageTemplate({
               <div className="grid gap-5 sm:grid-cols-2">
                 <a
                   href={contactFacts.emailHref}
-                  className="rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-6 transition hover:-translate-y-0.5 hover:border-neutral-300"
+                  className="group rounded-[var(--radius-structural)] border border-neutral-300 bg-white p-6 transition hover:-translate-y-0.5 hover:border-neutral-400"
                 >
                   <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
                     {content.details.emailLabel}
@@ -97,12 +97,13 @@ export default function ContactPageTemplate({
 
                   <p className="mt-3 text-[18px] font-semibold tracking-[-0.02em] text-neutral-950">
                     {contactFacts.email}
+                    <span className="link-arrow">→</span>
                   </p>
                 </a>
 
                 <a
                   href={contactFacts.phoneHref}
-                  className="rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-6 transition hover:-translate-y-0.5 hover:border-neutral-300"
+                  className="group rounded-[var(--radius-structural)] border border-neutral-300 bg-white p-6 transition hover:-translate-y-0.5 hover:border-neutral-400"
                 >
                   <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
                     {content.details.phoneLabel}
@@ -110,6 +111,7 @@ export default function ContactPageTemplate({
 
                   <p className="mt-3 text-[18px] font-semibold tracking-[-0.02em] text-neutral-950">
                     {contactFacts.phoneDisplay}
+                    <span className="link-arrow">→</span>
                   </p>
                 </a>
 
@@ -160,7 +162,7 @@ export default function ContactPageTemplate({
                     {content.details.topics.map((topic) => (
                       <span
                         key={topic}
-                        className="rounded-full border border-neutral-200 bg-white px-3 py-1.5 text-[13px] font-medium text-neutral-600"
+                        className="rounded-full border border-neutral-200 bg-neutral-100 px-3 py-1 text-[10px] font-medium uppercase text-neutral-500"
                       >
                         {topic}
                       </span>
@@ -172,7 +174,7 @@ export default function ContactPageTemplate({
           </Container>
         </Section>
 
-        <section className="bg-neutral-950 text-white">
+        <section className="bg-[var(--color-dark-band)] text-white">
           <Container className="py-16 sm:py-20 lg:py-24">
             <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
               <div className="max-w-[680px]">

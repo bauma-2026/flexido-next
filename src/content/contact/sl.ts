@@ -11,7 +11,7 @@ export const contactContent: ContactPageContent = {
     eyebrow: "Kontakt",
     heading: "Poglejmo vaš proces",
     subhead:
-      "Opiščite, kje se v proizvodnji pojavljajo zastoji, ročni koraki ali nejasen tok materiala. Skupaj preverimo, kateri del procesa ima največ smisla avtomatizirati.",
+      "Opišite, kje se v proizvodnji pojavljajo zastoji, ročni koraki ali nejasen tok materiala. Skupaj preverimo, kateri del procesa ima največ smisla avtomatizirati.",
     primaryCtaLabel: "Pošljite povpraševanje →",
     secondaryCtaLabel: "Pokličite →",
     stepsEyebrow: "Kako začeti",
