@@ -1230,3 +1230,149 @@ After the fix:
 
 The locked navigation architecture is not reopened — the change is additive,
 extending the existing reveal to a case it silently missed.
+
+---
+
+# Contact — LOCKED
+
+Closes `/kontakt`, `/en/contact` and `/de/kontakt`. All three render through one
+template (`src/components/contact/ContactPageTemplate.tsx`), so every change here
+is page-family systemic. This pass was weighted toward task completion rather
+than pure rhythm: the page already read correctly, but its actionable controls
+were lighter than its static company data. No global system was touched.
+
+## Status
+
+- Contact UX/UI clarity pass **implemented**
+- shared template: `src/components/contact/ContactPageTemplate.tsx`
+- commit: `50074233b2a13633a83b83723c115f1486e8d63b` — `Improve Contact action
+  clarity`
+- pushed to `origin/main`
+- local `main` and `origin/main` **in sync** (0 ahead, 0 behind)
+
+## Implemented changes
+
+Two files, +9 / −7. Five items from the Contact audit; nothing else was reopened.
+
+| # | Change | File |
+|---|---|---|
+| A1 | Areas taxonomy pills restyled as quiet non-interactive labels — `text-[10px] font-medium uppercase`, **no added tracking**, recessed `bg-neutral-100`, `text-neutral-500` | `contact/ContactPageTemplate.tsx` |
+| A2 | Closing CTA surface `bg-neutral-950` → `bg-[var(--color-dark-band)]` | `contact/ContactPageTemplate.tsx` |
+| A3 | Hero instructional step titles `<h2 class="text-[16px] font-semibold …">` → `<p className="text-list-title">` | `contact/ContactPageTemplate.tsx` |
+| A4 | SL hero typo `Opiščite` → `Opišite` | `src/content/contact/sl.ts` |
+| B1 | Email/phone cards read as controls — `group`, border `neutral-300` at rest / `neutral-400` on hover, visible `.link-arrow` in the value row | `contact/ContactPageTemplate.tsx` |
+
+**A1 recipe note.** The literal `FlagshipCase` transposition (`text-[11px]` +
+`tracking-[0.14em]`) was measured and rejected: the Contact taxonomy strings run
+20–26 characters against `FlagshipCase`'s single words, so uppercase plus 0.14em
+pushed the longest tag to 245px against 300px of available width at 390 and
+collapsed the block to one tag per row (7 rows, +75.5px). The shipped recipe
+keeps uppercase and smaller type, drops tracking, and introduces **no new
+tracking token**.
+
+## Measured results
+
+Areas tag block — rows and block height, before → after:
+
+| width | SL rows | SL height | EN rows | EN height | DE rows | DE height |
+|---|---|---|---|---|---|---|
+| 375 | 6 → **6** | 323.5 → **272.5** | 5 → **5** | **239.5** | 5 → **5** | **239.5** |
+| 390 | 4 → **4** | 240.5 → **206.5** | 4 → **4** | **206.5** | 5 → **5** | **239.5** |
+| 640 | 3 → **3** | 199 → **173.5** | 3 → **3** | **173.5** | 3 → **3** | **173.5** |
+| 768 | 2 → **2** | 157.5 → **140.5** | 2 → **2** | **140.5** | 2 → **2** | **140.5** |
+| 1024 | 3 → **3** | 199 → **173.5** | 3 → **3** | **173.5** | 3 → **3** | **173.5** |
+| 1440 | 2 → **2** | 157.5 → **140.5** | 2 → **2** | **140.5** | 2 → **2** | **140.5** |
+
+Row count is preserved at every width in every locale and the block is shorter
+everywhere. Longest tag: SL 190px, EN 166px, DE 199px — all below the ~195–200px
+packing threshold at 375/390.
+
+Tag affordance — the defect was that the pill was the secondary `Button` recipe:
+
+| property | before | after | secondary `Button` |
+|---|---|---|---|
+| background | `#ffffff` | `#f5f5f5` | `#ffffff` |
+| font-size | 13px | **10px** | 14px |
+| text-transform | `none` | **`uppercase`** | `none` |
+| colour | neutral-600 (3.60:1) | neutral-500 (**4.74:1**) | neutral-800 |
+| height | 33.5px | **25px** | 47px |
+
+Document outline, before → after:
+
+```
+H1  Poglejmo vaš proces              H1  Poglejmo vaš proces
+H2  1. Opišite proces            →   H2  Najhitrejši način je kratek opis procesa.
+H2  2. Dodajte kontekst              H2  Pošljite kratek opis procesa.
+H2  3. Dogovorimo naslednji korak
+H2  Najhitrejši način je kratek…
+H2  Pošljite kratek opis procesa.
+```
+
+Three 16px list items no longer outrank nothing at page level. Step title height
+24 → 22px; hero panel 356.5 → 350.5px at 1440.
+
+Contact cards and closing CTA:
+
+- card border at rest neutral-200 → **neutral-300**, so the actionable cards now
+  carry a stronger outline than every static block on the page (unchanged at
+  neutral-200) — the affordance inversion the audit measured at 3.0×
+- card dimensions **unchanged** — 335.6 × 105.5 at 1440, 350 × 105.5 at 390
+- `→` renders at `opacity: 1` at rest, inheriting the value's neutral-950 weight
+- closing CTA `#0a0a0a` → **`#1f1f1f`**; footer stays `#0a0a0a`, so the two
+  surfaces are no longer the same value separated by one `white/10` hairline
+- closing CTA height **unchanged** — 343.1px at 1440, identical at every width
+
+## Verification
+
+- SL / EN / DE checked at **375 / 390 / 640 / 768 / 1024 / 1440**
+- document outline `H1,H2,H2` confirmed in all three locales
+- `mailto:info@flexido.eu` and `tel:+38659351100` unchanged on all six links;
+  full-card anchors and the existing hover lift preserved
+- no horizontal overflow in any of the 18 width × locale combinations
+- page height shorter at every width (SL 375 4166 → 4109, 390 3995 → 3955,
+  640 3264 → 3233, 768 3223 → 3200, 1024 2384 → 2359, 1440 2305 → 2288)
+- `tsc --noEmit` **exit 0**
+- `next build` **exit 0**
+
+## LOCKED areas
+
+Closed. No further changes without an explicit unlock:
+
+- hero H1 role, measure and wrapping
+- hero support-copy role and measure
+- hero white-surface composition
+- primary/secondary CTA hierarchy
+- mobile/tablet stacking and above-fold action visibility
+- "How to start" instructional block rhythm and divider logic
+- corrected instructional semantics (`H1 → H2 → H2` document outline)
+- actionable email/phone cards and their full-card `mailto:` / `tel:` semantics
+- contact-card directional-link grammar
+- company / headquarters / business-unit grouping
+- Areas taxonomy treatment as non-interactive labels
+- mid-page column structure
+- closing CTA surface (`--color-dark-band`) and footer separation
+- SL hero typo correction
+- responsive behaviour across 375 / 390 / 640 / 768 / 1024 / 1440
+- SL / EN / DE locale parity
+- horizontal overflow: clean
+
+## Explicitly leave alone
+
+Audited and deliberately not implemented. Not part of the Contact lock:
+
+- **A5** — any response-time / response-channel business promise. Held back on
+  purpose: it is a commitment the business makes, not a layout decision.
+- **B2** — aligning final CTA geometry to the Process/References close pattern
+- **B3** — changing hero desktop column ratio
+- **B4** — SL CTA pair wrapping to two rows at 375
+- **B5** — local `.focus-ring` normalization
+- **B6** — hero/panel eyebrow top alignment
+- **B7** — `details.eyebrow` wording
+- site-wide `text-neutral-400` in-card label contrast convention (16 occurrences
+  across locked families — a global decision, not a Contact defect)
+- shared `Button` 45px / 47px primary-vs-secondary height difference
+
+Deferred items are **not blockers** and are **not** carried forward as future
+required work. Do not reopen Contact except for a factual error, an accessibility
+regression, a technical defect or visible breakage. No new recommendations are
+carried forward. Copy and IA were not reopened.
