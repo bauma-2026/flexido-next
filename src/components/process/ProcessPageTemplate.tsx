@@ -49,7 +49,7 @@ export default function ProcessPageTemplate({
                 {content.hero.heading}
               </h1>
 
-              <p className="mt-6 max-w-[58ch] text-[16px] leading-7 text-white/75 sm:text-lg">
+              <p className="mt-6 max-w-[58ch] text-balance text-[16px] leading-7 text-white/75 sm:text-lg">
                 {content.hero.subhead}
               </p>
 
@@ -134,11 +134,19 @@ export default function ProcessPageTemplate({
 
                   <p className="index-label">{step.number}</p>
 
-                  <h3 className="mt-3 max-w-[20ch] text-[18px] font-semibold leading-[1.2] tracking-[-0.02em] text-neutral-950">
+                  {/* Two-line title band on desktop (2 x 18px x 1.2 = 2.4em):
+                      the four steps share a top rule, so the descriptions have
+                      to share a baseline too — without it a wrapped title (EN
+                      "Commissioning and support", most DE titles) drops its
+                      body 22px below its neighbours. */}
+                  <h3 className="mt-3 max-w-[20ch] text-[18px] font-semibold leading-[1.2] tracking-[-0.02em] text-neutral-950 lg:min-h-[2.4em]">
                     {step.title}
                   </h3>
 
-                  <p className="mt-3 max-w-[34ch] text-[15px] leading-7 text-neutral-600 lg:pr-8">
+                  {/* No right padding: `lg:gap-x-8` on the grid is already the
+                      gutter, and doubling it cost the body 32px of an
+                      already-narrow 216px column at 1024. */}
+                  <p className="mt-3 max-w-[34ch] text-[15px] leading-7 text-neutral-600">
                     {step.desc}
                   </p>
                 </li>
@@ -157,11 +165,11 @@ export default function ProcessPageTemplate({
 
             {/* Grounded technical layout, not floating cards: one shared
                 top rule + divide-x columns — calm and structural, not decorative. */}
-            <div className="mt-10 grid border-t border-neutral-200 sm:grid-cols-3 sm:divide-x sm:divide-neutral-200">
+            <div className="mt-10 grid border-t border-neutral-200 lg:grid-cols-3 lg:divide-x lg:divide-neutral-200">
               {content.principles.items.map((item) => (
                 <div
                   key={item.title}
-                  className="border-b border-neutral-200 py-8 last:border-b-0 sm:border-b-0 sm:px-8 sm:py-10 sm:first:pl-0 sm:last:pr-0"
+                  className="border-b border-neutral-200 py-8 last:border-b-0 lg:border-b-0 lg:px-8 lg:py-10 lg:first:pl-0 lg:last:pr-0"
                 >
                   <h3 className="text-xl font-semibold tracking-[-0.02em] text-neutral-950">
                     {item.title}
