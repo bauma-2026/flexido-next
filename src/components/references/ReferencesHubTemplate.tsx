@@ -90,7 +90,7 @@ export default function ReferencesHubTemplate({
               descClassName="measure-prose"
             />
 
-            <div className="mt-10 grid gap-5 lg:grid-cols-3">
+            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {projects.map(({ shared, content: project }) => {
                 const href = getPath(shared.routeKey, locale);
                 if (!href) return null;
@@ -104,6 +104,7 @@ export default function ReferencesHubTemplate({
                     title={project.summary.title}
                     body={project.summary.body}
                     image={{ src: shared.image.src, alt: project.imageAlt, objectPosition: shared.image.objectPosition }}
+                    imageSizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                     linkLabel={content.projects.readMoreLabel}
                   />
                 );
@@ -168,7 +169,7 @@ export default function ReferencesHubTemplate({
         >
           <div className="absolute inset-0 opacity-20">
             <img
-              src="/images/systems/raw/vhodno-izhodna-tracna-proga.png"
+              src="/images/systems/raw/vhodno-izhodna-tracna-proga.webp"
               alt=""
               className="h-full w-full object-cover object-[70%_center]"
             />

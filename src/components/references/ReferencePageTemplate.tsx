@@ -113,7 +113,7 @@ export default function ReferencePageTemplate({
                       {content.result.label}
                     </p>
 
-                    <p className="mt-3 text-[22px] font-semibold leading-[1.25] tracking-[-0.02em] text-neutral-900 sm:text-[24px]">
+                    <p className="mt-3 text-[22px] font-semibold leading-[1.25] tracking-[-0.02em] text-neutral-950 sm:text-[24px]">
                       {content.result.heading}
                     </p>
 
@@ -165,7 +165,7 @@ export default function ReferencePageTemplate({
                         {productHref && content.productLink ? (
                           <Link
                             href={productHref}
-                            className="inline-flex items-center text-[14px] font-semibold text-neutral-800 transition hover:text-neutral-950"
+                            className="inline-flex items-center text-[14px] font-medium text-neutral-600 transition hover:text-neutral-950"
                           >
                             {content.productLink.label}
                           </Link>
