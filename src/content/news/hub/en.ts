@@ -33,6 +33,17 @@ export const newsHubContent: NewsHubContent = {
     secondaryLabel: "Send an inquiry →",
     mailto: "info@flexido.eu",
   },
+  /* Wording reused from the approved SL/EN pairs already in the repo, so this
+     block introduces no new copy: eyebrow and heading from the Solutions hub
+     `finalCta` ("Naslednji korak" / "Poglejmo vaš proces."), body and label
+     from the Automation solution `finalCta`. */
+  articleCta: {
+    eyebrow: "Next step",
+    heading: "Let's look at your process.",
+    body: "Send us the basic information about your machine, parts, and workflow. Together we'll assess which automation makes sense.",
+    ctaLabel: "Send an inquiry",
+    mailto: "info@flexido.eu",
+  },
   chrome: {
     backLabel: "← Back to news",
     prevLabel: "← Previous",

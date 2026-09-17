@@ -33,6 +33,13 @@ export const newsHubContent: NewsHubContent = {
     secondaryLabel: "Pošljite povpraševanje →",
     mailto: "info@flexido.eu",
   },
+  articleCta: {
+    eyebrow: "Naslednji korak",
+    heading: "Poglejmo vaš proces.",
+    body: "Če želite preveriti, kako bi podobna rešitev delovala v vašem procesu, nam pošljite osnovne informacije o stroju, kosih in trenutnem toku dela.",
+    ctaLabel: "Pošljite povpraševanje",
+    mailto: "info@flexido.eu",
+  },
   chrome: {
     backLabel: "← Nazaj na novice",
     prevLabel: "← Prejšnja",

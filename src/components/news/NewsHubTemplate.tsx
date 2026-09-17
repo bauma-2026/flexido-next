@@ -68,6 +68,7 @@ export default function NewsHubTemplate({
                         alt={featured.content.imageAlt ?? featured.content.title}
                         width={1200}
                         height={750}
+                        sizes="(min-width: 1280px) 656px, (min-width: 1024px) 50vw, 100vw"
                         className="aspect-[16/10] w-full object-cover transition duration-500 group-hover:scale-[1.03]"
                       />
                     ) : (
@@ -124,19 +125,22 @@ export default function NewsHubTemplate({
                       href={href}
                       className="group overflow-hidden rounded-[var(--radius-panel)] border border-neutral-200 bg-white transition hover:-translate-y-0.5 hover:border-neutral-300"
                     >
-                      <div className="overflow-hidden bg-neutral-100">
-                        {item.shared.image ? (
+                      {/* No image frame when the entry has no image: an empty
+                          16/10 neutral block reads as a broken thumbnail, so
+                          the card collapses to a deliberate text-only card
+                          instead (the EN-only posts have no imagery). */}
+                      {item.shared.image ? (
+                        <div className="overflow-hidden bg-neutral-100">
                           <Image
                             src={item.shared.image.src}
                             alt={item.content.imageAlt ?? item.content.title}
                             width={800}
                             height={500}
+                            sizes="(min-width: 1280px) 392px, (min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw"
                             className={`aspect-[16/10] w-full object-cover transition duration-500 group-hover:scale-[1.04] ${item.shared.image.gridObjectPosition ?? ""}`}
                           />
-                        ) : (
-                          <div className="aspect-[16/10] w-full bg-neutral-100" />
-                        )}
-                      </div>
+                        </div>
+                      ) : null}
                       <div className="p-6">
                         <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
                           {content.grid.cardLabel}

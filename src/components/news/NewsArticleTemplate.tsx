@@ -87,14 +87,20 @@ export default function NewsArticleTemplate({
             <article>
               {shared.image ? (
                 <div className="mt-12 grid gap-6 sm:mt-14 lg:mt-10 lg:grid-cols-[1fr_300px] lg:items-start lg:gap-12 xl:grid-cols-[1fr_340px] xl:gap-14">
-                  <Image
-                    src={shared.image.src}
-                    alt={content.imageAlt ?? content.title}
-                    width={1200}
-                    height={800}
-                    className="w-full rounded-[var(--radius-panel)] border border-neutral-200 bg-neutral-100"
-                    priority
-                  />
+                  {/* Fixed aspect rather than the native render, matching
+                      ReferencePageTemplate: the portrait 757x1024 studio
+                      sources rendered intrinsically ran ~1100px tall at 1440
+                      and pushed the article body a full viewport down. */}
+                  <div className="relative aspect-[16/11] overflow-hidden rounded-[var(--radius-panel)] border border-neutral-200 bg-neutral-100">
+                    <Image
+                      src={shared.image.src}
+                      alt={content.imageAlt ?? content.title}
+                      fill
+                      sizes="(min-width: 1280px) 820px, (min-width: 1024px) 612px, 100vw"
+                      className="object-cover"
+                      priority
+                    />
+                  </div>
 
                   {content.details.length > 0 ? (
                     <DetailsCard label={hub.chrome.detailsLabel} details={content.details} />
@@ -264,11 +270,13 @@ export default function NewsArticleTemplate({
                 </div>
               </div>
 
-              <div className="mt-12">
-                <NewsCTA />
-              </div>
-
               <div className="max-w-[820px]">
+                {hub.articleCta ? (
+                  <div className="mt-12">
+                    <NewsCTA content={hub.articleCta} />
+                  </div>
+                ) : null}
+
                 <div className="not-prose mt-14 border-t border-neutral-200 pt-6">
                   <div className="grid gap-3 sm:grid-cols-3 sm:items-center">
                     <Link

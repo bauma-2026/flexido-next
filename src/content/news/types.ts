@@ -92,6 +92,21 @@ export type NewsHubContent = {
     secondaryLabel: string;
     mailto: string;
   };
+  /**
+   * The dark conversion band inside an article (`NewsCTA`) — a single mailto
+   * action, distinct from the hub's two-action `cta` above.
+   *
+   * Optional because it is only reachable from an article page, and
+   * `newsOrderByLocale.de` is empty: DE has a hub but no articles, so there is
+   * no DE article CTA to author.
+   */
+  articleCta?: {
+    eyebrow: string;
+    heading: string;
+    body: string;
+    ctaLabel: string;
+    mailto: string;
+  };
   chrome: {
     backLabel: string;
     prevLabel: string;
