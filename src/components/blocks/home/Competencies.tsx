@@ -54,7 +54,7 @@ export default function Competencies({ content = defaultContent, locale = "sl" }
                   {index !== 0 && (
                     <span
                       aria-hidden
-                      className="absolute left-12 right-0 top-0 max-w-[22rem] border-t border-neutral-200"
+                      className="absolute left-12 right-0 top-0 border-t border-neutral-200"
                     />
                   )}
                   {Icon && (
