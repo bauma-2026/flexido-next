@@ -31,7 +31,24 @@ export type NewsBlock =
   | { type: "section"; heading: string; paragraphs: string[]; list?: string[] }
   | { type: "note"; text: string }
   | { type: "result"; label: string; heading: string; body?: string }
-  | { type: "callout"; eyebrow: string; heading: string; body: string; ctaLabel?: string; href?: string; routeKey?: RouteKey }
+  | {
+      type: "callout";
+      eyebrow: string;
+      heading: string;
+      body: string;
+      ctaLabel?: string;
+      href?: string;
+      routeKey?: RouteKey;
+      /**
+       * Opts this callout out of the article's single primary (filled-button)
+       * slot, so it renders in the quiet variant the template already ships
+       * for second-and-later callouts (see `carton-forming`'s "Povezana
+       * rešitev" block). For editorial cross-links that must not compete
+       * with the article's conversion CTA. Omitted everywhere else, so every
+       * existing article keeps exactly the treatment it has today.
+       */
+      variant?: "editorial";
+    }
   | {
       type: "fundingLogos";
       logos: {

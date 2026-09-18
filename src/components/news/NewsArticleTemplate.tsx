@@ -119,12 +119,21 @@ export default function NewsArticleTemplate({
                   className={`${shared.image || content.details.length > 0 ? "mt-10" : ""} space-y-7 text-[16px] leading-8 text-neutral-700`}
                 >
                   {(() => {
+                    // A callout marked `editorial` never claims the primary
+                    // slot, so a single-callout article can still render a
+                    // quiet cross-link instead of a filled button. Blocks
+                    // without the flag behave exactly as before.
                     const primaryCalloutIndex = (() => {
                       const withCta = content.blocks.findIndex(
-                        (b) => b.type === "callout" && Boolean(b.ctaLabel && (b.href || b.routeKey)),
+                        (b) =>
+                          b.type === "callout" &&
+                          b.variant !== "editorial" &&
+                          Boolean(b.ctaLabel && (b.href || b.routeKey)),
                       );
                       if (withCta !== -1) return withCta;
-                      return content.blocks.findIndex((b) => b.type === "callout");
+                      return content.blocks.findIndex(
+                        (b) => b.type === "callout" && b.variant !== "editorial",
+                      );
                     })();
 
                     return content.blocks.map((block, blockIndex) => {

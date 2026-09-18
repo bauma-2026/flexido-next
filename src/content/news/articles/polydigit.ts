@@ -47,6 +47,19 @@ export const article: NewsArticle = {
           ],
         },
         {
+          // Points back at the stable project record. Deliberately names the
+          // categories without restating any of them — the programme name,
+          // project value and co-financing figures stay on the project page,
+          // so this article keeps only the dated completion narrative.
+          type: "callout",
+          variant: "editorial",
+          eyebrow: "Razvojni projekt",
+          heading: "Podrobnosti projekta Poly Digit.",
+          body: "Konzorcij, trajanje in podatki o sofinanciranju so zbrani na strani razvojnega projekta.",
+          ctaLabel: "Poglej razvojni projekt →",
+          routeKey: "fundingProjectPolyDigit",
+        },
+        {
           type: "note",
           text: "Projekt je sofinanciran iz Načrta za okrevanje in odpornost.",
         },

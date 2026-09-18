@@ -100,24 +100,22 @@ export default function Page() {
             <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,760px)_280px] lg:gap-14 xl:grid-cols-[minmax(0,820px)_300px]">
               <article>
                 {/* CONTENT */}
+                {/*
+                  Neutral identification lead, not a completion narrative.
+                  The three paragraphs that stood here were the dated
+                  completion story, which lives in the 20-06-2024 news
+                  article linked below: one was byte-identical to it, one a
+                  0.88-similar restatement of its opener, one a truncated
+                  subset of its "celovit sistem" result sentence. This page
+                  is the stable project record; it states what the project
+                  was, and links out for how it ended.
+                */}
                 <div className="space-y-7 text-[16px] leading-8 text-neutral-700">
                   <p className="text-[18px] leading-8 text-neutral-800">
-                    Naše podjetje je skupaj s konzorcijskima partnerjema POLYCOM
-                    d.o.o. in LOTRIČ Meroslovje d.o.o. uspešno zaključilo
-                    sodelovanje na projektu digitalne preobrazbe pod imenom Poly
-                    Digit.
-                  </p>
-
-                  <p>
-                    V okviru projekta je podjetje Polycom vpeljalo nove
-                    tehnologije in pristope v šestih poslovnih funkcijah, skupaj
-                    pa smo izboljšali stopnjo digitaliziranosti pri
-                    konzorcijskih partnerjih.
-                  </p>
-
-                  <p>
-                    Vse vpeljane digitalne tehnologije se medsebojno
-                    dopolnjujejo in tvorijo celovit sistem.
+                    Poly Digit je bil projekt digitalne preobrazbe, izveden v
+                    konzorciju podjetij POLYCOM d.o.o., LOTRIČ Meroslovje
+                    d.o.o. in Flexido d.o.o. v okviru Načrta za okrevanje in
+                    odpornost.
                   </p>
                 </div>
 
@@ -132,7 +130,7 @@ export default function Page() {
                     </h2>
 
                     <p>
-                      Polycom Škofja Loka d.o.o. nastopa kot koordinator
+                      Polycom Škofja Loka d.o.o. je nastopal kot koordinator
                       projekta, Lotrič Meroslovje d.o.o. in Flexido d.o.o. pa
                       kot konzorcijska partnerja.
                     </p>
@@ -144,26 +142,27 @@ export default function Page() {
                     </h2>
 
                     <p>
-                      V okviru projekta bo veliko podjetje Polycom v tesnem
+                      V okviru projekta je veliko podjetje Polycom v tesnem
                       partnerskem sodelovanju z dvema tehnološko vrhunskima MSP
                       digitalno preobrazilo šest ključnih poslovnih funkcij:
                       razvoj, proizvodnjo, logistiko, nabavo, prodajo in upravo
                       s poslovnim načrtovanjem.
                     </p>
 
+                    {/*
+                      Neutralised, not converted. The repo evidences that the
+                      project ran to term (Trajanje marec 2022 – marec 2024),
+                      but nothing here evidences that these particular
+                      efficiency/cost outcomes were measured or met — so this
+                      stays a statement of the project's stated goals rather
+                      than becoming a claim that they were achieved.
+                    */}
                     <p>
-                      Pričakovani rezultati digitalne preobrazbe so povečanje
+                      Cilji digitalne preobrazbe so bili povečanje
                       učinkovitosti in produktivnosti poslovanja, znižanje
                       proizvodnih stroškov in stroškov poslovanja ter izboljšanje
                       učinkovitosti obstoječih digitalnih izdelkov, storitev in
                       razvojno-proizvodnih aktivnosti pri partnerjih.
-                    </p>
-
-                    <p>
-                      Z uporabo razvitih in uvedenih tehnologij bomo dosegli
-                      zastavljene cilje projekta, izboljšali raven digitalizacije
-                      ter dvignili stopnjo digitalne pismenosti zaposlenih pri
-                      vseh konzorcijskih partnerjih.
                     </p>
                   </section>
 
@@ -198,7 +197,7 @@ export default function Page() {
                     </ol>
 
                     <p>
-                      S projektom partnerji prispevamo k doseganju ciljev
+                      S projektom smo partnerji prispevali k doseganju ciljev
                       Strategije digitalne transformacije gospodarstva in k cilju
                       Slovenije, da se uvrsti med vodilne države na področju
                       uporabe naprednih digitalnih tehnologij po indeksu DESI.
