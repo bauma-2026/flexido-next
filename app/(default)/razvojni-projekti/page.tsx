@@ -251,13 +251,13 @@ export default function Page() {
                     </span>
                   </div>
 
-                  <p className="mt-5 text-[19px] font-semibold tracking-[-0.03em] text-[#0078bd]">
+                  <h3 className="mt-5 text-[19px] font-semibold tracking-[-0.03em] text-[#0078bd]">
                     {project.shortName}
-                  </p>
-
-                  <h3 className="mt-1.5 max-w-[34ch] text-[15px] font-medium leading-6 text-neutral-500">
-                    {project.title}
                   </h3>
+
+                  <p className="mt-1.5 max-w-[34ch] text-[15px] font-medium leading-6 text-neutral-500">
+                    {project.title}
+                  </p>
 
                   <p className="text-body mt-4 measure-prose">
                     {project.desc}
