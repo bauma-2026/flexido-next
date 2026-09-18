@@ -25,6 +25,17 @@ type ProjectFundingBlockProps = {
   paragraphs?: string[];
   links?: ProjectFundingLink[];
   primaryLogos: ProjectFundingLogo[];
+  /**
+   * Consortium/partner marks, kept in their own captioned row rather than
+   * mixed into `primaryLogos`. Two reasons: partners are not funders, so
+   * folding them into the institutional row misrepresents both; and on the
+   * one page that has five marks they overflowed the article column and
+   * orphaned the last logo onto a line of its own at 768–1300. Grouping
+   * fixes the meaning and the wrap at once. Optional — pages without a
+   * consortium render exactly as before.
+   */
+  partnerLogos?: ProjectFundingLogo[];
+  partnerLabel?: string;
   secondaryLogos?: ProjectFundingLogo[];
   legalLine?: ReactNode;
   className?: string;
@@ -78,6 +89,8 @@ export default function ProjectFundingBlock({
   paragraphs,
   links,
   primaryLogos,
+  partnerLogos,
+  partnerLabel,
   secondaryLogos,
   legalLine,
   className = "",
@@ -150,6 +163,27 @@ export default function ProjectFundingBlock({
             {primaryLogos.map((logo) => (
               <FundingLogoMark key={logo.src} logo={logo} />
             ))}
+          </div>
+        )}
+
+        {partnerLogos && partnerLogos.length > 0 && (
+          <div className="mt-7 sm:mt-8">
+            {partnerLabel && (
+              <p className="text-[13px] font-medium text-neutral-500">
+                {partnerLabel}
+              </p>
+            )}
+
+            <div
+              className={[
+                "flex flex-wrap items-center gap-x-6 gap-y-5 sm:gap-x-8",
+                partnerLabel ? "mt-4" : "",
+              ].join(" ")}
+            >
+              {partnerLogos.map((logo) => (
+                <FundingLogoMark key={logo.src} logo={logo} />
+              ))}
+            </div>
           </div>
         )}
 

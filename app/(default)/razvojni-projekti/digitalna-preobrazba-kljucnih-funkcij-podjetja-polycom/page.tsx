@@ -122,7 +122,7 @@ export default function Page() {
                 </div>
 
                 <div className="mt-10">
-                  <DevelopmentProjectNav />
+                  <DevelopmentProjectNav currentKey="fundingProjectPolyDigit" />
                 </div>
 
                 <div className="space-y-7 text-[16px] leading-8 text-neutral-700">
@@ -266,6 +266,14 @@ export default function Page() {
                       alt: "Načrt za okrevanje in odpornost",
                       href: "https://www.gov.si/zbirke/projekti-in-programi/nacrt-za-okrevanje-in-odpornost",
                     },
+                  ]}
+                  // The three consortium members named in the "Konzorcij"
+                  // section above, moved out of the institutional row: they
+                  // are partners, not funders, and as a single five-mark row
+                  // they overflowed the article column and orphaned the last
+                  // logo onto its own line at 768–1300.
+                  partnerLabel="Konzorcijski partnerji"
+                  partnerLogos={[
                     {
                       src: "/logos/funding/polycom.png",
                       alt: "Polycom",
@@ -277,9 +285,13 @@ export default function Page() {
                       href: "https://www.lotric.si/",
                     },
                     {
+                      // Deliberately no href: this is Flexido's own site, so
+                      // the mark identifies the third consortium member
+                      // rather than offering a destination. The previous
+                      // link pointed at the legacy flexido.eu page-builder
+                      // site, which is not this rebuild.
                       src: "/logo/flexido-header.svg",
                       alt: "Flexido",
-                      href: "https://www.flexido.eu/",
                     },
                   ]}
                   secondaryLogos={[

@@ -114,7 +114,7 @@ export default function Page() {
                 </div>
 
                 <div className="mt-10">
-                  <DevelopmentProjectNav />
+                  <DevelopmentProjectNav currentKey="fundingProjectSafeguard" />
                 </div>
 
                 <div className="space-y-7 text-[16px] leading-8 text-neutral-700">
@@ -226,9 +226,13 @@ export default function Page() {
                       href: "https://www.gov.si/",
                     },
                     {
+                      // No href: the previous "#" rendered a real anchor with
+                      // target="_blank", so clicking the mark opened an empty
+                      // tab. ProjectFundingBlock already renders a plain <div>
+                      // wrapper when href is absent — leave it unset until a
+                      // real destination for this mark is confirmed.
                       src: "/logos/funding/kameleon.png",
                       alt: "Kameleon",
-                      href: "#",
                     },
                   ]}
                   secondaryLogos={[

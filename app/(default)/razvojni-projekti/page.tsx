@@ -192,7 +192,17 @@ export default function Page() {
                   realno uporabo na trgu.
                 </p>
 
-                <div className="mt-8 grid gap-5 sm:grid-cols-3">
+                {/*
+                  This grid sits inside the RIGHT column of the section's
+                  lg:grid-cols-[0.85fr_1.15fr] split, so it gets *narrower*
+                  as the viewport widens past the lg breakpoint: measured
+                  child widths were 184px @640, 227px @768, 158px @1024,
+                  188px @1180, 207px @1440. The 1024–1279 band was the
+                  tightest measure on the page (~20cpl, two of three titles
+                  wrapping). Stack there instead, and return to 3-up at xl,
+                  where the column is wide enough to carry it.
+                */}
+                <div className="mt-8 grid gap-5 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
                   {interpretiveFramework.map((item) => (
                     <div key={item.number}>
                       <p className="text-[13px] font-semibold tracking-[-0.01em] text-[#0089d6]">

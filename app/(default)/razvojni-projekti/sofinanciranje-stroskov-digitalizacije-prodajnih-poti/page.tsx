@@ -117,7 +117,7 @@ export default function Page() {
                 </div>
 
                 <div className="mt-10">
-                  <DevelopmentProjectNav />
+                  <DevelopmentProjectNav currentKey="fundingProjectSalesDigitalization" />
                 </div>
 
                 <div className="space-y-7 text-[16px] leading-8 text-neutral-700">
@@ -192,7 +192,7 @@ export default function Page() {
                     {
                       src: "/logos/funding/ministry-mgts-alt.png",
                       alt: "Ministrstvo za gospodarstvo, turizem in šport",
-                      href: "https://www.gov.si/zbirke/delovna-mesta/ministrstvo-za-gospodarski-razvoj-in-tehnologijo/",
+                      href: "https://www.gov.si/drzavni-organi/ministrstva/ministrstvo-za-gospodarstvo-turizem-in-sport/",
                     },
                     {
                       src: "/logos/funding/spirit-slovenija.svg",
