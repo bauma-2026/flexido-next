@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -5,11 +6,24 @@ import Container from "@/components/layout/Container";
 import Image from "next/image";
 import DarkBand from "@/components/ui/DarkBand";
 import Section from "@/components/layout/Section";
-import { konstrukterJob } from "@/content/careers/konstrukter";
+import {
+  CAREERS_EMAIL,
+  konstrukterJob,
+  ROLE_DETAIL_LABEL,
+} from "@/content/careers/konstrukter";
 import SectionHeader from "@/components/ui/SectionHeader";
+import { buildAlternates } from "@/i18n/metadata";
 
 /** Live SL listing (flexido.eu/zaposlitev) currently shows exactly one active opening, 1/1. */
 const jobs = [konstrukterJob];
+
+export const metadata: Metadata = {
+  title: "Zaposlitev — prosta delovna mesta | Flexido",
+  description:
+    "Odprta delovna mesta pri Flexidu. Delo na robotskih celicah, proizvodnih sistemih in rešitvah za avtomatizacijo.",
+  robots: { index: false, follow: false },
+  alternates: buildAlternates("careers", "sl"),
+};
 
 export default function ZaposlitevPage() {
   return (
@@ -20,13 +34,16 @@ export default function ZaposlitevPage() {
         {/* HERO */}
         <section className="relative overflow-hidden bg-[var(--color-dark-band)] text-white">
           <div className="absolute inset-0">
+            {/* The branded robot arm sits left-of-centre in the source frame.
+                The wide crop keeps it in view on its own; the portrait-ish
+                mobile box does not, so the subject is re-centred below `sm`. */}
             <Image
               src="/images/robot.jpg"
               alt="Delo na robotskih celicah Flexido"
               fill
               priority
               sizes="100vw"
-              className="object-cover object-[58%_38%] opacity-70"
+              className="object-cover object-[34%_45%] opacity-70 sm:object-[58%_38%]"
             />
           </div>
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_10%,rgba(14,165,233,0.2),transparent_28%)]" />
@@ -56,11 +73,13 @@ export default function ZaposlitevPage() {
                   Poglej delovna mesta →
                 </a>
 
+                {/* Speculative, not role-specific: same label and same bare
+                    mailto as the open-application band that closes the page. */}
                 <a
-                  href="mailto:info@flexido.eu"
+                  href={`mailto:${CAREERS_EMAIL}`}
                   className="inline-flex items-center rounded-full border border-white/20 px-6 py-3 text-[14px] font-medium text-white/80 transition hover:bg-white/10 hover:text-white"
                 >
-                  Pošljite prijavo →
+                  Pošljite odprto prijavo →
                 </a>
               </div>
             </div>
@@ -89,14 +108,21 @@ export default function ZaposlitevPage() {
           </Container>
         </Section>
 
-        {/* JOBS */}
+        {/* JOBS — summary entries only. The full description of a role
+            (odgovornosti, pričakovanja, kaj nudimo, delovno okolje, navodila
+            za prijavo) lives on that role's detail page, so this section stays
+            scannable as openings are added. */}
         <Section id="odprta-mesta" className="surface-muted">
           <Container>
-            <div className="space-y-16 lg:space-y-20">
+            <div className="space-y-12 lg:space-y-16">
               {jobs.map((job, index) => (
                 <article
                   key={job.title}
-                  className={index > 0 ? "border-t border-neutral-200 pt-16 lg:pt-20" : undefined}
+                  className={
+                    index > 0
+                      ? "border-t border-neutral-200 pt-12 lg:pt-16"
+                      : undefined
+                  }
                 >
                   <div className="max-w-[760px]">
                     <div className="flex flex-wrap items-center gap-3">
@@ -106,72 +132,39 @@ export default function ZaposlitevPage() {
                       <p className="text-[13px] text-neutral-500">{job.date}</p>
                     </div>
 
-                    <h2 className="text-section-title mt-4">
-                      <Link href={job.href} className="transition hover:text-neutral-700">
-                        {job.title}
-                      </Link>
-                    </h2>
+                    <h2 className="text-section-title mt-4">{job.title}</h2>
 
-                    <p className="text-body mt-5 measure-prose">
+                    <p className="text-body mt-4 measure-prose">
                       {job.summary}
                     </p>
 
-                    <p className="mt-5 text-[11px] uppercase tracking-[0.16em] text-neutral-400">
-                      {job.meta.join(" / ")}
-                    </p>
+                    <dl className="mt-7 grid gap-5 sm:grid-cols-3 sm:gap-6">
+                      {job.facts.map((fact) => (
+                        <div key={fact.label}>
+                          <dt className="eyebrow">{fact.label}</dt>
+                          <dd className="mt-1.5 text-[14px] leading-6 text-neutral-700">
+                            {fact.value}
+                          </dd>
+                        </div>
+                      ))}
+                    </dl>
 
-                    <a
-                      href="mailto:info@flexido.eu"
-                      className="focus-ring mt-6 inline-flex items-center text-[15px] font-semibold text-[#0078bd] transition hover:text-[#0089d6]"
+                    <div className="mt-8">
+                      <p className="eyebrow">Kaj boste delali</p>
+
+                      <ul className="measure-prose mt-3 list-disc space-y-1.5 pl-5 text-[14px] leading-6 text-neutral-700">
+                        {job.preview.map((item) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <Link
+                      href={job.href}
+                      className="focus-ring mt-7 -mb-2.5 inline-flex items-center py-2.5 text-[15px] font-semibold text-[#0078bd] underline underline-offset-4 decoration-[#0078bd]/30 transition hover:text-[#0089d6] hover:decoration-[#0089d6]"
                     >
-                      Prijava →
-                    </a>
-                  </div>
-
-                  <div className="mt-12 grid gap-8 lg:mt-14 lg:grid-cols-[1.05fr_1.05fr_0.9fr] lg:items-start lg:gap-12">
-                    {job.sections.map((section, i) => (
-                      <section
-                        key={section.title}
-                        className={i > 0 ? "lg:border-l lg:border-neutral-200 lg:pl-10" : undefined}
-                      >
-                        <h3 className="text-[15px] font-semibold text-[#0078bd]">
-                          {section.title}
-                        </h3>
-
-                        <ul className="mt-4 list-disc space-y-2 pl-5 text-[14px] leading-6 text-neutral-700">
-                          {section.items.map((item) => (
-                            <li key={item}>{item}</li>
-                          ))}
-                        </ul>
-                      </section>
-                    ))}
-                  </div>
-
-                  <div className="mt-14 grid gap-8 border-t border-neutral-200 pt-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12">
-                    <div>
-                      <h3 className="text-[15px] font-semibold text-neutral-950">
-                        Opis delovnega okolja
-                      </h3>
-
-                      <p className="mt-3 max-w-[52ch] text-[14px] leading-6 text-neutral-600">
-                        {job.workEnvironment}
-                      </p>
-                    </div>
-
-                    <div className="lg:border-l lg:border-neutral-200 lg:pl-10">
-                      <p className="eyebrow">Prijava</p>
-
-                      <p className="text-body mt-3 max-w-[52ch]">
-                        {job.applicationNote}
-                      </p>
-
-                      <a
-                        href="mailto:info@flexido.eu"
-                        className="focus-ring mt-5 inline-flex items-center text-[15px] font-semibold text-[#0078bd] transition hover:text-[#0089d6]"
-                      >
-                        info@flexido.eu →
-                      </a>
-                    </div>
+                      {ROLE_DETAIL_LABEL}
+                    </Link>
                   </div>
                 </article>
               ))}
@@ -179,14 +172,15 @@ export default function ZaposlitevPage() {
           </Container>
         </Section>
 
-        {/* FINAL CTA */}
+        {/* FINAL CTA — speculative application. Deliberately a bare mailto with
+            no subject: this is the one path that is not tied to a role. */}
         <DarkBand
           tone="brand"
           eyebrow="Odprta prijava"
           title="Ne vidite pravega mesta?"
           body="Pošljite nam svojo predstavitev, izkušnje in področje, kjer bi lahko prispevali. Če se pojavi prava priložnost, vas kontaktiramo."
           primaryAction={{
-            href: "mailto:info@flexido.eu",
+            href: `mailto:${CAREERS_EMAIL}`,
             label: "Pošljite odprto prijavo →",
           }}
           backgroundImage={{
