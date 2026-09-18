@@ -51,7 +51,7 @@ function HubSystemCard({ card, locale, cardLinkLabel }: { card: SystemsHubCard; 
             alt={card.title}
             fill
             sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
           />
         ) : null}
       </div>
@@ -211,7 +211,7 @@ export default function SystemsHubTemplate({ locale, content }: { locale: Locale
                 {content.kontakt.secondaryCta ? (
                   <Link
                     href={getPath(content.kontakt.secondaryCta.routeKey, locale) ?? "#"}
-                    className="inline-flex items-center rounded-full border border-white/20 px-6 py-3 text-[14px] font-medium text-white transition hover:bg-white/10"
+                    className="focus-ring inline-flex items-center rounded-full border border-white/15 px-6 py-3 text-[14px] font-medium text-white/75 transition hover:border-white/30 hover:text-white"
                   >
                     {content.kontakt.secondaryCta.label}
                   </Link>

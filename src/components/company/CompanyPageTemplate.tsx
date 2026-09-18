@@ -66,7 +66,7 @@ export default function CompanyPageTemplate({
 
                 <Link
                   href={processHref}
-                  className="inline-flex items-center rounded-full border border-white/20 px-6 py-3 text-[14px] font-medium text-white transition hover:bg-white/10"
+                  className="focus-ring inline-flex items-center rounded-full border border-white/15 px-6 py-3 text-[14px] font-medium text-white/75 transition hover:border-white/30 hover:text-white"
                 >
                   {content.hero.secondaryCtaLabel}
                 </Link>

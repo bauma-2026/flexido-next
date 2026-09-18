@@ -100,7 +100,7 @@ export default function SolutionPageTemplate({
                     className={
                       index === 0
                         ? "inline-flex items-center rounded-full bg-white px-6 py-3 text-[14px] font-medium text-neutral-950 transition hover:bg-white/90"
-                        : "inline-flex items-center rounded-full border border-white/20 px-6 py-3 text-[14px] font-medium text-white/80 transition hover:bg-white/10 hover:text-white"
+                        : "focus-ring inline-flex items-center rounded-full border border-white/15 px-6 py-3 text-[14px] font-medium text-white/75 transition hover:border-white/30 hover:text-white"
                     }
                   >
                     {cta.label} <span className="ml-2">→</span>
@@ -493,13 +493,13 @@ function SectionBlock({
                       <div key={label} className="relative bg-white">
                         {isLinked ? (
                           <a href={step.anchor} className="focus-ring group block p-6">
-                            <p className="text-[11px] font-medium tracking-[0.16em] text-neutral-400 transition-colors duration-300 group-hover:text-[var(--color-interactive)] group-focus-visible:text-[var(--color-interactive)]">
+                            <p className="text-[11px] font-medium tracking-[0.16em] text-neutral-400 transition-colors duration-300 group-hover:text-neutral-700 group-focus-visible:text-neutral-700">
                               {indexNumber}
                             </p>
                             <p className="mt-4 flex items-center gap-1.5 text-[15px] font-semibold leading-6 text-neutral-950">
                               {label}
                               <span
-                                className="link-arrow text-neutral-300 opacity-0 transition-opacity duration-300 group-hover:text-[var(--color-interactive)] group-hover:opacity-100 group-focus-visible:text-[var(--color-interactive)] group-focus-visible:opacity-100"
+                                className="link-arrow text-neutral-300 opacity-0 transition-opacity duration-300 group-hover:text-neutral-700 group-hover:opacity-100 group-focus-visible:text-neutral-700 group-focus-visible:opacity-100"
                                 aria-hidden
                               >
                                 →
@@ -542,13 +542,13 @@ function SectionBlock({
                             href={step.anchor}
                             className="focus-ring group grid grid-cols-[40px_1fr] items-baseline gap-x-4 py-7"
                           >
-                            <span className="text-[12px] font-medium tabular-nums tracking-[0.14em] text-neutral-400 transition-colors duration-300 group-hover:text-[var(--color-interactive)] group-focus-visible:text-[var(--color-interactive)]">
+                            <span className="text-[12px] font-medium tabular-nums tracking-[0.14em] text-neutral-400 transition-colors duration-300 group-hover:text-neutral-700 group-focus-visible:text-neutral-700">
                               {indexNumber}
                             </span>
                             <p className="flex min-w-0 items-center gap-1.5 text-[16px] font-medium leading-6 tracking-[-0.01em] text-neutral-950">
                               {label}
                               <span
-                                className="link-arrow shrink-0 text-neutral-300 opacity-0 transition-opacity duration-300 group-hover:text-[var(--color-interactive)] group-hover:opacity-100 group-focus-visible:text-[var(--color-interactive)] group-focus-visible:opacity-100"
+                                className="link-arrow shrink-0 text-neutral-300 opacity-0 transition-opacity duration-300 group-hover:text-neutral-700 group-hover:opacity-100 group-focus-visible:text-neutral-700 group-focus-visible:opacity-100"
                                 aria-hidden
                               >
                                 →
@@ -707,7 +707,7 @@ function SectionBlock({
               alt={section.image.alt}
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"
-              className={`object-cover ${focalClass} transition-transform duration-500 ${proofHref ? "group-hover:scale-[1.02]" : ""}`}
+              className={`object-cover ${focalClass} transition-transform duration-500 ${proofHref ? "group-hover:scale-[1.03]" : ""}`}
             />
           </div>
           <div className="p-6 sm:p-8 lg:p-10">

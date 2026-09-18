@@ -44,7 +44,7 @@ export default function CatalogProof({
             <span className="underline decoration-neutral-400 underline-offset-4 group-hover:decoration-neutral-950">
               {proof.linkLabel}
             </span>
-            <span className="ml-2 transition-transform group-hover:translate-x-1">→</span>
+            <span className="ml-2 transition-transform group-hover:translate-x-0.5">→</span>
           </Link>
         </div>
       </Container>

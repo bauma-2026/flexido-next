@@ -63,7 +63,7 @@ export default function ProcessPageTemplate({
 
                 <a
                   href={content.hero.secondaryCta.href}
-                  className="inline-flex items-center rounded-full border border-white/20 px-6 py-3 text-[14px] font-medium text-white transition hover:bg-white/10"
+                  className="focus-ring inline-flex items-center rounded-full border border-white/15 px-6 py-3 text-[14px] font-medium text-white/75 transition hover:border-white/30 hover:text-white"
                 >
                   {content.hero.secondaryCta.label}
                 </a>
@@ -204,7 +204,7 @@ export default function ProcessPageTemplate({
 
                   <Link
                     href={referencesHref}
-                    className="focus-ring mt-6 inline-flex items-center text-[14px] font-medium text-neutral-500 transition hover:text-[var(--color-interactive)]"
+                    className="focus-ring mt-6 inline-flex items-center text-[14px] font-medium text-neutral-500 transition hover:text-neutral-950"
                   >
                     {content.proof.ctaLabel}
                   </Link>

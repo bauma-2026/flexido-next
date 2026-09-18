@@ -107,7 +107,7 @@ export default function ProductProof({
                   {shortDescription}
                 </p>
 
-                <p className="mt-4 inline-flex items-center text-[14px] font-medium text-neutral-600 transition group-hover:text-[var(--color-interactive)]">
+                <p className="mt-4 inline-flex items-center text-[14px] font-medium text-neutral-600 transition group-hover:text-neutral-950">
                   {content.viewSystemLabel}
                   <span className="link-arrow">→</span>
                 </p>
@@ -123,7 +123,7 @@ export default function ProductProof({
 
           <Link
             href={viewAllHref}
-            className="focus-ring inline-flex shrink-0 items-center text-[14px] font-semibold text-neutral-950 transition hover:text-[var(--color-interactive)]"
+            className="focus-ring inline-flex shrink-0 items-center text-[14px] font-semibold text-neutral-950 transition"
           >
             {content.viewAllLabel}
             <span className="link-arrow">→</span>

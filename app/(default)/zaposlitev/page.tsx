@@ -77,7 +77,7 @@ export default function ZaposlitevPage() {
                     mailto as the open-application band that closes the page. */}
                 <a
                   href={`mailto:${CAREERS_EMAIL}`}
-                  className="inline-flex items-center rounded-full border border-white/20 px-6 py-3 text-[14px] font-medium text-white/80 transition hover:bg-white/10 hover:text-white"
+                  className="focus-ring inline-flex items-center rounded-full border border-white/15 px-6 py-3 text-[14px] font-medium text-white/75 transition hover:border-white/30 hover:text-white"
                 >
                   Pošljite odprto prijavo →
                 </a>

@@ -69,7 +69,7 @@ export default function Process({ content = defaultContent, processHref = "/proc
 
         <Link
           href={processHref}
-          className="focus-ring mt-8 inline-flex items-center text-[14px] font-medium text-neutral-500 transition hover:text-[var(--color-interactive)] lg:mt-10"
+          className="focus-ring mt-8 inline-flex items-center text-[14px] font-medium text-neutral-500 transition hover:text-neutral-950 lg:mt-10"
         >
           {content.fullProcessLabel}
           <span className="link-arrow">→</span>

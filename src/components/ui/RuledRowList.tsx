@@ -77,7 +77,7 @@ export default function RuledRowList({
                   {item.title}
                   <span
                     aria-hidden="true"
-                    className="ml-2.5 inline-block text-[14px] font-normal text-neutral-300 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-[var(--color-interactive)]"
+                    className="ml-2.5 inline-block text-[14px] font-normal text-neutral-300 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-neutral-700"
                   >
                     →
                   </span>

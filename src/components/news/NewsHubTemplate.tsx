@@ -91,7 +91,7 @@ export default function NewsHubTemplate({
                   <div className="mt-7">
                     <Link
                       href={getPath(featured.shared.routeKey, locale) ?? "#"}
-                      className="focus-ring inline-flex items-center text-[14px] font-medium text-neutral-500 transition hover:text-[var(--color-interactive)]"
+                      className="focus-ring inline-flex items-center text-[14px] font-medium text-neutral-500 transition hover:text-neutral-950"
                     >
                       {content.readMoreLabel}
                     </Link>
@@ -137,7 +137,7 @@ export default function NewsHubTemplate({
                             width={800}
                             height={500}
                             sizes="(min-width: 1280px) 392px, (min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw"
-                            className={`aspect-[16/10] w-full object-cover transition duration-500 group-hover:scale-[1.04] ${item.shared.image.gridObjectPosition ?? ""}`}
+                            className={`aspect-[16/10] w-full object-cover transition duration-500 group-hover:scale-[1.03] ${item.shared.image.gridObjectPosition ?? ""}`}
                           />
                         </div>
                       ) : null}

@@ -84,7 +84,7 @@ export default function ProofCard({
           className={cn(
             "object-cover transition-transform duration-500",
             focalPoint(image.objectPosition),
-            href && "group-hover:scale-[1.02]"
+            href && "group-hover:scale-[1.03]"
           )}
         />
       </div>
