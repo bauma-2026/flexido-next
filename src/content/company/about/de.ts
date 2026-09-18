@@ -82,5 +82,9 @@ export const aboutContent: CompanyAboutContent = {
     body: "Wenn Sie über Automatisierung nachdenken, ist es sinnvoll, zuerst zu prüfen, wo der Prozess seinen Rhythmus verliert.",
     label: "Anfrage senden →",
     mailto: "info@flexido.eu",
+    image: {
+      src: "/images/flexido/legacy/image_4.jpg.jpeg",
+      alt: "Flexido-Ausrüstung und Prozessstation in der Produktion",
+    },
   },
 };

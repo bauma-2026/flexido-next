@@ -82,5 +82,9 @@ export const aboutContent: CompanyAboutContent = {
     body: "If you are considering automation, it makes sense to first look at where the process loses its rhythm.",
     label: "Send an inquiry →",
     mailto: "info@flexido.eu",
+    image: {
+      src: "/images/flexido/legacy/image_4.jpg.jpeg",
+      alt: "Flexido equipment and process station in production",
+    },
   },
 };

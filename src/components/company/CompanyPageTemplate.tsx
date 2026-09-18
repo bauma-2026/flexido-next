@@ -10,6 +10,7 @@ import { getPath } from "@/i18n/routes";
 import type { CompanyAboutContent } from "@/content/company/types";
 import Button from "@/components/ui/Button";
 import SectionHeader from "@/components/ui/SectionHeader";
+import { cn } from "@/lib/cn";
 
 export default function CompanyPageTemplate({
   locale,
@@ -86,7 +87,16 @@ export default function CompanyPageTemplate({
 
         <Section>
           <Container>
-            <div className="grid gap-6 lg:grid-cols-[0.82fr_1.18fr] lg:items-end lg:gap-8">
+            {/* `lead` is optional (locales without it render only the heading),
+                so the two-column split is too: declaring it unconditionally
+                left an empty 1.18fr track — 698px at 1440, 548px at 1024 — in
+                every locale that has no lead. */}
+            <div
+              className={cn(
+                "grid gap-6",
+                content.whatWeDo.lead && "lg:grid-cols-[0.82fr_1.18fr] lg:items-end lg:gap-8"
+              )}
+            >
               <div>
                 <SectionHeader
                   eyebrow={content.whatWeDo.eyebrow}
