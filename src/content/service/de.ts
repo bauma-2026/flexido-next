@@ -50,6 +50,7 @@ export const serviceContent: ServicePageContent = {
       "aktueller Zustand bzw. Auswirkung auf die Produktion",
       "Kontaktdaten einer Person, die weitere Informationen geben kann",
     ],
+    ctaLabel: "Serviceanfrage senden",
   },
   flow: {
     id: "potek",
@@ -107,7 +108,7 @@ export const serviceContent: ServicePageContent = {
     eyebrow: "Serviceanfrage",
     heading: "Serviceanfrage melden.",
     body: "Senden Sie Angaben zum System oder zur Ausrüstung, beschreiben Sie die Störung und den Zeitpunkt sowie den aktuellen Produktionszustand.",
-    label: "Serviceanfrage melden →",
+    label: "Anfrage senden →",
     mailto: "info@flexido.eu",
     image: {
       src: "/images/systems/raw/flexido-imm-machine-studio.png",

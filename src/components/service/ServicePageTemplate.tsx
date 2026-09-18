@@ -90,16 +90,29 @@ export default function ServicePageTemplate({
                 desc={content.request.body}
                 descClassName="measure-prose"
               />
-              <ol className="divide-y divide-neutral-200 border-t border-neutral-200">
-                {content.request.details.map((detail, index) => (
-                  <li key={detail} className="grid grid-cols-[40px_1fr] items-baseline gap-x-4 py-6">
-                    <span className="text-[12px] font-medium tabular-nums tracking-[0.14em] text-neutral-400">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <p className="text-[16px] leading-6 text-neutral-700">{detail}</p>
-                  </li>
-                ))}
-              </ol>
+              <div>
+                <ol className="divide-y divide-neutral-200 border-t border-neutral-200">
+                  {content.request.details.map((detail, index) => (
+                    <li key={detail} className="grid grid-cols-[40px_1fr] items-baseline gap-x-4 py-6">
+                      <span className="text-[12px] font-medium tabular-nums tracking-[0.14em] text-neutral-400">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <p className="text-[16px] leading-6 text-neutral-700">{detail}</p>
+                    </li>
+                  ))}
+                </ol>
+
+                {/* Completes the checklist's own task: what to send → send it.
+                 * Tertiary text-link grammar (Home's post-`ol` next-step link),
+                 * deliberately quieter than the page-level close in `#kontakt`. */}
+                <a
+                  href={`mailto:${content.cta.mailto}`}
+                  className="focus-ring mt-8 inline-flex items-center text-[14px] font-medium text-neutral-500 transition hover:text-[#0b8fdc] lg:mt-10"
+                >
+                  {content.request.ctaLabel}
+                  <span className="link-arrow">→</span>
+                </a>
+              </div>
             </div>
           </Container>
         </Section>
@@ -111,7 +124,7 @@ export default function ServicePageTemplate({
               eyebrow={content.flow.eyebrow}
               title={content.flow.heading}
             />
-            <div className="mt-10 grid gap-5 md:grid-cols-3">
+            <div className="mt-10 grid gap-5 lg:grid-cols-3">
               {content.flow.items.map((item) => (
                 <div key={item.step} className="rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-7">
                   <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--color-interactive)]">
@@ -166,7 +179,9 @@ export default function ServicePageTemplate({
                 desc={content.pricing.body}
                 descClassName="measure-prose"
               />
-              <Button href={pricingHref}>{content.pricing.ctaLabel}</Button>
+              <Button href={pricingHref} className="w-fit">
+                {content.pricing.ctaLabel}
+              </Button>
             </div>
           </Container>
         </Section>

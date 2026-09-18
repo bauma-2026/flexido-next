@@ -1,6 +1,8 @@
+import Button from "@/components/ui/Button";
 import EditorialPage from "@/components/templates/EditorialPage";
 import type { Locale } from "@/i18n/config";
 import { getPath } from "@/i18n/routes";
+import { getServiceContent } from "@/content/service";
 import type { ServicePricingContent } from "@/content/servicePricing/types";
 
 export default function ServicePricingTemplate({
@@ -11,6 +13,10 @@ export default function ServicePricingTemplate({
   content: ServicePricingContent;
 }) {
   const backHref = getPath("service", locale) ?? "/servis";
+  /** The price list is the one page in the Service family with no forward
+   * action of its own. It borrows the Service page's own approved close
+   * (label + mailto) rather than restating it, so the two stay in lockstep. */
+  const serviceClose = getServiceContent(locale).cta;
 
   return (
     <EditorialPage
@@ -89,6 +95,12 @@ export default function ServicePricingTemplate({
         <div className="not-prose border-t border-neutral-200 pt-6 text-[14px] leading-6">
           <p className="font-medium text-neutral-950">{content.footerNote.strong}</p>
           <p className="mt-1 text-neutral-500">{content.footerNote.company}</p>
+        </div>
+
+        <div className="not-prose flex flex-wrap gap-3">
+          <Button href={`mailto:${serviceClose.mailto}`} className="w-fit">
+            {serviceClose.label}
+          </Button>
         </div>
       </div>
     </EditorialPage>

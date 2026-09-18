@@ -50,6 +50,7 @@ export const serviceContent: ServicePageContent = {
       "trenutno stanje oziroma vpliv na proizvodnjo",
       "kontaktne podatke osebe, ki lahko poda dodatne informacije",
     ],
+    ctaLabel: "Pošljite servisni zahtevek",
   },
   flow: {
     id: "potek",
@@ -107,7 +108,7 @@ export const serviceContent: ServicePageContent = {
     eyebrow: "Servisni zahtevek",
     heading: "Prijavite servis.",
     body: "Pošljite podatke o sistemu ali opremi, opišite težavo in kdaj se je pojavila ter dodajte trenutno stanje proizvodnje.",
-    label: "Prijavite servis →",
+    label: "Pošljite povpraševanje →",
     mailto: "info@flexido.eu",
     image: {
       src: "/images/systems/raw/flexido-imm-machine-studio.png",

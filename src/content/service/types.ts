@@ -35,6 +35,9 @@ export type ServicePageContent = {
     heading: string;
     body: string;
     details: string[];
+    /** Tertiary text link closing the checklist. Carries no arrow — the
+     * `link-arrow` span supplies it, per the site's text-link grammar. */
+    ctaLabel: string;
   };
   flow: {
     id: string;
