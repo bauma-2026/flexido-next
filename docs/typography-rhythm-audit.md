@@ -1376,3 +1376,207 @@ Deferred items are **not blockers** and are **not** carried forward as future
 required work. Do not reopen Contact except for a factual error, an accessibility
 regression, a technical defect or visible breakage. No new recommendations are
 carried forward. Copy and IA were not reopened.
+
+---
+
+# Careers — LOCKED
+
+Closes `/zaposlitev` and `/konstrukter`. Neither route runs through a shared
+template — both are one-off page files — so every change here is page-local by
+construction and nothing leaks into a locked family. This pass was
+architectural rather than typographic: the listing published almost the whole
+vacancy and the detail route repeated it, so the detail page added no
+information and the structure would not survive a second opening. No global
+system was touched.
+
+## Status
+
+Careers restructuring is complete, committed and pushed.
+
+- Careers architecture restructuring **implemented**
+- pages: `app/(default)/zaposlitev/page.tsx`, `app/(default)/konstrukter/page.tsx`
+- content: `src/content/careers/konstrukter.ts`
+- commit: `c8a1ad623f1fec14dd9bf23a9bdc0b54a44bdb27` — `Restructure Careers
+  listing and job detail`
+- pushed to `origin/main`
+- local `main` and `origin/main` **in sync** (0 ahead, 0 behind)
+
+## Implemented changes
+
+Three files, +205 / −108. The full Careers audit A-list plus the listing/detail
+split; nothing else was reopened.
+
+| # | Change | File |
+|---|---|---|
+| A1 | `/zaposlitev` is a true Careers overview/listing page — the full responsibilities, requirements, "Kaj nudimo", `workEnvironment` and `applicationNote` blocks no longer render there | `zaposlitev/page.tsx` |
+| A2 | `/konstrukter` is the full job-detail page and holds all substantive role content | `konstrukter/page.tsx` |
+| A3 | Listing entry carries factual metadata — `<dl>` with **Področje** / **Zaposlitev** / **Kraj dela**, each condensed from a bullet already present in `sections` — replacing the 11px uppercase skill-tag row | `zaposlitev/page.tsx`, `careers/konstrukter.ts` |
+| A4 | Listing entry carries a concise three-line work preview under a "Kaj boste delali" eyebrow, condensed from responsibilities #1, #6 and #5+#8 | `zaposlitev/page.tsx`, `careers/konstrukter.ts` |
+| A5 | One explicit navigation link per role — `Poglej delovno mesto →`, underlined, `.focus-ring`, replacing two identically-styled bare `mailto:` links | `zaposlitev/page.tsx` |
+| A6 | Role title is **plain text by design** — `<h2 className="text-section-title">{job.title}</h2>`, no `<Link>`. Matches the locked News-hub featured-block grammar: heading is not the link, the labelled link is | `zaposlitev/page.tsx` |
+| A7 | Early role-specific apply CTA in the detail header, shared `Button`, immediately under the facts row | `konstrukter/page.tsx` |
+| A8 | Role-specific mailto carries `subject=Prijava — Konstrukter` (`?subject=Prijava%20%E2%80%94%20Konstrukter`), built by `roleApplicationMailto()` | `careers/konstrukter.ts` |
+| A9 | Speculative/open application stays separate and generic — bare `mailto:`, **no subject**, one label (`Pošljite odprto prijavo →`) on both the hero secondary and the closing band | `zaposlitev/page.tsx` |
+| A10 | Candidate content order is **responsibilities → what we offer → requirements**, reordered in the content file so it holds wherever a job renders | `careers/konstrukter.ts` |
+| A11 | Detail heading hierarchy corrected to `H1 → H2` — the four body headings were `<h3>` under an `<h1>` with no H2 layer; compact 15px visual size preserved, and they no longer carry the `#0078bd` link colour | `konstrukter/page.tsx` |
+| A12 | Long `applicationNote` moved out of the display-heading role — it was `DarkBand.title`, rendering as a 44px / 4-line instruction sentence ending in a colon | `konstrukter/page.tsx` |
+| A13 | Final `DarkBand` uses a short real heading plus the application instruction as supporting body copy and a role-specific action | `konstrukter/page.tsx` |
+| A14 | Mobile Careers hero crop keeps the Flexido robot subject visible — `object-[34%_45%] sm:object-[58%_38%]`; asset unchanged | `zaposlitev/page.tsx` |
+| A15 | Practical tap targets on key navigation/application links — 21–23px → 37–47px | both pages |
+| A16 | Meaningful metadata added to both routes via `buildAlternates("careers", "sl")`; the detail title names the role | both pages |
+
+**Content-integrity note.** The reorder is a pure move: every bullet string in
+`src/content/careers/konstrukter.ts` was extracted from the pre-change blob and
+from the staged blob and compared as sorted sets — **37 before, 37 after, zero
+difference**. No responsibility, requirement or offer bullet was rewritten,
+added or dropped. Three new strings were introduced, all required by the
+restructure: the "Kaj boste delali" eyebrow, the three preview lines, and the
+detail band heading.
+
+**Locale note.** Careers remains intentionally **SL-only**. `routes.ts` registers
+`careers` with no `en`/`de` entry, `isAvailable()` keeps it out of the EN/DE
+company dropdown, `Footer`'s `visibleNav` is `locale === "sl" ? nav : []`, and
+the language switch resolves through `parentKey="aboutUs"` to `/en/about-us` and
+`/de/ueber-uns`. No dead link, no fallback leakage, no EN/DE careers content in
+the message files.
+
+## Measured results
+
+Document height, before → after:
+
+| width | `/zaposlitev` | `/konstrukter` |
+|---|---|---|
+| 375 | 4938 → **3537** (−28%) | 4068 → **4394** |
+| 390 | 4922 → **3537** (−28%) | — → **4366** |
+| 640 | 4175 → **2989** (−28%) | — → **3402** |
+| 768 | 4127 → **2989** (−28%) | — → **3354** |
+| 1024 | 3337 → **2712** (−19%) | — → **2706** |
+| 1440 | 3150 → **2628** (−17%) | 2510 → **2669** |
+
+The detail page grew on purpose: it absorbed the facts row and an early apply
+CTA it did not previously have. `#odprta-mesta` alone: 1169 → **646** at 1440
+(−45%), 2170 → **768** at 375 (−65%). Rendered `<li>` count in the listing:
+**24 → 3**.
+
+Application path — scroll depth to the first apply CTA:
+
+| | before | after |
+|---|---|---|
+| `/konstrukter` @375 | 61% | **14%** |
+| `/konstrukter` @1440 | 67% | **18%** |
+
+The detail page previously held exactly two links — a back-link and one
+`mailto:` — which made the shareable URL the weaker application path of the two.
+
+Document outline, before → after:
+
+```
+/zaposlitev                              /zaposlitev
+H1  Prosta delovna mesta.                H1  Prosta delovna mesta.
+H2  Pridružite se ekipi…                 H2  Pridružite se ekipi…
+H2  Konstrukter (link)            →      H2  Konstrukter
+H3  Vaše ključne odgovornosti…           H2  Ne vidite pravega mesta?
+H3  Kaj pričakujemo
+H3  Kaj nudimo
+H3  Opis delovnega okolja
+H2  Ne vidite pravega mesta?
+
+/konstrukter                             /konstrukter
+H1  Konstrukter                          H1  Konstrukter
+H3  Vaše ključne odgovornosti…           H2  Vaše ključne odgovornosti…
+H3  Kaj pričakujemo               →      H2  Kaj nudimo
+H3  Kaj nudimo                           H2  Kaj pričakujemo
+H3  Opis delovnega okolja                H2  Opis delovnega okolja
+H2  Ponudbe z življenjepisom…            H2  Prijavite se na delovno mesto…
+    (44px, 4 lines, ends in ":")             (44px, 2 lines)
+```
+
+No H3 remains on either page and no level is skipped. Body headings measured at
+15px / `lab(2.75381 0 0)` — compact size preserved, link colour removed.
+
+Offers now precede demands at every stacked width:
+
+| width | "Kaj nudimo" | "Kaj pričakujemo" |
+|---|---|---|
+| 375 / 390 | y=1399 | y=1749 |
+| 640 | y=1084 | y=1339 |
+| 768 | y=1036 | y=1291 |
+
+Application grammar — four labels over one bare `mailto:` became two grammars:
+
+| location | before | after |
+|---|---|---|
+| hero secondary | `mailto:` — "Pošljite prijavo →" | `mailto:` — **"Pošljite odprto prijavo →"** |
+| listing role entry | `mailto:` — "Prijava →" | *removed — links to the detail page* |
+| listing application block | `mailto:` — "info@flexido.eu →" | *removed* |
+| listing closing band | `mailto:` — "Pošljite odprto prijavo →" | **unchanged — still bare, no subject** |
+| detail header | *did not exist* | `?subject=Prijava — Konstrukter` — **"Prijavite se →"** |
+| detail closing band | `mailto:` — "info@flexido.eu →" | same role href — **"Prijavite se →"** |
+
+Labels and the subject builder live in the content module (`ROLE_APPLY_LABEL`,
+`ROLE_DETAIL_LABEL`, `roleApplicationMailto()`), so a second vacancy cannot
+drift.
+
+Hero crop and tap targets:
+
+- `object-position` **`58% 38%` unchanged at 1440**; `34% 45%` below `sm`, where
+  the previous crop showed a blank white arm shell with no recognisable subject
+- listing role-detail link 170×**43**, hero pills 205–210×**45–47**
+- detail apply CTA 136×**45** at every width, back-link 149×**37** (was 21px)
+
+## Verification
+
+- `/zaposlitev` and `/konstrukter` checked at **375 / 390 / 640 / 768 / 1024 / 1440**
+- zero horizontal overflow — measured `scrollWidth − clientWidth` = 0 in all
+  twelve width × route combinations
+- facts `<dl>` stacks to one column at 375/390 and to three from 640 on both routes
+- role-specific `?subject=` present and correctly encoded on both detail CTAs;
+  speculative CTAs confirmed subject-free
+- early detail apply CTA visible without scrolling at every audited width
+- `tsc --noEmit` **exit 0**
+- `next build` **exit 0** — both routes prerender **static** (`○`)
+
+## LOCKED areas
+
+Closed. No further changes without an explicit unlock:
+
+- Careers overview architecture
+- Konstrukter detail architecture
+- role/listing separation
+- listing role metadata treatment
+- listing work preview treatment
+- single explicit role-detail navigation link
+- role-specific vs speculative application grammar
+- early detail apply CTA
+- detail section order
+- heading semantics
+- application `DarkBand` structure
+- mobile hero crop
+- route metadata
+- SL-only locale architecture
+- responsive behaviour across 375 / 390 / 640 / 768 / 1024 / 1440
+- horizontal overflow: clean
+
+## Explicitly leave alone
+
+Audited and deliberately not implemented. Not part of the Careers lock:
+
+- duplicate requirement — `Poznavanje računalniških programov: MS Office,
+  SOLIDWORKS` vs `Uporabljanje modelirnikov za modeliranje`
+- salary range
+- seniority level
+- application deadline
+- response-time promise
+- interview / selection-process description
+- recruiter / contact-person name
+- application-language guidance
+- informal-contact policy
+- EN/DE Careers pages
+- mandatory vs preferred requirement grouping
+
+These are **factual/hiring decisions, not unresolved UX defects**. They are not
+blockers and are **not** carried forward as required implementation work. Do not
+reopen Careers except for a factual error, an accessibility regression, a
+technical defect, visible breakage, or a real new vacancy that requires the
+listing model to expand. No new recommendations are carried forward. Copy and IA
+were not reopened.
