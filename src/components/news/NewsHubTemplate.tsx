@@ -91,7 +91,7 @@ export default function NewsHubTemplate({
                   <div className="mt-7">
                     <Link
                       href={getPath(featured.shared.routeKey, locale) ?? "#"}
-                      className="focus-ring inline-flex items-center text-[14px] font-medium text-neutral-500 transition hover:text-[#0b8fdc]"
+                      className="focus-ring inline-flex items-center text-[14px] font-medium text-neutral-500 transition hover:text-[var(--color-interactive)]"
                     >
                       {content.readMoreLabel}
                     </Link>

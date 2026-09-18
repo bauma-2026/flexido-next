@@ -52,12 +52,9 @@ body {
   */
   --header-h: 65px;
 
-  /* Surfaces & text */
+  /* Surfaces */
   --surface: #f2f2f2;
   --surface-soft: #e7e7e7;
-  --text-main: #0a2540;
-  --text-muted: #425466;
-  --line-soft: rgba(10, 37, 64, 0.1);
 
   /* Color roles */
   --color-brand: #0082ca;
@@ -73,9 +70,6 @@ body {
   /* One floating-UI elevation. Invert Y for bottom-fixed chrome. */
   --shadow-float: 0 12px 40px rgba(15, 23, 42, 0.12);
   --shadow-float-up: 0 -12px 40px rgba(15, 23, 42, 0.12);
-
-  /* Legacy alias — matches interactive primary */
-  --primary: var(--color-brand);
 }
 
 @layer base {
@@ -271,16 +265,12 @@ body {
     @apply border-l-2 border-[var(--color-accent-line)] pl-4 text-[15px] font-medium leading-7 text-neutral-800;
   }
 
-  /* Homepage grammar — shared index, icon tile, link arrow and focus ring.
+  /* Homepage grammar — shared index, link arrow and focus ring.
      See "Flexido UI Grammar" audit: one rendering per device, reused
      across Solutions / Systems / Process instead of each section
      inventing its own scale. */
   .index-label {
     @apply text-[12px] font-semibold tabular-nums tracking-[0.14em] text-[var(--color-brand)];
-  }
-
-  .icon-tile {
-    @apply flex h-11 w-11 shrink-0 items-center justify-center border border-neutral-200 text-[#1693e6] transition-colors duration-300;
   }
 
   .link-arrow {

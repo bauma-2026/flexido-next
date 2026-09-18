@@ -3,7 +3,7 @@ import Container from "@/components/layout/Container";
 
 export default function ProcessBand() {
   return (
-    <section className="relative overflow-hidden border-b border-white/10 bg-black py-16 sm:py-20 lg:py-24">
+    <section className="relative overflow-hidden border-b border-white/10 bg-neutral-950 py-16 sm:py-20 lg:py-24">
       {/* BG IMAGE */}
       <img
         src="/images/robot.jpg"

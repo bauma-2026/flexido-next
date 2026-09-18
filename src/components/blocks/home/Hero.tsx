@@ -55,7 +55,7 @@ export default function Hero({
   return (
     <section
       className={cn(
-        "relative overflow-hidden border-b border-white/10 bg-black text-white",
+        "relative overflow-hidden border-b border-white/10 bg-neutral-950 text-white",
         showRail && "lg:flex lg:min-h-[720px] lg:flex-col 2xl:min-h-[780px]",
       )}
     >

@@ -95,7 +95,7 @@ export default function ProductProof({
               </div>
 
               <div className="flex flex-1 flex-col pt-5">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#1693e6]">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--color-brand)]">
                   {category}
                 </p>
 
@@ -107,7 +107,7 @@ export default function ProductProof({
                   {shortDescription}
                 </p>
 
-                <p className="mt-4 inline-flex items-center text-[14px] font-medium text-neutral-600 transition group-hover:text-[#0b8fdc]">
+                <p className="mt-4 inline-flex items-center text-[14px] font-medium text-neutral-600 transition group-hover:text-[var(--color-interactive)]">
                   {content.viewSystemLabel}
                   <span className="link-arrow">→</span>
                 </p>
@@ -123,7 +123,7 @@ export default function ProductProof({
 
           <Link
             href={viewAllHref}
-            className="focus-ring inline-flex shrink-0 items-center text-[14px] font-semibold text-neutral-950 transition hover:text-[#0b8fdc]"
+            className="focus-ring inline-flex shrink-0 items-center text-[14px] font-semibold text-neutral-950 transition hover:text-[var(--color-interactive)]"
           >
             {content.viewAllLabel}
             <span className="link-arrow">→</span>

@@ -207,7 +207,7 @@ export default function Page() {
                     href="https://www.eu-skladi.si/"
                     target="_blank"
                     rel="noreferrer"
-                    className="focus-ring mt-6 inline-flex items-center text-[14px] font-medium text-neutral-500 transition hover:text-[#0b8fdc]"
+                    className="focus-ring mt-6 inline-flex items-center text-[14px] font-medium text-neutral-500 transition hover:text-[var(--color-interactive)]"
                   >
                     Več informacij →
                   </a>

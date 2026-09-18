@@ -70,7 +70,7 @@ export default function Competencies({ content = defaultContent, locale = "sl" }
             {showDevelopmentProjectsLink && (
               <Link
                 href={developmentProjectsHref}
-                className="focus-ring mt-14 inline-flex items-center text-[14px] font-semibold text-neutral-700 transition hover:text-[#0b8fdc]"
+                className="focus-ring mt-14 inline-flex items-center text-[14px] font-semibold text-neutral-700 transition hover:text-[var(--color-interactive)]"
               >
                 {content.developmentProjectsLabel}
                 <span className="link-arrow">→</span>
