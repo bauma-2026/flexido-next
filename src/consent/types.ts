@@ -3,7 +3,7 @@ export const CONSENT_VERSION = 1;
 
 export type ConsentPreferences = {
   version: number;
-  /** Optional visit analytics (Vercel Web Analytics). */
+  /** Optional visit analytics (Vercel Web Analytics, Google Analytics 4). */
   analytics: boolean;
   updatedAt: string;
 };

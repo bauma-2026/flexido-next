@@ -147,6 +147,12 @@ export const privacyContent: LegalPageContent = {
         p(
           "Mit Ihrer Einwilligung verwenden wir Vercel Web Analytics für anonyme Statistiken über Besuche der Website. Das Tool wird nicht vor Ihrer Einwilligung aktiviert und nicht für Werbe- oder Profilierungszwecke genutzt. Sie können die Einwilligung jederzeit in den Cookie-Einstellungen in der Fußzeile widerrufen."
         ),
+        p(
+          "Mit Ihrer Einwilligung verwenden wir außerdem Google Analytics 4, einen Dienst von Google, für Statistiken über die Nutzung der Website (z. B. welche Seiten aufgerufen werden). Google Analytics speichert Analyse-Cookies auf Ihrem Gerät (z. B. _ga) und verarbeitet Daten zu Ihrem Besuch, etwa die Adresse der aufgerufenen Seite sowie technische Angaben zu Gerät und Verbindung. Vor Ihrer Einwilligung wird das Google-Analytics-Skript nicht geladen und es werden darüber keine Daten an Google übermittelt. Wenn Sie nicht einwilligen, ist Google Analytics nicht aktiv. Bei Widerruf der Einwilligung wird die weitere Erfassung über Google Analytics beendet und die Website versucht, die ihr bekannten Google-Analytics-Cookies zu löschen; der Widerruf löscht keine zuvor erhobenen Daten."
+        ),
+        p(
+          "Anbieter dieses Dienstes und Empfänger der Nutzungsdaten der Website ist Google (die Google-Gesellschaft, die Google Analytics anbietet), soweit im Vertrag mit Google vorgesehen als Auftragsverarbeiter. Die Daten können auch in Drittländern außerhalb des Europäischen Wirtschaftsraums verarbeitet werden; solche Übermittlungen unterliegen den datenschutzrechtlich vorgesehenen Mechanismen, für die jede Seite im Rahmen ihrer Rolle verantwortlich ist. Einzelheiten zur Verarbeitung finden Sie in den Nutzungsbedingungen und der Datenschutzerklärung von Google. Sie können die Einwilligung jederzeit in den Cookie-Einstellungen in der Fußzeile widerrufen; der Widerruf berührt nicht die Rechtmäßigkeit der bis dahin erfolgten Verarbeitung."
+        ),
       ],
     },
     {

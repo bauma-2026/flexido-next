@@ -145,6 +145,12 @@ export const privacyContent: LegalPageContent = {
         p(
           "Ob soglasju uporabljamo Vercel Web Analytics za anonimno statistiko obiskov spletnega mesta. Orodje se ne aktivira pred vašim soglasjem in ne uporabljamo za oglaševalske ali profilne namene. Privolitev lahko kadarkoli prekličete v nastavitvah piškotkov v nogi strani."
         ),
+        p(
+          "Ob soglasju uporabljamo tudi Google Analytics 4, storitev družbe Google, za statistiko uporabe spletnega mesta (npr. ogledane strani). Google Analytics na vaši napravi shrani analitične piškotke (npr. _ga) in obdeluje podatke o vašem obisku, kot so naslov ogledane strani ter tehnični podatki o napravi in povezavi. Pred vašim soglasjem se skripta Google Analytics ne naloži in prek nje se ne pošilja noben podatek Googlu. Če soglasja ne podelite, Google Analytics ni aktiven. Ob preklicu soglasja se nadaljnje zbiranje prek Google Analytics ustavi, spletno mesto pa poskuša izbrisati piškotke Google Analytics, ki jih pozna; preklic ne izbriše podatkov, zbranih pred njim."
+        ),
+        p(
+          "Izvajalec storitve in prejemnik podatkov o uporabi spletnega mesta je pri tej storitvi Google (družba Google, ki ponuja Google Analytics), v obsegu, kot je določeno v pogodbi z Googlom, kot obdelovalec. Podatki se lahko obdelujejo tudi v tretjih državah zunaj Evropskega gospodarskega prostora; take prenose urejajo pravni mehanizmi, ki jih predvideva zakonodaja o varstvu osebnih podatkov, vsaka stran pa zanje odgovarja v okviru svoje vloge. Podrobnosti o obdelavi so v Googlovih pogojih in politiki zasebnosti. Soglasje lahko kadarkoli prekličete v nastavitvah piškotkov v nogi strani; preklic ne vpliva na zakonitost obdelave pred preklicem."
+        ),
       ],
     },
     {

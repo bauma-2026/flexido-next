@@ -145,6 +145,12 @@ export const privacyContent: LegalPageContent = {
         p(
           "If you consent, we use Vercel Web Analytics for anonymous statistics about visits to the website. The tool is not activated before your consent and is not used for advertising or profiling purposes. You may withdraw consent at any time in the cookie settings in the page footer."
         ),
+        p(
+          "If you consent, we also use Google Analytics 4, a service of Google, for statistics about the use of the website (for example, which pages are viewed). Google Analytics stores analytics cookies on your device (for example _ga) and processes data about your visit, such as the address of the visited page and technical data about your device and connection. Before you consent, the Google Analytics script is not loaded and no data is sent to Google through it. If you do not consent, Google Analytics is not active. When you withdraw consent, further collection through Google Analytics stops and the website attempts to delete the Google Analytics cookies known to it; withdrawal does not delete data collected before it."
+        ),
+        p(
+          "The provider of this service and recipient of website usage data is Google (the Google company providing Google Analytics), acting as processor to the extent provided in the agreement with Google. Data may also be processed in third countries outside the European Economic Area; such transfers are governed by the legal mechanisms provided for by data-protection law, and each party is responsible for them within its own role. Details of the processing are available in Google’s terms and privacy policy. You may withdraw consent at any time in the cookie settings in the page footer; withdrawal does not affect the lawfulness of processing carried out before it."
+        ),
       ],
     },
     {

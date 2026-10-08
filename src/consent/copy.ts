@@ -20,7 +20,7 @@ export const consentCopy: Record<Locale, ConsentCopy> = {
   sl: {
     title: "Piškotki in analitika",
     explanation:
-      "Uporabljamo nujne piškotke za delovanje strani in shranjevanje vaše izbire. Analitična orodja za anonimno statistiko obiskov se aktivirajo le, če z njimi soglašate.",
+      "Uporabljamo nujne piškotke za delovanje strani in shranjevanje vaše izbire. Analitična orodja za statistiko obiskov se aktivirajo le, če z njimi soglašate.",
     accept: "Sprejmi analitiko",
     reject: "Zavrni",
     preferences: "Nastavitve",
@@ -30,7 +30,7 @@ export const consentCopy: Record<Locale, ConsentCopy> = {
       "Potrebno za delovanje strani in shranjevanje vaše izbire glede piškotkov.",
     analyticsCategory: "Analitika",
     analyticsDescription:
-      "Anonimna statistika obiskov prek Vercel Web Analytics. Brez oglaševalskih ali profilnih namenov.",
+      "Statistika obiskov prek Vercel Web Analytics in Google Analytics 4 (piškotki Google Analytics).",
     cookieSettings: "Nastavitve piškotkov",
     close: "Zapri",
     necessaryAlways: "Vedno",
@@ -38,7 +38,7 @@ export const consentCopy: Record<Locale, ConsentCopy> = {
   en: {
     title: "Cookies and analytics",
     explanation:
-      "We use necessary cookies to run the site and remember your choice. Analytics tools for anonymous visit statistics are only activated if you agree.",
+      "We use necessary cookies to run the site and remember your choice. Analytics tools for visit statistics are only activated if you agree.",
     accept: "Accept analytics",
     reject: "Reject",
     preferences: "Settings",
@@ -48,7 +48,7 @@ export const consentCopy: Record<Locale, ConsentCopy> = {
       "Required for the site to work and to store your cookie preference.",
     analyticsCategory: "Analytics",
     analyticsDescription:
-      "Anonymous visit statistics via Vercel Web Analytics. No advertising or profiling.",
+      "Visit statistics via Vercel Web Analytics and Google Analytics 4 (Google Analytics cookies).",
     cookieSettings: "Cookie settings",
     close: "Close",
     necessaryAlways: "Always",
@@ -56,7 +56,7 @@ export const consentCopy: Record<Locale, ConsentCopy> = {
   de: {
     title: "Cookies und Analyse",
     explanation:
-      "Wir verwenden notwendige Cookies für den Betrieb der Website und die Speicherung Ihrer Auswahl. Analysewerkzeuge für anonyme Besuchsstatistiken werden nur aktiviert, wenn Sie zustimmen.",
+      "Wir verwenden notwendige Cookies für den Betrieb der Website und die Speicherung Ihrer Auswahl. Analysewerkzeuge für Besuchsstatistiken werden nur aktiviert, wenn Sie zustimmen.",
     accept: "Analyse akzeptieren",
     reject: "Ablehnen",
     preferences: "Einstellungen",
@@ -66,7 +66,7 @@ export const consentCopy: Record<Locale, ConsentCopy> = {
       "Erforderlich für den Betrieb der Website und die Speicherung Ihrer Cookie-Auswahl.",
     analyticsCategory: "Analyse",
     analyticsDescription:
-      "Anonyme Besuchsstatistiken über Vercel Web Analytics. Keine Werbung oder Profilbildung.",
+      "Besuchsstatistiken über Vercel Web Analytics und Google Analytics 4 (Google-Analytics-Cookies).",
     cookieSettings: "Cookie-Einstellungen",
     close: "Schließen",
     necessaryAlways: "Immer",
