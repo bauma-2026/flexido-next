@@ -185,7 +185,7 @@ function BandButton({
   const className =
     variant === "primary"
       ? "inline-flex w-fit items-center rounded-full bg-white px-6 py-3 text-[14px] font-medium text-neutral-950 transition hover:bg-white/90"
-      : "inline-flex w-fit items-center rounded-full border border-white/15 px-6 py-3 text-[14px] font-medium text-white/75 transition hover:border-white/30 hover:text-white";
+      : "focus-ring inline-flex w-fit items-center rounded-full border border-white/15 px-6 py-3 text-[14px] font-medium text-white/75 transition hover:border-white/30 hover:text-white";
 
   if (
     action.external ||

@@ -91,7 +91,7 @@ export default function ContactPageTemplate({
                   href={contactFacts.emailHref}
                   className="group rounded-[var(--radius-structural)] border border-neutral-300 bg-white p-6 transition hover:-translate-y-0.5 hover:border-neutral-400"
                 >
-                  <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
+                  <p className="eyebrow">
                     {content.details.emailLabel}
                   </p>
 
@@ -105,7 +105,7 @@ export default function ContactPageTemplate({
                   href={contactFacts.phoneHref}
                   className="group rounded-[var(--radius-structural)] border border-neutral-300 bg-white p-6 transition hover:-translate-y-0.5 hover:border-neutral-400"
                 >
-                  <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
+                  <p className="eyebrow">
                     {content.details.phoneLabel}
                   </p>
 
@@ -116,7 +116,7 @@ export default function ContactPageTemplate({
                 </a>
 
                 <div className="rounded-[var(--radius-structural)] border border-neutral-200 bg-neutral-50 p-6 sm:col-span-2">
-                  <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
+                  <p className="eyebrow">
                     {content.details.companyLabel}
                   </p>
 
@@ -154,7 +154,7 @@ export default function ContactPageTemplate({
                 </div>
 
                 <div className="rounded-[var(--radius-structural)] border border-neutral-200 bg-neutral-50 p-6 sm:col-span-2">
-                  <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
+                  <p className="eyebrow">
                     {content.details.topicsLabel}
                   </p>
 
@@ -201,7 +201,7 @@ export default function ContactPageTemplate({
 
                 <a
                   href={contactFacts.phoneHref}
-                  className="inline-flex w-fit items-center rounded-full border border-white/15 px-6 py-3 text-[14px] font-medium text-white/75 transition hover:border-white/30 hover:text-white"
+                  className="focus-ring inline-flex w-fit items-center rounded-full border border-white/15 px-6 py-3 text-[14px] font-medium text-white/75 transition hover:border-white/30 hover:text-white"
                 >
                   {content.final.phoneCta}
                 </a>

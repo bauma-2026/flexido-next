@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 
 import SolutionPageTemplate from "@/components/solutions/SolutionPageTemplate";
 import { getAutomationContent } from "@/content/solutions";
-import { buildAlternates } from "@/i18n/metadata";
+import { buildAlternates, withSocial } from "@/i18n/metadata";
 
 export function generateStaticParams() {
   return [{ locale: "en" }];
@@ -13,12 +13,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   if (locale !== "en") return {};
 
-  return {
+  return withSocial({
     title: "Production Automation | Flexido",
     description: "When a single cell isn't enough, we design automation around the machines, parts, material flow, and operations the process actually needs.",
-    robots: { index: false, follow: false },
-    alternates: buildAlternates("solutionProductionAutomation", "en"),
-  };
+      alternates: buildAlternates("solutionProductionAutomation", "en"),
+  }, "en");
 }
 
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {

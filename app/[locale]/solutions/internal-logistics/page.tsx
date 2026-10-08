@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 
 import SolutionPageTemplate from "@/components/solutions/SolutionPageTemplate";
 import { getLogisticsContent } from "@/content/solutions";
-import { buildAlternates } from "@/i18n/metadata";
+import { buildAlternates, withSocial } from "@/i18n/metadata";
 
 export function generateStaticParams() {
   return [{ locale: "en" }];
@@ -13,12 +13,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   if (locale !== "en") return {};
 
-  return {
+  return withSocial({
     title: "Internal Logistics | Flexido",
     description: "We design the physical flow of pallets, containers, KLT bins, and material between machines, stations, and the next stages of the process.",
-    robots: { index: false, follow: false },
-    alternates: buildAlternates("solutionLogistics", "en"),
-  };
+      alternates: buildAlternates("solutionLogistics", "en"),
+  }, "en");
 }
 
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {

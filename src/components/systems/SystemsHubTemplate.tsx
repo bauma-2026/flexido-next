@@ -56,7 +56,7 @@ function HubSystemCard({ card, locale, cardLinkLabel }: { card: SystemsHubCard; 
         ) : null}
       </div>
       <div className="flex flex-1 flex-col p-5">
-        <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">{card.eyebrow}</p>
+        <p className="eyebrow">{card.eyebrow}</p>
         <h3 className="text-card-title mt-2.5">{card.title}</h3>
         <p className="mt-2 text-[14px] leading-[22px] text-neutral-600">{card.desc}</p>
         <p className="mt-auto inline-flex items-center pt-4 text-[14px] font-medium text-neutral-500 transition group-hover:text-neutral-950">{cardLinkLabel}<span className="link-arrow">→</span></p>

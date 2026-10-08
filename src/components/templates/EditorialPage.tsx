@@ -129,7 +129,7 @@ export default function EditorialPage({
                   <div className="mt-5 divide-y divide-neutral-200 border-t border-neutral-200">
                     {details.map((item) => (
                       <div key={item.label} className="py-4">
-                        <p className="text-[11px] uppercase tracking-[0.12em] text-neutral-400">
+                        <p className="eyebrow">
                           {item.label}
                         </p>
                         <p className="mt-1.5 text-[15px] font-medium leading-6 text-neutral-950">

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 
 import LegalPageTemplate from "@/components/legal/LegalPageTemplate";
 import { getPrivacyContent } from "@/content/legal";
-import { buildAlternates } from "@/i18n/metadata";
+import { buildAlternates, withSocial } from "@/i18n/metadata";
 
 export function generateStaticParams() {
   return [{ locale: "en" }];
@@ -14,12 +14,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   if (locale !== "en") return {};
 
   const content = getPrivacyContent("en");
-  return {
+  return withSocial({
     title: content.meta.title,
     description: content.meta.description,
-    robots: { index: false, follow: false },
-    alternates: buildAlternates("privacyPolicy", "en"),
-  };
+      alternates: buildAlternates("privacyPolicy", "en"),
+  }, "en");
 }
 
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {

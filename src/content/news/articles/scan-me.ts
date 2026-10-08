@@ -5,6 +5,7 @@ export const article: NewsArticle = {
   shared: {
     id: "scan-me",
     routeKey: "newsScanMe",
+    image: { src: "/images/2020/09/23/thumb_QR_service_2_resized.jpg" },
   },
   locales: {
     en: {

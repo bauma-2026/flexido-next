@@ -82,7 +82,7 @@ export default function ReferencePageTemplate({
               </div>
 
               <div className="max-w-[820px]">
-                <div className="mt-10 space-y-7 text-[16px] leading-8 text-neutral-700">
+                <div className="measure-prose mt-10 space-y-7 text-[16px] leading-8 text-neutral-700">
                   <p className="text-[18px] leading-8 text-neutral-800">{content.intro}</p>
 
                   {content.sections.map((section) => (
@@ -109,7 +109,7 @@ export default function ReferencePageTemplate({
                     carries the visual pause instead of a faked/empty box. */}
                 {content.result ? (
                   <div className="mt-14 border-l-2 border-[var(--color-accent-line)] pl-6 sm:pl-7">
-                    <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
+                    <p className="eyebrow">
                       {content.result.label}
                     </p>
 
@@ -134,7 +134,7 @@ export default function ReferencePageTemplate({
                   <div className="mt-14 border-t border-neutral-200 pt-8">
                     {relatedHref ? (
                       <div>
-                        <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
+                        <p className="eyebrow">
                           {content.related.eyebrow}
                         </p>
 

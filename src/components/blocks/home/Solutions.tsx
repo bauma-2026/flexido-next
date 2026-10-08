@@ -212,14 +212,14 @@ export default function Solutions({
         {/* FEATURED */}
         {featured && (
           <Link href={featured.href} className="group mt-12 block">
-            <div className="relative flex min-h-[280px] flex-col justify-between overflow-hidden border border-neutral-800 bg-neutral-950 px-7 py-7 text-white transition-all duration-300 hover:-translate-y-[1px] sm:px-9 sm:py-9 lg:min-h-[340px]">
+            <div className="relative flex min-h-[280px] flex-col justify-between overflow-hidden border border-neutral-800 bg-neutral-950 px-7 py-7 text-white transition-all duration-300 hover:-translate-y-0.5 sm:px-9 sm:py-9 lg:min-h-[340px]">
               <video
                 autoPlay
                 muted
                 loop
                 playsInline
                 preload="metadata"
-                className="absolute inset-0 h-full w-full object-cover opacity-30 transition duration-700 group-hover:scale-[1.04] group-hover:opacity-45"
+                className="absolute inset-0 h-full w-full object-cover opacity-30 transition duration-700 group-hover:scale-[1.03] group-hover:opacity-45"
               >
                 <source src="/video/hero-2-1.mp4" type="video/mp4" />
               </video>
@@ -249,7 +249,7 @@ export default function Solutions({
 
               <div className="relative z-10 mt-8 inline-flex items-center text-[14px] font-medium text-white/85 transition group-hover:text-white">
                 <span>Poglej sistemski pristop</span>
-                <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">
+                <span className="ml-2 transition-transform duration-300 group-hover:translate-x-0.5">
                   →
                 </span>
               </div>
@@ -265,7 +265,7 @@ export default function Solutions({
                 <Link
                   href={item.href}
                   key={item.title}
-                  className="group relative block min-h-[260px] overflow-hidden border border-neutral-800 bg-neutral-950 transition-all duration-300 hover:-translate-y-[1px] sm:min-h-[240px] lg:min-h-[240px]"
+                  className="group relative block min-h-[260px] overflow-hidden border border-neutral-800 bg-neutral-950 transition-all duration-300 hover:-translate-y-0.5 sm:min-h-[240px] lg:min-h-[240px]"
                 >
                   {item.kind === "video" ? (
                     <video
@@ -274,7 +274,7 @@ export default function Solutions({
                       loop
                       playsInline
                       preload="metadata"
-                      className="absolute inset-0 h-full w-full object-cover opacity-65 transition duration-700 group-hover:scale-[1.05] group-hover:opacity-80"
+                      className="absolute inset-0 h-full w-full object-cover opacity-65 transition duration-700 group-hover:scale-[1.03] group-hover:opacity-80"
                     >
                       <source src={item.video} type="video/mp4" />
                     </video>
@@ -282,7 +282,7 @@ export default function Solutions({
                     <img
                       src={item.image}
                       alt=""
-                      className="absolute inset-0 h-full w-full object-cover opacity-65 transition duration-700 group-hover:scale-[1.05] group-hover:opacity-80"
+                      className="absolute inset-0 h-full w-full object-cover opacity-65 transition duration-700 group-hover:scale-[1.03] group-hover:opacity-80"
                     />
                   )}
 
@@ -311,7 +311,7 @@ export default function Solutions({
 
                     <div className="mt-5 inline-flex items-center text-[14px] font-medium text-white/85 transition group-hover:text-white">
                       <span>Preberi več</span>
-                      <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">
+                      <span className="ml-2 transition-transform duration-300 group-hover:translate-x-0.5">
                         →
                       </span>
                     </div>
@@ -326,7 +326,7 @@ export default function Solutions({
             <Link
   href={item.href}
   key={item.title}
-  className="group flex min-h-[260px] flex-col border border-neutral-200 bg-white px-8 py-8 transition-all duration-300 hover:-translate-y-[1px] hover:border-[#8fc9ed]"
+  className="group flex min-h-[260px] flex-col border border-neutral-200 bg-white px-8 py-8 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#8fc9ed]"
 >
 {Icon && (
   <div className="mb-5 text-[#1693e6]">
@@ -354,9 +354,9 @@ export default function Solutions({
     </p>
   )}
 
-  <div className="mt-auto pt-7 inline-flex items-center text-[14px] font-medium text-[#24415f] transition group-hover:text-[#0b8fdc]">
+  <div className="mt-auto pt-7 inline-flex items-center text-[14px] font-medium text-[#24415f] transition group-hover:text-neutral-950">
     <span>Preberi več</span>
-    <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">
+    <span className="ml-2 transition-transform duration-300 group-hover:translate-x-0.5">
       →
     </span>
   </div>

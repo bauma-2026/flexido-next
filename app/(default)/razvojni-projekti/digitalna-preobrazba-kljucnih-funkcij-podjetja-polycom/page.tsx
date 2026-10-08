@@ -8,14 +8,13 @@ import ProjectFundingBlock from "@/components/blocks/editorial/ProjectFundingBlo
 import ProjectPracticeLink from "@/components/blocks/editorial/ProjectPracticeLink";
 import DevelopmentProjectNav from "@/components/blocks/editorial/DevelopmentProjectNav";
 import { fundingMetadata } from "@/content/funding/metadata";
-import { buildAlternates } from "@/i18n/metadata";
+import { buildAlternates, withSocial } from "@/i18n/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSocial({
   title: fundingMetadata.fundingProjectPolyDigit.title,
   description: fundingMetadata.fundingProjectPolyDigit.description,
-  robots: { index: false, follow: false },
   alternates: buildAlternates("fundingProjectPolyDigit", "sl"),
-};
+}, "sl");
 
 const details = [
   { label: "Kategorija", value: "Razvojni projekti" },
@@ -110,7 +109,7 @@ export default function Page() {
                   is the stable project record; it states what the project
                   was, and links out for how it ended.
                 */}
-                <div className="space-y-7 text-[16px] leading-8 text-neutral-700">
+                <div className="measure-prose space-y-7 text-[16px] leading-8 text-neutral-700">
                   <p className="text-[18px] leading-8 text-neutral-800">
                     Poly Digit je bil projekt digitalne preobrazbe, izveden v
                     konzorciju podjetij POLYCOM d.o.o., LOTRIČ Meroslovje
@@ -123,7 +122,7 @@ export default function Page() {
                   <DevelopmentProjectNav currentKey="fundingProjectPolyDigit" />
                 </div>
 
-                <div className="space-y-7 text-[16px] leading-8 text-neutral-700">
+                <div className="measure-prose space-y-7 text-[16px] leading-8 text-neutral-700">
                   <section className="space-y-5 pt-4">
                     <h2 className="text-[24px] font-semibold tracking-[-0.03em] text-neutral-950">
                       Konzorcij
@@ -213,7 +212,7 @@ export default function Page() {
 
                 {/* PROJECT VALUE CALLOUT */}
                 <div className="mt-12 border-t border-neutral-200 pt-8">
-                  <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
+                  <p className="eyebrow">
                     Vrednost projekta
                   </p>
 

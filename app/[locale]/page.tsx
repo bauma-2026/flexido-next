@@ -5,6 +5,7 @@ import { setRequestLocale } from "next-intl/server";
 import HomePageTemplate from "@/components/home/HomePageTemplate";
 import { getHomeContent } from "@/content/home";
 import type { RoutedLocale } from "@/i18n/config";
+import { buildAlternates, withSocial } from "@/i18n/metadata";
 import { routing } from "@/i18n/routing";
 
 export async function generateMetadata({
@@ -20,14 +21,11 @@ export async function generateMetadata({
 
   const content = getHomeContent(locale as RoutedLocale);
 
-  return {
+  return withSocial({
     title: content.meta.title,
     description: content.meta.description,
-    robots: {
-      index: false,
-      follow: false,
-    },
-  };
+    alternates: buildAlternates("home", locale as RoutedLocale),
+  }, locale as RoutedLocale);
 }
 
 export default async function LocaleHomePage({

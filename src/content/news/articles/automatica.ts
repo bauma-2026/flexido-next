@@ -5,6 +5,7 @@ export const article: NewsArticle = {
   shared: {
     id: "automatica",
     routeKey: "newsAutomatica",
+    image: { src: "/images/2020/09/23/thumb_automatica_nachi_linkedin1.jpg" },
   },
   locales: {
     en: {

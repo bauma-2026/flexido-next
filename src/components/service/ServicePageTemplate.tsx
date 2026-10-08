@@ -94,7 +94,7 @@ export default function ServicePageTemplate({
                 <ol className="divide-y divide-neutral-200 border-t border-neutral-200">
                   {content.request.details.map((detail, index) => (
                     <li key={detail} className="grid grid-cols-[40px_1fr] items-baseline gap-x-4 py-6">
-                      <span className="text-[12px] font-medium tabular-nums tracking-[0.14em] text-neutral-400">
+                      <span className="text-[12px] font-medium tabular-nums tracking-[0.14em] text-neutral-600">
                         {String(index + 1).padStart(2, "0")}
                       </span>
                       <p className="text-[16px] leading-6 text-neutral-700">{detail}</p>

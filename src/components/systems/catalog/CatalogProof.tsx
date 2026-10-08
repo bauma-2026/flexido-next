@@ -34,7 +34,7 @@ export default function CatalogProof({
     <Section id={SLOT_ID.proof} className={cn("scroll-mt-24", SURFACE.proof)}>
       <Container>
         <div className="max-w-[720px]">
-          <p className="eyebrow">{proof.eyebrow}</p>
+          <p className="eyebrow eyebrow-accent">{proof.eyebrow}</p>
           <h2 className={cn("mt-3", HEADING.section)}>{proof.heading}</h2>
           <p className={cn("mt-5 max-w-[62ch]", BODY.strong)}>{proof.body}</p>
           <Link

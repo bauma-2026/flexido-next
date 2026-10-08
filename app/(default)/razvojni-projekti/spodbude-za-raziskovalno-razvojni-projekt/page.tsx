@@ -8,14 +8,13 @@ import ProjectFundingBlock from "@/components/blocks/editorial/ProjectFundingBlo
 import ProjectPracticeLink from "@/components/blocks/editorial/ProjectPracticeLink";
 import DevelopmentProjectNav from "@/components/blocks/editorial/DevelopmentProjectNav";
 import { fundingMetadata } from "@/content/funding/metadata";
-import { buildAlternates } from "@/i18n/metadata";
+import { buildAlternates, withSocial } from "@/i18n/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSocial({
   title: fundingMetadata.fundingProjectSafeguard.title,
   description: fundingMetadata.fundingProjectSafeguard.description,
-  robots: { index: false, follow: false },
   alternates: buildAlternates("fundingProjectSafeguard", "sl"),
-};
+}, "sl");
 
 const details = [
   { label: "Kategorija", value: "Razvojni projekti" },
@@ -98,7 +97,7 @@ export default function Page() {
             <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,760px)_280px] lg:gap-14 xl:grid-cols-[minmax(0,820px)_300px]">
               <article>
                 {/* CONTENT */}
-                <div className="space-y-7 text-[16px] leading-8 text-neutral-700">
+                <div className="measure-prose space-y-7 text-[16px] leading-8 text-neutral-700">
                   <p className="text-[18px] leading-8 text-neutral-800">
                     V okviru javnega razpisa »Spodbude za raziskovalno razvojne
                     projekte 2« in subvencioniranega projekta razvijamo rešitev,
@@ -117,7 +116,7 @@ export default function Page() {
                   <DevelopmentProjectNav currentKey="fundingProjectSafeguard" />
                 </div>
 
-                <div className="space-y-7 text-[16px] leading-8 text-neutral-700">
+                <div className="measure-prose space-y-7 text-[16px] leading-8 text-neutral-700">
                   <section className="space-y-5 pt-4">
                     <h2 className="text-[24px] font-semibold tracking-[-0.03em] text-neutral-950">
                       Pametna zaščitna komora SAFEGUARD
@@ -189,7 +188,7 @@ export default function Page() {
 
                 {/* PROJECT VALUE CALLOUT */}
                 <div className="mt-12 border-t border-neutral-200 pt-8">
-                  <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
+                  <p className="eyebrow">
                     Vrednost projekta
                   </p>
 

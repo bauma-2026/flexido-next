@@ -174,6 +174,21 @@ export const routes = {
   newsAutomatica: {
     en: "/en/news/flexido-at-automatica-trade-fair",
   },
+  newsRobotCellInstalled: {
+    en: "/en/news/new-flexido-robot-cell-installed",
+  },
+  newsFlex7Pro: {
+    en: "/en/news/flex-7-pro",
+  },
+  newsFlex7ProDental: {
+    en: "/en/news/flex-7-pro-for-dental-industry",
+  },
+  newsNewInFamily: {
+    en: "/en/news/new-in-flexido-family",
+  },
+  newsFlex7ImmSlim: {
+    en: "/en/news/flex-7-imm-slim",
+  },
   references: {
     sl: "/reference",
     en: "/en/references",

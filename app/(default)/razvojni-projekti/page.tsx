@@ -7,18 +7,17 @@ import Footer from "@/components/layout/Footer";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
 import { fundingMetadata } from "@/content/funding/metadata";
-import { buildAlternates } from "@/i18n/metadata";
+import { buildAlternates, withSocial } from "@/i18n/metadata";
 import { getPath } from "@/i18n/routes";
 import type { RouteKey } from "@/i18n/routes";
 import DarkBand from "@/components/ui/DarkBand";
 import SectionHeader from "@/components/ui/SectionHeader";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSocial({
   title: fundingMetadata.fundingProjects.title,
   description: fundingMetadata.fundingProjects.description,
-  robots: { index: false, follow: false },
   alternates: buildAlternates("fundingProjects", "sl"),
-};
+}, "sl");
 
 const projects = [
   {
@@ -298,7 +297,7 @@ export default function Page() {
                         <span className="block text-[14px] font-medium text-neutral-900">
                           {item.label}
                         </span>
-                        <span className="mt-0.5 block text-[12px] text-neutral-400">
+                        <span className="mt-0.5 block text-[12px] text-neutral-600">
                           Iz projekta: {item.source}
                         </span>
                       </span>

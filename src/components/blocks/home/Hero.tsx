@@ -46,11 +46,11 @@ export default function Hero({
   const showRail = Boolean(railItems?.length && railLabel);
 
   /**
-   * SL lifts the rail 12px off the section floor — its two-line H1 leaves
+   * SL holds the rail higher above the section floor — its two-line H1 leaves
    * ~95px of air above the hairline. EN and DE run the H1 to four lines and
    * have only ~30px there, so they keep the lower, safer position.
    */
-  const railFloor = locale === "sl" ? "pb-[68px]" : "pb-14";
+  const railFloor = locale === "sl" ? "pb-20" : "pb-14";
 
   return (
     <section
@@ -113,12 +113,22 @@ export default function Hero({
                 : "lg:min-h-[720px] lg:items-center lg:pb-24 lg:pt-36",
             )}
           >
-            <div className="max-w-[920px]">
-              {/* Mobile runs claim → explanation → action; the category label
-                  is a fifth thing to read before the claim, so it starts at sm. */}
-              <p className="eyebrow-on-dark hidden sm:block">{content.eyebrow}</p>
+            <div className="max-w-[920px] xl:-translate-y-2">
+              {/* Shown at every width. This previously started at `sm` on the
+                  reasoning that mobile should run claim → explanation → action
+                  and the category label was a fifth thing to read first. That
+                  traded orientation for brevity: the mobile H1 is the short
+                  variant ("Stroje povežemo v proizvodni tok."), which states
+                  what we do but not which market it belongs to, so a first-time
+                  mobile visitor met the claim with no category. The label is
+                  11px chrome at white/50 — it costs one line and reads as
+                  orientation, not as a competing message.
 
-              <h1 className="text-display max-w-[15ch] text-white sm:mt-4 sm:max-w-[20ch]">
+                  Same role, same string, same component — the desktop label is
+                  this element, not a copy of it. */}
+              <p className="eyebrow-on-dark text-white/70 sm:text-white/50">{content.eyebrow}</p>
+
+              <h1 className="text-display mt-3 max-w-[15ch] text-white sm:mt-4 sm:max-w-[20ch]">
                 {/* One claim on mobile. From sm up both sentences flow inline
                     inside a 20ch measure with balanced wrapping: Slovenian still
                     breaks at the sentence boundary (two lines), German and
@@ -160,14 +170,14 @@ export default function Hero({
 
                   <Link
                     href={processHref}
-                    className="inline-flex items-center rounded-full border border-white/15 px-6 py-3 text-[14px] font-medium text-white/75 transition hover:border-white/30 hover:text-white focus:outline-none focus:ring-2 focus:ring-[var(--color-interactive)]/30 focus:ring-offset-2"
+                    className="focus-ring inline-flex items-center rounded-full border border-white/15 px-6 py-3 text-[14px] font-medium text-white/75 transition hover:border-white/30 hover:text-white"
                   >
                     {content.ctaSecondary} →
                   </Link>
                 </div>
               </div>
 
-              <p className="mt-6 hidden text-[13px] text-white/45 sm:block">{content.slogan}</p>
+              <p className="mt-6 hidden max-w-[46ch] text-[13px] text-white/45 sm:block">{content.slogan}</p>
             </div>
           </div>
         </Container>

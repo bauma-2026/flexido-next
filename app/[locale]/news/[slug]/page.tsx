@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 
 import NewsArticleTemplate from "@/components/news/NewsArticleTemplate";
 import { getNewsArticleBySlug, getNewsSlugs } from "@/content/news";
-import { buildAlternates } from "@/i18n/metadata";
+import { buildAlternates, withSocial } from "@/i18n/metadata";
 
 export function generateStaticParams() {
   return getNewsSlugs("en").map((slug) => ({ locale: "en", slug }));
@@ -20,12 +20,11 @@ export async function generateMetadata({
   const article = getNewsArticleBySlug("en", slug);
   if (!article) return {};
 
-  return {
+  return withSocial({
     title: article.content.meta.title,
     description: article.content.meta.description,
-    robots: { index: false, follow: false },
-    alternates: buildAlternates(article.shared.routeKey, "en"),
-  };
+      alternates: buildAlternates(article.shared.routeKey, "en"),
+  }, "en");
 }
 
 export default async function Page({

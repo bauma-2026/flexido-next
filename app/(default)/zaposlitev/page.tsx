@@ -12,18 +12,17 @@ import {
   ROLE_DETAIL_LABEL,
 } from "@/content/careers/konstrukter";
 import SectionHeader from "@/components/ui/SectionHeader";
-import { buildAlternates } from "@/i18n/metadata";
+import { buildAlternates, withSocial } from "@/i18n/metadata";
 
 /** Live SL listing (flexido.eu/zaposlitev) currently shows exactly one active opening, 1/1. */
 const jobs = [konstrukterJob];
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSocial({
   title: "Zaposlitev — prosta delovna mesta | Flexido",
   description:
     "Odprta delovna mesta pri Flexidu. Delo na robotskih celicah, proizvodnih sistemih in rešitvah za avtomatizacijo.",
-  robots: { index: false, follow: false },
   alternates: buildAlternates("careers", "sl"),
-};
+}, "sl");
 
 export default function ZaposlitevPage() {
   return (

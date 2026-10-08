@@ -2,17 +2,16 @@ import type { Metadata } from "next";
 
 import SystemsHubTemplate from "@/components/systems/SystemsHubTemplate";
 import { getSystemsHubContent } from "@/content/systems";
-import { buildAlternates } from "@/i18n/metadata";
+import { buildAlternates, withSocial } from "@/i18n/metadata";
 
 export function generateMetadata(): Metadata {
   const content = getSystemsHubContent("sl");
 
-  return {
+  return withSocial({
     title: content.meta.title,
     description: content.meta.description,
-    robots: { index: false, follow: false },
-    alternates: buildAlternates("standardCells", "sl"),
-  };
+      alternates: buildAlternates("standardCells", "sl"),
+  }, "sl");
 }
 
 export default function Page() {

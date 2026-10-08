@@ -91,7 +91,7 @@ export default function NewsArticleTemplate({
                       ReferencePageTemplate: the portrait 757x1024 studio
                       sources rendered intrinsically ran ~1100px tall at 1440
                       and pushed the article body a full viewport down. */}
-                  <div className="relative aspect-[16/11] overflow-hidden rounded-[var(--radius-panel)] border border-neutral-200 bg-neutral-100">
+                  <div className={`relative ${shared.image.aspectClass ?? "aspect-[16/11]"} overflow-hidden rounded-[var(--radius-panel)] border border-neutral-200 bg-neutral-100`}>
                     <Image
                       src={shared.image.src}
                       alt={content.imageAlt ?? content.title}
@@ -139,7 +139,7 @@ export default function NewsArticleTemplate({
                     return content.blocks.map((block, blockIndex) => {
                     if (block.type === "intro") {
                       return (
-                        <p key={blockIndex} className="text-[18px] leading-8 text-neutral-800">
+                        <p key={blockIndex} className="max-w-[52ch] text-[18px] leading-8 text-neutral-800">
                           {block.text}
                         </p>
                       );
@@ -147,7 +147,7 @@ export default function NewsArticleTemplate({
 
                     if (block.type === "section") {
                       return (
-                        <section key={block.heading} className="space-y-5 pt-4">
+                        <section key={block.heading} className="measure-prose space-y-5 pt-4">
                           <h2 className="text-[24px] font-semibold tracking-[-0.03em] text-neutral-950">
                             {block.heading}
                           </h2>
@@ -176,13 +176,33 @@ export default function NewsArticleTemplate({
                       );
                     }
 
+                    if (block.type === "video") {
+                      return (
+                        <figure key={block.src} className="mt-8">
+                          <video
+                            controls
+                            preload="metadata"
+                            playsInline
+                            className="aspect-video w-full rounded-[var(--radius-panel)] border border-neutral-200 bg-neutral-100"
+                          >
+                            <source src={block.src} type="video/mp4" />
+                          </video>
+                          {block.caption ? (
+                            <figcaption className="mt-3 text-[14px] leading-6 text-neutral-500">
+                              {block.caption}
+                            </figcaption>
+                          ) : null}
+                        </figure>
+                      );
+                    }
+
                     if (block.type === "result") {
                       return (
                         <div
                           key={block.heading}
                           className="mt-10 rounded-[var(--radius-structural)] border border-neutral-200 bg-neutral-50 p-6"
                         >
-                          <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
+                          <p className="eyebrow">
                             {block.label}
                           </p>
                           <h2 className="mt-3 text-[22px] font-semibold tracking-[-0.03em] text-neutral-950">
@@ -239,7 +259,7 @@ export default function NewsArticleTemplate({
                             key={block.heading}
                             className="mt-8 rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-6"
                           >
-                            <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
+                            <p className="eyebrow">
                               {block.eyebrow}
                             </p>
                             <h2 className="mt-3 text-[22px] font-semibold tracking-[-0.03em] text-neutral-950">
@@ -255,7 +275,7 @@ export default function NewsArticleTemplate({
 
                       return (
                         <div key={block.heading} className="mt-5 border-t border-neutral-200 pt-5">
-                          <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
+                          <p className="eyebrow">
                             {block.eyebrow}
                           </p>
                           <h2 className="mt-2 text-[16px] font-semibold tracking-[-0.02em] text-neutral-900">

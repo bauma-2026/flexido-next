@@ -18,6 +18,11 @@ import { article as celje2019 } from "./articles/celje-2019";
 import { article as flex220Pro } from "./articles/flex-220-pro";
 import { article as scanMe } from "./articles/scan-me";
 import { article as automatica } from "./articles/automatica";
+import { article as robotCellInstalled } from "./articles/robot-cell-installed";
+import { article as flex7Pro } from "./articles/flex-7-pro";
+import { article as flex7ProDental } from "./articles/flex-7-pro-dental";
+import { article as newInFamily } from "./articles/new-in-family";
+import { article as flex7ImmSlim } from "./articles/flex-7-imm-slim";
 
 const hubByLocale: Record<Locale, NewsHubContent> = {
   sl: hubSl,
@@ -39,6 +44,11 @@ const catalog: Record<NewsArticleId, NewsArticle> = {
   "flex-220-pro": flex220Pro,
   "scan-me": scanMe,
   automatica,
+  "robot-cell-installed": robotCellInstalled,
+  "flex-7-pro": flex7Pro,
+  "flex-7-pro-dental": flex7ProDental,
+  "new-in-family": newInFamily,
+  "flex-7-imm-slim": flex7ImmSlim,
 };
 
 /** Editorial hub order per locale. DE has no articles. */
@@ -60,6 +70,11 @@ export const newsOrderByLocale: Record<Locale, NewsArticleId[]> = {
     "flex-220-pro",
     "scan-me",
     "automatica",
+    "flex-7-pro-dental",
+    "flex-7-imm-slim",
+    "new-in-family",
+    "flex-7-pro",
+    "robot-cell-installed",
   ],
   de: [],
 };

@@ -300,7 +300,7 @@ function SectionBlock({
             <div className="mt-10 grid border-l border-t border-neutral-200 lg:grid-cols-2">
               {[section.left, section.right].map((side, sideIndex) => (
                 <div key={sideIndex} className="border-b border-r border-neutral-200 p-6 sm:p-8">
-                  <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">{side.tag}</p>
+                  <p className="eyebrow">{side.tag}</p>
                   <h3 className="text-feature-title mt-3">{side.title}</h3>
                   <p className="mt-4 max-w-[52ch] text-balance text-[15px] leading-6 text-neutral-600">{side.body}</p>
                   {side.link ? (
@@ -542,7 +542,7 @@ function SectionBlock({
                             href={step.anchor}
                             className="focus-ring group grid grid-cols-[40px_1fr] items-baseline gap-x-4 py-7"
                           >
-                            <span className="text-[12px] font-medium tabular-nums tracking-[0.14em] text-neutral-400 transition-colors duration-300 group-hover:text-neutral-700 group-focus-visible:text-neutral-700">
+                            <span className="text-[12px] font-medium tabular-nums tracking-[0.14em] text-neutral-600 transition-colors duration-300 group-hover:text-neutral-700 group-focus-visible:text-neutral-700">
                               {indexNumber}
                             </span>
                             <p className="flex min-w-0 items-center gap-1.5 text-[16px] font-medium leading-6 tracking-[-0.01em] text-neutral-950">
@@ -557,7 +557,7 @@ function SectionBlock({
                           </a>
                         ) : (
                           <div className="grid grid-cols-[40px_1fr] items-baseline gap-x-4 py-7">
-                            <span className="text-[12px] font-medium tabular-nums tracking-[0.14em] text-neutral-400">{indexNumber}</span>
+                            <span className="text-[12px] font-medium tabular-nums tracking-[0.14em] text-neutral-600">{indexNumber}</span>
                             <p className="min-w-0 text-[16px] font-medium leading-6 tracking-[-0.01em] text-neutral-950">{label}</p>
                           </div>
                         )}
@@ -583,7 +583,7 @@ function SectionBlock({
             : null;
         const boxInner = (
           <>
-            <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">{right.tag}</p>
+            <p className="eyebrow">{right.tag}</p>
             <h3 className="text-card-title mt-3">{right.title}</h3>
             <p className="mt-3 max-w-[52ch] text-balance text-[15px] leading-6 text-neutral-600">{right.body}</p>
             {boxHref ? (
@@ -711,7 +711,7 @@ function SectionBlock({
             />
           </div>
           <div className="p-6 sm:p-8 lg:p-10">
-            <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">{section.tag}</p>
+            <p className="eyebrow eyebrow-accent">{section.tag}</p>
             <h3 className="text-feature-title mt-3">{section.title}</h3>
             <p className="text-body mt-4">{section.body}</p>
             {section.result ? (

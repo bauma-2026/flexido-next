@@ -8,6 +8,7 @@ export const hubContent: HubContent = {
     subhead: "Choose the area where your process needs automation.",
     ctaLabel: "Choose an area",
   },
+  gridEyebrow: "Areas",
   gridHeading: "Where does your process stall?",
   gridBody:
     "Start with the part of production where bottlenecks, manual steps, or waiting between stages occur.",

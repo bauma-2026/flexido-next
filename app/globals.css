@@ -44,11 +44,12 @@ body {
 
   /*
      The global header's own height, and the single source of truth for the
-     sticky stack. The header is `h-16` plus its 1px bottom hairline. Three
-     things read it and must never disagree: the header's mobile drawer, which
-     hangs from the header's bottom edge; the WikiNav rail, which pins directly
-     below it; and the rail's anchor offsets, which are measured from where the
-     rail actually sits. Change it here and the stack follows.
+     sticky stack. It is `h-16` plus its 1px bottom hairline until the desktop
+     breakpoint, where it becomes `h-[72px]`. Three things read it and must
+     never disagree: the header's mobile drawer, which hangs from the header's
+     bottom edge; the WikiNav rail, which pins directly below it; and the
+     rail's anchor offsets, which are measured from where the rail actually
+     sits. Change it here and the stack follows.
   */
   --header-h: 65px;
 
@@ -58,8 +59,34 @@ body {
 
   /* Color roles */
   --color-brand: #0082ca;
-  --color-interactive: #0b8fd3;
-  --color-interactive-hover: #087fbd;
+
+  /*
+     The filled-CTA blue, and the one accent value that owes a contrast ratio.
+
+     #0078bd, not the #0b8fd3 this role carried until the readability pass.
+     Every filled CTA on the site sets `text-white` at 14px/500, which is
+     normal text under WCAG and therefore owes 4.5:1. #0b8fd3 paid 3.57 and
+     the old hover #087fbd paid 4.39 — so the button failed at rest and still
+     failed on hover. #0078bd pays 4.75 and #0071ae pays 5.29, which also
+     keeps hover a visible step DARKER than rest; the previous pair inverted
+     that once the base moved.
+
+     #0078bd is not a new colour. It was already live on the Careers listing
+     link, which is why it was chosen over a freshly mixed value: it adds
+     nothing to the blue inventory that the colour-families pass is trying to
+     shrink.
+
+     This token is safe to move because of what it is NOT used for. It carries
+     no rules, no accent lines, no icons and no chrome — only filled buttons,
+     focus rings (which owe nothing) and one 11px label on Service that was
+     failing at 3.57 and now clears. `--color-brand` is the opposite: ~17 of
+     its 23 call sites are 2px rails, dots and hairlines, so it is left alone
+     and the one brand-filled button (the header CTA) points here instead.
+
+     See docs/readability-rhythm-audit.md, finding B2.
+  */
+  --color-interactive: #0078bd;
+  --color-interactive-hover: #0071ae;
   --color-accent-line: #0089d6;
   --color-dark-band: #1f1f1f;
 
@@ -70,6 +97,12 @@ body {
   /* One floating-UI elevation. Invert Y for bottom-fixed chrome. */
   --shadow-float: 0 12px 40px rgba(15, 23, 42, 0.12);
   --shadow-float-up: 0 -12px 40px rgba(15, 23, 42, 0.12);
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --header-h: 73px;
+  }
 }
 
 @layer base {
@@ -104,9 +137,64 @@ body {
 */
 
 @layer components {
-  /* Eyebrow — canonical label above section headings */
+  /* Eyebrow — canonical label above section headings.
+
+     neutral-600, not the neutral-500 this role carried until the eyebrow
+     visibility pass. At 11px the eyebrow is normal text under WCAG, so it owes
+     4.5:1, and neutral-500 only paid that on white (4.74) and neutral-50
+     (4.54, a 0.04 margin). On the two muted surfaces it did not: 4.24 on
+     `--surface`, 3.83 on `--surface-soft` — both live, under section headers on
+     the Solutions hub, Service, Process, Home and the funding band. neutral-600
+     clears every light surface with room (7.81 / 7.49 / 6.98 / 6.32).
+
+     One value for all three light surfaces, deliberately. A surface-conditional
+     colour would buy slightly lighter eyebrows on white at the cost of two
+     treatments to reason about, and the eyebrow's whole worth is that it is one
+     thing used everywhere.
+
+     Size, weight and tracking are untouched. Colour alone clears the threshold,
+     so adding `font-medium` would be a visual change buying no accessibility —
+     and the eyebrow has to stay subordinate to the H2 it labels.
+
+     This does put the eyebrow at the same neutral as `.text-body`. Hierarchy
+     here is carried by size, case and tracking rather than tone, which is
+     already how `.spec-label` sits beside body copy without reading as equal.
+
+     See docs/eyebrow-accent-audit.md. Accent signal is not part of this role —
+     it is the `.eyebrow-accent` modifier below, and it is carried by chrome,
+     never by recolouring this text blue. */
   .eyebrow {
-    @apply text-[11px] uppercase tracking-[0.16em] text-neutral-500;
+    @apply text-[11px] uppercase tracking-[0.16em] text-neutral-600;
+  }
+
+  /* Accent-signal modifier — `class="eyebrow eyebrow-accent"`.
+
+     The second and last eyebrow state. It marks exactly two things: a
+     machine/system category, or a documented-proof/evidence layer. It is not
+     for generic section orientation, and it is deliberately rare — roughly 5%
+     of the site's eyebrows, about one per page where it appears.
+
+     The signal is a 24x2px rule above the label. The text does not change:
+     still `.eyebrow`, still neutral-600. This is the whole point. Every blue in
+     the system fails 4.5:1 on every light surface — brand 4.16 on white, 3.37
+     on `--surface-soft` — so an accent carried by the text would reintroduce
+     the exact failure the visibility pass removed, while looking like an
+     upgrade. Chrome has no contrast obligation; 11px text does.
+
+     `--color-accent-line` at full opacity, which is the token named for this
+     job and the weight `ReferencePageTemplate` already proves at block scale.
+
+     Not to be confused with `ProblemSplitBlock`'s faint full-width
+     `border-[var(--color-brand)]/30` hairline. That is structural separation
+     and stays as it is; this is a semantic signal. The two are different jobs
+     and are deliberately different weights. */
+  .eyebrow-accent {
+    @apply relative pt-3;
+  }
+
+  .eyebrow-accent::before {
+    content: "";
+    @apply absolute left-0 top-0 h-0.5 w-6 bg-[var(--color-accent-line)];
   }
 
   .eyebrow-on-dark {

@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import ServicePageTemplate from "@/components/service/ServicePageTemplate";
 import { getServiceContent } from "@/content/service";
 import type { Locale } from "@/i18n/config";
-import { buildAlternates } from "@/i18n/metadata";
+import { buildAlternates, withSocial } from "@/i18n/metadata";
 
 const serviceLocales = ["en", "de"] as const;
 
@@ -21,12 +21,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   if (!isServiceLocale(locale)) return {};
 
   const content = getServiceContent(locale);
-  return {
+  return withSocial({
     title: content.meta.title,
     description: content.meta.description,
-    robots: { index: false, follow: false },
-    alternates: buildAlternates("service", locale),
-  };
+      alternates: buildAlternates("service", locale),
+  }, locale);
 }
 
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {

@@ -14,6 +14,7 @@ export const hubContent: HubContent = {
     subhead: "Izberite področje, kjer vaš proces potrebuje avtomatizacijo.",
     ctaLabel: "Izberi področje",
   },
+  gridEyebrow: "Področja",
   gridHeading: "Kje se vaš proces ustavlja?",
   gridBody:
     "Začnite pri delu proizvodnje, kjer nastajajo zastoji, ročni koraki ali čakanje med fazami.",

@@ -52,7 +52,7 @@ export default function ProblemSplitBlock({ section }: { section: ProblemSplitCo
                   aria-hidden
                   className="absolute inset-x-0 top-0 border-t border-[var(--color-brand)]/30"
                 />
-                <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-neutral-400">
+                <p className="eyebrow">
                   {section.resultLabel}
                 </p>
                 <p className="mt-2 text-[15px] leading-6 text-neutral-800">{section.result}</p>

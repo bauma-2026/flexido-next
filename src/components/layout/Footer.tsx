@@ -212,6 +212,14 @@ function getFooterSystems(locale: Locale) {
   return items;
 }
 
+// For those who look beyond the surface. — GB
+// Same Slovenian credit in every locale; deliberately not translated.
+const footerCredit = {
+  label: "Struktura in izvedba:",
+  name: "Bauma",
+  href: "https://bauma.si",
+} as const;
+
 export default function Footer({ locale = "sl" }: { locale?: Locale }) {
   const copy = footerCopy[locale];
   const footerSolutions = getFooterSolutions(locale);
@@ -244,7 +252,7 @@ export default function Footer({ locale = "sl" }: { locale?: Locale }) {
               {copy.taglineMain}
             </p>
 
-            <p className="mt-5 text-[14px] leading-6 text-white/40">
+            <p className="mt-5 text-[14px] leading-6 text-white/50">
               {copy.taglineSub}
             </p>
 
@@ -267,7 +275,7 @@ export default function Footer({ locale = "sl" }: { locale?: Locale }) {
           />
         </div>
 
-        <p className="max-w-[17ch] text-[11px] leading-[1.45] text-white/42 transition group-hover:text-white/58">
+        <p className="max-w-[17ch] text-[11px] leading-[1.45] text-white/50 transition group-hover:text-white/58">
           {logo.note}
         </p>
       </a>
@@ -288,7 +296,7 @@ export default function Footer({ locale = "sl" }: { locale?: Locale }) {
 <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 sm:gap-8 lg:gap-10">
   {/* SOLUTIONS */}
   <div className="col-span-2 sm:col-span-1">
-    <p className="text-[11px] uppercase tracking-[0.16em] text-white/40">
+    <p className="text-[11px] uppercase tracking-[0.16em] text-white/50">
       {copy.solutionsHeading}
     </p>
 
@@ -308,7 +316,7 @@ export default function Footer({ locale = "sl" }: { locale?: Locale }) {
   {/* NAV */}
   {visibleNav.length > 0 ? (
     <div>
-      <p className="text-[11px] uppercase tracking-[0.16em] text-white/40">
+      <p className="text-[11px] uppercase tracking-[0.16em] text-white/50">
         {copy.navHeading}
       </p>
 
@@ -326,7 +334,7 @@ export default function Footer({ locale = "sl" }: { locale?: Locale }) {
     </div>
   ) : footerSystems.length > 0 ? (
     <div>
-      <p className="text-[11px] uppercase tracking-[0.16em] text-white/40">
+      <p className="text-[11px] uppercase tracking-[0.16em] text-white/50">
         {copy.systemsHeading}
       </p>
 
@@ -359,13 +367,13 @@ export default function Footer({ locale = "sl" }: { locale?: Locale }) {
 
   {/* CONTACT */}
   <div>
-    <p className="text-[11px] uppercase tracking-[0.16em] text-white/40">
+    <p className="text-[11px] uppercase tracking-[0.16em] text-white/50">
       {copy.contactHeading}
     </p>
 
     <div className="mt-5 space-y-4 text-[15px] leading-6">
       <div>
-        <p className="text-white/40">{copy.emailLabel}</p>
+        <p className="text-white/50">{copy.emailLabel}</p>
         <a
           href="mailto:info@flexido.eu"
           className="focus-ring font-medium text-white/85 transition hover:text-white"
@@ -375,7 +383,7 @@ export default function Footer({ locale = "sl" }: { locale?: Locale }) {
       </div>
 
       <div>
-        <p className="text-white/40">{copy.phoneLabel}</p>
+        <p className="text-white/50">{copy.phoneLabel}</p>
         <a
           href="tel:+38659351100"
           className="focus-ring font-medium text-white/85 transition hover:text-white"
@@ -395,7 +403,7 @@ export default function Footer({ locale = "sl" }: { locale?: Locale }) {
     </div>
 
    <div className="mt-9">
-  <p className="text-[11px] uppercase tracking-[0.18em] text-white/32">
+  <p className="text-[11px] uppercase tracking-[0.18em] text-white/50">
     {copy.legalHeading}
   </p>
 
@@ -416,9 +424,19 @@ export default function Footer({ locale = "sl" }: { locale?: Locale }) {
 </div>
   </div>
 </div>  </div>        {/* BOTTOM */}
-        <div className="flex flex-col gap-3 pt-6 text-[13px] text-white/40 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-3 pt-6 text-[13px] text-white/50 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} Flexido</p>
-          <p>{copy.bottomTagline}</p>
+          <p className="text-xs text-white/35">
+            {footerCredit.label}{" "}
+            <a
+              href={footerCredit.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="focus-ring rounded-sm underline-offset-4 hover:text-white/70 hover:underline focus-visible:underline"
+            >
+              {footerCredit.name}
+            </a>
+          </p>
         </div>
       </Container>
     </footer>

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 
 import ReferencesHubTemplate from "@/components/references/ReferencesHubTemplate";
 import { getReferencesHubContent } from "@/content/references";
-import { buildAlternates } from "@/i18n/metadata";
+import { buildAlternates, withSocial } from "@/i18n/metadata";
 
 export function generateStaticParams() {
   return [{ locale: "en" }];
@@ -14,12 +14,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   if (locale !== "en") return {};
 
   const content = getReferencesHubContent("en");
-  return {
+  return withSocial({
     title: content.meta.title,
     description: content.meta.description,
-    robots: { index: false, follow: false },
-    alternates: buildAlternates("references", "en"),
-  };
+      alternates: buildAlternates("references", "en"),
+  }, "en");
 }
 
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {

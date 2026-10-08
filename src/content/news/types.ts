@@ -13,12 +13,17 @@ export type NewsArticleId =
   | "celje-2019"
   | "flex-220-pro"
   | "scan-me"
-  | "automatica";
+  | "automatica"
+  | "robot-cell-installed"
+  | "flex-7-pro"
+  | "flex-7-pro-dental"
+  | "new-in-family"
+  | "flex-7-imm-slim";
 
 export type NewsShared = {
   id: NewsArticleId;
   routeKey: RouteKey;
-  image?: { src: string; gridObjectPosition?: string };
+  image?: { src: string; gridObjectPosition?: string; aspectClass?: string };
 };
 
 export type NewsDetail = {
@@ -30,6 +35,7 @@ export type NewsBlock =
   | { type: "intro"; text: string }
   | { type: "section"; heading: string; paragraphs: string[]; list?: string[] }
   | { type: "note"; text: string }
+  | { type: "video"; src: string; caption?: string }
   | { type: "result"; label: string; heading: string; body?: string }
   | {
       type: "callout";

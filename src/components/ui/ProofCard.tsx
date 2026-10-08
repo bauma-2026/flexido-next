@@ -96,7 +96,7 @@ export default function ProofCard({
         )}
       >
         {eyebrow ? (
-          <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">{eyebrow}</p>
+          <p className="eyebrow">{eyebrow}</p>
         ) : null}
 
         <h3 className={cn(isFeature ? "text-feature-title" : "text-card-title", eyebrow && "mt-2")}>
@@ -106,9 +106,9 @@ export default function ProofCard({
         {body ? <p className="mt-3 text-[15px] leading-6 text-neutral-600">{body}</p> : null}
 
         {result ? (
-          <div className="mt-4 border-t border-neutral-200 pt-3">
+          <div className="mt-4 border-t border-[var(--color-accent-line)] pt-3">
             {resultLabel ? (
-              <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">{resultLabel}</p>
+              <p className="eyebrow">{resultLabel}</p>
             ) : null}
             <p className={cn("text-[14px] leading-[22px] text-neutral-700", resultLabel && "mt-1")}>{result}</p>
           </div>

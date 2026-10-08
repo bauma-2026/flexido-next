@@ -2,45 +2,45 @@ import "../globals.css";
 import type { Metadata } from "next";
 import ConsentRoot from "@/components/consent/ConsentRoot";
 import SectionAnchors from "@/components/layout/SectionAnchors";
+import {
+  OG_IMAGE,
+  OG_IMAGE_ALT,
+  OG_LOCALE,
+  SITE_URL,
+  siteRobots,
+} from "@/lib/site";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://flexido-next.vercel.app"),
+  metadataBase: new URL(SITE_URL),
 
   title: "Flexido — Avtomatizacija proizvodnih procesov",
   description:
     "Urejamo in avtomatiziramo proizvodne procese — od posameznega stroja do povezanega toka materiala, ljudi in podatkov.",
 
-  robots: {
-    index: false,
-    follow: false,
-  },
+  robots: siteRobots(),
 
   manifest: "/icons/site.webmanifest",
 
+  // Neutral fallback only. Pages add their own title/description/url via
+  // `withSocial`; a page that doesn't must not inherit the home copy.
   openGraph: {
-    title: "Flexido — Avtomatizacija proizvodnih procesov",
-    description:
-      "Urejamo in avtomatiziramo proizvodne procese — od posameznega stroja do povezanega toka materiala, ljudi in podatkov.",
-    url: "https://flexido-next.vercel.app",
     siteName: "Flexido",
+    locale: OG_LOCALE.sl,
+    type: "website",
     images: [
       {
-        url: "/og/flexido-og.png",
-        width: 1200,
-        height: 630,
-        alt: "Flexido — Avtomatizacija proizvodnih procesov",
+        url: OG_IMAGE.path,
+        width: OG_IMAGE.width,
+        height: OG_IMAGE.height,
+        type: OG_IMAGE.type,
+        alt: OG_IMAGE_ALT.sl,
       },
     ],
-    locale: "sl_SI",
-    type: "website",
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "Flexido — Avtomatizacija proizvodnih procesov",
-    description:
-      "Urejamo in avtomatiziramo proizvodne procese — od posameznega stroja do povezanega toka materiala, ljudi in podatkov.",
-    images: ["/og/flexido-og.png"],
+    images: [{ url: OG_IMAGE.path, alt: OG_IMAGE_ALT.sl }],
   },
 };
 

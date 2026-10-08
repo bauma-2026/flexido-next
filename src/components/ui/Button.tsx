@@ -25,9 +25,24 @@ const variants: Record<ButtonVariant, string> = {
   light:
     "rounded-full bg-white text-neutral-950 hover:bg-white/90 hover:text-neutral-950 focus:ring-[var(--color-interactive)]/30",
 
-  /** Header's Contact CTA: structural radius, brand blue, no inset gloss. */
+  /** Header's Contact CTA: structural radius, no inset gloss.
+   *
+   * Fills from `--color-interactive`, not `--color-brand`. White text at
+   * 14px/500 owes 4.5:1 and brand blue only paid 4.16. The variant keeps its
+   * own radius and its gloss-free treatment, which is what distinguishes it
+   * from the page CTAs — the distinction was never carried by hue.
+   *
+   * Hover swaps the fill rather than fading the element. `hover:opacity-90`
+   * composited the whole button — fill and text together — against the white
+   * header, which LIGHTENS the fill and dropped the pair to 4.02:1: a hover
+   * state that failed the ratio its rest state had just been corrected to
+   * meet. Swapping to `--color-interactive-hover` darkens instead (5.29:1)
+   * and is the mechanism every other filled variant already uses.
+   *
+   * The focus ring follows the fill for the same reason. It read
+   * `--color-brand`, which this button no longer displays anywhere. */
   brand:
-    "rounded-[var(--radius-structural)] bg-[var(--color-brand)] text-white hover:opacity-90 hover:text-white focus:ring-[var(--color-brand)]/30",
+    "rounded-[var(--radius-structural)] bg-[var(--color-interactive)] text-white hover:bg-[var(--color-interactive-hover)] hover:text-white focus:ring-[var(--color-interactive)]/30",
 };
 
 export default function Button({

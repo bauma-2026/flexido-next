@@ -42,12 +42,28 @@ const navIcons = {
  * hairline is the shared seam the panel hangs from, not a second edge
  * drawn 1px below it. The child flyout keeps its own full border/radius —
  * it floats beside a row, not against the header.
+ *
+ * `--shadow-float`, not Tailwind's `shadow-sm`. The site declares exactly one
+ * floating-layer elevation and until now its primary floating layer did not
+ * use it — the panel carried a stock 1px/3px shadow instead, which is the most
+ * recognisable default-UI signature there is. The consequence was visible
+ * rather than theoretical: this panel shares its border, background and radius
+ * with `.content-panel`, so on a white page the open menu and the page's own
+ * cards were the same surface and the navigation never read as a separate
+ * layer. The float token gives it that layer back. Checked on both contexts
+ * before adopting — on a dark photographic hero it stays restrained
+ * (dark-on-dark), on white it lifts cleanly without going soft.
+ *
+ * Rows take `--radius-structural` too. 8px (`rounded-lg`) was a fourth radius
+ * in a system that declares two. The change is visually near-imperceptible at
+ * real viewing size; it is here for one-vocabulary reasons, not because 8px
+ * looked wrong. See docs/header-nav-visual-audit.md, T2 and T5.
  */
 const dropdownPanelClass =
-  "rounded-b-[var(--radius-structural)] border-x border-b border-neutral-200 bg-white p-2 shadow-sm";
-const dropdownRowRadiusClass = "rounded-lg";
+  "rounded-b-[var(--radius-structural)] border-x border-b border-neutral-200 bg-white p-2 shadow-[var(--shadow-float)]";
+const dropdownRowRadiusClass = "rounded-[var(--radius-structural)]";
 const dropdownFlyoutPanelClass =
-  "rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-2 shadow-sm";
+  "rounded-[var(--radius-structural)] border border-neutral-200 bg-white p-2 shadow-[var(--shadow-float)]";
 
 type NavIconName = keyof typeof navIcons;
 
@@ -276,12 +292,12 @@ function useDropdownBehavior(key: string, controller: DropdownController) {
  * the active trigger by ~3px and shifted every item beside it between pages.
  */
 const navTriggerClass =
-  "group focus-ring relative inline-flex h-10 items-center gap-1.5 rounded-full px-3 text-[14px] font-normal transition-colors";
-const navTriggerIdleClass = "text-neutral-600 hover:text-neutral-800";
+  "group focus-ring relative inline-flex h-10 items-center gap-1 rounded-full px-3 text-[14px] font-normal leading-5 transition-colors";
+const navTriggerIdleClass = "text-neutral-800 hover:text-neutral-950";
 const navTriggerActiveClass = "text-neutral-950";
 const navLinkClass =
-  "group focus-ring relative inline-flex h-10 items-center rounded-full px-3 text-[14px] font-normal transition-colors";
-const navLinkIdleClass = "text-neutral-600 hover:text-neutral-800";
+  "group focus-ring relative inline-flex h-10 items-center rounded-full px-3 text-[14px] font-normal leading-5 transition-colors";
+const navLinkIdleClass = "text-neutral-800 hover:text-neutral-950";
 const navLinkActiveClass = "text-neutral-950";
 
 /**
@@ -349,6 +365,31 @@ const systemIconByKey: Partial<Record<RouteKey, NavIconName>> = {
   standardCellsMiddleware: "materialFlow",
 };
 
+/**
+ * Rešitve rows are title-only, in every locale.
+ *
+ * One entry used to carry a supporting line ("Sistemski pristop" and its
+ * translations) and nothing else did. In a nine-row list that did not read as
+ * "featured" — it read as an oversight: a single 53px row interrupting a 33px
+ * rhythm at an arbitrary point, and the one visible tell that this menu was
+ * assembled rather than designed. Removing it restores one row shape for the
+ * whole list. See docs/header-nav-visual-audit.md, T4.
+ *
+ * Deliberately not solved the other way. Giving the other eight rows their own
+ * descriptions would mean authoring eight new strings per locale and turning a
+ * compact category index into a second E-katalog; the density is right as it
+ * is. Rešitve is a list of areas, E-katalog is a product catalogue, and the two
+ * are allowed to differ — what they may not do is differ from themselves.
+ *
+ * The `desc` keys stay in messages/en.json and de.json rather than being
+ * deleted with the read. They are copy, not code, and this pass does not
+ * remove copy.
+ *
+ * Despite the name, this feeds the mobile drawer as well as the desktop
+ * dropdown (both read `primary`/`support` from here), so the row shape is
+ * consistent across both. Splitting them would mean adding a branch — more
+ * invasive than the fix.
+ */
 function getSolutionDesktopGroups(locale: Locale): {
   primary: DropdownItem[];
   support: DropdownItem[];
@@ -377,7 +418,6 @@ function getSolutionDesktopGroups(locale: Locale): {
       },
       solutionProductionAutomation: {
         label: "Avtomatizacija proizvodnje",
-        desc: "Sistemski pristop",
         href: "/resitve/avtomatizacija-proizvodnje",
       },
       solutionCustomSystems: {
@@ -408,7 +448,6 @@ function getSolutionDesktopGroups(locale: Locale): {
       const item = messages.items[key as keyof typeof messages.items];
       return {
         label: item.label,
-        desc: key === "solutionProductionAutomation" ? item.desc : undefined,
         href: getPath(key, locale) ?? "#",
       };
     });
@@ -705,7 +744,7 @@ function SolutionsDesktopDropdown({
           href={href}
           className={cn(
             navTriggerClass,
-            isActive ? navTriggerActiveClass : navTriggerIdleClass,
+            isActive || isOpen ? navTriggerActiveClass : navTriggerIdleClass,
           )}
           aria-current={ariaCurrent}
           aria-expanded={isOpen}
@@ -717,8 +756,12 @@ function SolutionsDesktopDropdown({
           <svg
             viewBox="0 0 20 20"
             aria-hidden="true"
-            className={`h-4 w-4 translate-y-[1px] text-neutral-400 transition duration-200 ${
-              isOpen ? "rotate-180 text-neutral-600" : ""
+            className={`h-3.5 w-3.5 translate-y-[1px] transition duration-200 ${
+              isOpen
+                ? "rotate-180 text-neutral-950"
+                : isActive
+                  ? "text-neutral-950"
+                  : "text-neutral-500 group-hover:text-neutral-950"
             }`}
           >
             <path
@@ -737,7 +780,7 @@ function SolutionsDesktopDropdown({
           type="button"
           className={cn(
             navTriggerClass,
-            isActive ? navTriggerActiveClass : navTriggerIdleClass,
+            isActive || isOpen ? navTriggerActiveClass : navTriggerIdleClass,
           )}
           aria-expanded={isOpen}
           aria-controls={panelId}
@@ -750,8 +793,12 @@ function SolutionsDesktopDropdown({
           <svg
             viewBox="0 0 20 20"
             aria-hidden="true"
-            className={`h-4 w-4 translate-y-[1px] text-neutral-400 transition duration-200 ${
-              isOpen ? "rotate-180 text-neutral-600" : ""
+            className={`h-3.5 w-3.5 translate-y-[1px] transition duration-200 ${
+              isOpen
+                ? "rotate-180 text-neutral-950"
+                : isActive
+                  ? "text-neutral-950"
+                  : "text-neutral-500 group-hover:text-neutral-950"
             }`}
           >
             <path
@@ -770,7 +817,7 @@ function SolutionsDesktopDropdown({
         <div id={panelId} className="absolute left-1/2 top-full z-50 w-[330px] -translate-x-1/2 pt-3">
           <div className={dropdownPanelClass}>
             <div className="border-b border-neutral-100 px-3 pb-2 pt-2">
-              <p className="text-[10px] uppercase tracking-[0.18em] text-neutral-400">
+              <p className="eyebrow">
                 {primaryEyebrow}
               </p>
             </div>
@@ -784,7 +831,7 @@ function SolutionsDesktopDropdown({
             {supportItems.length > 0 ? (
               <div className="mt-2 border-t border-neutral-100 pt-2">
                 <div className="px-3 pb-2 pt-1">
-                  <p className="text-[10px] uppercase tracking-[0.18em] text-neutral-400">
+                  <p className="eyebrow">
                     {supportEyebrow}
                   </p>
                 </div>
@@ -837,7 +884,7 @@ function DesktopDropdown({
     href={href}
     className={cn(
       navTriggerClass,
-      isActive ? navTriggerActiveClass : navTriggerIdleClass,
+      isActive || isOpen ? navTriggerActiveClass : navTriggerIdleClass,
     )}
     aria-current={ariaCurrent}
     aria-expanded={isOpen}
@@ -849,8 +896,12 @@ function DesktopDropdown({
     <svg
       viewBox="0 0 20 20"
       aria-hidden="true"
-      className={`h-4 w-4 translate-y-[1px] text-neutral-400 transition duration-200 ${
-        isOpen ? "rotate-180 text-neutral-600" : ""
+      className={`h-3.5 w-3.5 translate-y-[1px] transition duration-200 ${
+        isOpen
+          ? "rotate-180 text-neutral-950"
+          : isActive
+            ? "text-neutral-950"
+            : "text-neutral-500 group-hover:text-neutral-950"
       }`}
     >
       <path
@@ -869,7 +920,7 @@ function DesktopDropdown({
     type="button"
     className={cn(
       navTriggerClass,
-      isActive ? navTriggerActiveClass : navTriggerIdleClass,
+      isActive || isOpen ? navTriggerActiveClass : navTriggerIdleClass,
     )}
     aria-expanded={isOpen}
     aria-controls={panelId}
@@ -882,8 +933,12 @@ function DesktopDropdown({
     <svg
       viewBox="0 0 20 20"
       aria-hidden="true"
-      className={`h-4 w-4 translate-y-[1px] text-neutral-400 transition duration-200 ${
-        isOpen ? "rotate-180 text-neutral-600" : ""
+      className={`h-3.5 w-3.5 translate-y-[1px] transition duration-200 ${
+        isOpen
+          ? "rotate-180 text-neutral-950"
+          : isActive
+            ? "text-neutral-950"
+            : "text-neutral-500 group-hover:text-neutral-950"
       }`}
     >
       <path
@@ -902,7 +957,7 @@ function DesktopDropdown({
         <div id={panelId} className="absolute left-1/2 top-full z-50 w-[330px] -translate-x-1/2 pt-3">
           <div className={dropdownPanelClass}>
             <div className="border-b border-neutral-100 px-3 pb-2 pt-2">
-              <p className="text-[10px] uppercase tracking-[0.18em] text-neutral-400">
+              <p className="eyebrow">
                 {eyebrow}
               </p>
             </div>
@@ -1219,7 +1274,7 @@ function MobileSection({
 
       {isOpen ? (
         <div id={panelId} className="pb-4">
-          <p className="px-3 pb-1 pt-1 text-[10px] uppercase tracking-[0.18em] text-neutral-400">
+          <p className="eyebrow px-3 pb-1 pt-1">
             {eyebrow}
           </p>
 
@@ -1240,7 +1295,7 @@ function MobileSection({
 
           {supportItems && supportItems.length > 0 ? (
             <div className="mt-2 border-t border-neutral-200 pt-2">
-              <p className="px-3 pb-1 pt-1 text-[10px] uppercase tracking-[0.18em] text-neutral-400">
+              <p className="eyebrow px-3 pb-1 pt-1">
                 {supportEyebrow}
               </p>
 
@@ -1416,8 +1471,9 @@ export default function Header({ locale = "sl", routeKey = "home", parentKey }: 
     `sticky={false}` prop existed only because the rail also claimed `top-0`,
     and the two would overlap. The rail has moved down instead.
 
-    `h-16` on the Container below plus this hairline is what `--header-h`
-    records; the two have to be changed together.
+    `h-16` below the desktop breakpoint and `h-[72px]` at it, plus this
+    hairline, are what `--header-h` records; the two have to be changed
+    together.
   */
   return (
     <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white">
@@ -1426,7 +1482,7 @@ export default function Header({ locale = "sl", routeKey = "home", parentKey }: 
           is taken out of flow and pinned to the container's own axis, so its
           centre no longer depends on how wide the utilities are in a given
           locale. */}
-      <Container className="relative flex h-16 items-center justify-between">
+      <Container className="relative flex h-16 items-center justify-between xl:h-[72px]">
         <Link
           href={getPath("home", locale) ?? "/"}
           className="flex shrink-0 items-center"
@@ -1437,11 +1493,11 @@ export default function Header({ locale = "sl", routeKey = "home", parentKey }: 
             alt="Flexido"
             width={112}
             height={32}
-            className="h-8 w-auto sm:h-9"
+            className="h-8 w-auto sm:h-9 xl:h-10"
           />
         </Link>
 
-        <nav className="absolute inset-y-0 left-1/2 hidden -translate-x-1/2 items-center gap-6 xl:flex">
+        <nav className="absolute inset-y-0 left-1/2 hidden -translate-x-1/2 items-center gap-7 xl:flex">
           <SolutionsDesktopDropdown
             href={solutionsHubHref}
             label={labels.trigger}
@@ -1507,9 +1563,9 @@ export default function Header({ locale = "sl", routeKey = "home", parentKey }: 
         </nav>
 
         <div className="hidden items-center gap-4 xl:flex">
-          <LocaleSwitcher currentLocale={locale} routeKey={routeKey} parentKey={parentKey} />
+          <LocaleSwitcher currentLocale={locale} routeKey={routeKey} parentKey={parentKey} desktop />
           {contactHref ? (
-            <Button href={contactHref} variant="brand">
+            <Button href={contactHref} variant="brand" className="min-h-12 rounded-[10px] px-7">
               {labels.kontakt}
             </Button>
           ) : null}

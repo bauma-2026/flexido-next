@@ -95,7 +95,7 @@ export default function ProductProof({
               </div>
 
               <div className="flex flex-1 flex-col pt-5">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--color-brand)]">
+                <p className="eyebrow eyebrow-accent">
                   {category}
                 </p>
 
@@ -117,7 +117,7 @@ export default function ProductProof({
         </div>
 
         <div className="mt-10 flex flex-col gap-6 border-t border-neutral-300 pt-8 sm:flex-row sm:items-center sm:justify-between lg:mt-12 lg:pt-10">
-          <p className="max-w-[52ch] text-[15px] leading-7 text-neutral-500 sm:text-[16px]">
+          <p className="max-w-[52ch] text-[15px] leading-7 text-neutral-600 sm:text-[16px]">
             {content.body}
           </p>
 

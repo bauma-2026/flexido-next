@@ -11,18 +11,17 @@ import {
   roleApplicationMailto,
   ROLE_APPLY_LABEL,
 } from "@/content/careers/konstrukter";
-import { buildAlternates } from "@/i18n/metadata";
+import { buildAlternates, withSocial } from "@/i18n/metadata";
 
 const job = konstrukterJob;
 const applyHref = roleApplicationMailto(job);
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSocial({
   title: "Konstrukter — prosto delovno mesto | Flexido",
   description:
     "Konstrukter pri Flexidu: razvoj in projektiranje fleksibilnih robotskih celic, konstrukcija sklopov in vpenjal za CNC stroje ter priprava tehnične dokumentacije.",
-  robots: { index: false, follow: false },
   alternates: buildAlternates("careers", "sl"),
-};
+}, "sl");
 
 export default function KonstrukterPage() {
   return (

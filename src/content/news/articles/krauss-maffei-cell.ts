@@ -5,6 +5,7 @@ export const article: NewsArticle = {
   shared: {
     id: "krauss-maffei-cell",
     routeKey: "newsKraussMaffei",
+    image: { src: "/images/thumb-banner-FLEXIDO-ROBOT-CELL-ON-KRAUSS-MAFFEI.jpg" },
   },
   locales: {
     en: {
@@ -28,6 +29,10 @@ export const article: NewsArticle = {
         {
           type: "intro",
           text: "Shown in this video is high performance FLEXIDO robot cell with integrated vision control, installed on Krauss Maffei KM81/250 PX.",
+        },
+        {
+          type: "video",
+          src: "/media/videos/2021/04/25/flexido-robot-cell-on-krauss-maffei.mp4",
         },
         {
           type: "section",

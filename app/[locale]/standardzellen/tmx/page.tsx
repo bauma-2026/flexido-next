@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 
 import CatalogPageTemplate from "@/components/systems/CatalogPageTemplate";
 import { getTmxSystemContent } from "@/content/systems";
-import { buildAlternates } from "@/i18n/metadata";
+import { buildAlternates, withSocial } from "@/i18n/metadata";
 
 export function generateStaticParams() {
   return [{ locale: "de" }];
@@ -14,12 +14,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   if (locale !== "de") return {};
   const content = getTmxSystemContent("de");
 
-  return {
+  return withSocial({
     title: content.meta.title,
     description: content.meta.description,
-    robots: { index: false, follow: false },
-    alternates: buildAlternates("standardCellsTmx", "de"),
-  };
+      alternates: buildAlternates("standardCellsTmx", "de"),
+  }, "de");
 }
 
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {

@@ -48,7 +48,7 @@ export default function LegalPage({
 
         <section className="bg-white">
           <Container className="pt-8 pb-12 sm:pt-10 sm:pb-16 lg:pt-12 lg:pb-20">
-            <article className="legal-content max-w-[920px] text-[15px] leading-7 text-neutral-700">
+            <article className="legal-content measure-prose text-[15px] leading-7 text-neutral-700">
               {children}
             </article>
           </Container>

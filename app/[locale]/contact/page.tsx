@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 
 import ContactPageTemplate from "@/components/contact/ContactPageTemplate";
 import { getContactContent } from "@/content/contact";
-import { buildAlternates } from "@/i18n/metadata";
+import { buildAlternates, withSocial } from "@/i18n/metadata";
 
 export function generateStaticParams() {
   return [{ locale: "en" }];
@@ -18,12 +18,11 @@ export async function generateMetadata({
   if (locale !== "en") return {};
 
   const content = getContactContent("en");
-  return {
+  return withSocial({
     title: content.meta.title,
     description: content.meta.description,
-    robots: { index: false, follow: false },
-    alternates: buildAlternates("contact", "en"),
-  };
+      alternates: buildAlternates("contact", "en"),
+  }, "en");
 }
 
 export default async function Page({

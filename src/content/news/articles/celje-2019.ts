@@ -5,6 +5,7 @@ export const article: NewsArticle = {
   shared: {
     id: "celje-2019",
     routeKey: "newsCelje2019",
+    image: { src: "/raw/Flexido Industry Fair 2019 Banner.png", aspectClass: "aspect-[1672/941]" },
   },
   locales: {
     en: {

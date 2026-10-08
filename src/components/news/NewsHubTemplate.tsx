@@ -137,12 +137,12 @@ export default function NewsHubTemplate({
                             width={800}
                             height={500}
                             sizes="(min-width: 1280px) 392px, (min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw"
-                            className={`aspect-[16/10] w-full object-cover transition duration-500 group-hover:scale-[1.03] ${item.shared.image.gridObjectPosition ?? ""}`}
+                            className={`${item.shared.image.aspectClass ?? "aspect-[16/10]"} w-full object-cover transition duration-500 group-hover:scale-[1.03] ${item.shared.image.gridObjectPosition ?? ""}`}
                           />
                         </div>
                       ) : null}
                       <div className="p-6">
-                        <p className="text-[11px] uppercase tracking-[0.16em] text-neutral-400">
+                        <p className="eyebrow">
                           {content.grid.cardLabel}
                         </p>
                         <p className="mt-2 text-[13px] text-neutral-500">

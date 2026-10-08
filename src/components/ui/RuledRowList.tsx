@@ -62,7 +62,7 @@ export default function RuledRowList({
                   : "grid max-w-[42rem] grid-cols-[2rem_minmax(0,1fr)] items-baseline gap-x-3 sm:gap-x-4"
               }
             >
-              <span className="text-[12px] font-medium tabular-nums tracking-[0.14em] text-neutral-400 transition-colors duration-300 group-hover:text-neutral-500">
+              <span className="text-[12px] font-medium tabular-nums tracking-[0.14em] text-neutral-600 transition-colors duration-300 group-hover:text-neutral-700">
                 {String(index + 1).padStart(2, "0")}
               </span>
 

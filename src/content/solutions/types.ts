@@ -331,6 +331,9 @@ export type HubGridItem = {
 
 export type HubContent = {
   hero: HubHero;
+  /** Section label for the routing grid. Deliberately not `hero.eyebrow`:
+      reusing it printed the same word twice in a row down the page. */
+  gridEyebrow: string;
   gridHeading: string;
   gridBody: string;
   gridItems: HubGridItem[];

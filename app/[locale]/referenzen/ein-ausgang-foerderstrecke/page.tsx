@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 
 import ReferencePageTemplate from "@/components/references/ReferencePageTemplate";
 import { getReferenceContent, referenceShared } from "@/content/references";
-import { buildAlternates } from "@/i18n/metadata";
+import { buildAlternates, withSocial } from "@/i18n/metadata";
 
 export function generateStaticParams() {
   return [{ locale: "de" }];
@@ -14,12 +14,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   if (locale !== "de") return {};
 
   const content = getReferenceContent("klt-conveyor", "de");
-  return {
+  return withSocial({
     title: content.meta.title,
     description: content.meta.description,
-    robots: { index: false, follow: false },
-    alternates: buildAlternates("referenceConveyor", "de"),
-  };
+      alternates: buildAlternates("referenceConveyor", "de"),
+  }, "de");
 }
 
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {

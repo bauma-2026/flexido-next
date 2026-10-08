@@ -5,6 +5,7 @@ export const article: NewsArticle = {
   shared: {
     id: "flex-220-pro",
     routeKey: "newsFlex220Pro",
+    image: { src: "/images/2020/09/23/thumb_flex220pro_li-1.jpg" },
   },
   locales: {
     en: {

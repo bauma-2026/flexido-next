@@ -9,6 +9,7 @@ type Props = {
   currentLocale: Locale;
   routeKey: RouteKey;
   parentKey?: RouteKey;
+  desktop?: boolean;
 };
 
 const switcherLabel: Record<Locale, string> = {
@@ -43,6 +44,7 @@ export default function LocaleSwitcher({
   currentLocale,
   routeKey,
   parentKey,
+  desktop = false,
 }: Props) {
   const hash = useSyncExternalStore(subscribeToHashChange, getHashSnapshot, getServerHashSnapshot);
 
@@ -50,7 +52,11 @@ export default function LocaleSwitcher({
     <div
       role="group"
       aria-label={switcherLabel[currentLocale]}
-      className="flex items-center gap-2 text-[13px]"
+      className={
+        desktop
+          ? "flex items-center gap-1.5 text-[13px] leading-4 tracking-[0.025em]"
+          : "flex items-center gap-2 text-[13px]"
+      }
     >
       {locales.map((locale) => {
         const target = resolveLanguageSwitch(routeKey, locale, parentKey);
@@ -63,10 +69,18 @@ export default function LocaleSwitcher({
             key={locale}
             href={href}
             aria-current={isCurrent ? "true" : undefined}
+            /* Colour alone, at one weight, matching the header's own rule:
+               location is carried by tone, never by a weight swap. The
+               previous treatment did both — `font-semibold` plus an underline
+               — which made the switcher the one element in the bar that
+               contradicted the nav it sits beside. Idle is neutral-600: still
+               high-contrast, while staying quieter than the primary navigation.
+               No marker: a 2px rule would need vertical room the header does
+               not have. */
             className={
               isCurrent
-                ? "focus-ring font-semibold text-neutral-950 underline underline-offset-4"
-                : "focus-ring text-neutral-500 transition hover:text-neutral-950"
+                ? "focus-ring text-neutral-950"
+                : "focus-ring text-neutral-600 transition hover:text-neutral-950"
             }
           >
             {locale.toUpperCase()}
